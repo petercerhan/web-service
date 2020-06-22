@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Subjects{% endblock %}</h1>
+  {% if g.user %}
+    <a class="action" href="{{ url_for('subjects.create') }}">New</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% for subject in subjects %}
+    <article class="post">
+      <header>
+        <div>
+          <h1>{{ subject['id'] }}</h1>
+        </div>
+          <a class="action" href="{{ url_for('subjects.update', id=subject['id']) }}">Edit</a>
+      </header>
+      <p class="body">{{ subject['name'] }}</p>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
