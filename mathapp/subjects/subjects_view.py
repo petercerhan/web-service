@@ -6,6 +6,8 @@ from werkzeug.exceptions import abort
 from mathapp.auth import login_required
 from mathapp.db import get_db
 
+from mathapp.subjects.subjects_web_controller import SubjectsWebController
+
 bp = Blueprint('subjects', __name__)
 
 @bp.route('/')
@@ -20,26 +22,30 @@ def index():
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
-    if request.method == 'POST':
-        name = request.form['name']
-        error = None
+    controller = SubjectsWebController()
+    return controller.handleCreateRequest(request)
 
-        if not name:
-            error = 'Name is required.'
-            
-        if error is not None:
-            flash(error)
-        else:
-            db = get_db()
-            db.execute(
-                'INSERT INTO subject (name)'
-                ' VALUES (?)',
-                (name,)
-            )
-            db.commit()
-            return redirect(url_for('subjects.index'))
 
-    return render_template('subjects/create.html')
+#    if request.method == 'POST':
+#        name = request.form['name']
+#        error = None
+#
+#        if not name:
+#            error = 'Name is required.'
+#
+#        if error is not None:
+#            flash(error)
+#        else:
+#            db = get_db()
+#            db.execute(
+#                'INSERT INTO subject (name)'
+#                ' VALUES (?)',
+#                (name,)
+#            )
+#            db.commit()
+#            return redirect(url_for('subjects.index'))
+#
+#    return render_template('subjects/create.html')
 
 
 def get_subject(id):
