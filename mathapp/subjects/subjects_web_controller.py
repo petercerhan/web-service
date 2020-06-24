@@ -3,6 +3,7 @@ from flask import (
 )
 from mathapp.db import get_db
 from mathapp.validation_error import ValidationError
+from mathapp.not_found_error import NotFoundError
 
 class SubjectsWebController:
     
@@ -20,7 +21,7 @@ class SubjectsWebController:
         if self.request.method == 'POST':
             return self._post_create_form()
         else:
-            return render_template('subjects/create.html')
+            return self._get_create_form()
     
     def _post_create_form(self):
         fields = {}
@@ -34,46 +35,42 @@ class SubjectsWebController:
         else:
             return redirect(url_for('subjects.index'))
 
+    def _get_create_form(self):
+        return render_template('subjects/create.html')
+        
 
     def handle_update_request(self, id):
         if self.request.method == 'POST':
             return self._post_update_form(id)
         else:
-            return render_template('subjects/update.html', subject=self._get_subject(id))
+            return self._get_update_form(id)
 
     def _post_update_form(self, id):
-        subject = self._get_subject(id)
-        name = self.request.form['name']
-        error = None
+        fields = {}
+        fields['name'] = self.request.form.get('name')
         
-        if not name:
-            error = 'Name is required.'
-        
-        if error is not None:
-            flash(error)
+        try:
+            self.subject_service.update(id, fields)
+        except NotFoundError as error:
+            abort(404, error.message)
+        except ValidationError as error:
+            flash(error.message)
+            return self._get_update_form(id)
         else:
-            db = get_db()
-            db.execute(
-                'UPDATE subject SET name = ?'
-                ' Where id = ?',
-                (name, id)
-            )
-            db.commit()
             return redirect(url_for('subjects.index'))
-    
-        
-    def _get_subject(self, id):
-        subject = get_db().execute('SELECT id, name FROM subject WHERE id = ?', (id,)).fetchone()
-
-        if subject is None:
-            abort(404, "Subject id {0} doesn't exist.".format(id))
-
-        return subject
-
+            
+    def _get_update_form(self, id):
+        try:
+            subject = self.subject_service.read(id)
+            return render_template('subjects/update.html', subject = subject)
+        except NotFoundError as error:
+            abort(404, error.message)
+            
 
     def handle_delete_request(self, id):
-        self._get_subject(id)
-        db = get_db()
-        db.execute('DELETE FROM subject WHERE id = ?', (id,))
-        db.commit()
+        try:
+            self.subject_service.delete(id)
+        except NotFoundError as error:
+            abort(404, error.message)
+            
         return redirect(url_for('subjects.index'))
