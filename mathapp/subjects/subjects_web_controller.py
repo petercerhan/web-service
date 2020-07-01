@@ -1,7 +1,6 @@
 from flask import (
     request, flash, redirect, url_for, render_template, abort
 )
-from mathapp.db import get_db
 from mathapp.validation_error import ValidationError
 from mathapp.not_found_error import NotFoundError
 
