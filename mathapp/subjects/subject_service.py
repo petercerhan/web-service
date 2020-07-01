@@ -2,19 +2,20 @@
 from __future__ import print_function # In python 2.7
 import sys
 
-from mathapp.db import get_db
 from mathapp.validation_error import ValidationError
 from mathapp.not_found_error import NotFoundError
+
+from mathapp.db_sqlalchemy import Session
+from mathapp.subjects.subject import Subject
+
+
+from sqlalchemy.orm import sessionmaker
 
 class SubjectService:
 
     def list(self):
-        db = get_db()
-        subjects = db.execute(
-            'SELECT id, name'
-            ' FROM subject'
-        ).fetchall()
-        return subjects
+        values = Session.query(Subject).all()
+        return values
     
     
     def read(self, id):
@@ -26,16 +27,11 @@ class SubjectService:
         name = fields.get('name')
         if not name:
             raise ValidationError(message = "Invalid fields")
-
-        db = get_db()
-        db.execute(
-            'INSERT INTO subject (name)'
-            ' VALUES (?)',
-            (name,)
-        )
-        db.commit()
-        
-        return self._get_subject(id)
+            
+        subject = Subject(name=name)
+        Session.add(subject)
+        Session.commit()
+        return subject
 
 
     def update(self, id, fields):
@@ -43,20 +39,14 @@ class SubjectService:
         name = fields.get('name')
         if not name:
             raise ValidationError(message = "Invalid fields")
-            
-        db = get_db()
-        db.execute(
-            'UPDATE subject SET name = ?'
-            ' Where id = ?',
-            (name, id)
-        )
-        db.commit()
-            
-        return self._get_subject(id)
-            
+
+        subject.name = name
+        Session.commit()
+        return subject
+
 
     def _get_subject(self, id):
-        subject = get_db().execute('SELECT id, name FROM subject WHERE id = ?', (id,)).fetchone()
+        subject = Session.query(Subject).filter(Subject.id == id).first()
 
         if subject is None:
             raise NotFoundError(message = "Subject id {0} doesn't exist.".format(id))
@@ -66,7 +56,6 @@ class SubjectService:
     
     def delete(self, id):
         subject = self._get_subject(id)
-        db = get_db()
-        db.execute('DELETE FROM subject WHERE id = ?', (id,))
-        db.commit()
+        Session.delete(subject)
+        Session.commit()
         return subject

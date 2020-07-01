@@ -3,8 +3,9 @@ from mathapp.subjects.subject_service import SubjectService
 
 class RootComposer:
 
-    def __init__(self, request):
+    def __init__(self, request, db_sqlalchemy):
         self.request = request
+        self.db_sqlalchemy = db_sqlalchemy
 
     def compose_subjects_web_controller(self):
         subject_service = self.compose_subject_service()
