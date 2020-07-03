@@ -6,7 +6,7 @@ from mathapp.validation_error import ValidationError
 from mathapp.not_found_error import NotFoundError
 
 from mathapp.db_sqlalchemy import Session
-from mathapp.subjects.subject import Subject
+from mathapp.subjects.orm_subject import ORMSubject
 
 
 from sqlalchemy.orm import sessionmaker
@@ -53,7 +53,7 @@ class SubjectService:
 
 
     def _get_subject(self, id):
-        subject = Session.query(Subject).filter(Subject.id == id).first()
+        subject = Session.query(ORMSubject).filter(Subject.id == id).first()
 
         if subject is None:
             raise NotFoundError(message = "Subject id {0} doesn't exist.".format(id))

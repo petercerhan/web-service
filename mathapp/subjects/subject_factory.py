@@ -1,4 +1,4 @@
-from mathapp.subjects.subject import Subject
+from mathapp.subjects.orm_subject import ORMSubject
 
 class SubjectFactory:
 
@@ -7,4 +7,4 @@ class SubjectFactory:
 		if not name:
 			raise ValidationError(message = "Invalid fields")
 
-		return Subject(name=name)
+		return ORMSubject(name=name)
