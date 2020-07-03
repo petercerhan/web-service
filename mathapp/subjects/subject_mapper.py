@@ -4,15 +4,18 @@ from mathapp.subjects.subject_unit_of_work_decorator import SubjectUnitOfWorkDec
 
 class SubjectMapper:
 
-    def __init__(self, orm_subject):
+    def __init__(self, unit_of_work, orm_subject):
         self._orm_subject = orm_subject
 
-        unit_of_work = SubjectUnitOfWorkDecorator(subject_mapper = self)
+        unit_of_work = SubjectUnitOfWorkDecorator(unit_of_work = unit_of_work, subject_mapper = self)
 
         subject = Subject(name=orm_subject.name, unit_of_work = unit_of_work)
         subject._id = orm_subject.id
 
         self._subject = subject
 
-    def get_subject(self):
+    def get_model(self):
         return self._subject
+
+    def get_orm_model(self):
+    	return self._orm_subject
