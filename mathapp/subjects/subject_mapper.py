@@ -1,7 +1,7 @@
 from mathapp.subjects.orm_subject import ORMSubject
 from mathapp.subjects.subject import Subject
 
-class SubjectContainer:
+class SubjectMapper:
 
     def __init__(self, orm_subject):
         self._orm_subject = orm_subject
