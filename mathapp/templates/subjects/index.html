@@ -12,11 +12,11 @@
     <article class="post">
       <header>
         <div>
-          <h1>{{ subject['id'] }}</h1>
+          <h1>{{ subject.get_id() }}</h1>
         </div>
-          <a class="action" href="{{ url_for('subjects.update', id=subject['id']) }}">Edit</a>
+          <a class="action" href="{{ url_for('subjects.update', id=subject.get_id()) }}">Edit</a>
       </header>
-      <p class="body">{{ subject['name'] }}</p>
+      <p class="body">{{ subject.get_name() }}</p>
     </article>
     {% if not loop.last %}
       <hr>

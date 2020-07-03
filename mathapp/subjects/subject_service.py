@@ -13,13 +13,17 @@ from sqlalchemy.orm import sessionmaker
 
 class SubjectService:
 
+    def __init__(self, subject_repository, subject_factory):
+        self.subject_repository = subject_repository
+        self.subject_factory = subject_factory
+
     def list(self):
-        values = Session.query(Subject).all()
+        values = self.subject_repository.list()
         return values
     
     
     def read(self, id):
-        subject = self._get_subject(id)
+        subject = self.subject_repository.get(id=id)
         return subject
 
 
@@ -27,10 +31,13 @@ class SubjectService:
         name = fields.get('name')
         if not name:
             raise ValidationError(message = "Invalid fields")
-            
-        subject = Subject(name=name)
+        
+        subject = SubjectFactory().create(fields)
+
         Session.add(subject)
         Session.commit()
+
+
         return subject
 
 
