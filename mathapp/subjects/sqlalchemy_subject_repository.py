@@ -6,8 +6,10 @@ class SQLAlchemySubjectRepository:
 	
 	def list(self):
 		subjects = Session.query(ORMSubject).all()
-		containers = map(lambda orm_subject: SubjectMapper(orm_subject), subjects)
-		return map(lambda container: container.get_subject(), containers)
+		mappers = map(lambda orm_subject: SubjectMapper(orm_subject), subjects)
+		return map(lambda mapper: mapper.get_subject(), mappers)
 
 	def get(self, id):
-		return Session.query(Subject).filter(Subject.id == id).first()
+		orm_subject = Session.query(Subject).filter(Subject.id == id).first()
+		mapper = SubjectMapper(orm_subject)
+		return mapper.get_subject()
