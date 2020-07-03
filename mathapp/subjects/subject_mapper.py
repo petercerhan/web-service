@@ -19,3 +19,6 @@ class SubjectMapper:
 
     def get_orm_model(self):
     	return self._orm_subject
+
+    def sync_id(self):
+        self._subject._id = self._orm_subject.id

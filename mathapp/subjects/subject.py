@@ -11,3 +11,6 @@ class Subject:
 
     def get_name(self):
         return self._name
+
+    def __repr__(self):
+        return "<Subject(subject='%s') ID(id='%s')>" % (self._name, self._id)

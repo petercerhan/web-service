@@ -11,3 +11,5 @@ class UnitOfWork:
 
 	def commit(self):
 		Session.commit()
+		for mapper in self._mappers:
+			mapper.sync_id()

@@ -37,6 +37,8 @@ class SubjectService:
 
         self._unit_of_work_committer.commit()
 
+        print(subject, file=sys.stderr)
+
         return subject
 
 
