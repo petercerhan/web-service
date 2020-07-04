@@ -3,8 +3,7 @@ from flask import (
 )
 from mathapp.auth import login_required
 from mathapp.root_composer import RootComposer
-
-from mathapp import db_sqlalchemy
+from mathapp.db_sqlalchemy import Session
 
 bp = Blueprint('subjects', __name__)
 
@@ -38,4 +37,5 @@ def delete(id):
 ## Util
 
 def controller(request):
-    return RootComposer(request, db_sqlalchemy).compose_subjects_web_controller()
+	session = Session()
+	return RootComposer(request, session).compose_subjects_web_controller()

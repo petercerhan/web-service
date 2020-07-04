@@ -6,15 +6,15 @@ from mathapp.subjects.unit_of_work import UnitOfWork
 
 class RootComposer:
 
-    def __init__(self, request, db_sqlalchemy):
-        self.request = request
-        self.db_sqlalchemy = db_sqlalchemy
+    def __init__(self, request, session):
+        self._request = request
+        self._session = session
 
         self._unit_of_work = None
 
     def compose_subjects_web_controller(self):
         subject_service = self.compose_subject_service()
-        return SubjectsWebController(request = self.request,
+        return SubjectsWebController(request = self._request,
                                      subject_service = subject_service)
     
     def compose_subject_service(self):
@@ -34,7 +34,7 @@ class RootComposer:
 
     def compose_unit_of_work(self):
         if self._unit_of_work is None:
-            self._unit_of_work = UnitOfWork()
+            self._unit_of_work = UnitOfWork(self._session)
             return self._unit_of_work
         else:
             return self._unit_of_work

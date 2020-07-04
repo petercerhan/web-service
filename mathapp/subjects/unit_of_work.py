@@ -1,19 +1,22 @@
-from mathapp.db_sqlalchemy import Session
+
+
+
 
 class UnitOfWork:
 
-	def __init__(self):
+	def __init__(self, session):
+		self._session = session
 		self._mappers = []
 
 	def register_created(self, mapper):
 		self._mappers.append(mapper)
-		Session.add(mapper.get_orm_model())
+		self._session.add(mapper.get_orm_model())
 
 	def register_deleted(self, mapper):
-		Session.delete(mapper.get_orm_model())
+		self._session.delete(mapper.get_orm_model())
 
 	def commit(self):
-		Session.commit()
+		self._session.commit()
 		for mapper in self._mappers:
 			mapper.sync_id()
 
