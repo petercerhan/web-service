@@ -4,7 +4,7 @@ class SubjectUnitOfWorkDecorator:
 	
 	def __init__(self, unit_of_work, subject_mapper):
 		self._unit_of_work = unit_of_work
-		self._subject_mapper = weakref.ref(subject_mapper)
+		self._subject_mapper = weakref.proxy(subject_mapper)
 
-	def register_created(self, subject):
-		pass
+	def register_dirty(self, subject):
+		self._subject_mapper.sync_orm_model()

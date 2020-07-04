@@ -13,3 +13,7 @@ class UnitOfWork:
 		Session.commit()
 		for mapper in self._mappers:
 			mapper.sync_id()
+
+	def register_queried(self, mappers):
+		self._mappers.extend(mappers)
+		

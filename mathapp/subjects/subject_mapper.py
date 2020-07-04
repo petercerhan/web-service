@@ -14,11 +14,18 @@ class SubjectMapper:
 
         self._subject = subject
 
+
     def get_model(self):
         return self._subject
+
 
     def get_orm_model(self):
     	return self._orm_subject
 
+
     def sync_id(self):
         self._subject._id = self._orm_subject.id
+
+
+    def sync_orm_model(self):
+        self._orm_subject.name = self._subject._name

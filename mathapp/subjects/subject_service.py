@@ -37,19 +37,19 @@ class SubjectService:
 
         self._unit_of_work_committer.commit()
 
-        print(subject, file=sys.stderr)
-
         return subject
 
 
     def update(self, id, fields):
-        subject = self._get_subject(id)
+        subject = self.subject_repository.get(id=id)
+
         name = fields.get('name')
         if not name:
             raise ValidationError(message = "Invalid fields")
 
-        subject.name = name
-        Session.commit()
+        subject.set_name(name)
+        self._unit_of_work_committer.commit()
+
         return subject
 
 
@@ -63,7 +63,19 @@ class SubjectService:
         
     
     def delete(self, id):
+        
+
+
+        
         subject = self._get_subject(id)
         Session.delete(subject)
         Session.commit()
         return subject
+
+
+
+
+
+
+
+
