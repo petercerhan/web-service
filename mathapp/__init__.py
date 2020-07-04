@@ -29,8 +29,8 @@ def create_app(test_config=None):
     from . import auth
     app.register_blueprint(auth.bp)
     
-    from mathapp.subjects import subjects_view
-    app.register_blueprint(subjects_view.bp)
+    from mathapp.subjects import subjects_web_blueprint
+    app.register_blueprint(subjects_web_blueprint.bp)
     app.add_url_rule('/', endpoint='index')
         
     return app
