@@ -26,7 +26,7 @@ class RootComposer:
 
     def compose_subject_repository(self):
         unit_of_work = self.compose_unit_of_work()
-        return SQLAlchemySubjectRepository(unit_of_work = unit_of_work)
+        return SQLAlchemySubjectRepository(unit_of_work = unit_of_work, session = self._session)
 
     def compose_subject_factory(self):
         unit_of_work = self.compose_unit_of_work()
