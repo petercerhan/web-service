@@ -63,13 +63,9 @@ class SubjectService:
         
     
     def delete(self, id):
-        
-
-
-        
-        subject = self._get_subject(id)
-        Session.delete(subject)
-        Session.commit()
+        subject = self.subject_repository.get(id=id)
+        subject.delete()
+        self._unit_of_work_committer.commit()
         return subject
 
 

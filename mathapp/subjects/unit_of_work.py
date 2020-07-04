@@ -9,6 +9,9 @@ class UnitOfWork:
 		self._mappers.append(mapper)
 		Session.add(mapper.get_orm_model())
 
+	def register_deleted(self, mapper):
+		Session.delete(mapper.get_orm_model())
+
 	def commit(self):
 		Session.commit()
 		for mapper in self._mappers:

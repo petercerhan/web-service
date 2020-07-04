@@ -8,3 +8,6 @@ class SubjectUnitOfWorkDecorator:
 
 	def register_dirty(self, subject):
 		self._subject_mapper.sync_orm_model()
+
+	def register_deleted(self, subject):
+		self._unit_of_work.register_deleted(self._subject_mapper)

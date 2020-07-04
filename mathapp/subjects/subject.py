@@ -15,6 +15,9 @@ class Subject:
     def set_name(self, name):
         self._name = name
         self._unit_of_work.register_dirty(self)
+        
+    def delete(self):
+        self._unit_of_work.register_deleted(self)
 
     def __repr__(self):
         return "<Subject(subject='%s') ID(id='%s')>" % (self._name, self._id)
