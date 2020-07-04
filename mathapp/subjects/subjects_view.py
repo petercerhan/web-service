@@ -3,7 +3,7 @@ from flask import (
 )
 from mathapp.auth import login_required
 from mathapp.root_composer import RootComposer
-from mathapp.db_sqlalchemy import Session
+from mathapp.db import Session
 
 bp = Blueprint('subjects', __name__)
 

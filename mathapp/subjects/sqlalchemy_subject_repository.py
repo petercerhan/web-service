@@ -2,7 +2,7 @@
 from __future__ import print_function # In python 2.7
 import sys
 
-from mathapp.db_sqlalchemy import Session
+from mathapp.db import Session
 from mathapp.subjects.orm_subject import ORMSubject
 from mathapp.subjects.subject_mapper import SubjectMapper
 

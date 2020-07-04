@@ -1,8 +1,6 @@
 import os
-
 from flask import Flask
-
-from .db_sqlalchemy import Session
+from .db import Session
 
 def create_app(test_config=None):
 
@@ -27,10 +25,6 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
-
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
     
     from . import auth
     app.register_blueprint(auth.bp)
