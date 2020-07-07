@@ -1,8 +1,8 @@
 from flask import (
     request, flash, redirect, url_for, render_template, abort
 )
-from mathapp.validation_error import ValidationError
-from mathapp.not_found_error import NotFoundError
+from mathapp.domain.errors.validation_error import ValidationError
+from mathapp.domain.errors.not_found_error import NotFoundError
 
 class SubjectWebController:
     
