@@ -38,4 +38,4 @@ def delete(id):
 
 def controller(request):
 	session = Session()
-	return RootComposer(request, session).compose_subjects_web_controller()
+	return RootComposer(request, session).compose_subject_web_controller()

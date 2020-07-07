@@ -4,7 +4,7 @@ from flask import (
 from mathapp.validation_error import ValidationError
 from mathapp.not_found_error import NotFoundError
 
-class SubjectsWebController:
+class SubjectWebController:
     
     def __init__(self, request, subject_service):
         self.request = request

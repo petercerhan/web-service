@@ -1,5 +1,5 @@
-from mathapp.subjects.subjects_web_controller import SubjectsWebController
-from mathapp.subjects.subject_service import SubjectService
+from mathapp.web_controller.subject_web_controller import SubjectWebController
+from mathapp.domain.services.subject_service import SubjectService
 from mathapp.subjects.subject_repository import SubjectRepository
 from mathapp.subjects.subject_factory import SubjectFactory
 from mathapp.subjects.unit_of_work import UnitOfWork
@@ -12,9 +12,9 @@ class RootComposer:
 
         self._unit_of_work = None
 
-    def compose_subjects_web_controller(self):
+    def compose_subject_web_controller(self):
         subject_service = self.compose_subject_service()
-        return SubjectsWebController(request = self._request,
+        return SubjectWebController(request = self._request,
                                      subject_service = subject_service)
     
     def compose_subject_service(self):
