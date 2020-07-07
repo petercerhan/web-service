@@ -1,5 +1,5 @@
-from mathapp.subjects.orm_subject import ORMSubject
-from mathapp.subjects.subject_mapper import SubjectMapper
+from mathapp.sqlalchemy.subject.orm_subject import ORMSubject
+from mathapp.sqlalchemy.subject.subject_mapper import SubjectMapper
 
 class SubjectFactory:
 

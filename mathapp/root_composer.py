@@ -1,8 +1,8 @@
 from mathapp.web_controller.subject_web_controller import SubjectWebController
 from mathapp.domain.services.subject_service import SubjectService
-from mathapp.subjects.subject_repository import SubjectRepository
-from mathapp.subjects.subject_factory import SubjectFactory
-from mathapp.subjects.unit_of_work import UnitOfWork
+from mathapp.sqlalchemy.subject.subject_repository import SubjectRepository
+from mathapp.sqlalchemy.subject.subject_factory import SubjectFactory
+from mathapp.sqlalchemy.unit_of_work import UnitOfWork
 
 class RootComposer:
 

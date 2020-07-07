@@ -1,6 +1,6 @@
-from mathapp.subjects.orm_subject import ORMSubject
-from mathapp.subjects.subject import Subject
-from mathapp.subjects.subject_unit_of_work_decorator import SubjectUnitOfWorkDecorator
+from mathapp.sqlalchemy.subject.orm_subject import ORMSubject
+from mathapp.domain.entities.subject import Subject
+from mathapp.sqlalchemy.subject.subject_unit_of_work_decorator import SubjectUnitOfWorkDecorator
 
 class SubjectMapper:
 
