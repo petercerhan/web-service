@@ -28,10 +28,9 @@ class SubjectService:
         subject = self._subject_repository.get(id=id)
 
         name = fields.get('name')
-        if not name:
-            raise ValidationError(message = "Invalid fields")
+        if name is not None:
+            subject.set_name(name)
 
-        subject.set_name(name)
         self._unit_of_work_committer.commit()
 
         return subject
