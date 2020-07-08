@@ -1,7 +1,3 @@
-
-
-
-
 class UnitOfWork:
 
 	def __init__(self, session):

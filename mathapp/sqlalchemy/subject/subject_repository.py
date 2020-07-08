@@ -10,9 +10,9 @@ class SubjectRepository:
 	
 	def list(self):
 		subjects = self._session.query(ORMSubject).all()
-		mappers = list(map(lambda orm_subject: SubjectMapper(self._unit_of_work, orm_subject), subjects))
+		mappers = [SubjectMapper(self._unit_of_work, orm_subject) for orm_subject in subjects]
 		self._unit_of_work.register_queried(mappers)
-		return list(map(lambda mapper: mapper.get_model(), mappers))
+		return [mapper.get_model() for mapper in mappers]
 
 	def get(self, id):
 		orm_subject = self._session.query(ORMSubject).filter(ORMSubject.id == id).first()
