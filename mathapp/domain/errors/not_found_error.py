@@ -1,3 +1,4 @@
-class NotFoundError(Exception):
-    def __init__(self, message):
-        self.message = message
+from mathapp.domain.errors.mathapp_error import MathAppError
+
+class NotFoundError(MathAppError):
+	pass

@@ -1,5 +1,6 @@
 from mathapp.sqlalchemy.subject.orm_subject import ORMSubject
 from mathapp.sqlalchemy.subject.subject_mapper import SubjectMapper
+from mathapp.domain.errors.validation_error import ValidationError
 
 class SubjectFactory:
 
@@ -9,7 +10,7 @@ class SubjectFactory:
 	def create(self, fields):
 		name = fields.get('name')
 		if not name:
-			raise ValidationError(message = "Invalid fields")
+			raise ValidationError(message = "Invalid create fields")
 
 		orm_subject = ORMSubject(name=name)
 		mapper = SubjectMapper(self._unit_of_work, orm_subject)

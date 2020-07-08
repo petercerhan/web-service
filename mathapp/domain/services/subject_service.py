@@ -19,14 +19,8 @@ class SubjectService:
 
 
     def create(self, fields):
-        name = fields.get('name')
-        if not name:
-            raise ValidationError(message = "Invalid fields")
-        
         subject = self._subject_factory.create(fields)
-
         self._unit_of_work_committer.commit()
-
         return subject
 
 
