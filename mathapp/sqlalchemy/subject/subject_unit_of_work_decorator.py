@@ -10,5 +10,5 @@ class SubjectUnitOfWorkDecorator:
 		self._orm_subject.sync_fields()
 
 	def register_deleted(self, subject):
-		self._unit_of_work.register_deleted(self._subject_mapper)
+		self._unit_of_work.register_deleted(self._orm_subject)
 		

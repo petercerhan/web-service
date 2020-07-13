@@ -2,20 +2,20 @@ class UnitOfWork:
 
 	def __init__(self, session):
 		self._session = session
-		self._mappers = []
+		self._orm_models = []
 
-	def register_created(self, mapper):
-		self._mappers.append(mapper)
-		self._session.add(mapper)
+	def register_created(self, orm_model):
+		self._orm_models.append(orm_model)
+		self._session.add(orm_model)
 
-	def register_deleted(self, mapper):
-		self._session.delete(mapper)
+	def register_deleted(self, orm_model):
+		self._session.delete(orm_model)
 
 	def commit(self):
 		self._session.commit()
-		for mapper in self._mappers:
-			mapper.sync_id()
+		for orm_model in self._orm_models:
+			orm_model.sync_id()
 
-	def register_queried(self, mappers):
-		self._mappers.extend(mappers)
+	def register_queried(self, orm_models):
+		self._orm_models.extend(orm_models)
 		
