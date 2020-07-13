@@ -13,7 +13,10 @@ class SubjectFactory:
 			raise ValidationError(message = "Invalid create fields")
 
 		orm_subject = ORMSubject(name=name)
-		mapper = SubjectMapper(self._unit_of_work, orm_subject)
-		self._unit_of_work.register_created(mapper)
 
-		return mapper.get_model()
+		# mapper = SubjectMapper(self._unit_of_work, orm_subject)
+
+		subject = orm_subject.get_model(self._unit_of_work)
+		self._unit_of_work.register_created(orm_subject)
+
+		return subject

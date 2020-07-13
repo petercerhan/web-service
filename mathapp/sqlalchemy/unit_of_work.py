@@ -6,10 +6,10 @@ class UnitOfWork:
 
 	def register_created(self, mapper):
 		self._mappers.append(mapper)
-		self._session.add(mapper.get_orm_model())
+		self._session.add(mapper)
 
 	def register_deleted(self, mapper):
-		self._session.delete(mapper.get_orm_model())
+		self._session.delete(mapper)
 
 	def commit(self):
 		self._session.commit()

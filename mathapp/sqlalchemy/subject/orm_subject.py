@@ -16,6 +16,10 @@ class ORMSubject(Base):
 
     lessons = relationship('ORMLesson')
 
+    def __init__(self, name):
+        self.name = name
+        self._subject = None
+
     @orm.reconstructor
     def init_on_load(self):
     	self._subject = None
