@@ -20,6 +20,10 @@ class SubjectRepository:
 		if not orm_subject:
 			raise NotFoundError(message = "Not Found")
 
-		mapper = SubjectMapper(self._unit_of_work, orm_subject)
-		self._unit_of_work.register_queried([mapper])
-		return mapper.get_model()
+		# mapper = SubjectMapper(self._unit_of_work, orm_subject)
+		# self._unit_of_work.register_queried([mapper])
+
+		subject = orm_subject.get_model(unit_of_work=self._unit_of_work)
+		self._unit_of_work.register_queried([orm_subject])
+
+		return subject
