@@ -1,3 +1,5 @@
+import sys
+
 from mathapp.domain.errors.validation_error import ValidationError
 from mathapp.domain.errors.not_found_error import NotFoundError
 
@@ -15,6 +17,9 @@ class SubjectService:
     
     def read(self, id):
         subject = self._subject_repository.get(id=id)
+
+        print(subject.get_lessons(), file=sys.stderr)
+
         return subject
 
 

@@ -24,7 +24,8 @@ class SubjectWebController:
     
     def _post_create_form(self):
         fields = {}
-        fields['name'] = self.request.form.get('name')
+        # fields['name'] = self.request.form.get('name')
+        fields['name'] = None
         
         try:
             self.subject_service.create(fields)
