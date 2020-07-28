@@ -10,7 +10,7 @@ class SubjectRepository:
 	def list(self):
 		orm_subjects = self._session.query(ORMSubject).all()
 		subjects = [orm_subject.get_model(unit_of_work=self._unit_of_work) for orm_subject in orm_subjects]
-		self._unit_of_work.register_queried(subjects)
+		self._unit_of_work.register_queried(orm_subjects)
 		return subjects
 
 	def get(self, id):

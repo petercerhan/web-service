@@ -32,6 +32,9 @@ def create_app(test_config=None):
     from mathapp.flask import subjects_web_blueprint
     app.register_blueprint(subjects_web_blueprint.bp)
     app.add_url_rule('/', endpoint='index')
+
+    from mathapp.flask import lessons_web_blueprint
+    app.register_blueprint(lessons_web_blueprint.bp)
         
     return app
 

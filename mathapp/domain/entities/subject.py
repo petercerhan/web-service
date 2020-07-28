@@ -29,4 +29,4 @@ class Subject:
         self._unit_of_work.register_deleted(self)
 
     def __repr__(self):
-        return "<Subject(subject='%s') ID(id='%s')>" % (self._name, self._id)
+        return "<Subject(name='%s') ID(id='%s')>" % (self._name, self._id)
