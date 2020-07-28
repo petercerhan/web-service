@@ -13,9 +13,6 @@ class SubjectService:
     
     def read(self, id):
         subject = self._subject_repository.get(id=id)
-
-        print(subject.get_lessons(), file=sys.stderr)
-
         return subject
 
 
