@@ -1,5 +1,5 @@
 from mathapp.sqlalchemy.subject.orm_subject import ORMSubject
-from mathapp.domain.errors.not_found_error import NotFoundError
+from mathapp.library.errors.not_found_error import NotFoundError
 
 class SubjectRepository:
 

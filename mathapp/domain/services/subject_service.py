@@ -1,7 +1,3 @@
-import sys
-
-from mathapp.domain.errors.validation_error import ValidationError
-from mathapp.domain.errors.not_found_error import NotFoundError
 
 class SubjectService:
 

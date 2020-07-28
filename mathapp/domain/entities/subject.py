@@ -1,4 +1,4 @@
-from mathapp.domain.errors.validation_error import ValidationError
+from mathapp.library.errors.validation_error import ValidationError
 
 class Subject:
     

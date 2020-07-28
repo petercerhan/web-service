@@ -1,5 +1,5 @@
 from mathapp.curriculum.lesson_data_mapper.orm_lesson import ORMLesson
-from mathapp.domain.errors.not_found_error import NotFoundError
+from mathapp.library.errors.not_found_error import NotFoundError
 
 class LessonRepository:
 	
