@@ -8,8 +8,8 @@ from mathapp.curriculum.lesson_data_mapper.orm_lesson import ORMLesson
 from mathapp.sqlalchemy.lesson_sequence_item.orm_lesson_sequence_item import ORMLessonSequenceItem
 from mathapp.sqlalchemy.base import Base
 
-from mathapp.sqlalchemy.subject.subject_unit_of_work_decorator import SubjectUnitOfWorkDecorator
-from mathapp.domain.entities.subject import Subject
+from mathapp.curriculum.subject_data_mapper.subject_unit_of_work_decorator import SubjectUnitOfWorkDecorator
+from mathapp.curriculum.domain_model.subject import Subject
 from mathapp.sqlalchemy.lesson.lesson_virtual_list import LessonVirtualList
 
 

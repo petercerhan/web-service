@@ -1,7 +1,7 @@
-from mathapp.web_controller.subject_web_controller import SubjectWebController
-from mathapp.domain.services.subject_service import SubjectService
-from mathapp.sqlalchemy.subject.subject_repository import SubjectRepository
-from mathapp.sqlalchemy.subject.subject_factory import SubjectFactory
+from mathapp.curriculum.subject_controller.subject_web_controller import SubjectWebController
+from mathapp.curriculum.subject_interactor.subject_service import SubjectService
+from mathapp.curriculum.subject_data_mapper.subject_repository import SubjectRepository
+from mathapp.curriculum.subject_data_mapper.subject_factory import SubjectFactory
 from mathapp.sqlalchemy.unit_of_work import UnitOfWork
 
 from mathapp.curriculum.lesson_controller.lesson_web_controller import LessonWebController

@@ -1,4 +1,4 @@
-from mathapp.sqlalchemy.subject.orm_subject import ORMSubject
+from mathapp.curriculum.subject_data_mapper.orm_subject import ORMSubject
 
 class SubjectFactory:
 
