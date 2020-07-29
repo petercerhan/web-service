@@ -1,22 +1,22 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Subjects{% endblock %}</h1>
+  <h1>{% block title %}Courses{% endblock %}</h1>
   {% if g.user %}
     <a class="action" href="{{ url_for('courses.create') }}">New</a>
   {% endif %}
 {% endblock %}
 
 {% block content %}
-  {% for subject in subjects %}
+  {% for course in courses %}
     <article class="post">
       <header>
         <div>
-          <h1>{{ subject.get_id() }}</h1>
+          <h1>{{ course.get_id() }}</h1>
         </div>
-          <a class="action" href="{{ url_for('courses.update', id=subject.get_id()) }}">Edit</a>
+          <a class="action" href="{{ url_for('courses.update', id=course.get_id()) }}">Edit</a>
       </header>
-      <p class="body">{{ subject.get_name() }}</p>
+      <p class="body">{{ course.get_name() }}</p>
     </article>
     {% if not loop.last %}
       <hr>

@@ -12,8 +12,8 @@ class CourseWebController:
         
         
     def handle_index_request(self):
-        subjects = self._course_interactor.list()
-        return render_template('subjects/index.html', subjects=subjects)
+        courses = self._course_interactor.list()
+        return render_template('courses/index.html', courses=courses)
         
         
     def handle_create_request(self):
@@ -30,12 +30,12 @@ class CourseWebController:
             self._course_interactor.create(fields)
         except ValidationError as error:
             flash(error.message)
-            return render_template('subjects/create.html')
+            return render_template('courses/create.html')
         else:
-            return redirect(url_for('subjects.index'))
+            return redirect(url_for('courses.index'))
 
     def _get_create_form(self):
-        return render_template('subjects/create.html')
+        return render_template('courses/create.html')
         
 
     def handle_update_request(self, id):
@@ -56,12 +56,12 @@ class CourseWebController:
             flash(error.message)
             return self._get_update_form(id)
         else:
-            return redirect(url_for('subjects.index'))
+            return redirect(url_for('courses.index'))
             
     def _get_update_form(self, id):
         try:
-            subject = self._course_interactor.read(id)
-            return render_template('subjects/update.html', subject = subject)
+            course = self._course_interactor.read(id)
+            return render_template('courses/update.html', course = course)
         except NotFoundError as error:
             abort(404, error.message)
             
@@ -72,4 +72,4 @@ class CourseWebController:
         except NotFoundError as error:
             abort(404, error.message)
             
-        return redirect(url_for('subjects.index'))
+        return redirect(url_for('courses.index'))
