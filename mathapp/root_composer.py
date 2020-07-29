@@ -1,12 +1,12 @@
-from mathapp.curriculum.course_controller.course_web_controller import CourseWebController
-from mathapp.curriculum.course_interactor.course_interactor import CourseInteractor
-from mathapp.curriculum.course_data_mapper.course_repository import CourseRepository
-from mathapp.curriculum.course_data_mapper.course_factory import CourseFactory
+from mathapp.curriculum.controller.course_web_controller import CourseWebController
+from mathapp.curriculum.interactor.course_interactor import CourseInteractor
+from mathapp.curriculum.data_mapper.course.course_repository import CourseRepository
+from mathapp.curriculum.data_mapper.course.course_factory import CourseFactory
 from mathapp.sqlalchemy.unit_of_work import UnitOfWork
 
-from mathapp.curriculum.lesson_controller.lesson_web_controller import LessonWebController
-from mathapp.curriculum.lesson_interactor.lesson_interactor import LessonInteractor
-from mathapp.curriculum.lesson_data_mapper.lesson_repository import LessonRepository
+from mathapp.curriculum.controller.lesson_web_controller import LessonWebController
+from mathapp.curriculum.interactor.lesson_interactor import LessonInteractor
+from mathapp.curriculum.data_mapper.lesson.lesson_repository import LessonRepository
 
 class RootComposer:
 

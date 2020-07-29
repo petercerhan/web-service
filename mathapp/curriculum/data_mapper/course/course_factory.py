@@ -1,4 +1,4 @@
-from mathapp.curriculum.course_data_mapper.orm_course import ORMCourse
+from mathapp.curriculum.data_mapper.course.orm_course import ORMCourse
 
 class CourseFactory:
 

@@ -4,11 +4,11 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy import orm
 
-from mathapp.curriculum.lesson_data_mapper.orm_lesson import ORMLesson
+from mathapp.curriculum.data_mapper.lesson.orm_lesson import ORMLesson
 from mathapp.sqlalchemy.lesson_sequence_item.orm_lesson_sequence_item import ORMLessonSequenceItem
 from mathapp.sqlalchemy.base import Base
 
-from mathapp.curriculum.course_data_mapper.course_unit_of_work_decorator import CourseUnitOfWorkDecorator
+from mathapp.curriculum.data_mapper.course.course_unit_of_work_decorator import CourseUnitOfWorkDecorator
 from mathapp.curriculum.domain_model.course import Course
 from mathapp.sqlalchemy.lesson.lesson_virtual_list import LessonVirtualList
 

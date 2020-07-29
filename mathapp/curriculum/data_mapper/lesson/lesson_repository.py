@@ -1,4 +1,4 @@
-from mathapp.curriculum.lesson_data_mapper.orm_lesson import ORMLesson
+from mathapp.curriculum.data_mapper.lesson.orm_lesson import ORMLesson
 from mathapp.library.errors.not_found_error import NotFoundError
 
 class LessonRepository:

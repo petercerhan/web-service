@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from mathapp.sqlalchemy.base import Base
 from sqlalchemy import orm
 
-from mathapp.curriculum.lesson_data_mapper.lesson_unit_of_work_decorator import LessonUnitOfWorkDecorator
+from mathapp.curriculum.data_mapper.lesson.lesson_unit_of_work_decorator import LessonUnitOfWorkDecorator
 from mathapp.curriculum.domain_model.lesson import Lesson
 
 class ORMLesson(Base):
