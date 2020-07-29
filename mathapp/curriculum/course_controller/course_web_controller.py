@@ -4,15 +4,15 @@ from flask import (
 from mathapp.library.errors.validation_error import ValidationError
 from mathapp.library.errors.not_found_error import NotFoundError
 
-class SubjectWebController:
+class CourseWebController:
     
-    def __init__(self, request, subject_service):
+    def __init__(self, request, course_interactor):
         self.request = request
-        self.subject_service = subject_service
+        self._course_interactor = course_interactor
         
         
     def handle_index_request(self):
-        subjects = self.subject_service.list()
+        subjects = self._course_interactor.list()
         return render_template('subjects/index.html', subjects=subjects)
         
         
@@ -27,7 +27,7 @@ class SubjectWebController:
         fields['name'] = self.request.form.get('name')
         
         try:
-            self.subject_service.create(fields)
+            self._course_interactor.create(fields)
         except ValidationError as error:
             flash(error.message)
             return render_template('subjects/create.html')
@@ -49,7 +49,7 @@ class SubjectWebController:
         fields['name'] = self.request.form.get('name')
         
         try:
-            self.subject_service.update(id, fields)
+            self._course_interactor.update(id, fields)
         except NotFoundError as error:
             abort(404, error.message)
         except ValidationError as error:
@@ -60,7 +60,7 @@ class SubjectWebController:
             
     def _get_update_form(self, id):
         try:
-            subject = self.subject_service.read(id)
+            subject = self._course_interactor.read(id)
             return render_template('subjects/update.html', subject = subject)
         except NotFoundError as error:
             abort(404, error.message)
@@ -68,7 +68,7 @@ class SubjectWebController:
 
     def handle_delete_request(self, id):
         try:
-            self.subject_service.delete(id)
+            self._course_interactor.delete(id)
         except NotFoundError as error:
             abort(404, error.message)
             

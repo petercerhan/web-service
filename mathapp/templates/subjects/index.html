@@ -3,7 +3,7 @@
 {% block header %}
   <h1>{% block title %}Subjects{% endblock %}</h1>
   {% if g.user %}
-    <a class="action" href="{{ url_for('subjects.create') }}">New</a>
+    <a class="action" href="{{ url_for('courses.create') }}">New</a>
   {% endif %}
 {% endblock %}
 
@@ -14,7 +14,7 @@
         <div>
           <h1>{{ subject.get_id() }}</h1>
         </div>
-          <a class="action" href="{{ url_for('subjects.update', id=subject.get_id()) }}">Edit</a>
+          <a class="action" href="{{ url_for('courses.update', id=subject.get_id()) }}">Edit</a>
       </header>
       <p class="body">{{ subject.get_name() }}</p>
     </article>

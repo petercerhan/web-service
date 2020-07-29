@@ -5,7 +5,7 @@ from mathapp.auth import login_required
 from mathapp.root_composer import RootComposer
 from mathapp.db import Session
 
-bp = Blueprint('subjects', __name__)
+bp = Blueprint('courses', __name__)
 
 ## Index
 
@@ -38,4 +38,4 @@ def delete(id):
 
 def controller(request):
 	session = Session()
-	return RootComposer(request, session).compose_subject_web_controller()
+	return RootComposer(request, session).compose_course_web_controller()

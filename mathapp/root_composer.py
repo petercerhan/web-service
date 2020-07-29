@@ -1,7 +1,7 @@
-from mathapp.curriculum.subject_controller.subject_web_controller import SubjectWebController
-from mathapp.curriculum.subject_interactor.subject_service import SubjectService
-from mathapp.curriculum.subject_data_mapper.subject_repository import SubjectRepository
-from mathapp.curriculum.subject_data_mapper.subject_factory import SubjectFactory
+from mathapp.curriculum.course_controller.course_web_controller import CourseWebController
+from mathapp.curriculum.course_interactor.course_interactor import CourseInteractor
+from mathapp.curriculum.course_data_mapper.course_repository import CourseRepository
+from mathapp.curriculum.course_data_mapper.course_factory import CourseFactory
 from mathapp.sqlalchemy.unit_of_work import UnitOfWork
 
 from mathapp.curriculum.lesson_controller.lesson_web_controller import LessonWebController
@@ -16,25 +16,26 @@ class RootComposer:
 
         self._unit_of_work = None
 
-    def compose_subject_web_controller(self):
-        subject_service = self.compose_subject_service()
-        return SubjectWebController(request = self._request,
-                                     subject_service = subject_service)
+    def compose_course_web_controller(self):
+        course_interactor = self.compose_course_interactor()
+        return CourseWebController(request = self._request,
+                                     course_interactor = course_interactor)
     
-    def compose_subject_service(self):
+    def compose_course_interactor(self):
         unit_of_work = self.compose_unit_of_work()
-        subject_factory = self.compose_subject_factory()
-        return SubjectService(subject_repository = self.compose_subject_repository(), 
-                                subject_factory = subject_factory, 
+        course_factory = self.compose_course_factory()
+        course_repository = self.compose_course_repository()
+        return CourseInteractor(course_repository = course_repository, 
+                                course_factory = course_factory, 
                                 unit_of_work_committer = unit_of_work)
 
-    def compose_subject_repository(self):
+    def compose_course_repository(self):
         unit_of_work = self.compose_unit_of_work()
-        return SubjectRepository(unit_of_work = unit_of_work, session = self._session)
+        return CourseRepository(unit_of_work = unit_of_work, session = self._session)
 
-    def compose_subject_factory(self):
+    def compose_course_factory(self):
         unit_of_work = self.compose_unit_of_work()
-        return SubjectFactory(unit_of_work = unit_of_work)
+        return CourseFactory(unit_of_work = unit_of_work)
 
 
     def compose_lesson_web_controller(self):
