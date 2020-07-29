@@ -8,11 +8,9 @@ from mathapp.curriculum.domain_model.lesson import Lesson
 class ORMLesson(Base):
 	__tablename__ = 'lesson'
 	id = Column(Integer, primary_key=True)
-	subject_id = Column(Integer, ForeignKey('subject.id'))
 	name = Column(String)
 
-	def __init__(self, subject_id, name):
-		self.subject_id = subject_id
+	def __init__(self, name):
 		self.name = name
 		self._lesson = None
 
