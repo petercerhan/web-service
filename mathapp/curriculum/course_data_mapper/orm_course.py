@@ -14,12 +14,12 @@ from mathapp.sqlalchemy.lesson.lesson_virtual_list import LessonVirtualList
 
 
 class ORMCourse(Base):
-    __tablename__ = 'subject'
+    __tablename__ = 'course'
     id = Column(Integer, primary_key=True)
     name = Column(String)
 
-    lessons = relationship('ORMLesson')
-    lesson_sequence_items = relationship('ORMLessonSequenceItem')
+    # lessons = relationship('ORMLesson')
+    # lesson_sequence_items = relationship('ORMLessonSequenceItem')
 
     def __init__(self, name):
         self.name = name
@@ -34,14 +34,11 @@ class ORMCourse(Base):
             return self._course
 
         unit_of_work_decorator = CourseUnitOfWorkDecorator(unit_of_work=unit_of_work, orm_course=self)
-        lesson_virtual_list = LessonVirtualList(orm_model=self, unit_of_work=unit_of_work)
+        # lesson_virtual_list = LessonVirtualList(orm_model=self, unit_of_work=unit_of_work)
         
         course = Course(name=self.name, 
-                          lesson_virtual_list=lesson_virtual_list, 
                           unit_of_work=unit_of_work_decorator)
         course._id = self.id
-
-        print(self.lesson_sequence_items, file=sys.stderr)
 
         self._course = course
         return course

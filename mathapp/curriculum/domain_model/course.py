@@ -2,14 +2,13 @@ from mathapp.library.errors.validation_error import ValidationError
 
 class Course:
     
-    def __init__(self, name, lesson_virtual_list, unit_of_work):
+    def __init__(self, name, unit_of_work):
         self._id = None
 
         self._name = name
         if not name:
             raise ValidationError(message = "Course requires name")
         
-        self._lesson_virtual_list = lesson_virtual_list
         self._unit_of_work = unit_of_work
 
     def get_id(self):
