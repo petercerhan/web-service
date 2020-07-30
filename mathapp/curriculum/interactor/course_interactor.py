@@ -1,3 +1,4 @@
+import sys
 
 class CourseInteractor:
 
@@ -13,6 +14,9 @@ class CourseInteractor:
     
     def read(self, id):
         course = self._course_repository.get(id=id)
+
+        print('course with: %s' % course.get_lesson_sequence_items())
+
         return course
 
 

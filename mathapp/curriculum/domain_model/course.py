@@ -2,12 +2,14 @@ from mathapp.library.errors.validation_error import ValidationError
 
 class Course:
     
-    def __init__(self, name, unit_of_work):
+    def __init__(self, name, lesson_sequence_item_list_value_holder, unit_of_work):
         self._id = None
 
         self._name = name
         if not name:
             raise ValidationError(message = "Course requires name")
+
+        self._lesson_sequence_item_list_value_holder = lesson_sequence_item_list_value_holder
         
         self._unit_of_work = unit_of_work
 
@@ -21,8 +23,8 @@ class Course:
         self._name = name
         self._unit_of_work.register_dirty(self)
 
-    def get_lessons(self):
-        return self._lesson_virtual_list.get_list()
+    def get_lesson_sequence_items(self):
+        return self._lesson_sequence_item_list_value_holder.get_list()
         
     def delete(self):
         self._unit_of_work.register_deleted(self)

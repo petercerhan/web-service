@@ -1,6 +1,6 @@
 import weakref
 
-class LessonSequenceItemUnitOfWorkDecordator:
+class LessonSequenceItemUnitOfWorkDecorator:
 
 	def __init__(self, unit_of_work, orm_lesson_sequence_item):
 		self._unit_of_work = unit_of_work

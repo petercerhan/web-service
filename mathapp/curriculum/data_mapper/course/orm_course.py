@@ -10,7 +10,7 @@ from mathapp.sqlalchemy.base import Base
 
 from mathapp.curriculum.data_mapper.course.course_unit_of_work_decorator import CourseUnitOfWorkDecorator
 from mathapp.curriculum.domain_model.course import Course
-# from mathapp.sqlalchemy.lesson.lesson_virtual_list import LessonVirtualList
+from mathapp.curriculum.data_mapper.lesson_sequence_item.lesson_sequence_item_list_value_holder import LessonSequenceItemListValueHolder
 
 
 class ORMCourse(Base):
@@ -18,7 +18,6 @@ class ORMCourse(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
 
-    # lessons = relationship('ORMLesson')
     lesson_sequence_items = relationship('ORMLessonSequenceItem')
 
     def __init__(self, name):
@@ -28,17 +27,17 @@ class ORMCourse(Base):
     @orm.reconstructor
     def init_on_load(self):
         self._course = None
-        print('Lesson Sequence Items: %s' % self.lesson_sequence_items, file=sys.stderr)
 
     def get_model(self, unit_of_work):
         if self._course is not None:
             return self._course
 
         unit_of_work_decorator = CourseUnitOfWorkDecorator(unit_of_work=unit_of_work, orm_course=self)
-        # lesson_virtual_list = LessonVirtualList(orm_model=self, unit_of_work=unit_of_work)
+        lesson_sequence_item_list_value_holder = LessonSequenceItemListValueHolder(orm_model=self, unit_of_work=unit_of_work)
         
         course = Course(name=self.name, 
-                          unit_of_work=unit_of_work_decorator)
+                        lesson_sequence_item_list_value_holder=lesson_sequence_item_list_value_holder,
+                        unit_of_work=unit_of_work_decorator)
         course._id = self.id
 
         self._course = course
