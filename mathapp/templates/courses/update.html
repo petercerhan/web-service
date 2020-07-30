@@ -12,6 +12,12 @@
     <input type="submit" value="Save">
   </form>
   <hr>
+    {% for sequenceItem in course.get_lesson_sequence_items() %}
+      <div>
+        <h2>{{ sequenceItem.get_lesson().get_name() }}</h2>
+      </div>
+    {% endfor %}
+  <hr>
   <form action="{{ url_for('courses.delete', id=course.get_id()) }}" method="post">
     <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
   </form>
