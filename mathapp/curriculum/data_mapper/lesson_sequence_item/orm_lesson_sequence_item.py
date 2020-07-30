@@ -14,7 +14,7 @@ class ORMLessonSequenceItem(Base):
 	lesson_id = Column(Integer, ForeignKey('lesson.id'))
 	course_id = Column(Integer, ForeignKey('course.id'))
 
-	lesson = relationship('ORMLesson')
+	lesson = relationship('ORMLesson', lazy='joined')
 
 	def __init__(self, position):
 		self.position = position
