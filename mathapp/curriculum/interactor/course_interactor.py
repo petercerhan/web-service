@@ -1,4 +1,5 @@
-import sys
+from mathapp.curriculum.interactor.domain_to_data_transforms.course import course_to_data
+from mathapp.curriculum.interactor.domain_to_data_transforms.course import course_to_enriched_data
 
 class CourseInteractor:
 
@@ -8,22 +9,22 @@ class CourseInteractor:
         self._unit_of_work_committer = unit_of_work_committer
 
     def list(self):
-        values = self._course_repository.list()
-        return values
-    
+        courses = self._course_repository.list()
+        courses_data = [course_to_data(course) for course in courses]
+        return courses_data
+        
     
     def read(self, id):
         course = self._course_repository.get(id=id)
-
-        print('course with: %s' % course.get_lesson_sequence_items())
-
-        return course
+        enriched_course = course_to_enriched_data(course)
+        return enriched_course
 
 
     def create(self, fields):
         course = self._course_factory.create(fields)
         self._unit_of_work_committer.commit()
-        return course
+        enriched_course = course_to_enriched_data(course)
+        return enriched_course
 
 
     def update(self, id, fields):
@@ -35,6 +36,7 @@ class CourseInteractor:
 
         self._unit_of_work_committer.commit()
 
+        enriched_course = course_to_enriched_data(course)
         return course
         
     
@@ -42,6 +44,8 @@ class CourseInteractor:
         course = self._course_repository.get(id=id)
         course.delete()
         self._unit_of_work_committer.commit()
+        
+        enriched_course = course_to_enriched_data(course)
         return course
 
 

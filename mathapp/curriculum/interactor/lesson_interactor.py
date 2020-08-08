@@ -1,4 +1,4 @@
-
+from mathapp.curriculum.interactor.domain_to_data_transforms.lesson import lesson_to_data
 
 
 class LessonInteractor:
@@ -7,6 +7,8 @@ class LessonInteractor:
 		self._lesson_repository = lesson_repository
 
 	def list(self):
-		return self._lesson_repository.list()
+		lessons = self._lesson_repository.list()
+		lessons_data = [lesson_to_data(lesson) for lesson in lessons]
+		return lessons_data
 
 	

@@ -11,6 +11,12 @@ class LessonSequenceItem:
 
 		self._unit_of_work = unit_of_work
 
+	def get_id(self):
+		return self._id
+
+	def get_position(self):
+		return self._position
+
 	def get_lesson(self):
 		return self._lesson
 

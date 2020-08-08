@@ -3,6 +3,7 @@ from flask import (
 )
 from mathapp.library.errors.validation_error import ValidationError
 from mathapp.library.errors.not_found_error import NotFoundError
+import json
 
 class CourseWebController:
     
@@ -61,7 +62,7 @@ class CourseWebController:
     def _get_update_form(self, id):
         try:
             course = self._course_interactor.read(id)
-            return render_template('courses/update.html', course = course)
+            return render_template('courses/update.html', course = course, course_json = json.dumps(course))
         except NotFoundError as error:
             abort(404, error.message)
             

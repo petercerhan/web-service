@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <title>{% block title %}{% endblock %} - MathApp</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% block imports %}{% endblock %}
 <body>
 <nav>
   <h1>MathApp</h1>
@@ -24,4 +25,3 @@
   {% block content %}{% endblock %}
 </section>
 </body>
-{% block react_imports %}{% endblock %}

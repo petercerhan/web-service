@@ -3,6 +3,7 @@ from flask import (
 )
 from mathapp.library.errors.validation_error import ValidationError
 from mathapp.library.errors.not_found_error import NotFoundError
+import json
 
 class LessonWebController:
 
@@ -12,4 +13,4 @@ class LessonWebController:
 
 	def handle_index_request(self):
 		lessons = self._lesson_interactor.list()
-		return render_template('lessons/index.html', lessons = lessons)
+		return render_template('lessons/index.html', lessons = lessons, lessons_json = json.dumps(lessons))
