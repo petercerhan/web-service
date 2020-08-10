@@ -7,9 +7,9 @@ function LessonsTitle(props) {
 function Lesson(props) {
 	return (
 		<div className="ordered_option">
-			<p>{ props.lesson_sequence_item.lesson.name } and { props.last_item.toString() }</p>
-			<button className={props.first_item ? "hidden" : ""} onClick={props.onUpClick}>Up</button>
-			<button className={props.last_item ? "hidden" : ""} onClick={props.onDownClick}>Down</button>
+			<p>{ props.lesson_sequence_item.lesson.name }</p>
+			<button type="button" className={props.first_item ? "hidden" : ""} onClick={props.onUpClick}>Up</button>
+			<button type="button" className={props.last_item ? "hidden" : ""} onClick={props.onDownClick}>Down</button>
 		</div>
 	) 
 }

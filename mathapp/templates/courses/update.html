@@ -7,12 +7,11 @@
 {% block content %}
   <form method="post">
     <label for="name">Name</label>
-    <input name="name" id="name"
-      value="{{ request.form['name'] or course['name'] }}" required>
+    <input name="name" id="name" value="{{ request.form['name'] or course['name'] }}" required>
+    <div id="react_root"></div>
     <input type="submit" value="Save">
   </form>
 
-    <div id="react_root"></div>
     <div id="data_container" course='{{ course_json }}'></div>
 
   <form action="{{ url_for('courses.delete', id=course['id']) }}" method="post">

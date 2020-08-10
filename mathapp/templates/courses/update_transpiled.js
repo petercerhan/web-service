@@ -21,18 +21,16 @@ function Lesson(props) {
 		React.createElement(
 			"p",
 			null,
-			props.lesson_sequence_item.lesson.name,
-			" and ",
-			props.last_item.toString()
+			props.lesson_sequence_item.lesson.name
 		),
 		React.createElement(
 			"button",
-			{ className: props.first_item ? "hidden" : "", onClick: props.onUpClick },
+			{ type: "button", className: props.first_item ? "hidden" : "", onClick: props.onUpClick },
 			"Up"
 		),
 		React.createElement(
 			"button",
-			{ className: props.last_item ? "hidden" : "", onClick: props.onDownClick },
+			{ type: "button", className: props.last_item ? "hidden" : "", onClick: props.onDownClick },
 			"Down"
 		)
 	);
