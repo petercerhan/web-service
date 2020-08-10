@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Edit "{{ course['name'] }}"{% endblock %}</h1>
+  <h1>{% block title %}Edit Course{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
@@ -12,9 +12,22 @@
     <input type="submit" value="Save">
   </form>
 
-  <div>{{ course_json }}</div>
+    <div id="react_root"></div>
+    <div id="data_container" course='{{ course_json }}'></div>
 
   <form action="{{ url_for('courses.delete', id=course['id']) }}" method="post">
     <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
   </form>
+
 {% endblock %}
+
+{% block react_imports %}
+<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+<script>
+{% include 'courses/update_transpiled.js' %}
+</script>
+
+{% endblock %}
+
