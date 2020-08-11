@@ -36,7 +36,6 @@ class CourseInteractor:
         if name is not None:
             course.set_name(name)
 
-        # sync lesson sequence item positions
         lesson_sequence_items = fields.get('lesson_sequence_items')
         print(lesson_sequence_items, file=sys.stderr)
         if lesson_sequence_items is not None:

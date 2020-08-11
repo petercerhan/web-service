@@ -6,12 +6,25 @@ class Course:
         self._id = None
 
         self._name = name
-        if not name:
+
+        self._lesson_sequence_item_list_value_holder = lesson_sequence_item_list_value_holder        
+        self._unit_of_work = unit_of_work
+
+        self._check_invariants()
+
+
+    def _check_invariants(self):
+        if not self._name:
             raise ValidationError(message = "Course requires name")
 
-        self._lesson_sequence_item_list_value_holder = lesson_sequence_item_list_value_holder
-        
-        self._unit_of_work = unit_of_work
+        if (self._lesson_sequence_item_list_value_holder.get_queried()):
+            self._check_lesson_sequence_items_valid_order()
+
+    def _check_lesson_sequence_items_valid_order(self):
+        lesson_sequence_items = self._lesson_sequence_item_list_value_holder.get_list()
+        positions = [item.get_position() for item in lesson_sequence_items]
+        if len(positions) > len(set(positions)):
+            raise ValidationError(message = "Lessons Sequence Items for course must have unique positions")
 
     def get_id(self):
         return self._id
@@ -22,6 +35,7 @@ class Course:
     def set_name(self, name):
         self._name = name
         self._unit_of_work.register_dirty(self)
+        self._check_invariants()
 
     def get_lesson_sequence_items(self):
         return self._lesson_sequence_item_list_value_holder.get_list()
@@ -34,6 +48,7 @@ class Course:
                 lesson_sequence_item.set_position(data_item['position'])
                     
         self._unit_of_work.register_dirty(self)
+        self._check_invariants()
         
     def delete(self):
         self._unit_of_work.register_deleted(self)
