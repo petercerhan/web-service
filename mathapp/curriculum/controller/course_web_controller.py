@@ -5,6 +5,8 @@ from mathapp.library.errors.validation_error import ValidationError
 from mathapp.library.errors.not_found_error import NotFoundError
 import json
 
+import sys
+
 class CourseWebController:
     
     def __init__(self, request, course_interactor):
@@ -26,7 +28,7 @@ class CourseWebController:
     def _post_create_form(self):
         fields = {}
         fields['name'] = self.request.form.get('name')
-        
+
         try:
             self._course_interactor.create(fields)
         except ValidationError as error:
@@ -48,6 +50,9 @@ class CourseWebController:
     def _post_update_form(self, id):
         fields = {}
         fields['name'] = self.request.form.get('name')
+
+        testField = self.request.form.get('test')
+        print(self.request.form, file=sys.stderr)
         
         try:
             self._course_interactor.update(id, fields)

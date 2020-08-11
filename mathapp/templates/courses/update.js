@@ -14,6 +14,14 @@ function Lesson(props) {
 	) 
 }
 
+function LessonInput(props) {
+	const lesson_sequence_items = props.lesson_sequence_items.map(function (lesson_sequence_item, index) {
+		lesson_sequence_item.position = index;
+		return lesson_sequence_item;
+	});
+	const lesson_sequence_items_json = JSON.stringify(props.lesson_sequence_items);
+	return <input type="hidden" name="lesson_sequence_items" value={lesson_sequence_items_json} />
+}
 
 class LessonSequenceList extends React.Component {
 	constructor(props) {
@@ -59,6 +67,8 @@ class LessonSequenceList extends React.Component {
 		return ( 
 			<div>
 				<LessonsTitle />
+				<input type="hidden" name="test" value="Test value" />
+				<LessonInput lesson_sequence_items={this.state.lesson_sequence_items} />
 				<hr/>
 				{ lessons }
 				<hr/>

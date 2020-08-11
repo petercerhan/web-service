@@ -36,6 +36,15 @@ function Lesson(props) {
 	);
 }
 
+function LessonInput(props) {
+	var lesson_sequence_items = props.lesson_sequence_items.map(function (lesson_sequence_item, index) {
+		lesson_sequence_item.position = index;
+		return lesson_sequence_item;
+	});
+	var lesson_sequence_items_json = JSON.stringify(props.lesson_sequence_items);
+	return React.createElement("input", { type: "hidden", name: "lesson_sequence_items", value: lesson_sequence_items_json });
+}
+
 var LessonSequenceList = function (_React$Component) {
 	_inherits(LessonSequenceList, _React$Component);
 
@@ -97,6 +106,8 @@ var LessonSequenceList = function (_React$Component) {
 				"div",
 				null,
 				React.createElement(LessonsTitle, null),
+				React.createElement("input", { type: "hidden", name: "test", value: "Test value" }),
+				React.createElement(LessonInput, { lesson_sequence_items: this.state.lesson_sequence_items }),
 				React.createElement("hr", null),
 				lessons,
 				React.createElement("hr", null)
