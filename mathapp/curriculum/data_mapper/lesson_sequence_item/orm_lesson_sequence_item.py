@@ -38,5 +38,11 @@ class ORMLessonSequenceItem(Base):
 		self._lesson_sequence_item = lesson_sequence_item
 		return lesson_sequence_item
 
+	def sync_id(self):
+		self._lesson_sequence_item.id = self.id
+
+	def sync_fields(self):
+		self.position = self._lesson_sequence_item._position
+
 	def __repr__(self):
 		return "<ORM Lesson Sequence Item(position='%s') ID(id='%s')>" % (self.position, self.id)

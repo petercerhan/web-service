@@ -25,6 +25,15 @@ class Course:
 
     def get_lesson_sequence_items(self):
         return self._lesson_sequence_item_list_value_holder.get_list()
+
+    def sync_lesson_sequence_item_positions(self, lesson_sequence_items_data_array):
+        lesson_sequence_items = self._lesson_sequence_item_list_value_holder.get_list()
+        for data_item in lesson_sequence_items_data_array:
+            lesson_sequence_item = next(x for x in lesson_sequence_items if x.get_id() == data_item['id'])
+            if lesson_sequence_item is not None:
+                lesson_sequence_item.set_position(data_item['position'])
+                    
+        self._unit_of_work.register_dirty(self)
         
     def delete(self):
         self._unit_of_work.register_deleted(self)

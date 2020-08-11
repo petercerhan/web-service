@@ -17,6 +17,10 @@ class LessonSequenceItem:
 	def get_position(self):
 		return self._position
 
+	def set_position(self, position):
+		self._position = position
+		self._unit_of_work.register_dirty(self)
+
 	def get_lesson(self):
 		return self._lesson
 

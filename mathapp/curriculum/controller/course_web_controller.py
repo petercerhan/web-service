@@ -50,9 +50,7 @@ class CourseWebController:
     def _post_update_form(self, id):
         fields = {}
         fields['name'] = self.request.form.get('name')
-
-        testField = self.request.form.get('test')
-        print(self.request.form, file=sys.stderr)
+        fields['lesson_sequence_items'] = json.loads( self.request.form.get('lesson_sequence_items') )
         
         try:
             self._course_interactor.update(id, fields)

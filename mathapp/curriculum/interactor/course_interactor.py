@@ -1,6 +1,8 @@
 from mathapp.curriculum.interactor.domain_to_data_transforms.course import course_to_data
 from mathapp.curriculum.interactor.domain_to_data_transforms.course import course_to_enriched_data
 
+import sys
+
 class CourseInteractor:
 
     def __init__(self, course_repository, course_factory, unit_of_work_committer):
@@ -33,6 +35,12 @@ class CourseInteractor:
         name = fields.get('name')
         if name is not None:
             course.set_name(name)
+
+        # sync lesson sequence item positions
+        lesson_sequence_items = fields.get('lesson_sequence_items')
+        print(lesson_sequence_items, file=sys.stderr)
+        if lesson_sequence_items is not None:
+            course.sync_lesson_sequence_item_positions(lesson_sequence_items)
 
         self._unit_of_work_committer.commit()
 
