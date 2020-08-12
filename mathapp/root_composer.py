@@ -8,6 +8,8 @@ from mathapp.curriculum.controller.lesson_web_controller import LessonWebControl
 from mathapp.curriculum.interactor.lesson_interactor import LessonInteractor
 from mathapp.curriculum.data_mapper.lesson.lesson_repository import LessonRepository
 
+from mathapp.curriculum.presenter.course_presenter import CoursePresenter
+
 class RootComposer:
 
     def __init__(self, request, session):
@@ -18,8 +20,10 @@ class RootComposer:
 
     def compose_course_web_controller(self):
         course_interactor = self.compose_course_interactor()
+        course_presenter = self.compose_course_presenter()
         return CourseWebController(request = self._request,
-                                     course_interactor = course_interactor)
+                                     course_interactor = course_interactor,
+                                     course_presenter = course_presenter)
     
     def compose_course_interactor(self):
         unit_of_work = self.compose_unit_of_work()
@@ -28,6 +32,9 @@ class RootComposer:
         return CourseInteractor(course_repository = course_repository, 
                                 course_factory = course_factory, 
                                 unit_of_work_committer = unit_of_work)
+
+    def compose_course_presenter(self):
+        return CoursePresenter()
 
     def compose_course_repository(self):
         unit_of_work = self.compose_unit_of_work()

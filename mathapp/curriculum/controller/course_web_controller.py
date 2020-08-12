@@ -9,15 +9,15 @@ import sys
 
 class CourseWebController:
     
-    def __init__(self, request, course_interactor):
+    def __init__(self, request, course_interactor, course_presenter):
         self.request = request
         self._course_interactor = course_interactor
+        self._course_presenter = course_presenter
         
         
     def handle_index_request(self):
         courses = self._course_interactor.list()
-        return render_template('courses/index.html', courses=courses)
-        
+        return self._course_presenter.present_index(courses)
         
     def handle_create_request(self):
         if self.request.method == 'POST':
@@ -32,13 +32,12 @@ class CourseWebController:
         try:
             self._course_interactor.create(fields)
         except ValidationError as error:
-            flash(error.message)
-            return render_template('courses/create.html')
+            return self._course_presenter.present_create(error = error)
         else:
-            return redirect(url_for('courses.index'))
+            return self._course_presenter.present_create_successful()
 
     def _get_create_form(self):
-        return render_template('courses/create.html')
+        return self._course_presenter.present_create(error = None)
         
 
     def handle_update_request(self, id):
@@ -55,25 +54,24 @@ class CourseWebController:
         try:
             self._course_interactor.update(id, fields)
         except NotFoundError as error:
-            abort(404, error.message)
+            self._course_presenter.present_not_found(error)
         except ValidationError as error:
-            flash(error.message)
-            return self._get_update_form(id)
+            return self._course_presenter.present_update(course, error)
         else:
-            return redirect(url_for('courses.index'))
+            return self._course_presenter.present_update_successful()
             
     def _get_update_form(self, id):
         try:
             course = self._course_interactor.read(id)
-            return render_template('courses/update.html', course = course, course_json = json.dumps(course))
+            return self._course_presenter.present_update(course, error = None)
         except NotFoundError as error:
-            abort(404, error.message)
+            self._course_presenter.present_not_found(error)
             
 
     def handle_delete_request(self, id):
         try:
             self._course_interactor.delete(id)
         except NotFoundError as error:
-            abort(404, error.message)
+            self._course_presenter.present_not_found(error)
             
-        return redirect(url_for('courses.index'))
+        return self._course_presenter.present_delete_successful()
