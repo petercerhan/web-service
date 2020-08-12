@@ -16,7 +16,7 @@ class CoursePresenter:
 		return render_template('courses/create.html')
 
 	def present_create_successful(self):
-		redirect(url_for('courses.index'))
+		return redirect(url_for('courses.index'))
 
 	def present_update(self, course, error):
 		if error is not None:
