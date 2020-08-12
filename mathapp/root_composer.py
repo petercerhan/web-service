@@ -9,6 +9,7 @@ from mathapp.curriculum.interactor.lesson_interactor import LessonInteractor
 from mathapp.curriculum.data_mapper.lesson.lesson_repository import LessonRepository
 
 from mathapp.curriculum.presenter.course_presenter import CoursePresenter
+from mathapp.curriculum.presenter.lesson_presenter import LessonPresenter
 
 class RootComposer:
 
@@ -24,6 +25,9 @@ class RootComposer:
         return CourseWebController(request = self._request,
                                      course_interactor = course_interactor,
                                      course_presenter = course_presenter)
+
+    def compose_course_presenter(self):
+        return CoursePresenter()
     
     def compose_course_interactor(self):
         unit_of_work = self.compose_unit_of_work()
@@ -33,8 +37,6 @@ class RootComposer:
                                 course_factory = course_factory, 
                                 unit_of_work_committer = unit_of_work)
 
-    def compose_course_presenter(self):
-        return CoursePresenter()
 
     def compose_course_repository(self):
         unit_of_work = self.compose_unit_of_work()
@@ -47,12 +49,18 @@ class RootComposer:
 
     def compose_lesson_web_controller(self):
         lesson_interactor = self.compose_lesson_interactor()
+        lesson_presenter = self.compose_lesson_presenter()
         return LessonWebController(request = self._request, 
-                                    lesson_interactor = lesson_interactor)
+                                    lesson_interactor = lesson_interactor, 
+                                    lesson_presenter = lesson_presenter)
+
+    def compose_lesson_presenter(self):
+        return LessonPresenter()
 
     def compose_lesson_interactor(self):
         repository = self.compose_lesson_repository()
         return LessonInteractor(lesson_repository = repository)
+
 
     def compose_lesson_repository(self):
         unit_of_work = self.compose_unit_of_work()

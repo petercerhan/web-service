@@ -7,10 +7,11 @@ import json
 
 class LessonWebController:
 
-	def __init__(self, request, lesson_interactor):
+	def __init__(self, request, lesson_interactor, lesson_presenter):
 		self.request = request
 		self._lesson_interactor = lesson_interactor
+		self._lesson_presenter = lesson_presenter
 
 	def handle_index_request(self):
 		lessons = self._lesson_interactor.list()
-		return render_template('lessons/index.html', lessons = lessons, lessons_json = json.dumps(lessons))
+		return self._lesson_presenter.present_index(lessons)		
