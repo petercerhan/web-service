@@ -70,7 +70,8 @@ class AuthWebController:
         return render_template('auth/login.html')
 
 
-
+    def get_user(self, user_id):
+        return Session.query(User).filter(User.id == user_id).first()
 
 
 

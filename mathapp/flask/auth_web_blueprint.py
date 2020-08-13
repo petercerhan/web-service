@@ -9,9 +9,6 @@ from mathapp.user import User
 
 from mathapp.root_composer import RootComposer
 
-
-import sys
-
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 @bp.route('/register', methods=('GET', 'POST'))
@@ -32,15 +29,12 @@ def logout():
 @bp.before_app_request
 def load_logged_in_user():
     user_id = session.get('user_id')
-
-    print(user_id, file=sys.stderr)
     
     if user_id is None:
         g.user = None
     else:
-        g.user = Session.query(User).filter(User.id == user_id).first()
+        g.user = controller(request).get_user(user_id)
 
-        print(g.user, file=sys.stderr)
 
 def login_required(view):
     @functools.wraps(view)
@@ -58,3 +52,11 @@ def login_required(view):
 def controller(request):
     session = Session()
     return RootComposer(request, session).compose_auth_web_controller()
+
+
+
+
+
+
+
+

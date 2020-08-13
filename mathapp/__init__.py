@@ -26,8 +26,8 @@ def create_app(test_config=None):
     except OSError:
         pass
     
-    from . import auth
-    app.register_blueprint(auth.bp)
+    from mathapp.flask import auth_web_blueprint
+    app.register_blueprint(auth_web_blueprint.bp)
     
     from mathapp.flask import courses_web_blueprint
     app.register_blueprint(courses_web_blueprint.bp)
