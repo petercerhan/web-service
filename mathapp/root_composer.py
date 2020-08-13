@@ -11,6 +11,8 @@ from mathapp.curriculum.data_mapper.lesson.lesson_repository import LessonReposi
 from mathapp.curriculum.presenter.course_presenter import CoursePresenter
 from mathapp.curriculum.presenter.lesson_presenter import LessonPresenter
 
+from mathapp.system.controller.auth_web_controller import AuthWebController
+
 class RootComposer:
 
     def __init__(self, request, session):
@@ -73,3 +75,17 @@ class RootComposer:
             return self._unit_of_work
         else:
             return self._unit_of_work
+
+
+    def compose_auth_web_controller(self):
+        return AuthWebController(request = self._request)
+
+
+
+
+
+
+
+
+
+

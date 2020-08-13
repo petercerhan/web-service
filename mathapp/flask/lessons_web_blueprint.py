@@ -10,6 +10,7 @@ bp = Blueprint('lessons', __name__)
 ## Index
 
 @bp.route('/lessons/')
+@login_required
 def index():
 	return controller(request).handle_index_request()
 
