@@ -2,10 +2,11 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from mathapp.db import Session
-from mathapp.user import User
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from mathapp.library.errors.validation_error import ValidationError
+
+import sys
 
 class AuthWebController:
 
@@ -23,6 +24,8 @@ class AuthWebController:
         fields = {}
         fields['username'] = self._request.form['username']
         fields['password'] = self._request.form['password']
+
+        print(fields['username'], file=sys.stderr)
 
         try:
             self._interactor.register(fields)

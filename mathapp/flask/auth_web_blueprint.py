@@ -5,7 +5,6 @@ from flask import (
 )
 
 from mathapp.db import Session
-from mathapp.user import User
 
 from mathapp.root_composer import RootComposer
 

@@ -1,5 +1,5 @@
 from mathapp.db import Session
-from mathapp.user import User
+from mathapp.system.data_mapper.user.orm_user import ORMUser
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from mathapp.library.errors.validation_error import ValidationError
@@ -15,11 +15,11 @@ class AuthInteractor:
             raise ValidationError(message = 'Username is required.')
         elif not password:
             raise ValidationError(message = 'Password is required.')
-        elif Session.query(User).filter(User.username == username).first() is not None:
+        elif Session.query(ORMUser).filter(ORMUser.username == username).first() is not None:
             raise ValidationError(message = 'User {} is already registered.'.format(username))
 
         else:
-            user = User(username=username, password=generate_password_hash(password))
+            user = ORMUser(username=username, password=generate_password_hash(password))
             Session.add(user)
             Session.commit()
 
@@ -28,15 +28,15 @@ class AuthInteractor:
         username = fields['username']
         password = fields['password']
 
-        user = Session.query(User).filter(User.username == username).first()
+        user = Session.query(ORMUser).filter(ORMUser.username == username).first()
 
         if user is None:
-            raise ValidationError(message = 'Username Required')
+            raise ValidationError(message = 'Invalid login')
         elif not check_password_hash(user.password, password):
-            raise ValidationError(message = 'Incorrect password.')
+            raise ValidationError(message = 'Invalid login.')
         else:
             return user
 
 
     def get_user(self, user_id):
-        return Session.query(User).filter(User.id == user_id).first()
+        return Session.query(ORMUser).filter(ORMUser.id == user_id).first()
