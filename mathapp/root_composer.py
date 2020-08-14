@@ -12,6 +12,7 @@ from mathapp.curriculum.presenter.course_presenter import CoursePresenter
 from mathapp.curriculum.presenter.lesson_presenter import LessonPresenter
 
 from mathapp.system.controller.auth_web_controller import AuthWebController
+from mathapp.system.presenter.auth_presenter import AuthPresenter
 
 class RootComposer:
 
@@ -78,9 +79,11 @@ class RootComposer:
 
 
     def compose_auth_web_controller(self):
-        return AuthWebController(request = self._request)
+        presenter = self.compose_auth_presenter()
+        return AuthWebController(request = self._request, auth_presenter = presenter)
 
-
+    def compose_auth_presenter(self):
+        return AuthPresenter()
 
 
 

@@ -7,8 +7,9 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 class AuthWebController:
 
-    def __init__(self, request):
+    def __init__(self, request, auth_presenter):
         self._request = request
+        self._presenter = auth_presenter
 
     def handle_register_request(self):
         if self._request.method == 'POST':
@@ -31,13 +32,14 @@ class AuthWebController:
             user = User(username=username, password=generate_password_hash(password))
             Session.add(user)
             Session.commit()
-            return redirect(url_for('auth.login'))
+            return self._presenter.present_register_successful()
         
-        flash(error)
-        return render_template('auth/register.html')
+        return self._presenter.present_register(error_message = error)
 
     def _get_register_form(self):
-        return render_template('auth/register.html')
+        return self._presenter.present_register(error = None)
+
+
 
     def handle_login_request(self):
         if request.method == 'POST':
@@ -60,14 +62,12 @@ class AuthWebController:
             if error is None:
                 session.clear()
                 session['user_id'] = user.id
-                return redirect(url_for('index'))
+                return self._presenter.present_login_successful()
 
-            flash(error)
-
-        return render_template('auth/login.html')
+        return self._presenter.present_login(error_message = error)
 
     def _get_login_form(self):
-        return render_template('auth/login.html')
+        return self._presenter.present_login(error_message = None)
 
 
     def get_user(self, user_id):
