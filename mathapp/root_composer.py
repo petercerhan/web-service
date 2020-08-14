@@ -13,6 +13,7 @@ from mathapp.curriculum.presenter.lesson_presenter import LessonPresenter
 
 from mathapp.system.controller.auth_web_controller import AuthWebController
 from mathapp.system.presenter.auth_presenter import AuthPresenter
+from mathapp.system.interactor.auth_interactor import AuthInteractor
 
 class RootComposer:
 
@@ -80,12 +81,16 @@ class RootComposer:
 
     def compose_auth_web_controller(self):
         presenter = self.compose_auth_presenter()
-        return AuthWebController(request = self._request, auth_presenter = presenter)
+        interactor = self.compose_auth_interactor()
+        return AuthWebController(request = self._request, 
+                                 auth_presenter = presenter, 
+                                 auth_interactor = interactor)
 
     def compose_auth_presenter(self):
         return AuthPresenter()
 
-
+    def compose_auth_interactor(self):
+        return AuthInteractor()
 
 
 
