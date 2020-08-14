@@ -7,6 +7,10 @@ from mathapp.library.errors.validation_error import ValidationError
 
 class AuthInteractor:
 
+    def __init__(self, user_repository, unit_of_work_committer):
+        self._user_repository = user_repository
+        self._unit_of_work_committer = unit_of_work_committer
+
     def register(self, fields):
         username = fields['username']
         password = fields['password']
@@ -39,4 +43,4 @@ class AuthInteractor:
 
 
     def get_user(self, user_id):
-        return Session.query(ORMUser).filter(ORMUser.id == user_id).first()
+        return self._user_repository.get(user_id)

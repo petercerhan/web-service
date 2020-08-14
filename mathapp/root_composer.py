@@ -14,6 +14,7 @@ from mathapp.curriculum.presenter.lesson_presenter import LessonPresenter
 from mathapp.system.controller.auth_web_controller import AuthWebController
 from mathapp.system.presenter.auth_presenter import AuthPresenter
 from mathapp.system.interactor.auth_interactor import AuthInteractor
+from mathapp.system.data_mapper.user.user_repository import UserRepository
 
 class RootComposer:
 
@@ -90,8 +91,15 @@ class RootComposer:
         return AuthPresenter()
 
     def compose_auth_interactor(self):
-        return AuthInteractor()
+        unit_of_work = self.compose_unit_of_work()
+        user_repository = self.compose_user_repository()        
+        return AuthInteractor(user_repository = user_repository,
+                                 unit_of_work_committer = unit_of_work)
 
+    def compose_user_repository(self):
+        unit_of_work = self.compose_unit_of_work()
+        return UserRepository(unit_of_work = unit_of_work, 
+                                session = self._session)
 
 
 
