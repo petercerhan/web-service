@@ -14,15 +14,18 @@ class UserRepository:
 		if not orm_user:
 			raise NotFoundError(message = "User Not Found")
 
-		##To do - set up model user
-		##Register model user queried
+		user = orm_user.get_model(unit_of_work = self._unit_of_work)
+		self._unit_of_work.register_queried([orm_user])
 
-		return orm_user
+		return user
 
 	def get_by_username(self, username):
 		orm_user = self._session.query(ORMUser).filter(ORMUser.username == username).first()
 
 		if not orm_user:
 			raise NotFoundError(message = "User Not Found")
+			
+		user = orm_user.get_model(unit_of_work = self._unit_of_work)
+		self._unit_of_work.register_queried([orm_user])
 
-		return orm_user
+		return user

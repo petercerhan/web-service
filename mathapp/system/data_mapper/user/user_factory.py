@@ -10,8 +10,8 @@ class UserFactory:
 		password = fields.get('password')
 		orm_user = ORMUser(username = username, password = password)
 
-		#Todo - get user model, register created
+		user = orm_user.get_model(self._unit_of_work)
 		self._unit_of_work.register_created(orm_user)
 
-		return orm_user
+		return user
 
