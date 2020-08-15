@@ -14,21 +14,10 @@ class AuthInteractor:
         self._unit_of_work_committer = unit_of_work_committer
 
     def register(self, fields):
-        username = fields['username']
-        password = fields['password']
-        
-        if not username:
-            raise ValidationError(message = 'Username is required.')
-        elif not password:
-            raise ValidationError(message = 'Password is required.')
-        elif self._user_exists_for_username(username) is not None:
-            raise ValidationError(message = 'User {} is already registered.'.format(username))
-
-        else:
-            fields['password'] = generate_password_hash(password)
-            user = self._user_factory.create(fields)
-            self._unit_of_work_committer.commit()
-            return user
+        fields['password'] = generate_password_hash(password)
+        user = self._user_factory.create(fields)
+        self._unit_of_work_committer.commit()
+        return user
 
     def _user_exists_for_username(self, username):
         try:

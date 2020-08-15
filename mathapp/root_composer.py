@@ -24,6 +24,7 @@ class RootComposer:
         self._session = session
 
         self._unit_of_work = None
+        self._user_repository = None
 
     def compose_course_web_controller(self):
         course_interactor = self.compose_course_interactor()
@@ -99,14 +100,19 @@ class RootComposer:
                                 user_factory = user_factory,
                                 unit_of_work_committer = unit_of_work)
 
-    def compose_user_repository(self):
-        unit_of_work = self.compose_unit_of_work()
-        return UserRepository(unit_of_work = unit_of_work, 
-                                session = self._session)
-
     def compose_user_factory(self):
         unit_of_work = self.compose_unit_of_work()
-        return UserFactory(unit_of_work = unit_of_work)
+        user_repository = self.compose_user_repository()
+        return UserFactory(unit_of_work = unit_of_work, user_repository = user_repository)
+
+    def compose_user_repository(self):
+        if self._user_repository is not None:
+            return self._user_repository
+        unit_of_work = self.compose_unit_of_work()
+        user_repository = UserRepository(unit_of_work = unit_of_work, 
+                                            session = self._session)
+        self._user_repository = user_repository
+        return user_repository
 
 
 

@@ -21,3 +21,6 @@ class User:
 
 	def get_id(self):
 		return self._id
+
+	def get_username(self):
+		return self._username
