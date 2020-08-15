@@ -4,7 +4,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 
-from mathapp.db import Session
+from mathapp.flask.db import Session
 
 from mathapp.root_composer import RootComposer
 

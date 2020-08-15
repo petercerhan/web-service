@@ -1,4 +1,3 @@
-from mathapp.db import Session
 from mathapp.system.data_mapper.user.orm_user import ORMUser
 
 from mathapp.library.errors.validation_error import ValidationError
