@@ -17,6 +17,8 @@ from mathapp.system.interactor.auth_interactor import AuthInteractor
 from mathapp.system.data_mapper.user.user_repository import UserRepository
 from mathapp.system.data_mapper.user.user_factory import UserFactory
 
+from mathapp.flask.flask_session import FlaskSession
+
 class RootComposer:
 
     def __init__(self, request, session):
@@ -83,9 +85,11 @@ class RootComposer:
 
 
     def compose_auth_web_controller(self):
+        flask_session = self.compose_flask_session()
         presenter = self.compose_auth_presenter()
         interactor = self.compose_auth_interactor()
         return AuthWebController(request = self._request, 
+                                 flask_session = flask_session,
                                  auth_presenter = presenter, 
                                  auth_interactor = interactor)
 
@@ -114,5 +118,6 @@ class RootComposer:
         self._user_repository = user_repository
         return user_repository
 
-
+    def compose_flask_session(self):
+        return FlaskSession()
 

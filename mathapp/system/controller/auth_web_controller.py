@@ -1,17 +1,14 @@
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-from mathapp.db import Session
-from werkzeug.security import check_password_hash, generate_password_hash
 
 from mathapp.library.errors.validation_error import ValidationError
 
-import sys
-
 class AuthWebController:
 
-    def __init__(self, request, auth_presenter, auth_interactor):
+    def __init__(self, request, flask_session, auth_presenter, auth_interactor):
         self._request = request
+        self._flask_session = flask_session
         self._presenter = auth_presenter
         self._interactor = auth_interactor
 
@@ -52,8 +49,9 @@ class AuthWebController:
         except ValidationError as error:
             return self._presenter.present_login(error_message = error.message)
         else:
-            session.clear()
-            session['user_id'] = user['id']
+            self._flask_session.reset_user_id(user['id'])
+            # session.clear()
+            # session['user_id'] = user['id']
             return self._presenter.present_login_successful()
 
     def _get_login_form(self):
