@@ -19,6 +19,8 @@ from mathapp.system.data_mapper.user.user_factory import UserFactory
 
 from mathapp.flask.flask_session import FlaskSession
 
+from mathapp.infrastructure_services.encryption_service import EncryptionService
+
 class RootComposer:
 
     def __init__(self, request, session):
@@ -100,8 +102,10 @@ class RootComposer:
         unit_of_work = self.compose_unit_of_work()
         user_repository = self.compose_user_repository()        
         user_factory = self.compose_user_factory()
+        encryption_service = self.compose_encryption_service()
         return AuthInteractor(user_repository = user_repository, 
                                 user_factory = user_factory,
+                                encryption_service = encryption_service,
                                 unit_of_work_committer = unit_of_work)
 
     def compose_user_factory(self):
@@ -120,4 +124,7 @@ class RootComposer:
 
     def compose_flask_session(self):
         return FlaskSession()
+
+    def compose_encryption_service(self):
+        return EncryptionService()
 
