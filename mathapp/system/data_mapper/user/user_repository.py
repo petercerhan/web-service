@@ -18,3 +18,11 @@ class UserRepository:
 		##Register model user queried
 
 		return orm_user
+
+	def get_by_username(self, username):
+		orm_user = self._session.query(ORMUser).filter(ORMUser.username == username).first()
+
+		if not orm_user:
+			raise NotFoundError(message = "User Not Found")
+
+		return orm_user
