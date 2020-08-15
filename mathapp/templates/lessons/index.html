@@ -22,19 +22,4 @@
     {% endif %}
   {% endfor %}
 
-    <div id="react_root"></div>
-
-    <div id="data_container" data-param='{{ lessons_json }}'></div>
-
 {% endblock %}
-
-{% block react_imports %}
-<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
-
-<script>
-{% include 'lessons/test_template.js' %}
-</script>
-
-{% endblock %}
-
