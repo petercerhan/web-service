@@ -25,8 +25,6 @@ class AuthWebController:
         fields['username'] = self._request.form['username']
         fields['password'] = self._request.form['password']
 
-        print(fields['username'], file=sys.stderr)
-
         try:
             self._interactor.register(fields)
         except ValidationError as error:
@@ -55,7 +53,7 @@ class AuthWebController:
             return self._presenter.present_login(error_message = error.message)
         else:
             session.clear()
-            session['user_id'] = user.id
+            session['user_id'] = user['id']
             return self._presenter.present_login_successful()
 
     def _get_login_form(self):

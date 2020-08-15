@@ -24,3 +24,7 @@ class User:
 
 	def get_username(self):
 		return self._username
+
+	def get_password(self):
+		return self._password
+	
