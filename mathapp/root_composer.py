@@ -15,6 +15,7 @@ from mathapp.system.controller.auth_web_controller import AuthWebController
 from mathapp.system.presenter.auth_presenter import AuthPresenter
 from mathapp.system.interactor.auth_interactor import AuthInteractor
 from mathapp.system.data_mapper.user.user_repository import UserRepository
+from mathapp.system.data_mapper.user.user_factory import UserFactory
 
 class RootComposer:
 
@@ -93,15 +94,19 @@ class RootComposer:
     def compose_auth_interactor(self):
         unit_of_work = self.compose_unit_of_work()
         user_repository = self.compose_user_repository()        
-        return AuthInteractor(user_repository = user_repository,
-                                 unit_of_work_committer = unit_of_work)
+        user_factory = self.compose_user_factory()
+        return AuthInteractor(user_repository = user_repository, 
+                                user_factory = user_factory,
+                                unit_of_work_committer = unit_of_work)
 
     def compose_user_repository(self):
         unit_of_work = self.compose_unit_of_work()
         return UserRepository(unit_of_work = unit_of_work, 
                                 session = self._session)
 
-
+    def compose_user_factory(self):
+        unit_of_work = self.compose_unit_of_work()
+        return UserFactory(unit_of_work = unit_of_work)
 
 
 

@@ -1,3 +1,6 @@
+import sys
+
+
 class UnitOfWork:
 
 	def __init__(self, session):
@@ -12,6 +15,7 @@ class UnitOfWork:
 		self._session.delete(orm_model)
 
 	def commit(self):
+		print('commit', file=sys.stderr)
 		self._session.commit()
 		for orm_model in self._orm_models:
 			orm_model.sync_id()
