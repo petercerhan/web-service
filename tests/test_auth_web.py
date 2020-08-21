@@ -41,6 +41,7 @@ def test_login_missing_user(client, auth):
     response = auth.login('test', 'test')
     assert b'Invalid Login' in response.data
 
+
 def test_log_incorrect_password(client, auth):
     response = auth.login('peter3', 'wrongpassword')
     assert b'Invalid Login' in response.data
