@@ -1,6 +1,7 @@
 from mathapp.system.data_mapper.user.orm_user import ORMUser
 
 from mathapp.library.errors.validation_error import ValidationError
+from mathapp.library.errors.not_found_error import NotFoundError
 
 from mathapp.system.interactor.domain_to_data_transforms.user import user_to_data
 
@@ -29,6 +30,8 @@ class AuthInteractor:
         try:
             user = self._user_repository.get_by_username(username)
         except ValidationError as error:
+            raise ValidationError(message = "Invalid Login")
+        except NotFoundError as error:
             raise ValidationError(message = "Invalid Login")
         else:
             return self._validate_login(user, password)

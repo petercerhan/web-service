@@ -50,8 +50,6 @@ class AuthWebController:
             return self._presenter.present_login(error_message = error.message)
         else:
             self._flask_session.reset_user_id(user['id'])
-            # session.clear()
-            # session['user_id'] = user['id']
             return self._presenter.present_login_successful()
 
     def _get_login_form(self):

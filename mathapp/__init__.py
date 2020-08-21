@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from .flask.db import Session
+from .flask.db import override_session
 
 def create_app(test_config=None):
 
@@ -19,6 +20,7 @@ def create_app(test_config=None):
         app.config.from_pyfile('config.py', silent=True)
     else:
         app.config.from_mapping(test_config)
+        override_session('sqlite:///instance/test.sqlite')
     
 
     try:
