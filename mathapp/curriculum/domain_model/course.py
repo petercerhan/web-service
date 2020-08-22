@@ -17,6 +17,9 @@ class Course:
         if not self._name:
             raise ValidationError(message = "Course requires name")
 
+        if not self._name.strip():
+            raise ValidationError(message = "Invalid name for course")
+
         if (self._lesson_sequence_item_list_value_holder.get_queried()):
             self._check_lesson_sequence_items_valid_order()
 

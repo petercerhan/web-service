@@ -23,3 +23,14 @@ class CourseRepository:
 		self._unit_of_work.register_queried([orm_course])
 
 		return course
+
+	def get_by_name(self, name):
+		orm_course = self._session.query(ORMCourse).filter(ORMCourse.name == name).first()
+
+		if not orm_course:
+			raise NotFoundError(message = "Not Found")
+
+		course = orm_course.get_model(unit_of_work=self._unit_of_work)
+		self._unit_of_work.register_queried([orm_course])
+
+		return course

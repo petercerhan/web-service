@@ -2,6 +2,7 @@ from mathapp.curriculum.controller.course_web_controller import CourseWebControl
 from mathapp.curriculum.interactor.course_interactor import CourseInteractor
 from mathapp.curriculum.data_mapper.course.course_repository import CourseRepository
 from mathapp.curriculum.data_mapper.course.course_factory import CourseFactory
+from mathapp.curriculum.domain_model.course_factory_validating_decorator import CourseFactoryValidatingDecorator
 from mathapp.sqlalchemy.unit_of_work import UnitOfWork
 
 from mathapp.curriculum.controller.lesson_web_controller import LessonWebController
@@ -55,7 +56,9 @@ class RootComposer:
 
     def compose_course_factory(self):
         unit_of_work = self.compose_unit_of_work()
-        return CourseFactory(unit_of_work = unit_of_work)
+        course_repository = self.compose_course_repository()
+        course_factory = CourseFactory(unit_of_work = unit_of_work)
+        return CourseFactoryValidatingDecorator(course_factory = course_factory, course_repository = course_repository)
 
 
     def compose_lesson_web_controller(self):
