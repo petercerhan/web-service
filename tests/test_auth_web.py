@@ -48,8 +48,8 @@ def test_login(client, auth):
 
     with client:
         client.get('/')
-        assert session['user_id'] == 3
-        assert g.user['username'] == 'peter3'
+        assert session['user_id'] == 1
+        assert g.user['username'] == 'test_user'
 
 
 def test_login_missing_user(client, auth):
@@ -58,7 +58,7 @@ def test_login_missing_user(client, auth):
 
 
 def test_login_incorrect_password(client, auth):
-    response = auth.login('peter3', 'wrongpassword')
+    response = auth.login('test_user', 'wrongpassword')
     assert b'Invalid Login' in response.data
 
 

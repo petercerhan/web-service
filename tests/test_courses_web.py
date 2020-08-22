@@ -10,7 +10,6 @@ def test_get_courses_index(client, auth):
 	response = client.get('/')
 	assert response.status_code == 200
 
-
 def test_get_courses_index_not_authenticated_redirects(client):
 	response = client.get('/')
 	assert response.status_code == 302
@@ -24,12 +23,10 @@ def test_get_create_course_form(client, auth):
 	response = client.get('/create')
 	assert response.status_code == 200
 
-
 def test_get_create_course_form_not_authenticated_redirects(client):
 	response = client.get('/create')
 	assert response.status_code == 302
 	assert response.headers.get('Location') == 'http://localhost/auth/login'
-
 
 def test_post_create_form_valid(client, auth, sqlalchemy_session):
 	auth.login()
@@ -42,8 +39,11 @@ def test_post_create_form_valid(client, auth, sqlalchemy_session):
 	assert course is not None
 	assert course.name == name
 
-
 def test_post_create_form_missing_name(client, auth, sqlalchemy_session):
 	auth.login()
 	response = client.post('/create', data = {})
 	assert b'Course requires name' in response.data
+
+
+## Update
+
