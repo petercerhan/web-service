@@ -86,7 +86,11 @@ def test_update_invalid_name(client, auth, sqlalchemy_session):
 	response = client.post('/1/update', data = {'name': '   ', 'lesson_sequence_items': '[]'})
 	assert b'Invalid name for course' in response.data
 
-
+def test_update_not_authenticated(client):
+	response = client.post('/1/update', data = {'name': name, 'lesson_sequence_items': '[]'})
+	assert response.status_code == 302
+	assert response.headers.get('Location') == 'http://localhost/auth/login'
+	
 
 
 

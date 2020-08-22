@@ -57,7 +57,6 @@ class CourseWebController:
             self._course_presenter.present_not_found(error)
         except ValidationError as error:
             return self._get_update_form(id, error)
-            # return self._course_presenter.present_update(course, error)
         else:
             return self._course_presenter.present_update_successful()
             
