@@ -67,7 +67,7 @@ def test_get_update_form_not_authenticated(client):
 	assert response.status_code == 302
 	assert response.headers.get('Location') == 'http://localhost/auth/login'
 
-def test_get_update_from_not_found(client, auth):
+def test_get_update_form_not_found(client, auth):
 	auth.login()
 	response = client.get('/10000/update')
 	assert response.status_code == 404
@@ -81,8 +81,10 @@ def test_update(client, auth, sqlalchemy_session):
 	assert course is not None
 	assert course.name == name
 
-
-
+def test_update_invalid_name(client, auth, sqlalchemy_session):
+	auth.login()
+	response = client.post('/1/update', data = {'name': '   ', 'lesson_sequence_items': '[]'})
+	assert b'Invalid name for course' in response.data
 
 
 

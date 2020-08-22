@@ -56,14 +56,15 @@ class CourseWebController:
         except NotFoundError as error:
             self._course_presenter.present_not_found(error)
         except ValidationError as error:
-            return self._course_presenter.present_update(course, error)
+            return self._get_update_form(id, error)
+            # return self._course_presenter.present_update(course, error)
         else:
             return self._course_presenter.present_update_successful()
             
-    def _get_update_form(self, id):
+    def _get_update_form(self, id, error = None):
         try:
             course = self._course_interactor.read(id)
-            return self._course_presenter.present_update(course, error = None)
+            return self._course_presenter.present_update(course, error = error)
         except NotFoundError as error:
             self._course_presenter.present_not_found(error)
             
@@ -75,3 +76,11 @@ class CourseWebController:
             self._course_presenter.present_not_found(error)
             
         return self._course_presenter.present_delete_successful()
+
+
+
+
+
+
+
+

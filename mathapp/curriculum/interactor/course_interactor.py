@@ -44,7 +44,6 @@ class CourseInteractor:
 
         enriched_course = course_to_enriched_data(course)
         return course
-        
     
     def delete(self, id):
         course = self._course_repository.get(id=id)
