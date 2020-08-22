@@ -51,7 +51,7 @@ def test_create_blank_name(client, auth):
 
 def test_create_duplicate_name(client, auth):
 	auth.login()
-	response = client.post('/create', data = {'name': 'Initial Test Course'})
+	response = client.post('/create', data = {'name': 'Test Get Course'})
 	assert b'Course name must be unique' in response.data
 
 
@@ -83,15 +83,23 @@ def test_update(client, auth, sqlalchemy_session):
 
 def test_update_invalid_name(client, auth, sqlalchemy_session):
 	auth.login()
-	response = client.post('/1/update', data = {'name': '   ', 'lesson_sequence_items': '[]'})
+	response = client.post('/13/update', data = {'name': '   ', 'lesson_sequence_items': '[]'})
 	assert b'Invalid name for course' in response.data
+	course = sqlalchemy_session.query(ORMCourse).filter(ORMCourse.id == 13).first()
+	assert course.name == 'Test Update Failed Course'
 
 def test_update_not_authenticated(client):
-	response = client.post('/1/update', data = {'name': name, 'lesson_sequence_items': '[]'})
+	response = client.post('/1/update', data = {'name': 'Test name', 'lesson_sequence_items': '[]'})
 	assert response.status_code == 302
 	assert response.headers.get('Location') == 'http://localhost/auth/login'
-	
 
+def test_update_not_found(client, auth):
+	auth.login()
+	response = client.post('/10000/update', data = {'name': 'Test name', 'lesson_sequence_items': '[]'})
+	assert response.status_code == 404
+
+
+## Test deletion
 
 
 
