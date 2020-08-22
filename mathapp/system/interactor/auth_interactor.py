@@ -18,7 +18,11 @@ class AuthInteractor:
         self._unit_of_work_committer = unit_of_work_committer
 
     def register(self, fields):
-        fields['password'] = self._encryption_service.generate_password_hash(fields['password'])
+        raw_password = fields.get('password')
+        if raw_password is None:
+            raise ValidationError(message='User requires password')
+
+        fields['password'] = self._encryption_service.generate_password_hash(raw_password)
         user = self._user_factory.create(fields)
         self._unit_of_work_committer.commit()
         return user_to_data(user)

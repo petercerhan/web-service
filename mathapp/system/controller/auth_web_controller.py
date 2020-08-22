@@ -19,8 +19,8 @@ class AuthWebController:
 
     def _post_register_form(self):
         fields = {}
-        fields['username'] = self._request.form['username']
-        fields['password'] = self._request.form['password']
+        fields['username'] = self._request.form.get('username')
+        fields['password'] = self._request.form.get('password')
 
         try:
             self._interactor.register(fields)
@@ -41,8 +41,8 @@ class AuthWebController:
 
     def _post_login_form(self):
         fields = {}
-        fields['username'] = self._request.form['username']
-        fields['password'] = self._request.form['password']
+        fields['username'] = self._request.form.get('username')
+        fields['password'] = self._request.form.get('password')
 
         try:
             user = self._interactor.login(fields)

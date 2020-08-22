@@ -3,6 +3,8 @@ from mathapp.flask.db import Session
 from mathapp.system.data_mapper.user.orm_user import ORMUser
 from flask import g, session
 
+## Register
+
 def test_register_get_form(client):
     assert client.get('/auth/register').status_code == 200
 
@@ -22,6 +24,19 @@ def test_register_duplicate(client):
     assert b'already registered' in response.data
 
 
+def test_register_no_username(client):
+    response = client.post('/auth/register', data={'password': 'a'})
+    assert b'User requires username' in response.data
+
+
+def test_register_no_password(client, sqlalchemy_session):
+    response = client.post('/auth/register', data={'username': 'test_register_no_password'})
+    assert b'User requires password' in response.data
+    user = sqlalchemy_session.query(ORMUser).filter(ORMUser.username == 'test_register_no_password').first()
+    assert user is None
+
+
+## Login
 
 def test_login_get_form(client):
     assert client.get('/auth/login').status_code == 200
@@ -42,6 +57,10 @@ def test_login_missing_user(client, auth):
     assert b'Invalid Login' in response.data
 
 
-def test_log_incorrect_password(client, auth):
+def test_login_incorrect_password(client, auth):
     response = auth.login('peter3', 'wrongpassword')
     assert b'Invalid Login' in response.data
+
+
+
+
