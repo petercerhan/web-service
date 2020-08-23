@@ -99,7 +99,24 @@ def test_update_not_found(client, auth):
 	assert response.status_code == 404
 
 
-## Test deletion
+## Delete
+
+def test_delete(client, auth, sqlalchemy_session):
+	auth.login()
+	response = client.post('/14/delete')
+	assert 'http://localhost/' == response.headers.get('Location')
+	course = sqlalchemy_session.query(ORMCourse).filter(ORMCourse.id == 14).first()
+	assert course is None
+
+def test_delete_not_authenticated(client):
+	response = client.post('/14/delete')
+	assert response.status_code == 302
+	assert response.headers.get('Location') == 'http://localhost/auth/login'
+
+def test_delete_not_found(client, auth):
+	auth.login()
+	response = client.post('/10000/delete')
+	assert response.status_code == 404
 
 
 
