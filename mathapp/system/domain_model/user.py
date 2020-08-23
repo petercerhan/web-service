@@ -16,6 +16,9 @@ class User:
 		if not self._username:
 			raise ValidationError(message = "User requires username")
 
+		if not self._username.strip():
+			raise ValidationError(message = "Invalid username")
+
 		if not self._password:
 			raise ValidationError(message = "User requires password")
 

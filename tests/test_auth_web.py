@@ -8,7 +8,6 @@ from flask import g, session
 def test_register_get_form(client):
     assert client.get('/auth/register').status_code == 200
 
-
 def test_register(client, sqlalchemy_session):
     username = 'test_register_valid_credentials'
     response = client.post('/auth/register', data={'username': username, 'password': 'a'})
@@ -17,17 +16,18 @@ def test_register(client, sqlalchemy_session):
     assert user is not None
     assert user.username == username
 
-
 def test_register_duplicate(client):
     response = client.post('/auth/register', data={'username': 'test_register_duplicate', 'password': 'a'})
     response = client.post('/auth/register', data={'username': 'test_register_duplicate', 'password': 'a'})
     assert b'already registered' in response.data
 
-
 def test_register_no_username(client):
     response = client.post('/auth/register', data={'password': 'a'})
     assert b'User requires username' in response.data
 
+def test_register_blank_username(client, sqlalchemy_session):
+    response = client.post('/auth/register', data={'username': '   ', 'password': 'a'})
+    assert b'Invalid username' in response.data
 
 def test_register_no_password(client, sqlalchemy_session):
     response = client.post('/auth/register', data={'username': 'test_register_no_password'})
@@ -41,7 +41,6 @@ def test_register_no_password(client, sqlalchemy_session):
 def test_login_get_form(client):
     assert client.get('/auth/login').status_code == 200
 
-
 def test_login(client, auth):
     response = auth.login()
     assert response.headers['Location'] == 'http://localhost/'
@@ -51,11 +50,9 @@ def test_login(client, auth):
         assert session['user_id'] == 1
         assert g.user['username'] == 'test_user'
 
-
 def test_login_missing_user(client, auth):
     response = auth.login('test', 'test')
     assert b'Invalid Login' in response.data
-
 
 def test_login_incorrect_password(client, auth):
     response = auth.login('test_user', 'wrongpassword')
