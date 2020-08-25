@@ -1,7 +1,7 @@
 import os
 from flask import Flask
-from .flask.db import Session
-from .flask.db import override_session
+from .sqlalchemy.db import Session
+from .sqlalchemy.db import override_session
 
 def create_app(test_config=None):
 

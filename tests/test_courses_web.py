@@ -1,5 +1,4 @@
 import pytest
-from mathapp.flask.db import Session
 from mathapp.curriculum.data_mapper.course.orm_course import ORMCourse
 
 
