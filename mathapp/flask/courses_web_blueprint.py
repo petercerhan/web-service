@@ -2,7 +2,7 @@ from flask import (
     Blueprint, request
 )
 from mathapp.flask.auth_web_blueprint import login_required
-from mathapp.root_composer import RootComposer
+from mathapp.flask.root_composer import RootComposer
 from mathapp.sqlalchemy.db import Session
 
 bp = Blueprint('courses', __name__)

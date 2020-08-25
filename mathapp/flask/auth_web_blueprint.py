@@ -6,7 +6,7 @@ from flask import (
 
 from mathapp.sqlalchemy.db import Session
 
-from mathapp.root_composer import RootComposer
+from mathapp.flask.root_composer import RootComposer
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
