@@ -1,18 +1,9 @@
 from mathapp.curriculum.curriculum_composer import CurriculumComposer
 
 
-from mathapp.curriculum.controller.course_web_controller import CourseWebController
-from mathapp.curriculum.interactor.course_interactor import CourseInteractor
-from mathapp.curriculum.data_mapper.course.course_repository import CourseRepository
-from mathapp.curriculum.data_mapper.course.course_factory import CourseFactory
-from mathapp.curriculum.domain_model.course_factory_validating_decorator import CourseFactoryValidatingDecorator
 from mathapp.sqlalchemy.unit_of_work import UnitOfWork
 
-from mathapp.curriculum.controller.lesson_web_controller import LessonWebController
-from mathapp.curriculum.interactor.lesson_interactor import LessonInteractor
-from mathapp.curriculum.data_mapper.lesson.lesson_repository import LessonRepository
 
-from mathapp.curriculum.presenter.lesson_presenter import LessonPresenter
 
 from mathapp.system.controller.auth_web_controller import AuthWebController
 from mathapp.system.presenter.auth_presenter import AuthPresenter
@@ -43,26 +34,15 @@ class RootComposer:
 
         return curriculum_composer.compose_course_web_controller()
 
-
     def compose_lesson_web_controller(self):
-        lesson_interactor = self.compose_lesson_interactor()
-        lesson_presenter = self.compose_lesson_presenter()
-        return LessonWebController(request = self._request, 
-                                    lesson_interactor = lesson_interactor, 
-                                    lesson_presenter = lesson_presenter)
-
-    def compose_lesson_presenter(self):
-        return LessonPresenter()
-
-    def compose_lesson_interactor(self):
-        repository = self.compose_lesson_repository()
-        return LessonInteractor(lesson_repository = repository)
-
-
-    def compose_lesson_repository(self):
         unit_of_work = self.compose_unit_of_work()
-        return LessonRepository(unit_of_work = unit_of_work, 
-                                session = self._session)
+        curriculum_composer = CurriculumComposer(request=self._request, 
+                                                    sqlalchemy_session = self._session,
+                                                     unit_of_work = unit_of_work)
+
+        return curriculum_composer.compose_lesson_web_controller()
+
+
 
     def compose_unit_of_work(self):
         if self._unit_of_work is None:
