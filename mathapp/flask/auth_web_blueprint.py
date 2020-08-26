@@ -4,8 +4,6 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 
-from mathapp.sqlalchemy.db import Session
-
 from mathapp.flask.root_composer import RootComposer
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -49,8 +47,7 @@ def login_required(view):
 ## Util
 
 def controller(request):
-    session = Session()
-    return RootComposer(request, session).compose_auth_web_controller()
+    return RootComposer(request).compose_auth_web_controller()
 
 
 

@@ -3,7 +3,6 @@ from flask import (
 )
 from mathapp.flask.auth_web_blueprint import login_required
 from mathapp.flask.root_composer import RootComposer
-from mathapp.sqlalchemy.db import Session
 
 bp = Blueprint('courses', __name__)
 
@@ -38,5 +37,4 @@ def delete(id):
 ## Util
 
 def controller(request):
-	session = Session()
-	return RootComposer(request, session).compose_course_web_controller()
+	return RootComposer(request).compose_course_web_controller()
