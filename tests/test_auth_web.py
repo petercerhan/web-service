@@ -1,5 +1,4 @@
 import pytest
-from mathapp.sqlalchemy.db import Session
 from mathapp.system.data_mapper.user.orm_user import ORMUser
 from flask import g, session
 
