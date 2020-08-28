@@ -3,6 +3,7 @@ from mathapp.system.presenter.auth_presenter import AuthPresenter
 from mathapp.system.interactor.auth_interactor import AuthInteractor
 from mathapp.system.data_mapper.user.user_repository import UserRepository
 from mathapp.system.data_mapper.user.user_factory import UserFactory
+from mathapp.system.domain_model.user_factory_validating_decorator import UserFactoryValidatingDecorator
 
 class SystemComposer:
 
@@ -46,7 +47,10 @@ class SystemComposer:
 
     def compose_user_factory(self):
         user_repository = self.compose_user_repository()
-        return UserFactory(unit_of_work = self._unit_of_work, user_repository = user_repository)
+        user_factory = UserFactory(unit_of_work = self._unit_of_work, 
+                                    user_repository = user_repository)
+        return UserFactoryValidatingDecorator(user_factory = user_factory,
+                                                 user_repository = user_repository)
 
     def compose_user_repository(self):
         if self._user_repository is not None:
