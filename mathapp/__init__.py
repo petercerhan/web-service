@@ -10,6 +10,7 @@ def create_app(test_config=None):
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'mathapp.sqlite'),
         SQLALCHEMY_DATABASE_URI='sqlite:///instance/mathapp.sqlite',
+        AUTH_SECRET_KEY='auth_placeholder_key',
     )
 
     @app.teardown_appcontext
@@ -17,7 +18,7 @@ def create_app(test_config=None):
         Session.remove()
 
     if test_config is None:
-        app.config.from_pyfile('config.py', silent=True)
+        app.config.from_pyfile('config.py', silent=False)
     else:
         app.config.from_mapping(test_config)
         override_session('sqlite:///instance/test.sqlite')

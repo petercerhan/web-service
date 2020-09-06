@@ -1,7 +1,9 @@
 import functools
 
+import sys
+
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app
 )
 
 from mathapp.flask.root_composer import RootComposer
@@ -25,6 +27,10 @@ def logout():
 
 @bp.before_app_request
 def load_logged_in_user():
+
+    print(current_app.config['AUTH_SECRET_KEY'], file=sys.stderr)
+
+
     user_id = session.get('user_id')
     
     if user_id is None:
