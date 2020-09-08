@@ -12,12 +12,16 @@ class SystemComposer:
                 sqlalchemy_session, 
                 unit_of_work, 
                 flask_session, 
-                encryption_service):
+                encryption_service, 
+                token_service,
+                date_service):
         self._request = request
         self._sqlalchemy_session = sqlalchemy_session
         self._unit_of_work = unit_of_work
         self._flask_session = flask_session
         self._encryption_service = encryption_service
+        self._token_service = token_service
+        self._date_service = date_service
 
         ##Singleton Lifestyle Components
 
@@ -42,7 +46,9 @@ class SystemComposer:
         user_factory = self.compose_user_factory()
         return AuthInteractor(user_repository = user_repository, 
                                 user_factory = user_factory,
-                                encryption_service = self._encryption_service,
+                                encryption_service = self._encryption_service, 
+                                date_service = self._date_service,
+                                token_service = self._token_service,
                                 unit_of_work_committer = self._unit_of_work)
 
     def compose_user_factory(self):

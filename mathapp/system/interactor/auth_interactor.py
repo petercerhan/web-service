@@ -5,16 +5,22 @@ from mathapp.library.errors.not_found_error import NotFoundError
 
 from mathapp.system.interactor.domain_to_data_transforms.user import user_to_data
 
+import sys
+
 class AuthInteractor:
 
     def __init__(self, 
                  user_repository,
                  user_factory, 
-                 encryption_service,
+                 encryption_service, 
+                 date_service, 
+                 token_service,
                  unit_of_work_committer):
         self._user_repository = user_repository
         self._user_factory = user_factory
         self._encryption_service = encryption_service
+        self._date_service = date_service
+        self._token_service = token_service
         self._unit_of_work_committer = unit_of_work_committer
 
     def register(self, fields):
@@ -44,8 +50,18 @@ class AuthInteractor:
         if not self._encryption_service.check_password_hash(encrypted_password = user.get_password(), check_password = password):
             raise ValidationError(message = "Invalid Login")
         else:
-            return user_to_data(user)
+            current_datetime = self._date_service.current_datetime_utc()
+            claims = user.get_session_data(current_datetime)
+            token = self._token_service.get_web_auth_token(user_claims = claims, 
+                                                            current_datetime = current_datetime)
+
+            return token
+            # return user_to_data(user)
 
     def get_user(self, user_id):
         user = self._user_repository.get(user_id)
         return user_to_data(user)
+
+
+
+

@@ -1,5 +1,5 @@
 from flask import (
-    flash, redirect, url_for, render_template, abort
+    flash, redirect, url_for, render_template, abort, make_response
 )
 
 class AuthPresenter:
@@ -18,4 +18,7 @@ class AuthPresenter:
 		return render_template('auth/login.html')
 
 	def present_login_successful(self):
-		return redirect(url_for('index'))
+		test_response = 'test'
+		return make_response(test_response)
+
+		# return redirect(url_for('index'))
