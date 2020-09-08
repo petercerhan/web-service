@@ -6,6 +6,7 @@ from mathapp.library.errors.not_found_error import NotFoundError
 from mathapp.system.interactor.domain_to_data_transforms.user import user_to_data
 
 import sys
+import datetime
 
 class AuthInteractor:
 
@@ -64,18 +65,21 @@ class AuthInteractor:
     def check_authentication(self, auth_token):
         try:
             payload = self._token_service.get_web_token_payload(auth_token)
-
-            print(payload, file=sys.stderr)
-
             return self._validate_token_payload(payload)
         except ValidationError:
-
             print('invalid token', file=sys.stderr)
-
             return False
 
     def _validate_token_payload(self, payload):
-        return True
+        expiration = payload.get('exp')
+        expiration_datetime = datetime.datetime.utcfromtimestamp(expiration)
+        current_datetime = self._date_service.current_datetime_utc()
+
+        if current_datetime >= expiration_datetime:
+            ##Check if session id is still valid
+            return False
+        else:
+            return True
 
 
 

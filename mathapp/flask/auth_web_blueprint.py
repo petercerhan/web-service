@@ -48,7 +48,7 @@ def login_required(view):
 
 
         #Check auth
-        if not controller(None).check_authentication(auth_token = auth_token):
+        if not controller(request=None).check_authentication(auth_token):
             return redirect(url_for('auth.login'))
 
 
