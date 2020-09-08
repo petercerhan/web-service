@@ -63,5 +63,16 @@ class AuthWebController:
     def get_user(self, user_id):
         return self._interactor.get_user(user_id)
 
+    def check_authentication(self, auth_token):
+        return self._interactor.check_authentication(auth_token)
+
+
+
+
+
+
+
+
+
 
 

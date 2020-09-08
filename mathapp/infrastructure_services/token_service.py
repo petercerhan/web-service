@@ -1,4 +1,5 @@
 import jwt
+from mathapp.library.errors.validation_error import ValidationError
 
 class TokenService:
 
@@ -15,3 +16,9 @@ class TokenService:
         }
         token = jwt.encode(payload, self._web_signing_key, algorithm='HS256')
         return token
+
+    def get_web_token_payload(self, token):
+        try:
+            return jwt.decode(token, self._web_signing_key)
+        except jwt.InvalidTokenError:
+            raise ValidationError('Invalid token')

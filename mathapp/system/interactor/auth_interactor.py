@@ -56,11 +56,29 @@ class AuthInteractor:
                                                             current_datetime = current_datetime)
 
             return token
-            # return user_to_data(user)
 
     def get_user(self, user_id):
         user = self._user_repository.get(user_id)
         return user_to_data(user)
+
+    def check_authentication(self, auth_token):
+        try:
+            payload = self._token_service.get_web_token_payload(auth_token)
+
+            print(payload, file=sys.stderr)
+
+            return self._validate_token_payload(payload)
+        except ValidationError:
+
+            print('invalid token', file=sys.stderr)
+
+            return False
+
+    def _validate_token_payload(self, payload):
+        return True
+
+
+
 
 
 
