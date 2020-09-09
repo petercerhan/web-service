@@ -46,10 +46,14 @@ def login_required(view):
         if auth_token is None:
             return redirect(url_for('auth.login'))
 
-
         #Check auth
-        if not controller(request=None).check_authentication(auth_token):
+        check_auth_result = controller(request=None).check_authentication(auth_token)
+        if not check_auth_result.get('auth_valid'):
             return redirect(url_for('auth.login'))
+
+        g.user_id = check_auth_result.get('user_id')
+        g.user_name = check_auth_result.get('user_name')
+
 
 
         #remove
@@ -60,6 +64,13 @@ def login_required(view):
         response = make_response(view(**kwargs))
 
         ##Update auth
+        new_auth_token = controller(request=None).get_updated_auth_token(auth_token)
+        ##If None redirect
+        if new_auth_token is None:
+            print('no token', file = sys.stderr)
+            return redirect(url_for('auth.login'))
+
+        response.set_cookie('auth_token', new_auth_token, httponly=True)
 
         return response
     

@@ -52,7 +52,7 @@ class AuthInteractor:
             raise ValidationError(message = "Invalid Login")
         else:
             current_datetime = self._date_service.current_datetime_utc()
-            claims = user.get_session_data(current_datetime)
+            claims = user.get_session_data()
             token = self._token_service.get_web_auth_token(user_claims = claims, 
                                                             current_datetime = current_datetime)
 
@@ -67,7 +67,7 @@ class AuthInteractor:
             payload = self._token_service.get_web_token_payload(auth_token)
             return self._validate_token_payload(payload)
         except ValidationError:
-            print('invalid token', file=sys.stderr)
+            return {'auth_valid': False, 'user_id': None, 'user_name': None}
             return False
 
     def _validate_token_payload(self, payload):
@@ -77,11 +77,19 @@ class AuthInteractor:
 
         if current_datetime >= expiration_datetime:
             ##Check if session id is still valid
-            return False
+            return {'auth_valid': False, 'user_id': None, 'user_name': None}
         else:
-            return True
+            return {'auth_valid': True, 'user_id': payload['sub'], 'user_name': payload['name']}
 
 
+    def get_updated_auth_token(self, prior_auth_token):
+        try:
+            current_datetime = self._date_service.current_datetime_utc()
+            payload = self._token_service.get_web_token_payload(prior_auth_token)
+            new_token = self._token_service.update_web_auth_token(payload=payload, current_datetime=current_datetime)
+            return new_token
+        except ValidationError:
+            return None
 
 
 

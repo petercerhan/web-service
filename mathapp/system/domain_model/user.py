@@ -33,9 +33,7 @@ class User:
 	def get_password(self):
 		return self._password
 	
-	def get_session_data(self, current_datetime):
-		expiration_datetime = current_datetime + datetime.timedelta(minutes=30)
-		# expiration_datetime = current_datetime + datetime.timedelta(seconds=-1)
-		return UserSessionData(expiration_datetime = expiration_datetime, 
+	def get_session_data(self):
+		return UserSessionData(expiration_period = datetime.timedelta(minutes=30), 
 								user_id = self._id, 
 								name = self._username)
