@@ -24,7 +24,12 @@ def login():
 @bp.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('index'))
+
+    ##Invalidate session id
+
+    response = make_response( redirect(url_for('auth.login')) )
+    response.set_cookie('auth_token', '', expires=0)
+    return response
 
 
 
@@ -42,11 +47,12 @@ def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
 
+        ##Check Auth
+
         auth_token = request.cookies.get('auth_token')
         if auth_token is None:
             return redirect(url_for('auth.login'))
 
-        #Check auth
         check_auth_result = controller(request=None).check_authentication(auth_token)
         if not check_auth_result.get('auth_valid'):
             return redirect(url_for('auth.login'))
@@ -57,21 +63,21 @@ def login_required(view):
 
 
         #remove
-        if g.user is None:
-            return redirect(url_for('auth.login'))
+        # if g.user is None:
+        #     return redirect(url_for('auth.login'))
         ###
+
+        ##Execute Request
 
         response = make_response(view(**kwargs))
 
-        ##Update auth
+        ##Update Token
+
         new_auth_token = controller(request=None).get_updated_auth_token(auth_token)
-        ##If None redirect
         if new_auth_token is None:
-            print('no token', file = sys.stderr)
             return redirect(url_for('auth.login'))
 
         response.set_cookie('auth_token', new_auth_token, httponly=True)
-
         return response
     
     return wrapped_view
