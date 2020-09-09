@@ -9,8 +9,10 @@ class SessionFactory:
 	def __init__(self, unit_of_work):
 		self._unit_of_work = unit_of_work
 	
-	def create(self, created_at):
-		orm_session = ORMSession(revoked = False, created_at = created_at)
+	def create(self, user_id, created_at):
+		orm_session = ORMSession(user_id = user_id,
+								revoked = False, 
+								created_at = created_at)
 
 		session = orm_session.get_model(self._unit_of_work)
 		self._unit_of_work.register_created(orm_session)

@@ -10,10 +10,12 @@ from mathapp.sqlalchemy.base import Base
 class ORMSession(Base):
     __tablename__ = 'session'
     id = Column(Integer, primary_key=True)
+    user_id = Column(Integer)
     revoked = Column(Boolean)
     created_at = Column(DateTime)
 
-    def __init__(self, revoked, created_at):
+    def __init__(self, user_id, revoked, created_at):
+        self.user_id = user_id
         self.revoked = revoked
         self.created_at = created_at
         self._session = None
@@ -28,16 +30,20 @@ class ORMSession(Base):
 
         unit_of_work_decorator = SessionUnitOfWorkDecorator(unit_of_work = unit_of_work, orm_session = self)
 
-        session = Session(revoked = self.revoked, created_at = self.created_at, unit_of_work = unit_of_work_decorator)
+        session = Session(user_id = self.user_id,
+                            revoked = self.revoked, 
+                            created_at = self.created_at, 
+                            unit_of_work = unit_of_work_decorator)
         session._id = self.id
 
         self._session = session
         return session
 
     def sync_id(self):
-        self._session.id = self.id
+        self._session._id = self.id
 
     def sync_fields(self):
+        self.user_if = self._session._user_id
         self.revoked = self._session._revoked
         self.created_at = self._session._created_at
 
