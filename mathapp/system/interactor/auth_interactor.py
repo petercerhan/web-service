@@ -13,12 +13,14 @@ class AuthInteractor:
     def __init__(self, 
                  user_repository,
                  user_factory, 
+                 session_factory,
                  encryption_service, 
                  date_service, 
                  token_service,
                  unit_of_work_committer):
         self._user_repository = user_repository
         self._user_factory = user_factory
+        self._session_factory = session_factory
         self._encryption_service = encryption_service
         self._date_service = date_service
         self._token_service = token_service
@@ -53,6 +55,11 @@ class AuthInteractor:
         else:
             current_datetime = self._date_service.current_datetime_utc()
             claims = user.get_session_data()
+            ##create session 
+            session = self._session_factory.create(created_at = current_datetime)
+            self._unit_of_work_committer.commit()
+
+            ##commit session to get id
             token = self._token_service.get_web_auth_token(user_claims = claims, 
                                                             current_datetime = current_datetime)
 

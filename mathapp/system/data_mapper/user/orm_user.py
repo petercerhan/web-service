@@ -6,7 +6,7 @@ from sqlalchemy import orm
 from mathapp.system.domain_model.user import User
 from mathapp.system.data_mapper.user.user_unit_of_work_decorator import UserUnitOfWorkDecorator
 
-Base = declarative_base()
+from mathapp.sqlalchemy.base import Base
 
 class ORMUser(Base):
     __tablename__ = 'user'
@@ -43,4 +43,4 @@ class ORMUser(Base):
         self.password = self._user._password
     
     def __repr__(self):
-        return "<ID(id='%s') ORMUser(username='%s') Password(password='%s')>" % (self.id, self.username, self.password)
+        return "<ORMUser ID(id='%s') Username(username='%s') Password(password='%s')>" % (self.id, self.username, self.password)

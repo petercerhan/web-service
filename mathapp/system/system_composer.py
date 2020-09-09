@@ -1,9 +1,12 @@
 from mathapp.system.controller.auth_web_controller import AuthWebController
 from mathapp.system.presenter.auth_presenter import AuthPresenter
 from mathapp.system.interactor.auth_interactor import AuthInteractor
+
 from mathapp.system.data_mapper.user.user_repository import UserRepository
 from mathapp.system.data_mapper.user.user_factory import UserFactory
 from mathapp.system.domain_model.user_factory_validating_decorator import UserFactoryValidatingDecorator
+
+from mathapp.system.data_mapper.session.session_factory import SessionFactory
 
 class SystemComposer:
 
@@ -44,8 +47,10 @@ class SystemComposer:
     def compose_auth_interactor(self):
         user_repository = self.compose_user_repository()        
         user_factory = self.compose_user_factory()
+        session_factory = self.compose_session_factory()
         return AuthInteractor(user_repository = user_repository, 
-                                user_factory = user_factory,
+                                user_factory = user_factory, 
+                                session_factory = session_factory,
                                 encryption_service = self._encryption_service, 
                                 date_service = self._date_service,
                                 token_service = self._token_service,
@@ -65,6 +70,15 @@ class SystemComposer:
                                             session = self._sqlalchemy_session)
         self._user_repository = user_repository
         return user_repository
+
+    def compose_session_factory(self):
+        session_factory = SessionFactory(unit_of_work = self._unit_of_work)
+        return session_factory
+
+
+
+
+
 
 
 
