@@ -32,7 +32,6 @@ def logout():
     return response
 
 
-
 @bp.before_app_request
 def load_logged_in_user():
     user_id = session.get('user_id')
@@ -42,6 +41,10 @@ def load_logged_in_user():
     else:
         g.user = controller(request).get_user(user_id)
 
+@bp.after_app_request
+def remove_flask_session(response):
+    response.set_cookie('session', '', expires=0)
+    return response    
 
 def login_required(view):
     @functools.wraps(view)
@@ -59,13 +62,6 @@ def login_required(view):
 
         g.user_id = check_auth_result.get('user_id')
         g.user_name = check_auth_result.get('user_name')
-
-
-
-        #remove
-        # if g.user is None:
-        #     return redirect(url_for('auth.login'))
-        ###
 
         ##Execute Request
 
