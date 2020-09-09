@@ -9,12 +9,12 @@ class TokenService:
     def __init__(self, web_signing_key):
         self._web_signing_key = web_signing_key
 
-    def get_web_auth_token(self, user_claims, current_datetime):
+    def get_web_auth_token(self, user_claims, session_id, current_datetime):
         payload = {
             'exp': current_datetime + user_claims.expiration_period,
             'iat': current_datetime,
             'sub': user_claims.user_id,
-            'session_id': '123456789',
+            'session_id': session_id,
             'name': user_claims.name,
             'expiration_period': user_claims.expiration_period.total_seconds()
         }

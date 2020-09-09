@@ -20,6 +20,9 @@ class Session:
         if not self._created_at:
             raise ValidationError(message = "Session requires created_at")
 
+    def get_id(self):
+        return self._id
+
     def __repr__(self):
         return "<Session ID(id='%s') CreatedAt(created_at='%s') Revoked(revoked='%s')>" % (self._id, self._created_at, self._revoked)
 
