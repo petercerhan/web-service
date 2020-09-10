@@ -6,7 +6,7 @@ import datetime
 import sys
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app, make_response
+    Blueprint, flash, g, redirect, render_template, request, url_for, current_app, make_response
 )
 
 from mathapp.flask.root_composer import RootComposer
@@ -30,15 +30,6 @@ def logout():
     response.set_cookie('auth_token', '', expires=0)
     return response
 
-
-@bp.before_app_request
-def load_logged_in_user():
-    user_id = session.get('user_id')
-    
-    if user_id is None:
-        g.user = None
-    else:
-        g.user = controller(request).get_user(user_id)
 
 @bp.after_app_request
 def remove_flask_session(response):
