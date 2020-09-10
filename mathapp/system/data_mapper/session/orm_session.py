@@ -43,7 +43,7 @@ class ORMSession(Base):
         self._session._id = self.id
 
     def sync_fields(self):
-        self.user_if = self._session._user_id
+        self.user_id = self._session._user_id
         self.revoked = self._session._revoked
         self.created_at = self._session._created_at
 

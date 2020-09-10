@@ -23,9 +23,8 @@ def login():
 
 @bp.route('/logout')
 def logout():
-    session.clear()
-
-    ##Invalidate session id
+    auth_token = request.cookies.get('auth_token')
+    controller(request=None).logout(auth_token)
 
     response = make_response( redirect(url_for('auth.login')) )
     response.set_cookie('auth_token', '', expires=0)

@@ -1,5 +1,7 @@
 from mathapp.library.errors.validation_error import ValidationError
 
+import sys
+
 class Session:
 
     def __init__(self, user_id, revoked, created_at, unit_of_work):
@@ -22,6 +24,11 @@ class Session:
 
     def get_id(self):
         return self._id
+
+    def set_revoked(self, revoked):
+        self._revoked = revoked
+        self._unit_of_work.register_dirty(self)
+        self._check_invariants
 
     def __repr__(self):
         return "<Session ID(id='%s') CreatedAt(created_at='%s') Revoked(revoked='%s')>" % (self._id, self._created_at, self._revoked)

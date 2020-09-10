@@ -45,13 +45,14 @@ class AuthWebController:
         fields['password'] = self._request.form.get('password')
 
         try:
-            # user = self._interactor.login(fields)
             auth_token = self._interactor.login(fields)
         except ValidationError as error:
             return self._presenter.present_login(error_message = error.message)
         else:
-            # self._flask_session.reset_user_id(user['id'])
+            ## Remove
             self._flask_session.reset_user_id(3)
+            ##
+
             response = self._presenter.present_login_successful()
             response.set_cookie('auth_token', auth_token, httponly=True)
             return response
@@ -69,9 +70,8 @@ class AuthWebController:
     def get_updated_auth_token(self, prior_auth_token):
         return self._interactor.get_updated_auth_token(prior_auth_token)
 
-
-
-
+    def logout(self, auth_token):
+        self._interactor.logout(auth_token)
 
 
 

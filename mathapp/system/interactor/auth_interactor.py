@@ -13,6 +13,7 @@ class AuthInteractor:
     def __init__(self, 
                  user_repository,
                  user_factory, 
+                 session_repository,
                  session_factory,
                  encryption_service, 
                  date_service, 
@@ -20,6 +21,7 @@ class AuthInteractor:
                  unit_of_work_committer):
         self._user_repository = user_repository
         self._user_factory = user_factory
+        self._session_repository = session_repository
         self._session_factory = session_factory
         self._encryption_service = encryption_service
         self._date_service = date_service
@@ -98,6 +100,18 @@ class AuthInteractor:
         except ValidationError:
             return None
 
+    def logout(self, auth_token):
+        try:
+            payload = self._token_service.get_web_token_payload(auth_token)
+            session_id = payload.get('session_id')
+            session = self._session_repository.get(session_id)
+            session.set_revoked(True)
+            self._unit_of_work_committer.commit()
+            ##Get session (repository)
+            ##update session (session)
+            ##commit
+        except Exception:
+            pass
 
 
 
