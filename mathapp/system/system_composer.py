@@ -14,15 +14,13 @@ class SystemComposer:
     def __init__(self, 
                 request, 
                 sqlalchemy_session, 
-                unit_of_work, 
-                flask_session, 
+                unit_of_work,  
                 encryption_service, 
                 token_service,
                 date_service):
         self._request = request
         self._sqlalchemy_session = sqlalchemy_session
         self._unit_of_work = unit_of_work
-        self._flask_session = flask_session
         self._encryption_service = encryption_service
         self._token_service = token_service
         self._date_service = date_service
@@ -39,7 +37,6 @@ class SystemComposer:
         presenter = self.compose_auth_presenter()
         interactor = self.compose_auth_interactor()
         return AuthWebController(request = self._request, 
-                                 flask_session = self._flask_session,
                                  auth_presenter = presenter, 
                                  auth_interactor = interactor)
 

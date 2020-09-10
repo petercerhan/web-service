@@ -6,9 +6,8 @@ from mathapp.library.errors.validation_error import ValidationError
 
 class AuthWebController:
 
-    def __init__(self, request, flask_session, auth_presenter, auth_interactor):
+    def __init__(self, request, auth_presenter, auth_interactor):
         self._request = request
-        self._flask_session = flask_session
         self._presenter = auth_presenter
         self._interactor = auth_interactor
 
@@ -49,10 +48,6 @@ class AuthWebController:
         except ValidationError as error:
             return self._presenter.present_login(error_message = error.message)
         else:
-            ## Remove
-            self._flask_session.reset_user_id(3)
-            ##
-
             response = self._presenter.present_login_successful()
             response.set_cookie('auth_token', auth_token, httponly=True)
             return response

@@ -3,8 +3,6 @@ from mathapp.system.system_composer import SystemComposer
 from mathapp.sqlalchemy.sqlalchemy_composer import SQLAlchemyComposer
 from mathapp.infrastructure_services.infrastructure_service_composer import InfrastructureServiceComposer
 
-from mathapp.flask.flask_session import FlaskSession
-
 class RootComposer:
 
     def __init__(self, request):
@@ -32,19 +30,14 @@ class RootComposer:
         return curriculum_composer.compose_lesson_web_controller()
 
     def compose_auth_web_controller(self):
-        flask_session = self.compose_flask_session()
         encryption_service = self._infrastructure_service_composer.compose_encryption_service()
         date_service = self._infrastructure_service_composer.compose_date_service()
         token_service = self._infrastructure_service_composer.compose_token_service()
         system_composer = SystemComposer(request = self._request, 
                                         sqlalchemy_session = self._sqlalchemy_session, 
                                         unit_of_work = self._unit_of_work, 
-                                        flask_session = flask_session, 
                                         encryption_service = encryption_service, 
                                         token_service = token_service,
                                         date_service = date_service)
 
         return system_composer.compose_auth_web_controller()
-
-    def compose_flask_session(self):
-        return FlaskSession()
