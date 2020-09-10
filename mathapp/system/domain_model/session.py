@@ -25,6 +25,9 @@ class Session:
     def get_id(self):
         return self._id
 
+    def get_revoked(self):
+        return self._revoked
+
     def set_revoked(self, revoked):
         self._revoked = revoked
         self._unit_of_work.register_dirty(self)

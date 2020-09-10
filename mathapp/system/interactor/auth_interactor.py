@@ -85,8 +85,13 @@ class AuthInteractor:
         current_datetime = self._date_service.current_datetime_utc()
 
         if current_datetime >= expiration_datetime:
-            ##Check if session id is still valid
-            return {'auth_valid': False, 'user_id': None, 'user_name': None}
+            session_id = payload.get('session_id')
+            session = self._session_repository.get(session_id)
+            revoked = session.get_revoked()
+            if revoked:
+                return {'auth_valid': False, 'user_id': None, 'user_name': None}
+            else:
+                return {'auth_valid': True, 'user_id': payload['sub'], 'user_name': payload['name']}
         else:
             return {'auth_valid': True, 'user_id': payload['sub'], 'user_name': payload['name']}
 
@@ -107,9 +112,6 @@ class AuthInteractor:
             session = self._session_repository.get(session_id)
             session.set_revoked(True)
             self._unit_of_work_committer.commit()
-            ##Get session (repository)
-            ##update session (session)
-            ##commit
         except Exception:
             pass
 
