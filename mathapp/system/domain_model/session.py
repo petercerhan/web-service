@@ -4,10 +4,10 @@ import sys
 
 class Session:
 
-    def __init__(self, user_id, revoked, created_at, unit_of_work):
+    def __init__(self, user_value_holder, revoked, created_at, unit_of_work):
         self._id = None
 
-        self._user_id = user_id
+        self._user_value_holder = user_value_holder
         self._revoked = revoked
         self._created_at = created_at
 

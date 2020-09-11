@@ -1,18 +1,22 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, DateTime, Boolean
+from sqlalchemy import Column, Integer, DateTime, Boolean, ForeignKey
 from sqlalchemy import orm
+from sqlalchemy.orm import relationship
 
 from mathapp.system.domain_model.session import Session
 from mathapp.system.data_mapper.session.session_unit_of_work_decorator import SessionUnitOfWorkDecorator
+from mathapp.system.data_mapper.user.user_value_holder import UserValueHolder
 
 from mathapp.sqlalchemy.base import Base
 
 class ORMSession(Base):
     __tablename__ = 'session'
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer)
+    user_id = Column(Integer, ForeignKey('user.id'))
     revoked = Column(Boolean)
     created_at = Column(DateTime)
+
+    user = relationship('ORMUser')
 
     def __init__(self, user_id, revoked, created_at):
         self.user_id = user_id
@@ -29,8 +33,9 @@ class ORMSession(Base):
             return self._session
 
         unit_of_work_decorator = SessionUnitOfWorkDecorator(unit_of_work = unit_of_work, orm_session = self)
+        user_value_holder = UserValueHolder(orm_model=self, unit_of_work=unit_of_work)
 
-        session = Session(user_id = self.user_id,
+        session = Session(user_value_holder = user_value_holder,
                             revoked = self.revoked, 
                             created_at = self.created_at, 
                             unit_of_work = unit_of_work_decorator)
@@ -43,7 +48,6 @@ class ORMSession(Base):
         self._session._id = self.id
 
     def sync_fields(self):
-        self.user_id = self._session._user_id
         self.revoked = self._session._revoked
         self.created_at = self._session._created_at
 
