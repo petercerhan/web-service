@@ -58,7 +58,7 @@ class AuthInteractor:
             current_datetime = self._date_service.current_datetime_utc()
             claims = user.get_session_data()
 
-            session = self._session_factory.create(user_id = user.get_id(), created_at = current_datetime)
+            session = self._session_factory.create(user = user, created_at = current_datetime)
             self._unit_of_work_committer.commit()
             
             token = self._token_service.get_web_auth_token(user_claims = claims, 
