@@ -105,6 +105,12 @@ class AuthInteractor:
         except ValidationError:
             return None
 
+    def get_csrf_token(self, auth_token):
+        return self._encryption_service.generate_hash_for_csrf(auth_token)
+
+    def check_csrf_token(self, csrf_token, auth_token):
+        return self._encryption_service.check_hash_for_csrf(check_hash=csrf_token, message=auth_token)
+
     def logout(self, auth_token):
         try:
             payload = self._token_service.get_web_token_payload(auth_token)

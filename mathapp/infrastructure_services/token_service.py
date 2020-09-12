@@ -19,13 +19,13 @@ class TokenService:
             'expiration_period': user_claims.expiration_period.total_seconds()
         }
         token = jwt.encode(payload, self._web_signing_key, algorithm='HS256')
-        return token
+        return token.decode('utf-8')
 
     def update_web_auth_token(self, payload, current_datetime):
         expiration_period = datetime.timedelta(seconds = payload['expiration_period'])
         payload['exp'] = current_datetime + expiration_period
         token = jwt.encode(payload, self._web_signing_key, algorithm='HS256')
-        return token
+        return token.decode('utf-8')
 
     def get_web_token_payload(self, token):
         try:

@@ -65,8 +65,17 @@ class AuthWebController:
     def get_updated_auth_token(self, prior_auth_token):
         return self._interactor.get_updated_auth_token(prior_auth_token)
 
+    def get_csrf_token(self, auth_token):
+        return self._interactor.get_csrf_token(auth_token)
+
+    def check_csrf_token(self, csrf_token, auth_token):
+        return self._interactor.check_csrf_token(csrf_token, auth_token)
+
     def logout(self, auth_token):
         self._interactor.logout(auth_token)
+
+
+
 
 
 

@@ -30,7 +30,6 @@ def logout():
     response.set_cookie('auth_token', '', expires=0)
     return response
 
-
 @bp.after_app_request
 def remove_flask_session(response):
     response.set_cookie('session', '', expires=0)
@@ -50,12 +49,13 @@ def login_required(view):
         if not check_auth_result.get('auth_valid'):
             return redirect(url_for('auth.login'))
 
+        if request.method == 'POST':
+            csrf_token = request.form.get('csrf_token')
+            check = controller(request=None).check_csrf_token(csrf_token=csrf_token, auth_token=auth_token)
+            print(f'check: {check}', file=sys.stderr)
+
         g.user_id = check_auth_result.get('user_id')
         g.user_name = check_auth_result.get('user_name')
-
-        ##Execute Request
-
-        response = make_response(view(**kwargs))
 
         ##Update Token
 
@@ -63,6 +63,12 @@ def login_required(view):
         if new_auth_token is None:
             return redirect(url_for('auth.login'))
 
+        csrf_token = controller(request=None).get_csrf_token(new_auth_token)
+        g.csrf_token = csrf_token
+
+        ##Execute Request
+
+        response = make_response(view(**kwargs))
         response.set_cookie('auth_token', new_auth_token, httponly=True)
         return response
     
