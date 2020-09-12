@@ -49,10 +49,8 @@ def login_required(view):
         if not check_auth_result.get('auth_valid'):
             return redirect(url_for('auth.login'))
 
-        if request.method == 'POST':
-            csrf_token = request.form.get('csrf_token')
-            check = controller(request=None).check_csrf_token(csrf_token=csrf_token, auth_token=auth_token)
-            print(f'check: {check}', file=sys.stderr)
+        if request.method == 'POST' and not _csrf_token_is_valid(request=request, auth_token=auth_token):
+            return redirect(url_for('auth.login'))
 
         g.user_id = check_auth_result.get('user_id')
         g.user_name = check_auth_result.get('user_name')
@@ -73,6 +71,14 @@ def login_required(view):
         return response
     
     return wrapped_view
+
+def _csrf_token_is_valid(request, auth_token):
+    csrf_token = request.form.get('csrf_token')
+    if csrf_token is None:
+        return False
+    token_is_valid = controller(request=None).check_csrf_token(csrf_token=csrf_token, auth_token=auth_token)
+    return token_is_valid
+
 
 
 ## Util
