@@ -36,6 +36,10 @@ class CourseInteractor:
         if name is not None:
             course.set_name(name)
 
+        display_name = fields.get('display_name')
+        if display_name is not None:
+            course.set_display_name(display_name)
+
         lesson_sequence_items = fields.get('lesson_sequence_items')
         if lesson_sequence_items is not None:
             course.sync_lesson_sequence_item_positions(lesson_sequence_items)

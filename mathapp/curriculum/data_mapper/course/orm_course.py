@@ -15,11 +15,13 @@ class ORMCourse(Base):
     __tablename__ = 'course'
     id = Column(Integer, primary_key=True)
     name = Column(String)
+    display_name = Column(String)
 
     lesson_sequence_items = relationship('ORMLessonSequenceItem', order_by="asc(ORMLessonSequenceItem.position)")
 
-    def __init__(self, name):
+    def __init__(self, name, display_name):
         self.name = name
+        self.display_name = display_name
         self._course = None
 
     @orm.reconstructor
@@ -34,6 +36,7 @@ class ORMCourse(Base):
         lesson_sequence_item_list_value_holder = LessonSequenceItemListValueHolder(orm_model=self, unit_of_work=unit_of_work)
         
         course = Course(name=self.name, 
+                        display_name=self.display_name,
                         lesson_sequence_item_list_value_holder=lesson_sequence_item_list_value_holder,
                         unit_of_work=unit_of_work_decorator)
         course._id = self.id
@@ -46,6 +49,7 @@ class ORMCourse(Base):
 
     def sync_fields(self):
         self.name = self._course._name
+        self.display_name = self._course._display_name
 
     def __repr__(self):
         return "<ORMCourse(name='%s') ID(id='%s')>" % (self.name, self.id)

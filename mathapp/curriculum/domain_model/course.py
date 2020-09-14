@@ -2,10 +2,16 @@ from mathapp.library.errors.validation_error import ValidationError
 
 class Course:
     
-    def __init__(self, name, lesson_sequence_item_list_value_holder, unit_of_work):
+    def __init__(self, 
+        name, 
+        display_name,
+        lesson_sequence_item_list_value_holder, 
+        unit_of_work):
+
         self._id = None
 
         self._name = name
+        self._display_name = display_name
 
         self._lesson_sequence_item_list_value_holder = lesson_sequence_item_list_value_holder        
         self._unit_of_work = unit_of_work
@@ -19,6 +25,12 @@ class Course:
 
         if not self._name.strip():
             raise ValidationError(message = "Invalid name for course")
+
+        if not self._display_name:
+            raise ValidationError(message = "Invalid display_name for course")
+
+        if not self._display_name.strip():
+            raise ValidationError(message = "Invalid display_name for course")
 
         if (self._lesson_sequence_item_list_value_holder.get_queried()):
             self._check_lesson_sequence_items_valid_order()
@@ -37,6 +49,14 @@ class Course:
 
     def set_name(self, name):
         self._name = name
+        self._unit_of_work.register_dirty(self)
+        self._check_invariants()
+
+    def get_display_name(self):
+        return self._display_name
+
+    def set_display_name(self, display_name):
+        self._display_name = display_name
         self._unit_of_work.register_dirty(self)
         self._check_invariants()
 

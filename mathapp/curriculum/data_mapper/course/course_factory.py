@@ -7,7 +7,8 @@ class CourseFactory:
 
 	def create(self, fields):
 		name = fields.get('name')
-		orm_course = ORMCourse(name=name)
+		display_name = fields.get('display_name')
+		orm_course = ORMCourse(name=name, display_name=display_name)
 
 		course = orm_course.get_model(self._unit_of_work)
 		self._unit_of_work.register_created(orm_course)

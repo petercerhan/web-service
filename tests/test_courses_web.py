@@ -32,7 +32,8 @@ def test_get_create_course_form_not_authenticated_redirects(client):
 def test_post_create_form_valid(client, auth, sqlalchemy_session):
 	csrf_token = auth.login_return_csrf_token()
 	name = 'test_post_create_form_creates_course'
-	response = client.post('/create', data = {'name': name, 'csrf_token': csrf_token})
+	display_name = 'display name'
+	response = client.post('/create', data = {'name': name, 'display_name': display_name, 'csrf_token': csrf_token})
 	assert 'http://localhost/' == response.headers.get('Location')
 	course = sqlalchemy_session.query(ORMCourse).filter(ORMCourse.name == name).first()
 	assert course is not None
