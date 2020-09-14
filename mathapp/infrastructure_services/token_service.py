@@ -29,6 +29,6 @@ class TokenService:
 
     def get_web_token_payload(self, token):
         try:
-            return jwt.decode(token, self._web_signing_key, options={'verify_exp': False})
+            return jwt.decode(token, self._web_signing_key, options={'verify_exp': False}, algorithms='HS256')
         except jwt.InvalidTokenError as e:
             raise ValidationError('Invalid token')
