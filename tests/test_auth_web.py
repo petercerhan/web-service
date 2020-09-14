@@ -46,8 +46,8 @@ def test_login(client, auth):
 
     with client:
         client.get('/')
-        assert session['user_id'] == 1
-        assert g.user['username'] == 'test_user'
+        assert g.user_id == 1
+        assert g.user_name == 'test_user'
 
 def test_login_missing_user(client, auth):
     response = auth.login('test', 'test')
