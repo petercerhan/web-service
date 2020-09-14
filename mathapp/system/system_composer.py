@@ -59,8 +59,7 @@ class SystemComposer:
 
     def compose_user_factory(self):
         user_repository = self.compose_user_repository()
-        user_factory = UserFactory(unit_of_work = self._unit_of_work, 
-                                    user_repository = user_repository)
+        user_factory = UserFactory(unit_of_work = self._unit_of_work)
         return UserFactoryValidatingDecorator(user_factory = user_factory,
                                                  user_repository = user_repository)
 

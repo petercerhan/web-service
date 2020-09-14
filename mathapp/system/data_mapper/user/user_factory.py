@@ -4,9 +4,8 @@ from mathapp.library.errors.not_found_error import NotFoundError
 
 class UserFactory:
 
-    def __init__(self, unit_of_work, user_repository):
+    def __init__(self, unit_of_work):
         self._unit_of_work = unit_of_work
-        self._user_repository = user_repository
 
     def create(self, fields):
         username = fields.get('username')
