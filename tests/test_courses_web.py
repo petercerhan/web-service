@@ -28,19 +28,17 @@ def test_get_create_course_form_not_authenticated_redirects(client):
 	assert response.headers.get('Location') == 'http://localhost/auth/login'
 
 def test_post_create_form_valid(client, auth, sqlalchemy_session):
-	auth.login()
-
+	csrf_token = auth.login_return_csrf_token()
 	name = 'test_post_create_form_creates_course'
-
-	response = client.post('/create', data = {'name': name})
+	response = client.post('/create', data = {'name': name, 'csrf_token': csrf_token})
 	assert 'http://localhost/' == response.headers.get('Location')
 	course = sqlalchemy_session.query(ORMCourse).filter(ORMCourse.name == name).first()
 	assert course is not None
 	assert course.name == name
 
 def test_create_missing_name(client, auth, sqlalchemy_session):
-	auth.login()
-	response = client.post('/create', data = {})
+	csrf_token = auth.login_return_csrf_token()
+	response = client.post('/create', data = {'csrf_token': csrf_token})
 	assert b'Course requires name' in response.data
 
 def test_create_blank_name(client, auth):
