@@ -37,4 +37,31 @@ class LessonWebController:
         else:
             return self._lesson_presenter.present_create_successful()
 
-        
+    def handle_update_request(self, id):
+        if self.request.method == 'POST':
+            return self._post_update_form(id)
+        else:
+            return self._get_update_form(id)
+
+
+    def _post_update_form(self, id):
+        pass
+
+    def _get_update_form(self, id, error=None):
+        try:
+            lesson = self._lesson_interactor.read(id)
+            return self._lesson_presenter.present_update(lesson, error=error)
+        except NotFoundError as error:
+            self._lesson_presenter.present_not_found(error)
+
+
+
+
+
+
+
+
+
+
+
+

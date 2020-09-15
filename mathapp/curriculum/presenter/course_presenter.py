@@ -22,8 +22,10 @@ class CoursePresenter:
 		if error is not None:
 			flash(error.message)
 
-		return render_template('courses/update.html', course = course, course_json = json.dumps(course))
-
+		return render_template('courses/update.html', 
+								course=course, 
+								course_json=json.dumps(course))
+ 
 	def present_update_successful(self):
 		return redirect(url_for('courses.index'))
 

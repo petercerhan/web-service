@@ -16,7 +16,11 @@ class LessonInteractor:
         lessons_data = [lesson_to_data(lesson) for lesson in lessons]
         return lessons_data
 
+    def read(self, id):
+        lesson = self._lesson_repository.get(id=id)
+        return lesson_to_data(lesson)
+
     def create(self, fields):
         lesson = self._lesson_factory.create(fields)
         self._unit_of_work_committer.commit()
-        return lesson
+        return lesson_to_data(lesson)

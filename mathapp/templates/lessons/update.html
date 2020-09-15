@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Edit Lesson{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="name">Name</label>
+    <input name="name" id="name" value="{{ request.form['name'] or lesson['name'] }}" required>
+    <label for="display_name">Display Name</label>
+    <input name="display_name" id="display_name" value="{{ request.form['display_name'] or lesson['display_name'] }}" required>
+    <div id="react_root"></div>
+    <input type="submit" value="Save">
+    <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
+  </form>
+
+{% endblock %}

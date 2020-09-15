@@ -17,3 +17,9 @@ class LessonPresenter:
 
 	def present_create_successful(self):
 		return redirect(url_for('lessons.index'))
+
+	def present_update(self, lesson, error):
+		if error is not None:
+			flash(error.message)
+
+		return render_template('lessons/update.html', lesson=lesson)

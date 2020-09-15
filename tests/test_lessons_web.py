@@ -61,6 +61,26 @@ def test_create_no_csrf_token(client, auth):
 	assert response.headers.get('Location') == 'http://localhost/auth/login'
 
 
+##Update
+
+def test_get_update_form(client, auth):
+	auth.login()
+	response = client.get('/lessons/1')
+	assert response.status_code == 200
+
+def test_get_update_form_not_authenticated(client):
+	response = client.get('/lessons/1')
+	assert response.status_code == 302
+	assert response.headers.get('Location') == 'http://localhost/auth/login'
+
+
+
+
+
+
+
+
+
 
 
 

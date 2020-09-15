@@ -18,6 +18,11 @@ def index():
 def create():
 	return controller(request).handle_create_request()
 
+@bp.route('/lessons/<int:id>', methods=('GET', 'POST'))
+@login_required
+def update(id):
+	return controller(request).handle_update_request(id)
+
 ## Util
 
 def controller(request):
