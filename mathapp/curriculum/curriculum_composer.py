@@ -10,6 +10,7 @@ from mathapp.curriculum.interactor.lesson_interactor import LessonInteractor
 from mathapp.curriculum.data_mapper.lesson.lesson_repository import LessonRepository
 from mathapp.curriculum.presenter.lesson_presenter import LessonPresenter
 from mathapp.curriculum.data_mapper.lesson.lesson_factory import LessonFactory
+from mathapp.curriculum.domain_model.lesson_factory_validating_decorator import LessonFactoryValidatingDecorator
 
 
 class CurriculumComposer:
@@ -75,7 +76,10 @@ class CurriculumComposer:
                                 session = self._sqlalchemy_session)
 
     def compose_lesson_factory(self):
-        return LessonFactory(unit_of_work = self._unit_of_work)
+        lesson_factory = LessonFactory(unit_of_work = self._unit_of_work)
+        lesson_repository = self.compose_lesson_repository()
+        return LessonFactoryValidatingDecorator(lesson_factory=lesson_factory,
+                                                 lesson_repository=lesson_repository)
 
 
 

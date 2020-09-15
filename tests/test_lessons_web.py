@@ -31,7 +31,7 @@ def test_get_create_lesson_form_not_authenticated(client):
 def test_post_create_form_valid(client, auth, sqlalchemy_session):
 	csrf_token = auth.login_return_csrf_token()
 	name = 'test_lessons.test_post_create_form_valid'
-	response = client.post('/lessons/create', data={'name': name, 'csrf_token': csrf_token})
+	response = client.post('/lessons/create', data={'name': name, 'display_name': name, 'csrf_token': csrf_token})
 	assert 'http://localhost/lessons/' == response.headers.get('Location')
 	lesson = sqlalchemy_session.query(ORMLesson).filter(ORMLesson.name == name).first()
 	assert lesson is not None

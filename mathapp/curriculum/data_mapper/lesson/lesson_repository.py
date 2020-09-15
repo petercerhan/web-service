@@ -12,3 +12,14 @@ class LessonRepository:
 		lessons = [orm_lesson.get_model(unit_of_work=self._unit_of_work) for orm_lesson in orm_lessons]
 		self._unit_of_work.register_queried(orm_lessons)
 		return lessons
+
+	def get_by_name(self, name):
+		orm_lesson = self._session.query(ORMLesson).filter(ORMLesson.name == name).first()
+
+		if not orm_lesson:
+			raise NotFoundError(message='Not Found')
+
+		lesson = orm_lesson.get_model(unit_of_work=self._unit_of_work)
+		self._unit_of_work.register_queried([orm_lesson])
+
+		return lesson

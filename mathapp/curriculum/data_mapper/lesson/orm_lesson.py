@@ -9,9 +9,11 @@ class ORMLesson(Base):
 	__tablename__ = 'lesson'
 	id = Column(Integer, primary_key=True)
 	name = Column(String)
+	display_name = Column(String)
 
-	def __init__(self, name):
+	def __init__(self, name, display_name):
 		self.name = name
+		self.display_name = display_name
 		self._lesson = None
 
 	@orm.reconstructor
@@ -24,7 +26,7 @@ class ORMLesson(Base):
 
 		unit_of_work_decorator = LessonUnitOfWorkDecorator(unit_of_work=unit_of_work, orm_lesson=self)
 		
-		lesson = Lesson(name=self.name, unit_of_work=unit_of_work_decorator)
+		lesson = Lesson(name=self.name, display_name=self.display_name, unit_of_work=unit_of_work_decorator)
 		lesson._id = self.id
 
 		self._lesson = lesson
@@ -35,6 +37,7 @@ class ORMLesson(Base):
 
 	def sync_fields(self):
 		self.name = self._lesson._name
+		self.display_name = self._lesson._display_name
 
 	def __repr__(self):
 		return "<Lesson(lesson='%s') ID(id='%s')>" % (self.name, self.id)

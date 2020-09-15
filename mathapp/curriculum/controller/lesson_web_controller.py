@@ -28,6 +28,7 @@ class LessonWebController:
     def _post_create_form(self):
         fields = {}
         fields['name'] = self.request.form.get('name')
+        fields['display_name'] = self.request.form.get('display_name')
 
         try:
             self._lesson_interactor.create(fields)
