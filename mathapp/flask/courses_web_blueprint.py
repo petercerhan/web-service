@@ -22,7 +22,7 @@ def create():
 
 ## Update
 
-@bp.route('/<int:id>/update', methods=('GET', 'POST'))
+@bp.route('/<int:id>', methods=('GET', 'POST'))
 @login_required
 def update(id):
     return controller(request).handle_update_request(id)

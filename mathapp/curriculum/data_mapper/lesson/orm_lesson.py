@@ -30,5 +30,11 @@ class ORMLesson(Base):
 		self._lesson = lesson
 		return lesson
 
+	def sync_id(self):
+		self._lesson.id = self.id
+
+	def sync_fields(self):
+		self.name = self._lesson._name
+
 	def __repr__(self):
 		return "<Lesson(lesson='%s') ID(id='%s')>" % (self.name, self.id)

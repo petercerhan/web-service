@@ -9,6 +9,7 @@ from mathapp.curriculum.controller.lesson_web_controller import LessonWebControl
 from mathapp.curriculum.interactor.lesson_interactor import LessonInteractor
 from mathapp.curriculum.data_mapper.lesson.lesson_repository import LessonRepository
 from mathapp.curriculum.presenter.lesson_presenter import LessonPresenter
+from mathapp.curriculum.data_mapper.lesson.lesson_factory import LessonFactory
 
 
 class CurriculumComposer:
@@ -63,12 +64,18 @@ class CurriculumComposer:
 
     def compose_lesson_interactor(self):
         repository = self.compose_lesson_repository()
-        return LessonInteractor(lesson_repository = repository)
+        lesson_factory = self.compose_lesson_factory()
+        return LessonInteractor(lesson_repository = repository, 
+                                lesson_factory = lesson_factory, 
+                                unit_of_work_committer = self._unit_of_work)
 
 
     def compose_lesson_repository(self):
         return LessonRepository(unit_of_work = self._unit_of_work, 
                                 session = self._sqlalchemy_session)
+
+    def compose_lesson_factory(self):
+        return LessonFactory(unit_of_work = self._unit_of_work)
 
 
 

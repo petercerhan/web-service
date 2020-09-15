@@ -13,6 +13,11 @@ bp = Blueprint('lessons', __name__)
 def index():
 	return controller(request).handle_index_request()
 
+@bp.route('/lessons/create', methods=('GET', 'POST'))
+@login_required
+def create():
+	return controller(request).handle_create_request()
+
 ## Util
 
 def controller(request):
