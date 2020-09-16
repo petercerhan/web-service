@@ -23,6 +23,11 @@ def create():
 def update(id):
 	return controller(request).handle_update_request(id)
 
+@bp.route('/lessons/<int:id>/delete', methods=('POST',))
+@login_required
+def delete(id):
+	return controller(request).handle_delete_request(id)
+
 ## Util
 
 def controller(request):

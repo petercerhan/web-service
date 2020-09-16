@@ -39,3 +39,10 @@ class LessonInteractor:
         self._unit_of_work_committer.commit()
 
         return lesson_to_data(lesson)
+
+    def delete(self, id):
+        lesson = self._lesson_repository.get(id=id)
+        lesson.delete()
+        self._unit_of_work_committer.commit()
+
+        return lesson_to_data(lesson)

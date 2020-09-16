@@ -27,6 +27,8 @@ class LessonPresenter:
 	def present_update_successful(self):
 		return redirect(url_for('lessons.index'))
 		
+	def present_delete_successful(self):
+		return redirect(url_for('lessons.index'))
 
 	def present_not_found(self, error):
 		abort(404, error.message)

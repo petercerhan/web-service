@@ -43,5 +43,8 @@ class Lesson:
         self._unit_of_work.register_dirty(self)
         self._check_invariants()
 
+    def delete(self):
+        self._unit_of_work.register_deleted(self)
+
     def __repr__(self):
         return "<Lesson(name='%s') ID(id='%s')>" % (self._name, self._id)

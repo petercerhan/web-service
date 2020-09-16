@@ -66,6 +66,13 @@ class LessonWebController:
             self._lesson_presenter.present_not_found(error)
 
 
+    def handle_delete_request(self, id):
+        try:
+            self._lesson_interactor.delete(id)
+        except NotFoundError as error:
+            self._lesson_presenter.present_not_found(error)
+
+        return self._lesson_presenter.present_delete_successful()
 
 
 
