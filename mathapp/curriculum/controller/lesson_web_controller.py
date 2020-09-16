@@ -7,10 +7,15 @@ import json
 
 class LessonWebController:
 
-    def __init__(self, request, lesson_interactor, lesson_presenter):
+    def __init__(self, 
+                 request,
+                 lesson_interactor, 
+                 lesson_presenter, 
+                 course_interactor):
         self.request = request
         self._lesson_interactor = lesson_interactor
         self._lesson_presenter = lesson_presenter
+        self._course_interactor = course_interactor
 
     def handle_index_request(self):
         lessons = self._lesson_interactor.list()
@@ -23,7 +28,19 @@ class LessonWebController:
             return self._get_create_form()
 
     def _get_create_form(self):
-        return self._lesson_presenter.present_create(error=None)
+        course_id = self.request.args.get('course_id')
+        course = self._get_course_or_none(course_id)
+        return self._lesson_presenter.present_create(error=None, course=course)
+
+    def _get_course_or_none(self, id):
+        if id is None:
+            return None
+
+        try:
+            course = self._course_interactor.read(id=id)
+            return course
+        except Exception:
+            return None
 
     def _post_create_form(self):
         fields = {}

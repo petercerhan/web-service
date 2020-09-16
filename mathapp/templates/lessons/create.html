@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Create Lesson{% endblock %}</h1>
+  <h1>{% block title %}Create Lesson {% if course %} for {{ course['display_name'] }}{% endif %}{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}

@@ -4,16 +4,21 @@ from flask import (
 
 import json
 
+import sys
+
 class LessonPresenter:
 
 	def present_index(self, lessons):
 		return render_template('lessons/index.html', lessons = lessons, lessons_json = json.dumps(lessons))
 
-	def present_create(self, error):
+	def present_create(self, course, error):
 		if error is not None:
 			flash(error.message)
 
-		return render_template('lessons/create.html')
+		print('course data:', file=sys.stderr)
+		print(course, file=sys.stderr)
+
+		return render_template('lessons/create.html', course=course)
 
 	def present_create_successful(self):
 		return redirect(url_for('lessons.index'))

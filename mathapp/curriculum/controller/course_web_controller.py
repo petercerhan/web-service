@@ -38,6 +38,7 @@ class CourseWebController:
             return self._course_presenter.present_create_successful()
 
     def _get_create_form(self):
+        args = self.reqeust
         return self._course_presenter.present_create(error = None)
         
 
