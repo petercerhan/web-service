@@ -24,3 +24,18 @@ class LessonInteractor:
         lesson = self._lesson_factory.create(fields)
         self._unit_of_work_committer.commit()
         return lesson_to_data(lesson)
+
+    def update(self, id, fields):
+        lesson = self._lesson_repository.get(id=id)
+
+        name = fields.get('name')
+        if name is not None:
+            lesson.set_name(name)
+
+        display_name = fields.get('display_name')
+        if display_name is not None:
+            lesson.set_display_name(display_name)
+
+        self._unit_of_work_committer.commit()
+
+        return lesson_to_data(lesson)

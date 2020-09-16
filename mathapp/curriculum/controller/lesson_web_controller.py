@@ -45,7 +45,18 @@ class LessonWebController:
 
 
     def _post_update_form(self, id):
-        pass
+        fields = {}
+        fields['name'] = self.request.form.get('name')
+        fields['display_name'] = self.request.form.get('display_name')
+
+        try:
+            self._lesson_interactor.update(id, fields)
+            return self._lesson_presenter.present_update_successful()
+        except NotFoundError as error:
+            self._lesson_presenter.present_not_found(error)
+        except ValidationError as error:
+            return self._get_update_form(id=id, error=error)
+
 
     def _get_update_form(self, id, error=None):
         try:
