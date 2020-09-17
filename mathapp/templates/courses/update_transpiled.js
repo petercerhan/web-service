@@ -105,10 +105,7 @@ var LessonSequenceList = function (_React$Component) {
 			return React.createElement(
 				"div",
 				null,
-				React.createElement(LessonsTitle, null),
-				React.createElement("input", { type: "hidden", name: "test", value: "Test value" }),
 				React.createElement(LessonInput, { lesson_sequence_items: this.state.lesson_sequence_items }),
-				React.createElement("hr", null),
 				lessons,
 				React.createElement("hr", null)
 			);

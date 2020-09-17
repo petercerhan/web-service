@@ -31,11 +31,13 @@ a {
 }
 
 
-hr { 
-	border: none; 
-	border-top: 1px solid lightgray; 
+hr {
+  border: 0;
+  display:block;
+  width: 100%;               
+  background-color:lightgray;
+  height: 1px;
 }
-
 
 nav { 
 	background: lightgray; 

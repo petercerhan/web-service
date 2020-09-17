@@ -10,6 +10,11 @@
     <input name="name" id="name" value="{{ request.form['name'] or course['name'] }}" required>
     <label for="display_name">Display Name</label>
     <input name="display_name" id="display_name" value="{{ request.form['display_name'] or course['display_name'] }}" required>
+    <h1>Lessons</h1>
+    <hr>
+    <br>
+    <a class="action" href="{{ url_for('lessons.create') }}?course_id={{ course['id'] }}">Add Lesson For This Course</a>
+    <br>
     <div id="react_root"></div>
     <input type="submit" value="Save">
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>

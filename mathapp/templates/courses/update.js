@@ -66,10 +66,7 @@ class LessonSequenceList extends React.Component {
 
 		return ( 
 			<div>
-				<LessonsTitle />
-				<input type="hidden" name="test" value="Test value" />
 				<LessonInput lesson_sequence_items={this.state.lesson_sequence_items} />
-				<hr/>
 				{ lessons }
 				<hr/>
 			</div>
