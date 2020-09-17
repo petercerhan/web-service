@@ -51,10 +51,9 @@ class LessonWebController:
 
         try:
             self._lesson_interactor.create(fields=fields, add_to_course_id=add_to_course_id)
+            return self._lesson_presenter.present_create_successful(add_to_course_id=add_to_course_id)
         except ValidationError as error:
             return self._lesson_presenter.present_create(error = error)
-        else:
-            return self._lesson_presenter.present_create_successful()
 
     def handle_update_request(self, id):
         if self.request.method == 'POST':

@@ -4,8 +4,6 @@ from flask import (
 
 import json
 
-import sys
-
 class LessonPresenter:
 
 	def present_index(self, lessons):
@@ -16,8 +14,11 @@ class LessonPresenter:
 			flash(error.message)
 		return render_template('lessons/create.html', course=course)
 
-	def present_create_successful(self):
-		return redirect(url_for('lessons.index'))
+	def present_create_successful(self, add_to_course_id):
+		if add_to_course_id is not None:
+			return redirect(url_for('courses.update', id=add_to_course_id))
+		else:
+			return redirect(url_for('lessons.index'))
 
 	def present_update(self, lesson, error):
 		if error is not None:
