@@ -40,4 +40,4 @@ class ORMLesson(Base):
 		self.display_name = self._lesson._display_name
 
 	def __repr__(self):
-		return "<Lesson(lesson='%s') ID(id='%s')>" % (self.name, self.id)
+		return "<ORMLesson(lesson='%s') ID(id='%s')>" % (self.name, self.id)

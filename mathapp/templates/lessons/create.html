@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Create Lesson {% if course %} for {{ course['display_name'] }}{% endif %}{% endblock %}</h1>
+  <h1>{% block title %}Create Lesson {% if course %} for {{ course['display_name'] }} {% endif %}{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
@@ -11,6 +11,9 @@
     <label for="display_name">Display Name</label>
     <input name="display_name" id="display_name" value="{{ request.form['display_name'] }}" required>
     <input type="submit" value="Save">
+    {% if course %}
+    <input type="hidden" name="add_to_course_id" value="{{ course['id'] }}">
+    {% endif %}
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
   </form>
 {% endblock %}

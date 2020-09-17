@@ -63,6 +63,11 @@ class Course:
     def get_lesson_sequence_items(self):
         return self._lesson_sequence_item_list_value_holder.get_list()
 
+    def add_lesson(self, lesson, lesson_sequence_item_factory):
+        max_position = max([x.get_position() for x in self._lesson_sequence_item_list_value_holder.get_list()])
+        lesson_sequence_item = lesson_sequence_item_factory.create(position=max_position+1, lesson=lesson)
+        self._lesson_sequence_item_list_value_holder.add(lesson_sequence_item)
+
     def sync_lesson_sequence_item_positions(self, lesson_sequence_items_data_array):
         lesson_sequence_items = self._lesson_sequence_item_list_value_holder.get_list()
         for data_item in lesson_sequence_items_data_array:
@@ -78,3 +83,10 @@ class Course:
 
     def __repr__(self):
         return "<Course(name='%s') ID(id='%s')>" % (self._name, self._id)
+
+
+
+
+
+
+

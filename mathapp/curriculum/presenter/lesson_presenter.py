@@ -11,13 +11,9 @@ class LessonPresenter:
 	def present_index(self, lessons):
 		return render_template('lessons/index.html', lessons = lessons, lessons_json = json.dumps(lessons))
 
-	def present_create(self, course, error):
+	def present_create(self, course=None, error=None):
 		if error is not None:
 			flash(error.message)
-
-		print('course data:', file=sys.stderr)
-		print(course, file=sys.stderr)
-
 		return render_template('lessons/create.html', course=course)
 
 	def present_create_successful(self):

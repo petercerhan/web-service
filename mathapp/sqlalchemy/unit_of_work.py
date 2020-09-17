@@ -18,4 +18,8 @@ class UnitOfWork:
 
 	def register_queried(self, orm_models):
 		self._orm_models.extend(orm_models)
-		
+	
+	def orm_model_for_model(self, model):
+		for orm_model in self._orm_models:
+			if orm_model.get_model(unit_of_work=self) is model:
+				return orm_model

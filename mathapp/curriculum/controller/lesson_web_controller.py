@@ -47,8 +47,10 @@ class LessonWebController:
         fields['name'] = self.request.form.get('name')
         fields['display_name'] = self.request.form.get('display_name')
 
+        add_to_course_id = self.request.form.get('add_to_course_id')
+
         try:
-            self._lesson_interactor.create(fields)
+            self._lesson_interactor.create(fields=fields, add_to_course_id=add_to_course_id)
         except ValidationError as error:
             return self._lesson_presenter.present_create(error = error)
         else:

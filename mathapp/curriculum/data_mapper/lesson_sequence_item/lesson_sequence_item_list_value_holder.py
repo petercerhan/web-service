@@ -13,5 +13,9 @@ class LessonSequenceItemListValueHolder:
 		self._queried = True
 		return lesson_sequence_items
 
+	def add(self, lesson_sequence_item):
+		orm_lesson_sequence_item = self._unit_of_work.orm_model_for_model(lesson_sequence_item)
+		self._orm_model.lesson_sequence_items.append(orm_lesson_sequence_item)
+
 	def get_queried(self):
 		return self._queried
