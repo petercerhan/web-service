@@ -66,7 +66,7 @@ class Course:
         return self._lesson_sequence_item_list_value_holder.get_list()
 
     def add_lesson(self, lesson, lesson_sequence_item_factory):
-        max_position = max([x.get_position() for x in self._lesson_sequence_item_list_value_holder.get_list()], default=0)
+        max_position = max([x.get_position() for x in self._lesson_sequence_item_list_value_holder.get_list()], default=-1)
         lesson_sequence_item = lesson_sequence_item_factory.create(position=max_position+1, lesson=lesson)
         self._lesson_sequence_item_list_value_holder.add(lesson_sequence_item)
 

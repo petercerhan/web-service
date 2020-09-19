@@ -40,7 +40,7 @@ function Lesson(props) {
 		React.createElement(
 			"button",
 			{ type: "button", onClick: handleClick },
-			props.delete_lesson_sequence_item_url
+			"Remove"
 		)
 	);
 }

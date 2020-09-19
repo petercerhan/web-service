@@ -14,7 +14,7 @@ function Lesson(props) {
 			<p>{ props.lesson_sequence_item.lesson.name }</p>
 			<button type="button" className={props.first_item ? "hidden" : ""} onClick={props.onUpClick}>Up</button>
 			<button type="button" className={props.last_item ? "hidden" : ""} onClick={props.onDownClick}>Down</button>
-			<button type="button" onClick={handleClick}>{ props.delete_lesson_sequence_item_url }</button>
+			<button type="button" onClick={handleClick}>Remove</button>
 		</div>
 	) 
 }
