@@ -50,7 +50,6 @@ class CourseWebController:
 
     def _post_update_form(self, id):
         fields = {}
-        fields['name'] = self.request.form.get('name')
         fields['display_name'] = self.request.form.get('display_name')
         fields['lesson_sequence_items'] = json.loads( self.request.form.get('lesson_sequence_items') )
         

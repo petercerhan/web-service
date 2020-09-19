@@ -32,10 +32,6 @@ class CourseInteractor:
     def update(self, id, fields):
         course = self._course_repository.get(id=id)
 
-        name = fields.get('name')
-        if name is not None:
-            course.set_name(name)
-
         display_name = fields.get('display_name')
         if display_name is not None:
             course.set_display_name(display_name)

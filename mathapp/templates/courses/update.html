@@ -1,13 +1,11 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Edit Course{% endblock %}</h1>
+  <h1>{% block title %}Edit Course: {{ course['name'] }}{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
   <form method="post">
-    <label for="name">Name</label>
-    <input name="name" id="name" value="{{ request.form['name'] or course['name'] }}" required>
     <label for="display_name">Display Name</label>
     <input name="display_name" id="display_name" value="{{ request.form['display_name'] or course['display_name'] }}" required>
     <h1>Lessons</h1>

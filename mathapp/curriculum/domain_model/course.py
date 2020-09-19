@@ -49,11 +49,6 @@ class Course:
     def get_name(self):
         return self._name
 
-    def set_name(self, name):
-        self._name = name
-        self._unit_of_work.register_dirty(self)
-        self._check_invariants()
-
     def get_display_name(self):
         return self._display_name
 
