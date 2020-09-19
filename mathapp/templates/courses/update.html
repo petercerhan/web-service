@@ -20,7 +20,10 @@
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
   </form>
 
-    <div id="data_container" course="{{ course_json }}" delete_lesson_sequence_item_url="{{ url_for('courses.deleted_lesson_sequence_item', course_id=course['id'], lesson_sequence_item_id=0) }}"></div>
+    <div id="data_container"
+          course="{{ course_json }}" 
+          delete_lesson_sequence_item_url="{{ url_for('courses.deleted_lesson_sequence_item', course_id=course['id'], lesson_sequence_item_id=0) }}" 
+          update_lesson_url="{{ url_for('lessons.update', id=0) }}/update" ></div>
 
   <form action="{{ url_for('courses.delete', id=course['id']) }}" method="post">
     <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">

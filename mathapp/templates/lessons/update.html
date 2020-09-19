@@ -13,6 +13,11 @@
     <div id="react_root"></div>
     <input type="submit" value="Save">
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
+
+    {% if return_to_course_id %}
+     <input type="hidden" name="return_to_course_id" value={{ return_to_course_id }}>
+    {% endif %}
+
   </form>
 
   <form action="{{ url_for('lessons.delete', id=lesson['id']) }}" method="post">

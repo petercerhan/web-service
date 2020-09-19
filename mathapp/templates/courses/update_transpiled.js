@@ -15,8 +15,12 @@ function LessonsTitle(props) {
 }
 
 function Lesson(props) {
-	function handleClick() {
+	function remove() {
 		submitDeleteLessonSequenceItemForm(props.delete_lesson_sequence_item_url);
+	}
+
+	function edit() {
+		window.location.href = props.update_lesson_url;
 	}
 
 	return React.createElement(
@@ -39,7 +43,12 @@ function Lesson(props) {
 		),
 		React.createElement(
 			"button",
-			{ type: "button", onClick: handleClick },
+			{ type: "button", onClick: edit },
+			"Edit"
+		),
+		React.createElement(
+			"button",
+			{ type: "button", onClick: remove },
 			"Remove"
 		)
 	);
@@ -64,7 +73,8 @@ var LessonSequenceList = function (_React$Component) {
 
 		var course = JSON.parse(_this.props.course_json);
 		_this.state = {
-			lesson_sequence_items: course.lesson_sequence_items
+			lesson_sequence_items: course.lesson_sequence_items,
+			course_id: course.id
 		};
 		return _this;
 	}
@@ -101,6 +111,7 @@ var LessonSequenceList = function (_React$Component) {
 					key: lesson_sequence_item.id.toString(),
 					lesson_sequence_item: lesson_sequence_item,
 					delete_lesson_sequence_item_url: _this2.props.delete_lesson_sequence_item_url.replace('0/delete', lesson_sequence_item.id.toString() + '/delete'),
+					update_lesson_url: _this2.props.update_lesson_url.replace('0/update', lesson_sequence_item.lesson.id).toString() + '?return_to_course_id=' + _this2.state.course_id,
 					first_item: index == 0,
 					last_item: index == arrayObj.length - 1,
 					onUpClick: function onUpClick(i) {
@@ -129,4 +140,5 @@ var root = document.getElementById('react_root');
 var dataContainer = document.getElementById('data_container');
 
 ReactDOM.render(React.createElement(LessonSequenceList, { course_json: dataContainer.getAttribute('course'),
-	delete_lesson_sequence_item_url: dataContainer.getAttribute('delete_lesson_sequence_item_url') }), root);
+	delete_lesson_sequence_item_url: dataContainer.getAttribute('delete_lesson_sequence_item_url'),
+	update_lesson_url: dataContainer.getAttribute('update_lesson_url') }), root);

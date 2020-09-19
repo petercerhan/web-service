@@ -59,7 +59,8 @@ class LessonWebController:
         if self.request.method == 'POST':
             return self._post_update_form(id)
         else:
-            return self._get_update_form(id)
+            return_to_course_id = self.request.args.get('return_to_course_id')
+            return self._get_update_form(id, return_to_course_id)
 
 
     def _post_update_form(self, id):
@@ -67,19 +68,21 @@ class LessonWebController:
         fields['name'] = self.request.form.get('name')
         fields['display_name'] = self.request.form.get('display_name')
 
+        return_to_course_id = self.request.form.get('return_to_course_id')
+
         try:
             self._lesson_interactor.update(id, fields)
-            return self._lesson_presenter.present_update_successful()
+            return self._lesson_presenter.present_update_successful(return_to_course_id)
         except NotFoundError as error:
             self._lesson_presenter.present_not_found(error)
         except ValidationError as error:
-            return self._get_update_form(id=id, error=error)
+            return self._get_update_form(id=id, return_to_course_id=return_to_course_id, error=error)
 
 
-    def _get_update_form(self, id, error=None):
+    def _get_update_form(self, id, return_to_course_id, error=None):
         try:
             lesson = self._lesson_interactor.read(id)
-            return self._lesson_presenter.present_update(lesson, error=error)
+            return self._lesson_presenter.present_update(lesson, return_to_course_id, error=error)
         except NotFoundError as error:
             self._lesson_presenter.present_not_found(error)
 

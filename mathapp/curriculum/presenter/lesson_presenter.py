@@ -20,14 +20,17 @@ class LessonPresenter:
 		else:
 			return redirect(url_for('lessons.index'))
 
-	def present_update(self, lesson, error):
+	def present_update(self, lesson, return_to_course_id, error):
 		if error is not None:
 			flash(error.message)
 
-		return render_template('lessons/update.html', lesson=lesson)
+		return render_template('lessons/update.html', lesson=lesson, return_to_course_id=return_to_course_id)
 
-	def present_update_successful(self):
-		return redirect(url_for('lessons.index'))
+	def present_update_successful(self, return_to_course_id):
+		if return_to_course_id is not None:
+			return redirect(url_for('courses.update', id=return_to_course_id))
+		else:
+			return redirect(url_for('lessons.index'))
 		
 	def present_delete_successful(self):
 		return redirect(url_for('lessons.index'))
