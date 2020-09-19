@@ -25,12 +25,12 @@ class LessonWebController:
         if self.request.method == 'POST':
             return self._post_create_form()
         else:
-            return self._get_create_form()
+            course_id = self.request.args.get('course_id')
+            return self._get_create_form(course_id=course_id)
 
-    def _get_create_form(self):
-        course_id = self.request.args.get('course_id')
+    def _get_create_form(self, course_id, error=None):
         course = self._get_course_or_none(course_id)
-        return self._lesson_presenter.present_create(error=None, course=course)
+        return self._lesson_presenter.present_create(error=error, course=course)
 
     def _get_course_or_none(self, id):
         if id is None:
@@ -53,7 +53,7 @@ class LessonWebController:
             self._lesson_interactor.create(fields=fields, add_to_course_id=add_to_course_id)
             return self._lesson_presenter.present_create_successful(add_to_course_id=add_to_course_id)
         except ValidationError as error:
-            return self._lesson_presenter.present_create(error = error)
+            return self._get_create_form(course_id=add_to_course_id, error=error)
 
     def handle_update_request(self, id):
         if self.request.method == 'POST':
