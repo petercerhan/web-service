@@ -1,3 +1,5 @@
+import sys
+
 class UnitOfWork:
 
 	def __init__(self, session):
@@ -9,6 +11,7 @@ class UnitOfWork:
 		self._session.add(orm_model)
 
 	def register_deleted(self, orm_model):
+		print(f'delete {orm_model}', file=sys.stderr)
 		self._session.delete(orm_model)
 
 	def commit(self):

@@ -32,5 +32,8 @@ class CoursePresenter:
 	def present_delete_successful(self):
 		return redirect(url_for('courses.index'))
 
+	def present_delete_lesson_sequence_item_successful(self, course):
+		return redirect(url_for('courses.update', id=course['id']))
+
 	def present_not_found(self, error):
 		abort(404, error.message)

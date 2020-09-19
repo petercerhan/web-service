@@ -15,6 +15,10 @@ function LessonsTitle(props) {
 }
 
 function Lesson(props) {
+	function handleClick() {
+		submitDeleteLessonSequenceItemForm(props.delete_lesson_sequence_item_url);
+	}
+
 	return React.createElement(
 		"div",
 		{ className: "ordered_option" },
@@ -32,6 +36,11 @@ function Lesson(props) {
 			"button",
 			{ type: "button", className: props.last_item ? "hidden" : "", onClick: props.onDownClick },
 			"Down"
+		),
+		React.createElement(
+			"button",
+			{ type: "button", onClick: handleClick },
+			props.delete_lesson_sequence_item_url
 		)
 	);
 }
@@ -91,6 +100,7 @@ var LessonSequenceList = function (_React$Component) {
 				return React.createElement(Lesson, {
 					key: lesson_sequence_item.id.toString(),
 					lesson_sequence_item: lesson_sequence_item,
+					delete_lesson_sequence_item_url: _this2.props.delete_lesson_sequence_item_url.replace('0/delete', lesson_sequence_item.id.toString() + '/delete'),
 					first_item: index == 0,
 					last_item: index == arrayObj.length - 1,
 					onUpClick: function onUpClick(i) {
@@ -118,4 +128,5 @@ var LessonSequenceList = function (_React$Component) {
 var root = document.getElementById('react_root');
 var dataContainer = document.getElementById('data_container');
 
-ReactDOM.render(React.createElement(LessonSequenceList, { course_json: dataContainer.getAttribute('course') }), root);
+ReactDOM.render(React.createElement(LessonSequenceList, { course_json: dataContainer.getAttribute('course'),
+	delete_lesson_sequence_item_url: dataContainer.getAttribute('delete_lesson_sequence_item_url') }), root);

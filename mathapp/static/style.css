@@ -66,6 +66,9 @@ nav ul  {
 	padding: 0; 
 }
 
+div.no_display_form {
+	display: none;
+}
 
 nav ul li a, nav ul li span, header .action { 
 	display: block; 

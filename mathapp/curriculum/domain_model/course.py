@@ -1,5 +1,7 @@
 from mathapp.library.errors.validation_error import ValidationError
 
+import sys
+
 class Course:
     
     def __init__(self, 
@@ -67,6 +69,26 @@ class Course:
         max_position = max([x.get_position() for x in self._lesson_sequence_item_list_value_holder.get_list()], default=0)
         lesson_sequence_item = lesson_sequence_item_factory.create(position=max_position+1, lesson=lesson)
         self._lesson_sequence_item_list_value_holder.add(lesson_sequence_item)
+
+    def remove_lesson_sequence_item(self, lesson_sequence_item_id):
+        lesson_sequence_items = self._lesson_sequence_item_list_value_holder.get_list()
+        deleted_position = None
+        for lesson_sequence_item in lesson_sequence_items:
+            if lesson_sequence_item.get_id() == lesson_sequence_item_id:
+                deleted_position = lesson_sequence_item.get_position()
+                self._lesson_sequence_item_list_value_holder.removeAtIndex(deleted_position)
+
+        if deleted_position is None:
+            return
+
+        for lesson_sequence_item in lesson_sequence_items:
+            if lesson_sequence_item.get_position() > deleted_position:
+                prior_position = lesson_sequence_item.get_position()
+                lesson_sequence_item.set_position(prior_position-1)
+
+        self._unit_of_work.register_dirty(self)
+        self._check_invariants()
+
 
     def sync_lesson_sequence_item_positions(self, lesson_sequence_items_data_array):
         lesson_sequence_items = self._lesson_sequence_item_list_value_holder.get_list()

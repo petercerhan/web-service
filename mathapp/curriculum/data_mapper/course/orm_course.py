@@ -17,7 +17,7 @@ class ORMCourse(Base):
     name = Column(String)
     display_name = Column(String)
 
-    lesson_sequence_items = relationship('ORMLessonSequenceItem', order_by="asc(ORMLessonSequenceItem.position)")
+    lesson_sequence_items = relationship('ORMLessonSequenceItem', order_by="asc(ORMLessonSequenceItem.position)", cascade="all, delete, delete-orphan")
 
     def __init__(self, name, display_name):
         self.name = name

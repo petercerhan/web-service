@@ -5,11 +5,16 @@ function LessonsTitle(props) {
 }
 
 function Lesson(props) {
+	function handleClick() {
+		submitDeleteLessonSequenceItemForm(props.delete_lesson_sequence_item_url);
+	}
+
 	return (
 		<div className="ordered_option">
 			<p>{ props.lesson_sequence_item.lesson.name }</p>
 			<button type="button" className={props.first_item ? "hidden" : ""} onClick={props.onUpClick}>Up</button>
 			<button type="button" className={props.last_item ? "hidden" : ""} onClick={props.onDownClick}>Down</button>
+			<button type="button" onClick={handleClick}>{ props.delete_lesson_sequence_item_url }</button>
 		</div>
 	) 
 }
@@ -57,6 +62,7 @@ class LessonSequenceList extends React.Component {
 			<Lesson 
 			 key={lesson_sequence_item.id.toString()}
 			 lesson_sequence_item={lesson_sequence_item} 
+			 delete_lesson_sequence_item_url={ (this.props.delete_lesson_sequence_item_url).replace('0/delete', lesson_sequence_item.id.toString() + '/delete') }
 			 first_item={index==0} 
 			 last_item={index == (arrayObj.length - 1)} 
 			 onUpClick={i => this.moveUp(index)}
@@ -77,4 +83,8 @@ class LessonSequenceList extends React.Component {
 const root = document.getElementById('react_root');
 const dataContainer = document.getElementById('data_container');
 
-ReactDOM.render(<LessonSequenceList course_json={dataContainer.getAttribute('course')}/>, root)
+ReactDOM.render(<LessonSequenceList course_json={dataContainer.getAttribute('course')} 
+									delete_lesson_sequence_item_url={dataContainer.getAttribute('delete_lesson_sequence_item_url')}/>, root)
+
+
+

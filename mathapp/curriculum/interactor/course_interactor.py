@@ -57,6 +57,15 @@ class CourseInteractor:
         enriched_course = course_to_enriched_data(course)
         return course
 
+    def delete_lesson_sequence_item(self, course_id, lesson_sequence_item_id):
+        course = self._course_repository.get(course_id)
+        course.remove_lesson_sequence_item(lesson_sequence_item_id)
+        self._unit_of_work_committer.commit()
+        return course_to_enriched_data(course)
+
+
+
+
 
 
 

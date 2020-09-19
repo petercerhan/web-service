@@ -3,6 +3,7 @@ from flask import (
 )
 from mathapp.library.errors.validation_error import ValidationError
 from mathapp.library.errors.not_found_error import NotFoundError
+from mathapp.library.errors.mathapp_error import MathAppError
 import json
 
 import sys
@@ -65,7 +66,7 @@ class CourseWebController:
     def _get_update_form(self, id, error = None):
         try:
             course = self._course_interactor.read(id)
-            return self._course_presenter.present_update(course, error = error)
+            return self._course_presenter.present_update(course, error=error)
         except NotFoundError as error:
             self._course_presenter.present_not_found(error)
             
@@ -77,6 +78,16 @@ class CourseWebController:
             self._course_presenter.present_not_found(error)
             
         return self._course_presenter.present_delete_successful()
+
+    def handle_delete_lesson_sequence_item_request(self, course_id, lesson_sequence_item_id):
+        try:
+            course = self._course_interactor.delete_lesson_sequence_item(course_id=course_id, lesson_sequence_item_id=lesson_sequence_item_id)
+            return self._course_presenter.present_delete_lesson_sequence_item_successful(course)
+        except MathAppError as error:
+            return self._course_presenter._get_update_form(id=course_id, error=error)
+
+
+
 
 
 
