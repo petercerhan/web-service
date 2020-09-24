@@ -13,6 +13,11 @@ class ORMLessonSection(Base):
 	position = Column(Integer)
 	complete_lesson = Column(Boolean)
 
+	__mapper_args__ = {
+		'polymorphic_identity': 'lesson_section',
+		'polymorphic_on': type
+	}
+
 	def __init__(self, position, complete_lesson):
 		self.type = 'lesson_section'
 		self.position = position
@@ -43,4 +48,4 @@ class ORMLessonSection(Base):
 		self.complete_lesson = self._lesson_section._complete_lesson
 
 	def __repr__(self):
-		return f'<ORMLessonSection(id={self.id}, position={self.position})>'
+		return f'<ORMLessonSection(id={self.id}, type={self.type})>'
