@@ -34,14 +34,15 @@ class ORMLessonIntro(ORMLessonSection):
 
 		lesson_intro = LessonIntro(position=self.position, 
 									complete_lesson=self.complete_lesson, 
-									description=self.description)
+									description=self.description, 
+									unit_of_work=unit_of_work_decorator)
 		lesson_intro._id = self.id
 
 		self._lesson_intro = lesson_intro
 		return lesson_intro
 
 	def sync_id(self):
-		self._lesson_intro.id = self.id
+		self._lesson_intro._id = self.id
 
 	def sync_fields(self):
 		self.description = self._lesson_intro._description
