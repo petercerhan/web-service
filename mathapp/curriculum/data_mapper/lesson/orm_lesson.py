@@ -1,15 +1,22 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from mathapp.sqlalchemy.base import Base
+from sqlalchemy.orm import relationship
 from sqlalchemy import orm
 
+from mathapp.curriculum.data_mapper.lesson_section.orm_lesson_section import ORMLessonSection
 from mathapp.curriculum.data_mapper.lesson.lesson_unit_of_work_decorator import LessonUnitOfWorkDecorator
 from mathapp.curriculum.domain_model.lesson import Lesson
+
+
+import sys
 
 class ORMLesson(Base):
 	__tablename__ = 'lesson'
 	id = Column(Integer, primary_key=True)
 	name = Column(String)
 	display_name = Column(String)
+
+	lesson_sections = relationship('ORMLessonSection', order_by='asc(ORMLessonSection.position)')
 
 	def __init__(self, name, display_name):
 		self.name = name
@@ -21,6 +28,9 @@ class ORMLesson(Base):
 		self._lesson = None
 
 	def get_model(self, unit_of_work):
+
+		print(f'lesson sections: {self.lesson_sections}', file=sys.stderr)
+
 		if self._lesson is not None:
 			return self._lesson
 
