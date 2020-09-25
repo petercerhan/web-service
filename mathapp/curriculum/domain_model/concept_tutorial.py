@@ -18,7 +18,10 @@ class ConceptTutorial(LessonSection):
 			raise ValidationError(message = "ConceptTutorial requires display_name")
 
 	def get_type(self):
-		return 'course_tutorial'
+		return 'concept_tutorial'
+
+	def get_display_name(self):
+		return self._display_name
 
 	def __repr__(self):
 		return f'<ConceptTutorial(id={self._id}, display_name={self._display_name})'

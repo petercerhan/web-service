@@ -19,6 +19,9 @@ class LessonIntro(LessonSection):
 	def get_type(self):
 		return 'lesson_intro'
 
+	def get_description(self):
+		return self._description
+
 
 
 	def __repr__(self):

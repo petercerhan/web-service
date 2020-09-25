@@ -13,7 +13,7 @@ function LessonSection(props) {
 		React.createElement(
 			"p",
 			null,
-			props.lesson_section.id
+			props.lesson_section.display_name
 		),
 		React.createElement(
 			"button",
