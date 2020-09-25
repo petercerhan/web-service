@@ -20,6 +20,8 @@
 
   </form>
 
+  <div id="data_container" lesson="{{ lesson_json }}" </div>
+
   <form action="{{ url_for('lessons.delete', id=lesson['id']) }}" method="post">
     <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>

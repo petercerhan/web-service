@@ -2,10 +2,11 @@ from mathapp.library.errors.validation_error import ValidationError
 
 class Lesson:
 
-    def __init__(self, name, display_name, unit_of_work):
+    def __init__(self, name, display_name, lesson_section_list_value_holder, unit_of_work):
         self._id = None
         self._name = name
         self._display_name = display_name
+        self._lesson_section_list_value_holder = lesson_section_list_value_holder
         self._unit_of_work = unit_of_work
         self._check_invariants()
 
@@ -42,6 +43,9 @@ class Lesson:
         self._display_name = display_name
         self._unit_of_work.register_dirty(self)
         self._check_invariants()
+
+    def get_lesson_sections(self):
+        return self._lesson_section_list_value_holder.get_list()
 
     def delete(self):
         self._unit_of_work.register_deleted(self)

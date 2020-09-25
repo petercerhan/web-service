@@ -16,5 +16,10 @@ class LessonIntro(LessonSection):
 		if not self._description:
 			raise ValidationError(message = "LessonIntro requires description")
 
+	def get_type(self):
+		return 'lesson_intro'
+
+
+
 	def __repr__(self):
 		return f'<LessonIntro(id={self._id}, description={self._description})>'

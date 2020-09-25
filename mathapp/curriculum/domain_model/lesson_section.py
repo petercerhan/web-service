@@ -1,6 +1,6 @@
 from mathapp.library.errors.validation_error import ValidationError
 
-
+import sys
 
 class LessonSection:
 
@@ -13,8 +13,17 @@ class LessonSection:
         self._check_invariants()
 
     def _check_invariants(self):
-        if not self._position:
+        if self._position is None:
             raise ValidationError(message = "LessonSection requires position")
 
-        if not self._complete_lesson:
+        if self._complete_lesson is None:
             raise ValidationError(message = "LessonSection requires complete_lesson")
+
+    def get_id(self):
+        return self._id
+
+    def get_position(self):
+        return self._position
+
+    def get_type(self):
+        return 'lesson_section'

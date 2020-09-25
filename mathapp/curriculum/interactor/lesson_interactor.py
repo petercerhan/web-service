@@ -1,4 +1,4 @@
-from mathapp.curriculum.interactor.domain_to_data_transforms.lesson import lesson_to_data
+from mathapp.curriculum.interactor.domain_to_data_transforms.lesson import lesson_to_data, lesson_to_enriched_data
 
 
 class LessonInteractor:
@@ -22,7 +22,7 @@ class LessonInteractor:
 
     def read(self, id):
         lesson = self._lesson_repository.get(id=id)
-        return lesson_to_data(lesson)
+        return lesson_to_enriched_data(lesson)
 
     def create(self, fields, add_to_course_id):
         lesson = self._lesson_factory.create(fields)
@@ -32,7 +32,7 @@ class LessonInteractor:
             course.add_lesson(lesson, self._lesson_sequence_item_factory)
 
         self._unit_of_work_committer.commit()
-        return lesson_to_data(lesson)
+        return lesson_to_enriched_data(lesson)
 
     def update(self, id, fields):
         lesson = self._lesson_repository.get(id=id)
@@ -47,14 +47,14 @@ class LessonInteractor:
 
         self._unit_of_work_committer.commit()
 
-        return lesson_to_data(lesson)
+        return lesson_to_enriched_data(lesson)
 
     def delete(self, id):
         lesson = self._lesson_repository.get(id=id)
         lesson.delete()
         self._unit_of_work_committer.commit()
 
-        return lesson_to_data(lesson)
+        return lesson_to_enriched_data(lesson)
 
 
 

@@ -24,7 +24,10 @@ class LessonPresenter:
 		if error is not None:
 			flash(error.message)
 
-		return render_template('lessons/update.html', lesson=lesson, return_to_course_id=return_to_course_id)
+		return render_template('lessons/update.html', 
+								lesson=lesson, 
+								lesson_json=json.dumps(lesson),
+								return_to_course_id=return_to_course_id)
 
 	def present_update_successful(self, return_to_course_id):
 		if return_to_course_id is not None:

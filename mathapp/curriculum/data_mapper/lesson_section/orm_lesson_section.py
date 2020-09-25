@@ -5,6 +5,8 @@ from mathapp.sqlalchemy.base import Base
 from mathapp.curriculum.domain_model.lesson_section import LessonSection
 from mathapp.curriculum.data_mapper.lesson_section.lesson_section_unit_of_work_decorator import LessonSectionUnitOfWorkDecorator
 
+import sys
+
 class ORMLessonSection(Base):
 	__tablename__ = 'lesson_section'
 	id = Column(Integer, primary_key=True)
@@ -33,8 +35,10 @@ class ORMLessonSection(Base):
 
 		unit_of_work_decorator = LessonSectionUnitOfWorkDecorator(unit_of_work=unit_of_work, orm_lesson_section=self)
 
-		lesson_section = LessonSection(position=self._position,
-									   complete_lesson=self._complete_lesson)
+		print(f'set up with position {self.position}', file=sys.stderr)
+
+		lesson_section = LessonSection(position=self.position,
+									   complete_lesson=self.complete_lesson)
 		lesson_section._id = self.id
 
 		self._lesson_section = lesson_section
