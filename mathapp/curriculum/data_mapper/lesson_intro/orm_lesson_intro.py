@@ -25,6 +25,7 @@ class ORMLessonIntro(ORMLessonSection):
 	@orm.reconstructor
 	def init_on_load(self):
 		self._lesson_intro = None
+		super().init_on_load()
 
 	def get_model(self, unit_of_work):
 		if self._lesson_intro is not None:
@@ -39,6 +40,7 @@ class ORMLessonIntro(ORMLessonSection):
 		lesson_intro._id = self.id
 
 		self._lesson_intro = lesson_intro
+		super()._set_model(lesson_intro)
 		return lesson_intro
 
 	def sync_id(self):

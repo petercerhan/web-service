@@ -29,16 +29,18 @@ class ORMLessonSection(Base):
 	def init_on_load(self):
 		self._lesson_section = None
 
+	def _set_model(self, model):
+		self._lesson_section = model
+
 	def get_model(self, unit_of_work):
 		if self._lesson_section is not None:
 			return self._lesson_section
 
 		unit_of_work_decorator = LessonSectionUnitOfWorkDecorator(unit_of_work=unit_of_work, orm_lesson_section=self)
 
-		print(f'set up with position {self.position}', file=sys.stderr)
-
 		lesson_section = LessonSection(position=self.position,
-									   complete_lesson=self.complete_lesson)
+									   complete_lesson=self.complete_lesson, 
+									   unit_of_work=unit_of_work_decorator)
 		lesson_section._id = self.id
 
 		self._lesson_section = lesson_section

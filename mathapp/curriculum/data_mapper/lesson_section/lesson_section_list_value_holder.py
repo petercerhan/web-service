@@ -17,7 +17,8 @@ class LessonSectionListValueHolder:
 			self._queried = True
 			return lesson_sections
 
-
+		def get_queried(self):
+			return self._queried
 
 
 

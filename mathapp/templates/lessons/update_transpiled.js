@@ -28,6 +28,15 @@ function LessonSection(props) {
 	);
 }
 
+function LessonSectionsInput(props) {
+	var lesson_sections = props.lesson_sections.map(function (lesson_section, index) {
+		lesson_section.position = index;
+		return lesson_section;
+	});
+	var lesson_sections_json = JSON.stringify(props.lesson_sections);
+	return React.createElement("input", { type: "hidden", name: "lesson_sections", value: lesson_sections_json });
+}
+
 var LessonSectionList = function (_React$Component) {
 	_inherits(LessonSectionList, _React$Component);
 
@@ -94,6 +103,7 @@ var LessonSectionList = function (_React$Component) {
 					null,
 					"Lesson Sections"
 				),
+				React.createElement(LessonSectionsInput, { lesson_sections: this.state.lesson_sections }),
 				lesson_sections
 			);
 		}

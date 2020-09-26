@@ -23,6 +23,15 @@ class Lesson:
         if not self._display_name.strip():
             raise ValidationError(message = "Invalid display name for lesson")
 
+        if (self._lesson_section_list_value_holder.get_queried()):
+            self._check_lesson_sections_valid_order()
+
+
+    def _check_lesson_sections_valid_order(self):
+        lesson_sections = self._lesson_section_list_value_holder.get_list()
+        positions = [item.get_position() for item in lesson_sections]
+        if len(positions) > len(set(positions)):
+            raise ValidationError(message = "LessonsSections for Lesson must have unique positions")
 
 
     def get_id(self):
@@ -47,8 +56,30 @@ class Lesson:
     def get_lesson_sections(self):
         return self._lesson_section_list_value_holder.get_list()
 
+    def sync_lesson_section_positions(self, lesson_sections_data_array):
+        lesson_sections = self._lesson_section_list_value_holder.get_list()
+        for data_item in lesson_sections_data_array:
+            lesson_section = next(x for x in lesson_sections if x.get_id() == data_item['id'])
+            if lesson_section is not None:
+                lesson_section.set_position(data_item['position'])
+
+        self._unit_of_work.register_dirty(self)
+        self._check_invariants()
+
     def delete(self):
         self._unit_of_work.register_deleted(self)
 
+
+
+
+
+
+
     def __repr__(self):
         return "<Lesson(name='%s') ID(id='%s')>" % (self._name, self._id)
+
+
+
+
+
+

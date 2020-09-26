@@ -45,6 +45,10 @@ class LessonInteractor:
         if display_name is not None:
             lesson.set_display_name(display_name)
 
+        lesson_sections = fields.get('lesson_sections')
+        if lesson_sections is not None:
+            lesson.sync_lesson_section_positions(lesson_sections)
+
         self._unit_of_work_committer.commit()
 
         return lesson_to_enriched_data(lesson)

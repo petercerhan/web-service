@@ -4,11 +4,13 @@ import sys
 
 class LessonSection:
 
-    def __init__(self, position, complete_lesson):
+    def __init__(self, position, complete_lesson, unit_of_work):
         self._id = None
 
         self._position = position
         self._complete_lesson = complete_lesson
+
+        self._unit_of_work = unit_of_work
 
         self._check_invariants()
 
@@ -25,5 +27,13 @@ class LessonSection:
     def get_position(self):
         return self._position
 
+    def set_position(self, position):
+        self._position = position
+        self._unit_of_work.register_dirty(self)
+        self._check_invariants()
+
     def get_type(self):
         return 'lesson_section'
+
+    def __repr__(self):
+        return f'<LessonSection(id={self._id}, positon={self._position})>'

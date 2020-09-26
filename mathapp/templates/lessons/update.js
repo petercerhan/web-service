@@ -13,6 +13,15 @@ function LessonSection(props) {
 	) 
 }
 
+function LessonSectionsInput(props) {
+	const lesson_sections = props.lesson_sections.map(function (lesson_section, index) {
+		lesson_section.position = index;
+		return lesson_section;
+	});
+	const lesson_sections_json = JSON.stringify(props.lesson_sections);
+	return <input type="hidden" name="lesson_sections" value={lesson_sections_json} />
+}
+
 class LessonSectionList extends React.Component {
 	constructor(props) {
 		super(props);
@@ -58,6 +67,7 @@ class LessonSectionList extends React.Component {
 		return ( 
 			<div>
 				<h1>Lesson Sections</h1>
+				<LessonSectionsInput lesson_sections={this.state.lesson_sections} />
 				{ lesson_sections }
 			</div>
 		)

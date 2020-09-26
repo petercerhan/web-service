@@ -8,7 +8,7 @@ class ConceptTutorial(LessonSection):
 		self._display_name = display_name
 		self._unit_of_work = unit_of_work
 
-		super().__init__(position, complete_lesson)
+		super().__init__(position, complete_lesson, unit_of_work)
 
 		self._check_invariants()
 

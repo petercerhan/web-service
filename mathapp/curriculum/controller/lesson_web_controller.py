@@ -5,6 +5,8 @@ from mathapp.library.errors.validation_error import ValidationError
 from mathapp.library.errors.not_found_error import NotFoundError
 import json
 
+import sys
+
 class LessonWebController:
 
     def __init__(self, 
@@ -67,6 +69,7 @@ class LessonWebController:
         fields = {}
         fields['name'] = self.request.form.get('name')
         fields['display_name'] = self.request.form.get('display_name')
+        fields['lesson_sections'] = json.loads( self.request.form.get('lesson_sections') )
 
         return_to_course_id = self.request.form.get('return_to_course_id')
 

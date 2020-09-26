@@ -8,7 +8,7 @@ class LessonIntro(LessonSection):
 		self._description = description
 		self._unit_of_work = unit_of_work
 
-		super().__init__(position, complete_lesson)
+		super().__init__(position, complete_lesson, unit_of_work)
 
 		self._check_invariants()
 

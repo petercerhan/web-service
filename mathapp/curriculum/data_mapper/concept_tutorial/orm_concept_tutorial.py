@@ -25,6 +25,7 @@ class ORMConceptTutorial(ORMLessonSection):
 	@orm.reconstructor
 	def init_on_load(self):
 		self._concept_tutorial = None
+		super().init_on_load()
 
 	def get_model(self, unit_of_work):
 		if self._concept_tutorial is not None:
@@ -39,6 +40,7 @@ class ORMConceptTutorial(ORMLessonSection):
 		concept_tutorial._id = self.id
 
 		self._concept_tutorial = concept_tutorial
+		super()._set_model(concept_tutorial)
 		return concept_tutorial
 
 	def sync_id(self):
