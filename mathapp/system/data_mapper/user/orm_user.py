@@ -4,7 +4,8 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy import orm
 
 from mathapp.system.domain_model.user import User
-from mathapp.system.data_mapper.user.user_unit_of_work_decorator import UserUnitOfWorkDecorator
+
+from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
 from mathapp.sqlalchemy.base import Base
 
@@ -15,21 +16,21 @@ class ORMUser(Base):
     password = Column(String)
 
     def __init__(self, username, password):
-    	self.username = username
-    	self.password = password
-    	self._user = None
+        self.username = username
+        self.password = password
+        self._user = None
 
     @orm.reconstructor
     def init_on_load(self):
-    	self._user = None
+        self._user = None
         
     def get_model(self, unit_of_work):
         if self._user is not None:
             return self._user
 
-        unit_of_work_decorator = UserUnitOfWorkDecorator(unit_of_work = unit_of_work, orm_user = self)
+        domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
 
-        user = User(username = self.username, password = self.password, unit_of_work = unit_of_work_decorator)
+        user = User(username = self.username, password = self.password, unit_of_work = domain_model_unit_of_work)
         user._id = self.id
 
         self._user = user

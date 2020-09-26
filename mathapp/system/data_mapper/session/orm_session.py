@@ -4,8 +4,9 @@ from sqlalchemy import orm
 from sqlalchemy.orm import relationship
 
 from mathapp.system.domain_model.session import Session
-from mathapp.system.data_mapper.session.session_unit_of_work_decorator import SessionUnitOfWorkDecorator
 from mathapp.system.data_mapper.user.user_value_holder import UserValueHolder
+
+from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
 from mathapp.sqlalchemy.base import Base
 
@@ -32,13 +33,13 @@ class ORMSession(Base):
         if self._session is not None:
             return self._session
 
-        unit_of_work_decorator = SessionUnitOfWorkDecorator(unit_of_work = unit_of_work, orm_session = self)
+        domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
         user_value_holder = UserValueHolder(orm_model=self, unit_of_work=unit_of_work)
 
         session = Session(user_value_holder = user_value_holder,
                             revoked = self.revoked, 
                             created_at = self.created_at, 
-                            unit_of_work = unit_of_work_decorator)
+                            unit_of_work = domain_model_unit_of_work)
         session._id = self.id
 
         self._session = session
