@@ -6,7 +6,7 @@ from mathapp.curriculum.data_mapper.lesson.orm_lesson import ORMLesson
 from mathapp.curriculum.data_mapper.lesson_sequence_item.orm_lesson_sequence_item import ORMLessonSequenceItem
 from mathapp.sqlalchemy.base import Base
 
-from mathapp.curriculum.data_mapper.course.course_unit_of_work_decorator import CourseUnitOfWorkDecorator
+from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 from mathapp.curriculum.domain_model.course import Course
 from mathapp.curriculum.data_mapper.lesson_sequence_item.lesson_sequence_item_list_value_holder import LessonSequenceItemListValueHolder
 
@@ -32,13 +32,13 @@ class ORMCourse(Base):
         if self._course is not None:
             return self._course
 
-        unit_of_work_decorator = CourseUnitOfWorkDecorator(unit_of_work=unit_of_work, orm_course=self)
+        domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
         lesson_sequence_item_list_value_holder = LessonSequenceItemListValueHolder(orm_model=self, unit_of_work=unit_of_work)
         
         course = Course(name=self.name, 
                         display_name=self.display_name,
                         lesson_sequence_item_list_value_holder=lesson_sequence_item_list_value_holder,
-                        unit_of_work=unit_of_work_decorator)
+                        unit_of_work=domain_model_unit_of_work)
         course._id = self.id
 
         self._course = course
