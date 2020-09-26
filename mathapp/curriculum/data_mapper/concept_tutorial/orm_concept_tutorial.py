@@ -4,7 +4,7 @@ from mathapp.sqlalchemy.base import Base
 
 from mathapp.curriculum.domain_model.concept_tutorial import ConceptTutorial
 from mathapp.curriculum.data_mapper.lesson_section.orm_lesson_section import ORMLessonSection
-from mathapp.curriculum.data_mapper.concept_tutorial.concept_tutorial_unit_of_work_decorator import ConceptTutorialUnitOfWorkDecorator
+from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
 class ORMConceptTutorial(ORMLessonSection):
 	__tablename__ = 'concept_tutorial'
@@ -31,12 +31,12 @@ class ORMConceptTutorial(ORMLessonSection):
 		if self._concept_tutorial is not None:
 			return self._concept_tutorial
 
-		unit_of_work_decorator = ConceptTutorialUnitOfWorkDecorator(unit_of_work=unit_of_work, orm_concept_tutorial=self)
+		domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
 
 		concept_tutorial = ConceptTutorial(position=self.position, 
 											complete_lesson = self.complete_lesson, 
 											display_name = self.display_name, 
-											unit_of_work=unit_of_work_decorator)
+											unit_of_work=domain_model_unit_of_work)
 		concept_tutorial._id = self.id
 
 		self._concept_tutorial = concept_tutorial
