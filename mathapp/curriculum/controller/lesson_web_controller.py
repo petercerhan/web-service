@@ -69,7 +69,9 @@ class LessonWebController:
         fields = {}
         fields['name'] = self.request.form.get('name')
         fields['display_name'] = self.request.form.get('display_name')
-        fields['lesson_sections'] = json.loads( self.request.form.get('lesson_sections') )
+        lesson_sections = self.request.form.get('lesson_sections')
+        if lesson_sections is not None:
+            fields['lesson_sections'] = json.loads( lesson_sections )
 
         return_to_course_id = self.request.form.get('return_to_course_id')
 
