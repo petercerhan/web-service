@@ -16,10 +16,10 @@ class Session:
         self._check_invariants
 
     def _check_invariants(self):
-        if not self._revoked:
+        if self._revoked is None:
             raise ValidationError(message = "Session requires revoked")
             
-        if not self._created_at:
+        if self._created_at is None:
             raise ValidationError(message = "Session requires created_at")
 
     def get_id(self):
