@@ -42,16 +42,16 @@ class Lesson:
 
     def set_name(self, name):
         self._name = name
-        self._unit_of_work.register_dirty(self)
         self._check_invariants()
+        self._unit_of_work.register_dirty(self)
 
     def get_display_name(self):
         return self._display_name
 
     def set_display_name(self, display_name):
         self._display_name = display_name
-        self._unit_of_work.register_dirty(self)
         self._check_invariants()
+        self._unit_of_work.register_dirty(self)
 
     def get_lesson_sections(self):
         return self._lesson_section_list_value_holder.get_list()
@@ -63,8 +63,8 @@ class Lesson:
             if lesson_section is not None:
                 lesson_section.set_position(data_item['position'])
 
-        self._unit_of_work.register_dirty(self)
         self._check_invariants()
+        self._unit_of_work.register_dirty(self)
 
     def delete(self):
         self._unit_of_work.register_deleted(self)

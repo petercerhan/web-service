@@ -6,7 +6,7 @@ from mathapp.library.errors.not_found_error import NotFoundError
 from mathapp.library.errors.mathapp_error import MathAppError
 import json
 
-import sys
+from mathapp.sqlalchemy.db import Session
 
 class CourseWebController:
     

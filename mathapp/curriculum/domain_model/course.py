@@ -54,8 +54,8 @@ class Course:
 
     def set_display_name(self, display_name):
         self._display_name = display_name
-        self._unit_of_work.register_dirty(self)
         self._check_invariants()
+        self._unit_of_work.register_dirty(self)
 
     def get_lesson_sequence_items(self):
         return self._lesson_sequence_item_list_value_holder.get_list()
@@ -81,8 +81,8 @@ class Course:
                 prior_position = lesson_sequence_item.get_position()
                 lesson_sequence_item.set_position(prior_position-1)
 
-        self._unit_of_work.register_dirty(self)
         self._check_invariants()
+        self._unit_of_work.register_dirty(self)
 
 
     def sync_lesson_sequence_item_positions(self, lesson_sequence_items_data_array):
@@ -92,8 +92,8 @@ class Course:
             if lesson_sequence_item is not None:
                 lesson_sequence_item.set_position(data_item['position'])
                     
-        self._unit_of_work.register_dirty(self)
         self._check_invariants()
+        self._unit_of_work.register_dirty(self)
         
     def delete(self):
         self._unit_of_work.register_deleted(self)

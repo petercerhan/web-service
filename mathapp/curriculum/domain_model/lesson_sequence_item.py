@@ -25,8 +25,8 @@ class LessonSequenceItem:
 
 	def set_position(self, position):
 		self._position = position
+		self._check_invariants()
 		self._unit_of_work.register_dirty(self)
-		self._check_invariants
 
 	def get_lesson(self):
 		return self._lesson

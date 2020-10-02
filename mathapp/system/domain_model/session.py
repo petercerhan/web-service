@@ -30,8 +30,8 @@ class Session:
 
     def set_revoked(self, revoked):
         self._revoked = revoked
+        self._check_invariants()
         self._unit_of_work.register_dirty(self)
-        self._check_invariants
 
     def __repr__(self):
         return "<Session ID(id='%s') CreatedAt(created_at='%s') Revoked(revoked='%s')>" % (self._id, self._created_at, self._revoked)

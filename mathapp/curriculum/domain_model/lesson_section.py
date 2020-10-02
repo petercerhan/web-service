@@ -29,8 +29,8 @@ class LessonSection:
 
     def set_position(self, position):
         self._position = position
-        self._unit_of_work.register_dirty(self)
         self._check_invariants()
+        self._unit_of_work.register_dirty(self)
 
     def get_type(self):
         return 'lesson_section'

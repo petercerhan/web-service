@@ -9,6 +9,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
 
+import sys
+
 @pytest.fixture
 def app():
 	app = create_app({'Testing': True, 
@@ -19,6 +21,7 @@ def app():
 
 @pytest.fixture
 def client(app):
+	print("create app", file=sys.stderr)
 	return app.test_client()
 
 class AuthActions(object):
@@ -54,4 +57,6 @@ def auth(client):
 @pytest.fixture
 def sqlalchemy_session():
 	default_engine = create_engine('sqlite:///instance/test.sqlite')
-	return scoped_session(sessionmaker(bind=default_engine))
+	SessionFactory = scoped_session(sessionmaker(bind=default_engine))
+	session = SessionFactory()
+	return session
