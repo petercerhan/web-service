@@ -17,11 +17,11 @@ def app():
 						'SECRET_KEY': 'test', 
 						'AUTH_SECRET_KEY': 'test_auth_secret_key', 
 						'CSRF_HASH_KEY': 'test_csrf_hash_key'})
+	app.test_request_context().push()
 	return app
 
 @pytest.fixture
 def client(app):
-	print("create app", file=sys.stderr)
 	return app.test_client()
 
 class AuthActions(object):
