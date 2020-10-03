@@ -1,6 +1,6 @@
 import pytest
 from mathapp.system.data_mapper.user.orm_user import ORMUser
-from flask import g, session
+from flask import g, session, url_for
 
 ## Register
 
@@ -42,10 +42,10 @@ def test_login_get_form(client):
 
 def test_login(client, auth):
     response = auth.login()
-    assert response.headers['Location'] == 'http://localhost/'
+    assert response.headers['Location'] == f'http://localhost{url_for("courses.index")}'
 
     with client:
-        client.get('/')
+        client.get(url_for("courses.index"))
         assert g.user_id == 1
         assert g.user_name == 'test_user'
 

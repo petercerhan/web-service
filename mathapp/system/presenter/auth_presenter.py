@@ -18,5 +18,5 @@ class AuthPresenter:
 		return render_template('auth/login.html')
 
 	def present_login_successful(self):
-		redirect_response = redirect(url_for('index'))
+		redirect_response = redirect(url_for('courses.index'))
 		return make_response(redirect_response)
