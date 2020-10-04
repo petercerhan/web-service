@@ -65,7 +65,6 @@ class LessonWebController:
 
     def _post_update_form(self, id):
         fields = {}
-        fields['name'] = self.request.form.get('name')
         fields['display_name'] = self.request.form.get('display_name')
         lesson_sections = self.request.form.get('lesson_sections')
         if lesson_sections is not None:

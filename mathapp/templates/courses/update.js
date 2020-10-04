@@ -15,7 +15,7 @@ function Lesson(props) {
 
 	return (
 		<div className="ordered_option">
-			<p>{ props.lesson_sequence_item.lesson.name }</p>
+			<p>{ props.lesson_sequence_item.lesson.display_name }</p>
 			<button type="button" className={props.first_item ? "hidden" : ""} onClick={props.onUpClick}>Up</button>
 			<button type="button" className={props.last_item ? "hidden" : ""} onClick={props.onDownClick}>Down</button>
 			<button type="button" onClick={edit}>Edit</button>

@@ -92,3 +92,20 @@ class CurriculumComposer:
     def compose_lesson_sequence_item_factory(self):
         return LessonSequenceItemFactory(unit_of_work=self._unit_of_work)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

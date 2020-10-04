@@ -37,10 +37,6 @@ class LessonInteractor:
     def update(self, id, fields):
         lesson = self._lesson_repository.get(id=id)
 
-        name = fields.get('name')
-        if name is not None:
-            lesson.set_name(name)
-
         display_name = fields.get('display_name')
         if display_name is not None:
             lesson.set_display_name(display_name)

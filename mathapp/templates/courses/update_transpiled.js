@@ -29,7 +29,7 @@ function Lesson(props) {
 		React.createElement(
 			"p",
 			null,
-			props.lesson_sequence_item.lesson.name
+			props.lesson_sequence_item.lesson.display_name
 		),
 		React.createElement(
 			"button",
