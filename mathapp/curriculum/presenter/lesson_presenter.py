@@ -41,3 +41,5 @@ class LessonPresenter:
 	def present_not_found(self, error):
 		abort(404, error.message)
 	
+	def present_create_lesson_section(self, lesson_id):
+		return render_template('lessons/create_lesson_section.html', lesson_id=lesson_id)

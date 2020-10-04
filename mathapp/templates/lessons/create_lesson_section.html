@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Create Lesson Section{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+<br>
+<a class="action" href="{{ url_for('lessons.create_lesson_section', lesson_id=lesson_id) }}">
+         Create Lesson Intro</a>
+<br>
+<br>
+<a class="action" href="{{ url_for('lessons.create_lesson_section', lesson_id=lesson_id) }}">
+         Create Concept Tutorial</a>
+<br>
+
+{% endblock %}

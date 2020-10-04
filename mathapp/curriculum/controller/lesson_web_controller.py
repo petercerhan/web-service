@@ -98,6 +98,8 @@ class LessonWebController:
         return self._lesson_presenter.present_delete_successful()
 
 
+    def handle_create_lesson_section_request(self, lesson_id):
+        return self._lesson_presenter.present_create_lesson_section(lesson_id=lesson_id)
 
 
 

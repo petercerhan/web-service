@@ -38,6 +38,11 @@ def updateForCourse(course_id, lesson_id):
 def delete(id):
 	return controller(request).handle_delete_request(id)
 
+@bp.route('/lessons/<int:lesson_id>/lesson_sections/create')
+@login_required
+def create_lesson_section(lesson_id):
+	return controller(request).handle_create_lesson_section_request(lesson_id)
+
 ## Util
 
 def controller(request):
