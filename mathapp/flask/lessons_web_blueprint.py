@@ -21,7 +21,12 @@ def create():
 @bp.route('/lessons/<int:id>', methods=('GET', 'POST'))
 @login_required
 def update(id):
-	return controller(request).handle_update_request(id)
+	return controller(request).handle_update_request(lesson_id=id)
+
+@bp.route('/courses/<int:course_id>/lessons/<int:lesson_id>', methods=('GET', 'POST'))
+@login_required
+def updateForCourse(course_id, lesson_id):
+	return controller(request).handle_update_request(lesson_id=lesson_id, course_id=course_id)
 
 @bp.route('/lessons/<int:id>/delete', methods=('POST',))
 @login_required

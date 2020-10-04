@@ -57,13 +57,11 @@ class LessonWebController:
         except ValidationError as error:
             return self._get_create_form(course_id=add_to_course_id, error=error)
 
-    def handle_update_request(self, id):
+    def handle_update_request(self, lesson_id, course_id=None):
         if self.request.method == 'POST':
-            return self._post_update_form(id)
+            return self._post_update_form(lesson_id)
         else:
-            return_to_course_id = self.request.args.get('return_to_course_id')
-            return self._get_update_form(id, return_to_course_id)
-
+            return self._get_update_form(lesson_id, course_id)
 
     def _post_update_form(self, id):
         fields = {}

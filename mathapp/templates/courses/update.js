@@ -69,7 +69,7 @@ class LessonSequenceList extends React.Component {
 			 key={lesson_sequence_item.id.toString()}
 			 lesson_sequence_item={lesson_sequence_item} 
 			 delete_lesson_sequence_item_url={ (this.props.delete_lesson_sequence_item_url).replace('0/delete', lesson_sequence_item.id.toString() + '/delete') }
-			 update_lesson_url={ (this.props.update_lesson_url).replace('0/update', lesson_sequence_item.lesson.id).toString() + '?return_to_course_id=' + this.state.course_id }
+			 update_lesson_url={ (this.props.update_lesson_url).replace('0/update', lesson_sequence_item.lesson.id).toString() }
 			 first_item={index==0} 
 			 last_item={index == (arrayObj.length - 1)} 
 			 onUpClick={i => this.moveUp(index)}
