@@ -24,6 +24,7 @@ class ORMLessonSection(Base):
     def __init__(self, position, complete_lesson):
         self.type = 'lesson_section'
         self.position = position
+        self.complete_lesson = complete_lesson
         self._lesson_section = None
 
     @orm.reconstructor

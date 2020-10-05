@@ -16,6 +16,8 @@ from mathapp.curriculum.data_mapper.lesson_sequence_item.lesson_sequence_item_fa
 
 from mathapp.curriculum.controller.lesson_intro_web_controller import LessonIntroWebController
 from mathapp.curriculum.presenter.lesson_intro_presenter import LessonIntroPresenter
+from mathapp.curriculum.interactor.lesson_intro_interactor import LessonIntroInteractor
+from mathapp.curriculum.data_mapper.lesson_intro.lesson_intro_factory import LessonIntroFactory
 
 class CurriculumComposer:
 
@@ -100,14 +102,24 @@ class CurriculumComposer:
 
     def compose_lesson_intro_web_controller(self):
         presenter = self.compose_lesson_intro_presenter()
+        interactor = self.compose_lesson_intro_interactor()
         return LessonIntroWebController(request=self._request, 
-                                        lesson_intro_presenter=presenter)
+                                        lesson_intro_presenter=presenter, 
+                                        lesson_intro_interactor=interactor)
 
     def compose_lesson_intro_presenter(self):
         return LessonIntroPresenter()
 
+    def compose_lesson_intro_interactor(self):
+        lesson_repository = self.compose_lesson_repository()
+        lesson_intro_factory = self.compose_lesson_intro_factory()
+        unit_of_work = self._unit_of_work
+        return LessonIntroInteractor(lesson_repository=lesson_repository, 
+                                    lesson_intro_factory=lesson_intro_factory, 
+                                    unit_of_work=unit_of_work)
 
-
+    def compose_lesson_intro_factory(self):
+        return LessonIntroFactory(unit_of_work=self._unit_of_work)
 
 
 

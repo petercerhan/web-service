@@ -51,6 +51,14 @@ class Lesson:
     def get_lesson_sections(self):
         return self._lesson_section_list_value_holder.get_list()
 
+    def create_lesson_intro(self, lesson_intro_factory):
+        max_position = max([x.get_position() for x in self._lesson_section_list_value_holder.get_list()], default=-1)
+        lesson_intro = lesson_intro_factory.create(position=max_position+1)
+        self._lesson_section_list_value_holder.add(lesson_intro)
+        self._check_invariants()
+        self._unit_of_work.register_dirty(self)
+        return lesson_intro
+
     def sync_lesson_section_positions(self, lesson_sections_data_array):
         lesson_sections = self._lesson_section_list_value_holder.get_list()
         for data_item in lesson_sections_data_array:

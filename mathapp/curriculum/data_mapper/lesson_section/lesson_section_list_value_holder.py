@@ -17,6 +17,10 @@ class LessonSectionListValueHolder:
 			self._queried = True
 			return lesson_sections
 
+		def add(self, lesson_section):
+			orm_lesson_section = self._unit_of_work.orm_model_for_model(lesson_section)
+			self._orm_model.lesson_sections.append(orm_lesson_section)
+
 		def get_queried(self):
 			return self._queried
 
