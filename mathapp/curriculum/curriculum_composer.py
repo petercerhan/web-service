@@ -14,6 +14,9 @@ from mathapp.curriculum.domain_model.lesson_factory_validating_decorator import 
 
 from mathapp.curriculum.data_mapper.lesson_sequence_item.lesson_sequence_item_factory import LessonSequenceItemFactory
 
+from mathapp.curriculum.controller.lesson_intro_web_controller import LessonIntroWebController
+from mathapp.curriculum.presenter.lesson_intro_presenter import LessonIntroPresenter
+
 class CurriculumComposer:
 
     def __init__(self, request, sqlalchemy_session, unit_of_work):
@@ -93,7 +96,15 @@ class CurriculumComposer:
         return LessonSequenceItemFactory(unit_of_work=self._unit_of_work)
 
 
+    ##Lesson Intro Web Controller
 
+    def compose_lesson_intro_web_controller(self):
+        presenter = self.compose_lesson_intro_presenter()
+        return LessonIntroWebController(request=self._request, 
+                                        lesson_intro_presenter=presenter)
+
+    def compose_lesson_intro_presenter(self):
+        return LessonIntroPresenter()
 
 
 

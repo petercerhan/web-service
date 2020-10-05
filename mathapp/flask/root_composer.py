@@ -41,3 +41,10 @@ class RootComposer:
                                         date_service = date_service)
 
         return system_composer.compose_auth_web_controller()
+
+    def compose_lesson_intro_web_controller(self):
+        curriculum_composer = CurriculumComposer(request=self._request, 
+                                                    sqlalchemy_session = self._sqlalchemy_session,
+                                                     unit_of_work = self._unit_of_work)
+
+        return curriculum_composer.compose_lesson_intro_web_controller()
