@@ -41,6 +41,9 @@ def create_app(test_config=None):
 
     from mathapp.flask import lesson_intros_web_blueprint
     app.register_blueprint(lesson_intros_web_blueprint.bp)
+
+    from mathapp.flask import concept_tutorials_web_blueprint
+    app.register_blueprint(concept_tutorials_web_blueprint.bp)
         
     return app
 

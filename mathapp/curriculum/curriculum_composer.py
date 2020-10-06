@@ -19,6 +19,11 @@ from mathapp.curriculum.presenter.lesson_intro_presenter import LessonIntroPrese
 from mathapp.curriculum.interactor.lesson_intro_interactor import LessonIntroInteractor
 from mathapp.curriculum.data_mapper.lesson_intro.lesson_intro_factory import LessonIntroFactory
 
+from mathapp.curriculum.controller.concept_tutorial_web_controller import ConceptTutorialWebController
+from mathapp.curriculum.presenter.concept_tutorial_presenter import ConceptTutorialPresenter
+from mathapp.curriculum.interactor.concept_tutorial_interactor import ConceptTutorialInteractor
+from mathapp.curriculum.data_mapper.concept_tutorial.concept_tutorial_factory import ConceptTutorialFactory
+
 class CurriculumComposer:
 
     def __init__(self, request, sqlalchemy_session, unit_of_work):
@@ -122,6 +127,29 @@ class CurriculumComposer:
         return LessonIntroFactory(unit_of_work=self._unit_of_work)
 
 
+    ##Concept Tutorial Web Controller
+
+    def compose_concept_tutorial_web_controller(self):
+        presenter = self.compose_concept_tutorial_presenter()
+        interactor = self.compose_concept_tutorial_interactor()
+        return ConceptTutorialWebController(request=self._request, 
+                                            presenter=presenter, 
+                                            interactor=interactor)
+
+    def compose_concept_tutorial_presenter(self):
+        return ConceptTutorialPresenter()
+
+    def compose_concept_tutorial_interactor(self):
+        lesson_repository = self.compose_lesson_repository()
+        concept_tutorial_factory = self.compose_concept_tutorial_factory()
+        unit_of_work = self._unit_of_work
+        return ConceptTutorialInteractor(lesson_repository=lesson_repository, 
+                                            concept_tutorial_factory=concept_tutorial_factory, 
+                                            unit_of_work=unit_of_work)
+
+
+    def compose_concept_tutorial_factory(self):
+        return ConceptTutorialFactory(unit_of_work=self._unit_of_work)
 
 
 

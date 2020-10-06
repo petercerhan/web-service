@@ -59,6 +59,14 @@ class Lesson:
         self._unit_of_work.register_dirty(self)
         return lesson_intro
 
+    def create_concept_tutorial(self, fields, concept_tutorial_factory):
+        max_position = max([x.get_position() for x in self._lesson_section_list_value_holder.get_list()], default=-1)
+        concept_tutorial = concept_tutorial_factory.create(fields=fields, position=max_position+1)
+        self._lesson_section_list_value_holder.add(concept_tutorial)
+        self._check_invariants()
+        self._unit_of_work.register_dirty(self)
+        return concept_tutorial
+
     def sync_lesson_section_positions(self, lesson_sections_data_array):
         lesson_sections = self._lesson_section_list_value_holder.get_list()
         for data_item in lesson_sections_data_array:
