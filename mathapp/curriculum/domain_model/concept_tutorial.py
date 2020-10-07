@@ -15,7 +15,10 @@ class ConceptTutorial(LessonSection):
 	def _check_invariants(self):
 		super()._check_invariants()
 		if self._display_name is None:
-			raise ValidationError(message = "ConceptTutorial requires display_name")
+			raise ValidationError(message = "Concept Tutorial requires display_name")
+
+		if not self._display_name.strip():
+			raise ValidationError(message = "Invalid display_name for Concept Tutorial")
 
 	def get_type(self):
 		return 'concept_tutorial'
