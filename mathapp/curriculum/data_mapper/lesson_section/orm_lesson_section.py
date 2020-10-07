@@ -6,8 +6,6 @@ from mathapp.curriculum.domain_model.lesson_section import LessonSection
 
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
-import sys
-
 class ORMLessonSection(Base):
     __tablename__ = 'lesson_section'
     id = Column(Integer, primary_key=True)
@@ -22,7 +20,6 @@ class ORMLessonSection(Base):
     }
 
     def __init__(self, position, complete_lesson):
-        self.type = 'lesson_section'
         self.position = position
         self.complete_lesson = complete_lesson
         self._lesson_section = None

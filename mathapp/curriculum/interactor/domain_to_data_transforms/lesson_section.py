@@ -14,5 +14,5 @@ def lesson_section_to_data(lesson_section):
 def _lesson_section_to_data(lesson_section):
 	return {'id': lesson_section.get_id(), 
 			'position': lesson_section.get_position(),
-			'display_name': f'Lesson Section {lesson_section.get_id()}',
+			'display_name': lesson_section.get_display_name(),
 			'type': lesson_section.get_type()}

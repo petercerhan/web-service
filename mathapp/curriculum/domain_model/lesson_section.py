@@ -35,5 +35,8 @@ class LessonSection:
     def get_type(self):
         return 'lesson_section'
 
+    def get_display_name(self):
+        return f'Lesson section id: {self._id}'
+
     def __repr__(self):
         return f'<LessonSection(id={self._id}, positon={self._position})>'
