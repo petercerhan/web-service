@@ -98,11 +98,6 @@ var LessonSectionList = function (_React$Component) {
 			return React.createElement(
 				"div",
 				null,
-				React.createElement(
-					"h1",
-					null,
-					"Lesson Sections"
-				),
 				React.createElement(LessonSectionsInput, { lesson_sections: this.state.lesson_sections }),
 				lesson_sections
 			);

@@ -8,6 +8,11 @@
   <form method="post">
     <label for="display_name">Display Name</label>
     <input name="display_name" id="display_name" value="{{ request.form['display_name'] or lesson['display_name'] }}" required>
+    <h1>Lesson Sections</h1>
+    <hr>
+    <br>
+    <a class="action" href="{{ url_for('lessons.create_lesson_section', lesson_id=lesson['id']) }}">Add Lesson Section</a>
+    <br>
     <div id="react_root"></div>
     <input type="submit" value="Save">
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>

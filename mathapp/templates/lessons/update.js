@@ -66,7 +66,6 @@ class LessonSectionList extends React.Component {
 
 		return ( 
 			<div>
-				<h1>Lesson Sections</h1>
 				<LessonSectionsInput lesson_sections={this.state.lesson_sections} />
 				{ lesson_sections }
 			</div>
