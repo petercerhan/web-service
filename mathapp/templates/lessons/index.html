@@ -16,7 +16,7 @@
          <a class="action" href="{{ url_for('lessons.update', id=lesson['id']) }}">
          Edit</a>
       </header>
-      <p class="body">{{ lesson['name'] }}</p>
+      <p class="body">{{ lesson['display_name'] }}</p>
     </article>
     {% if not loop.last %}
       <hr>
