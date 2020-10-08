@@ -24,11 +24,10 @@ class LessonWebController:
         lessons = self._lesson_interactor.list()
         return self._lesson_presenter.present_index(lessons)
 
-    def handle_create_request(self):
+    def handle_create_request(self, course_id=None):
         if self.request.method == 'POST':
             return self._post_create_form()
         else:
-            course_id = self.request.args.get('course_id')
             return self._get_create_form(course_id=course_id)
 
     def _get_create_form(self, course_id, error=None):

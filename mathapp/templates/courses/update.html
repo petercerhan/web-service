@@ -11,7 +11,7 @@
     <h1>Lessons</h1>
     <hr>
     <br>
-    <a class="action" href="{{ url_for('lessons.create') }}?course_id={{ course['id'] }}">Add Lesson For This Course</a>
+    <a class="action" href="{{ url_for('lessons.createForCourse', course_id=course['id']) }}">Add Lesson For This Course</a>
     <br>
     <div id="react_root"></div>
     <input type="submit" value="Save">
