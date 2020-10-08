@@ -51,7 +51,16 @@ class LessonInteractor:
 
     def delete(self, id):
         lesson = self._lesson_repository.get(id=id)
+
+        ##Get all lesson sequence items
+        ##Map to associated courses (units, subunits)
+        ##Remove these sequence items from each course
+        
+        ##Enhance the delete to first loop through lesson sections and delete individually
         lesson.delete()
+
+
+
         self._unit_of_work_committer.commit()
 
         return lesson_to_enriched_data(lesson)

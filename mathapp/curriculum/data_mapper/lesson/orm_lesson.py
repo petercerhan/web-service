@@ -12,12 +12,15 @@ from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
 from mathapp.curriculum.data_mapper.lesson_section.lesson_section_list_value_holder import LessonSectionListValueHolder
 
+import sys
 
 class ORMLesson(Base):
     __tablename__ = 'lesson'
     id = Column(Integer, primary_key=True)
     name = Column(String)
     display_name = Column(String)
+
+    lesson_sequence_items = relationship('ORMLessonSequenceItem', back_populates='lesson')
 
     lesson_sections = relationship('ORMLessonSection', 
                                     order_by='asc(ORMLessonSection.position)', 
@@ -33,6 +36,9 @@ class ORMLesson(Base):
         self._lesson = None
 
     def get_model(self, unit_of_work):
+
+        print(f'lesson has lesson_sequence_items: {self.lesson_sequence_items}', file=sys.stderr)
+
         if self._lesson is not None:
             return self._lesson
 

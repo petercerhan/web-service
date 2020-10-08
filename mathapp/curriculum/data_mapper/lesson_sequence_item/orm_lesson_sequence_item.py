@@ -15,7 +15,7 @@ class ORMLessonSequenceItem(Base):
     lesson_id = Column(Integer, ForeignKey('lesson.id'))
     course_id = Column(Integer, ForeignKey('course.id'))
 
-    lesson = relationship('ORMLesson', lazy='joined')
+    lesson = relationship('ORMLesson', lazy='joined', back_populates='lesson_sequence_items')
 
     def __init__(self, position):
         self.position = position
@@ -47,3 +47,4 @@ class ORMLessonSequenceItem(Base):
 
     def __repr__(self):
         return "<ORM Lesson Sequence Item(position='%s') ID(id='%s')>" % (self.position, self.id)
+
