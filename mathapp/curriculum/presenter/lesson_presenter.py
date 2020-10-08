@@ -43,3 +43,9 @@ class LessonPresenter:
 	
 	def present_create_lesson_section(self, lesson_id):
 		return render_template('lessons/create_lesson_section.html', lesson_id=lesson_id)
+
+	def present_delete_lesson_section_successful(self, course_id, lesson_id):
+		if course_id is not None:
+			return redirect(url_for('lessons.updateForCourse', course_id=course_id, lesson_id=lesson_id))
+		else:
+			return redirect(url_for('lessons.update', id=lesson_id))

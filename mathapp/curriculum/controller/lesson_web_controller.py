@@ -101,12 +101,12 @@ class LessonWebController:
     def handle_create_lesson_section_request(self, lesson_id):
         return self._lesson_presenter.present_create_lesson_section(lesson_id=lesson_id)
 
-    def handle_delete_lesson_section_request(self, lesson_id, lesson_section_id):
+    def handle_delete_lesson_section_request(self, course_id, lesson_id, lesson_section_id):
         try:
             lesson = self._lesson_interactor.delete_lesson_section(lesson_id=lesson_id, lesson_section_id=lesson_section_id)
-            return self._lesson_presenter.present_update(lesson, return_to_course_id=None, error=None)
+            return self._lesson_presenter.present_delete_lesson_section_successful(course_id=course_id, lesson_id=lesson_id)
         except MathAppError as error:
-            return self._get_update_form(id=lesson_id, course_id=None, error=error)
+            return self._get_update_form(id=lesson_id, course_id=course_id, error=error)
 
 
 

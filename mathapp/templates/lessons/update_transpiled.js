@@ -119,6 +119,7 @@ var LessonSectionList = function (_React$Component) {
 
 var root = document.getElementById('react_root');
 var dataContainer = document.getElementById('data_container');
+var deleteURLContainer = document.getElementById('delete_url_container');
 
 ReactDOM.render(React.createElement(LessonSectionList, { lesson_json: dataContainer.getAttribute('lesson'),
-	delete_lesson_section_url: dataContainer.getAttribute('delete_lesson_section_url') }), root);
+	delete_lesson_section_url: deleteURLContainer.getAttribute('delete_lesson_section_url') }), root);

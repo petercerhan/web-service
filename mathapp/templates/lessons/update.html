@@ -24,8 +24,14 @@
   </form>
 
   <div id="data_container" 
-        lesson="{{ lesson_json }}" 
-        delete_lesson_section_url="{{ url_for('lessons.delete_lesson_section', lesson_id=lesson['id'], lesson_section_id=0) }}"></div>
+        lesson="{{ lesson_json }}"></div>
+
+  {% if return_to_course_id %}
+  <div id="delete_url_container" delete_lesson_section_url="{{ url_for('lessons.delete_lesson_section_for_course', course_id=return_to_course_id, lesson_id=lesson['id'], lesson_section_id=0) }}"></div>
+  {% else %}
+  <div id="delete_url_container" delete_lesson_section_url="{{ url_for('lessons.delete_lesson_section', lesson_id=lesson['id'], lesson_section_id=0) }}"></div>
+  {% endif %}
+
 
   <form action="{{ url_for('lessons.delete', id=lesson['id']) }}" method="post">
     <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">

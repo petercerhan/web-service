@@ -80,10 +80,11 @@ class LessonSectionList extends React.Component {
 
 const root = document.getElementById('react_root');
 const dataContainer = document.getElementById('data_container');
+const deleteURLContainer = document.getElementById('delete_url_container');
 
 
 ReactDOM.render(<LessonSectionList lesson_json={dataContainer.getAttribute('lesson')} 
-								   delete_lesson_section_url={dataContainer.getAttribute('delete_lesson_section_url')}/>, root)
+								   delete_lesson_section_url={deleteURLContainer.getAttribute('delete_lesson_section_url')}/>, root)
 
 
 

@@ -46,7 +46,12 @@ def create_lesson_section(lesson_id):
 @bp.route('/lessons/<int:lesson_id>/lesson_sections/<int:lesson_section_id>/delete', methods=('POST',))
 @login_required
 def delete_lesson_section(lesson_id, lesson_section_id):
-	return controller(request).handle_delete_lesson_section_request(lesson_id=lesson_id, lesson_section_id=lesson_section_id)
+	return controller(request).handle_delete_lesson_section_request(course_id=None, lesson_id=lesson_id, lesson_section_id=lesson_section_id)
+
+@bp.route('/courses/<int:course_id>/lessons/<int:lesson_id>/lesson_sections<int:lesson_section_id>/delete', methods=('POST',))
+@login_required
+def delete_lesson_section_for_course(course_id, lesson_id, lesson_section_id):
+	return controller(request).handle_delete_lesson_section_request(course_id=course_id, lesson_id=lesson_id, lesson_section_id=lesson_section_id)
 
 ## Util
 
