@@ -85,7 +85,7 @@ class CourseWebController:
             course = self._course_interactor.delete_lesson_sequence_item(course_id=course_id, lesson_sequence_item_id=lesson_sequence_item_id)
             return self._course_presenter.present_delete_lesson_sequence_item_successful(course)
         except MathAppError as error:
-            return self._course_presenter._get_update_form(id=course_id, error=error)
+            return self._get_update_form(id=course_id, error=error)
 
 
 

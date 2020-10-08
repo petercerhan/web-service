@@ -38,5 +38,8 @@ class LessonSection:
     def get_display_name(self):
         return f'Lesson section id: {self._id}'
 
+    def delete(self):
+        self._unit_of_work.register_deleted(self)
+
     def __repr__(self):
         return f'<LessonSection(id={self._id}, positon={self._position})>'

@@ -3,6 +3,7 @@ from flask import (
 )
 from mathapp.library.errors.validation_error import ValidationError
 from mathapp.library.errors.not_found_error import NotFoundError
+from mathapp.library.errors.mathapp_error import MathAppError
 import json
 
 import sys
@@ -101,8 +102,12 @@ class LessonWebController:
     def handle_create_lesson_section_request(self, lesson_id):
         return self._lesson_presenter.present_create_lesson_section(lesson_id=lesson_id)
 
-
-
+    def handle_delete_lesson_section_request(self, lesson_id, lesson_section_id):
+        try:
+            lesson = self._lesson_interactor.delete_lesson_section(lesson_id=lesson_id, lesson_section_id=lesson_section_id)
+            return self._lesson_presenter.present_update(lesson, return_to_course_id=None, error=None)
+        except MathAppError as error:
+            return self._get_update_form(id=lesson_id, course_id=None, error=error)
 
 
 

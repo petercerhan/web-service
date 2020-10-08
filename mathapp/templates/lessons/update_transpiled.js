@@ -7,6 +7,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function LessonSection(props) {
+	function remove() {
+		submitDeleteLessonSectionForm(props.delete_lesson_section_url);
+	}
+
 	return React.createElement(
 		"div",
 		{ className: "ordered_option" },
@@ -24,6 +28,11 @@ function LessonSection(props) {
 			"button",
 			{ type: "button", className: props.last_item ? "hidden" : "", onClick: props.onDownClick },
 			"Down"
+		),
+		React.createElement(
+			"button",
+			{ type: "button", onClick: remove },
+			"Remove"
 		)
 	);
 }
@@ -84,6 +93,7 @@ var LessonSectionList = function (_React$Component) {
 				return React.createElement(LessonSection, {
 					key: lesson_section.id.toString(),
 					lesson_section: lesson_section,
+					delete_lesson_section_url: _this2.props.delete_lesson_section_url.replace('0/delete', lesson_section.id.toString() + '/delete'),
 					first_item: index == 0,
 					last_item: index == arrayObj.length - 1,
 					onUpClick: function onUpClick(i) {
@@ -110,4 +120,5 @@ var LessonSectionList = function (_React$Component) {
 var root = document.getElementById('react_root');
 var dataContainer = document.getElementById('data_container');
 
-ReactDOM.render(React.createElement(LessonSectionList, { lesson_json: dataContainer.getAttribute('lesson') }), root);
+ReactDOM.render(React.createElement(LessonSectionList, { lesson_json: dataContainer.getAttribute('lesson'),
+	delete_lesson_section_url: dataContainer.getAttribute('delete_lesson_section_url') }), root);

@@ -77,6 +77,25 @@ class Lesson:
         self._check_invariants()
         self._unit_of_work.register_dirty(self)
 
+    def remove_lesson_section(self, lesson_section_id):
+        lesson_sections = self._lesson_section_list_value_holder.get_list()
+        deleted_position = None
+        for lesson_section in lesson_sections:
+            if lesson_section.get_id() == lesson_section_id:
+                deleted_position = lesson_section.get_position()
+                self._lesson_section_list_value_holder.removeAtIndex(deleted_position)
+
+        if deleted_position is None:
+            return
+
+        for lesson_section in lesson_sections:
+            if lesson_section.get_position() > deleted_position:
+                prior_position = lesson_section.get_position()
+                lesson_section.set_position(prior_position-1)
+
+        self._check_invariants()
+        self._unit_of_work.register_dirty(self)
+
     def delete(self):
         self._unit_of_work.register_deleted(self)
 

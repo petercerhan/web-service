@@ -56,6 +56,13 @@ class LessonInteractor:
 
         return lesson_to_enriched_data(lesson)
 
+    def delete_lesson_section(self, lesson_id, lesson_section_id):
+        lesson = self._lesson_repository.get(id=lesson_id)
+        lesson.remove_lesson_section(lesson_section_id)
+        self._unit_of_work_committer.commit()
+        return lesson_to_enriched_data(lesson)
+
+
 
 
 

@@ -3,12 +3,16 @@
 
 
 function LessonSection(props) {
+	function remove() {
+		submitDeleteLessonSectionForm(props.delete_lesson_section_url);
+	}
+	
 	return (
 		<div className="ordered_option">
 			<p>{ props.lesson_section.display_name }</p>
 			<button type="button" className={props.first_item ? "hidden" : ""} onClick={props.onUpClick}>Up</button>
 			<button type="button" className={props.last_item ? "hidden" : ""} onClick={props.onDownClick}>Down</button>
-
+			<button type="button" onClick={remove}>Remove</button>
 		</div>
 	) 
 }
@@ -57,6 +61,7 @@ class LessonSectionList extends React.Component {
 			<LessonSection
 			 key={lesson_section.id.toString()}
 			 lesson_section={lesson_section}
+			 delete_lesson_section_url={ (this.props.delete_lesson_section_url).replace('0/delete', lesson_section.id.toString() + '/delete') }
 			 first_item={index==0}
 			 last_item={index == (arrayObj.length - 1)}
 			 onUpClick={i => this.moveUp(index)}
@@ -77,4 +82,9 @@ const root = document.getElementById('react_root');
 const dataContainer = document.getElementById('data_container');
 
 
-ReactDOM.render(<LessonSectionList lesson_json={dataContainer.getAttribute('lesson')}/>, root)
+ReactDOM.render(<LessonSectionList lesson_json={dataContainer.getAttribute('lesson')} 
+								   delete_lesson_section_url={dataContainer.getAttribute('delete_lesson_section_url')}/>, root)
+
+
+
+

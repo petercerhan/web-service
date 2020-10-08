@@ -20,7 +20,7 @@
 
     <div id="data_container"
           course="{{ course_json }}" 
-          delete_lesson_sequence_item_url="{{ url_for('courses.deleted_lesson_sequence_item', course_id=course['id'], lesson_sequence_item_id=0) }}" 
+          delete_lesson_sequence_item_url="{{ url_for('courses.delete_lesson_sequence_item', course_id=course['id'], lesson_sequence_item_id=0) }}" 
           update_lesson_url="{{ url_for('lessons.updateForCourse', course_id=course['id'], lesson_id=0) }}/update" ></div>
 
   <form action="{{ url_for('courses.delete', id=course['id']) }}" method="post">
@@ -50,4 +50,5 @@
 </script>
 
 {% endblock %}
+
 
