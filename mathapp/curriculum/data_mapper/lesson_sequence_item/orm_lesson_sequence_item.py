@@ -7,6 +7,7 @@ from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
 from mathapp.curriculum.domain_model.lesson_sequence_item import LessonSequenceItem
 from mathapp.curriculum.data_mapper.lesson.orm_lesson import ORMLesson
+from mathapp.curriculum.data_mapper.course.course_value_holder import CourseValueHolder
 
 class ORMLessonSequenceItem(Base):
     __tablename__ = 'lesson_sequence_item'
@@ -16,6 +17,8 @@ class ORMLessonSequenceItem(Base):
     course_id = Column(Integer, ForeignKey('course.id'))
 
     lesson = relationship('ORMLesson', lazy='joined', back_populates='lesson_sequence_items')
+
+    course = relationship('ORMCourse', back_populates='lesson_sequence_items')
 
     def __init__(self, position):
         self.position = position
@@ -31,8 +34,11 @@ class ORMLessonSequenceItem(Base):
 
         domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
 
+        course_value_holder = CourseValueHolder(orm_model=self, unit_of_work=unit_of_work)
+
         lesson_sequence_item = LessonSequenceItem(position=self.position,
                                                  lesson=self.lesson.get_model(unit_of_work=unit_of_work), 
+                                                 course_value_holder=course_value_holder,
                                                  unit_of_work=domain_model_unit_of_work)
         lesson_sequence_item._id = self.id
 

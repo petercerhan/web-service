@@ -11,8 +11,7 @@ from mathapp.curriculum.domain_model.lesson import Lesson
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
 from mathapp.curriculum.data_mapper.lesson_section.lesson_section_list_value_holder import LessonSectionListValueHolder
-
-import sys
+from mathapp.curriculum.data_mapper.lesson_sequence_item.lesson_sequence_item_list_value_holder import LessonSequenceItemListValueHolder
 
 class ORMLesson(Base):
     __tablename__ = 'lesson'
@@ -36,18 +35,17 @@ class ORMLesson(Base):
         self._lesson = None
 
     def get_model(self, unit_of_work):
-
-        print(f'lesson has lesson_sequence_items: {self.lesson_sequence_items}', file=sys.stderr)
-
         if self._lesson is not None:
             return self._lesson
 
         domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
         lesson_section_list_value_holder = LessonSectionListValueHolder(orm_model=self, unit_of_work=unit_of_work)
+        lesson_sequence_item_list_value_holder = LessonSequenceItemListValueHolder(orm_model=self, unit_of_work=unit_of_work)
         
         lesson = Lesson(name=self.name, 
                         display_name=self.display_name, 
-                        lesson_section_list_value_holder=lesson_section_list_value_holder,
+                        lesson_section_list_value_holder=lesson_section_list_value_holder, 
+                        lesson_sequence_item_list_value_holder=lesson_sequence_item_list_value_holder,
                         unit_of_work=domain_model_unit_of_work)
         lesson._id = self.id
 
@@ -63,3 +61,7 @@ class ORMLesson(Base):
 
     def __repr__(self):
         return "<ORMLesson(lesson='%s') ID(id='%s')>" % (self.name, self.id)
+
+
+
+

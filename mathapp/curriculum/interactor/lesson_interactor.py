@@ -1,5 +1,6 @@
 from mathapp.curriculum.interactor.domain_to_data_transforms.lesson import lesson_to_data, lesson_to_enriched_data
 
+import sys
 
 class LessonInteractor:
     
@@ -53,9 +54,15 @@ class LessonInteractor:
         lesson = self._lesson_repository.get(id=id)
 
         ##Get all lesson sequence items
+        lesson_sequence_items = lesson.get_lesson_sequence_items()
+
         ##Map to associated courses (units, subunits)
         ##Remove these sequence items from each course
-        
+        for lesson_sequence_item in lesson_sequence_items:
+            course = lesson_sequence_item.get_course()
+            if course is not None:
+                course.remove_lesson_sequence_item(lesson_sequence_item_id=lesson_sequence_item.get_id())
+
         ##Enhance the delete to first loop through lesson sections and delete individually
         lesson.delete()
 
