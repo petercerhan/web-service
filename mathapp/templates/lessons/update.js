@@ -6,13 +6,22 @@ function LessonSection(props) {
 	function remove() {
 		submitDeleteLessonSectionForm(props.delete_lesson_section_url);
 	}
+
+	function edit() {
+		if(props.lesson_section.type == 'lesson_intro') {
+			window.location.href = props.update_lesson_intro_url;
+		} else if(props.lesson_section.type == 'concept_tutorial') {
+			alert('open edit tutorial');
+		}
+	}
 	
 	return (
 		<div className="ordered_option">
 			<p>{ props.lesson_section.display_name }</p>
 			<button type="button" className={props.first_item ? "hidden" : ""} onClick={props.onUpClick}>Up</button>
 			<button type="button" className={props.last_item ? "hidden" : ""} onClick={props.onDownClick}>Down</button>
-			<button type="button" onClick={remove}>Remove</button>
+			<button type="button" onClick={edit}>Edit</button>
+			<button type="button" onClick={remove}>Delete</button>
 		</div>
 	) 
 }
@@ -62,6 +71,7 @@ class LessonSectionList extends React.Component {
 			 key={lesson_section.id.toString()}
 			 lesson_section={lesson_section}
 			 delete_lesson_section_url={ (this.props.delete_lesson_section_url).replace('0/delete', lesson_section.id.toString() + '/delete') }
+			 update_lesson_intro_url={ (this.props.update_lesson_intro_url).replace('lesson_intros/0', 'lesson_intros/' + lesson_section.id.toString() ) }
 			 first_item={index==0}
 			 last_item={index == (arrayObj.length - 1)}
 			 onUpClick={i => this.moveUp(index)}
@@ -81,10 +91,12 @@ class LessonSectionList extends React.Component {
 const root = document.getElementById('react_root');
 const dataContainer = document.getElementById('data_container');
 const deleteURLContainer = document.getElementById('delete_url_container');
+const updateLessonIntroURLContainer = document.getElementById('update_lesson_intro_url_container');
 
 
 ReactDOM.render(<LessonSectionList lesson_json={dataContainer.getAttribute('lesson')} 
-								   delete_lesson_section_url={deleteURLContainer.getAttribute('delete_lesson_section_url')}/>, root)
+								   delete_lesson_section_url={deleteURLContainer.getAttribute('delete_lesson_section_url')} 
+								   update_lesson_intro_url={updateLessonIntroURLContainer.getAttribute('url')}/>, root)
 
 
 

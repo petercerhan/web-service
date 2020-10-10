@@ -12,6 +12,8 @@ class LessonIntroWebController:
 		self._lesson_intro_presenter = lesson_intro_presenter
 		self._lesson_intro_interactor = lesson_intro_interactor
 
+
+
 	def handle_create_request(self, lesson_id):
 		if self._request.method == 'POST':
 			return self._post_create_form(lesson_id=lesson_id)
@@ -27,4 +29,18 @@ class LessonIntroWebController:
 
 	def _get_create_form(self):
 		return self._lesson_intro_presenter.present_create()
+
+
+
+	def handle_update_request(self, lesson_id, lesson_section_id):
+		if self._request.method == 'POST':
+			return self._post_update_form(lesson_id, lesson_section_id)
+		else:
+			return self._get_update_form(lesson_id, lesson_section_id)
+
+	def _post_update_form(self, lesson_id, lesson_section_id):
+		pass
+
+	def _get_update_form(self, lesson_id, lesson_section_id):
+		return self._lesson_intro_presenter.present_update(lesson_id, lesson_intro=None)
 

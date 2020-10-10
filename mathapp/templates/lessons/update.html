@@ -26,11 +26,14 @@
   <div id="data_container" 
         lesson="{{ lesson_json }}"></div>
 
+  <div id="update_lesson_intro_url_container" url="{{ url_for('lesson_intros.update', lesson_id=lesson['id'], lesson_section_id=0) }}"></div>
+  
   {% if return_to_course_id %}
   <div id="delete_url_container" delete_lesson_section_url="{{ url_for('lessons.delete_lesson_section_for_course', course_id=return_to_course_id, lesson_id=lesson['id'], lesson_section_id=0) }}"></div>
   {% else %}
   <div id="delete_url_container" delete_lesson_section_url="{{ url_for('lessons.delete_lesson_section', lesson_id=lesson['id'], lesson_section_id=0) }}"></div>
   {% endif %}
+
 
 
   <form action="{{ url_for('lessons.delete', id=lesson['id']) }}" method="post">

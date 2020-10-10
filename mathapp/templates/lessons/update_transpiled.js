@@ -11,28 +11,41 @@ function LessonSection(props) {
 		submitDeleteLessonSectionForm(props.delete_lesson_section_url);
 	}
 
+	function edit() {
+		if (props.lesson_section.type == 'lesson_intro') {
+			window.location.href = props.update_lesson_intro_url;
+		} else if (props.lesson_section.type == 'concept_tutorial') {
+			alert('open edit tutorial');
+		}
+	}
+
 	return React.createElement(
-		"div",
-		{ className: "ordered_option" },
+		'div',
+		{ className: 'ordered_option' },
 		React.createElement(
-			"p",
+			'p',
 			null,
 			props.lesson_section.display_name
 		),
 		React.createElement(
-			"button",
-			{ type: "button", className: props.first_item ? "hidden" : "", onClick: props.onUpClick },
-			"Up"
+			'button',
+			{ type: 'button', className: props.first_item ? "hidden" : "", onClick: props.onUpClick },
+			'Up'
 		),
 		React.createElement(
-			"button",
-			{ type: "button", className: props.last_item ? "hidden" : "", onClick: props.onDownClick },
-			"Down"
+			'button',
+			{ type: 'button', className: props.last_item ? "hidden" : "", onClick: props.onDownClick },
+			'Down'
 		),
 		React.createElement(
-			"button",
-			{ type: "button", onClick: remove },
-			"Remove"
+			'button',
+			{ type: 'button', onClick: edit },
+			'Edit'
+		),
+		React.createElement(
+			'button',
+			{ type: 'button', onClick: remove },
+			'Delete'
 		)
 	);
 }
@@ -43,7 +56,7 @@ function LessonSectionsInput(props) {
 		return lesson_section;
 	});
 	var lesson_sections_json = JSON.stringify(props.lesson_sections);
-	return React.createElement("input", { type: "hidden", name: "lesson_sections", value: lesson_sections_json });
+	return React.createElement('input', { type: 'hidden', name: 'lesson_sections', value: lesson_sections_json });
 }
 
 var LessonSectionList = function (_React$Component) {
@@ -63,7 +76,7 @@ var LessonSectionList = function (_React$Component) {
 	}
 
 	_createClass(LessonSectionList, [{
-		key: "moveUp",
+		key: 'moveUp',
 		value: function moveUp(i) {
 			var lesson_sections = this.state.lesson_sections;
 			var swap_first = lesson_sections[i - 1];
@@ -74,7 +87,7 @@ var LessonSectionList = function (_React$Component) {
 			});
 		}
 	}, {
-		key: "moveDown",
+		key: 'moveDown',
 		value: function moveDown(i) {
 			var lesson_sections = this.state.lesson_sections;
 			var swap_first = lesson_sections[i + 1];
@@ -85,7 +98,7 @@ var LessonSectionList = function (_React$Component) {
 			});
 		}
 	}, {
-		key: "render",
+		key: 'render',
 		value: function render() {
 			var _this2 = this;
 
@@ -94,6 +107,7 @@ var LessonSectionList = function (_React$Component) {
 					key: lesson_section.id.toString(),
 					lesson_section: lesson_section,
 					delete_lesson_section_url: _this2.props.delete_lesson_section_url.replace('0/delete', lesson_section.id.toString() + '/delete'),
+					update_lesson_intro_url: _this2.props.update_lesson_intro_url.replace('lesson_intros/0', 'lesson_intros/' + lesson_section.id.toString()),
 					first_item: index == 0,
 					last_item: index == arrayObj.length - 1,
 					onUpClick: function onUpClick(i) {
@@ -106,7 +120,7 @@ var LessonSectionList = function (_React$Component) {
 			});
 
 			return React.createElement(
-				"div",
+				'div',
 				null,
 				React.createElement(LessonSectionsInput, { lesson_sections: this.state.lesson_sections }),
 				lesson_sections
@@ -120,6 +134,8 @@ var LessonSectionList = function (_React$Component) {
 var root = document.getElementById('react_root');
 var dataContainer = document.getElementById('data_container');
 var deleteURLContainer = document.getElementById('delete_url_container');
+var updateLessonIntroURLContainer = document.getElementById('update_lesson_intro_url_container');
 
 ReactDOM.render(React.createElement(LessonSectionList, { lesson_json: dataContainer.getAttribute('lesson'),
-	delete_lesson_section_url: deleteURLContainer.getAttribute('delete_lesson_section_url') }), root);
+	delete_lesson_section_url: deleteURLContainer.getAttribute('delete_lesson_section_url'),
+	update_lesson_intro_url: updateLessonIntroURLContainer.getAttribute('url') }), root);
