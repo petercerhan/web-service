@@ -7,10 +7,12 @@ class LessonIntroWebController:
 	def __init__(self, 
 				request, 
 				lesson_intro_presenter, 
-				lesson_intro_interactor):
+				lesson_intro_interactor,
+				lesson_interactor):
 		self._request = request
 		self._lesson_intro_presenter = lesson_intro_presenter
 		self._lesson_intro_interactor = lesson_intro_interactor
+		self._lesson_interactor = lesson_interactor
 
 
 
@@ -42,5 +44,7 @@ class LessonIntroWebController:
 		pass
 
 	def _get_update_form(self, lesson_id, lesson_section_id):
-		return self._lesson_intro_presenter.present_update(lesson_id, lesson_intro=None)
+		lesson = self._lesson_interactor.read(lesson_id)
+		lesson_intro = self._lesson_intro_interactor.read(lesson_id=lesson_id, lesson_section_id=lesson_section_id)
+		return self._lesson_intro_presenter.present_update(lesson=lesson, lesson_intro=lesson_intro)
 

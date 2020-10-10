@@ -1,4 +1,7 @@
 from mathapp.library.errors.validation_error import ValidationError
+from mathapp.library.errors.not_found_error import NotFoundError
+
+import sys
 
 class Lesson:
 
@@ -106,6 +109,13 @@ class Lesson:
     def get_lesson_sequence_items(self):
         return self._lesson_sequence_item_list_value_holder.get_list()
 
+    def get_lesson_intro(self, lesson_section_id):
+        lesson_sections = self._lesson_section_list_value_holder.get_list()
+        lesson_intro = filter(lambda x: x.get_id() == lesson_section_id, lesson_sections)
+        lesson_intro = next(iter(lesson_intro), None)
+        if lesson_intro is None:
+            raise NotFoundError(f'Lesson Intro id({lesson_section_id}) not found')
+        return lesson_intro
 
     def delete(self):
         lesson_sections = self._lesson_section_list_value_holder.get_list()

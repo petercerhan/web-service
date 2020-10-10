@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Edit Lesson Intro:{% endblock %}</h1>
+  <h1>{% block title %}Edit Lesson Intro for {{ lesson['display_name'] }}{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
@@ -9,6 +9,5 @@
     <label for="display_name">Description</label>
     <input name="display_name" id="display_name" value="Placeholder" required>
  
-
 {% endblock %}
 
