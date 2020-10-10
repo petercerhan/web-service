@@ -1,7 +1,5 @@
 from mathapp.library.errors.validation_error import ValidationError
 
-import sys
-
 class LessonSection:
 
     def __init__(self, position, complete_lesson, unit_of_work):

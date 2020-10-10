@@ -46,7 +46,7 @@ class ORMLessonSection(Base):
         return lesson_section
 
     def sync_id(self):
-        self._lesson_section.id = self.id
+        self._lesson_section._id = self.id
 
     def sync_fields(self):
         self.position = self._lesson_section._position
@@ -54,3 +54,11 @@ class ORMLessonSection(Base):
 
     def __repr__(self):
         return f'<ORMLessonSection(id={self.id}, type={self.type})>'
+
+
+
+
+
+
+
+

@@ -18,9 +18,7 @@ class ORMLessonIntro(ORMLessonSection):
 
     def __init__(self, position, complete_lesson, description):
         self.description = description
-
         super().__init__(position, complete_lesson)
-
         self._lesson_intro = None
 
     @orm.reconstructor

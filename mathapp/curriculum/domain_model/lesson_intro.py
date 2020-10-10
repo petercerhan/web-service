@@ -1,5 +1,4 @@
 from mathapp.curriculum.domain_model.lesson_section import LessonSection
-
 from mathapp.library.errors.validation_error import ValidationError
 
 class LessonIntro(LessonSection):
@@ -15,6 +14,8 @@ class LessonIntro(LessonSection):
 	def _check_invariants(self):
 		if not self._description:
 			raise ValidationError(message = "LessonIntro requires description")
+
+		super()._check_invariants()
 
 	def get_type(self):
 		return 'lesson_intro'

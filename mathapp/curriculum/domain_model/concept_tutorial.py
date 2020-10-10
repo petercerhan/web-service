@@ -20,6 +20,8 @@ class ConceptTutorial(LessonSection):
 		if not self._display_name.strip():
 			raise ValidationError(message = "Invalid display_name for Concept Tutorial")
 
+		super()._check_invariants()
+
 	def get_type(self):
 		return 'concept_tutorial'
 
