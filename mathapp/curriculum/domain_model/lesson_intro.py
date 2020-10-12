@@ -3,8 +3,14 @@ from mathapp.library.errors.validation_error import ValidationError
 
 class LessonIntro(LessonSection):
 
-	def __init__(self, position, complete_lesson, description, unit_of_work):
+	def __init__(self, 
+				 position, 
+				 complete_lesson, 
+				 description, 
+				 instruction_section_list_value_holder,
+				 unit_of_work):
 		self._description = description
+		self._instruction_section_list_value_holder = instruction_section_list_value_holder
 		self._unit_of_work = unit_of_work
 
 		super().__init__(position, complete_lesson, unit_of_work)
@@ -22,6 +28,9 @@ class LessonIntro(LessonSection):
 
 	def get_description(self):
 		return self._description
+
+	def get_instruction_sections(self):
+		return self._instruction_section_list_value_holder.get_list()
 
 
 

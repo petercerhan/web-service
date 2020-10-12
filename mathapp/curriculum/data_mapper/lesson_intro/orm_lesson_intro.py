@@ -8,6 +8,7 @@ from mathapp.curriculum.data_mapper.lesson_section.orm_lesson_section import ORM
 from mathapp.curriculum.data_mapper.instruction_section.orm_instruction_section import ORMInstructionSection
 from mathapp.curriculum.data_mapper.detail_section.orm_detail_section import ORMDetailSection
 from mathapp.curriculum.data_mapper.derivation_instruction_section.orm_derivation_instruction_section import ORMDerivationInstructionSection
+from mathapp.curriculum.data_mapper.instruction_section.instruction_section_list_value_holder import InstructionSectionListValueHolder
 
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
@@ -42,10 +43,12 @@ class ORMLessonIntro(ORMLessonSection):
             return self._lesson_intro
 
         domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
+        instruction_section_list_value_holder = InstructionSectionListValueHolder(self, unit_of_work)
 
         lesson_intro = LessonIntro(position=self.position, 
                                     complete_lesson=self.complete_lesson, 
                                     description=self.description, 
+                                    instruction_section_list_value_holder=instruction_section_list_value_holder,
                                     unit_of_work=domain_model_unit_of_work)
         lesson_intro._id = self.id
 
@@ -62,3 +65,9 @@ class ORMLessonIntro(ORMLessonSection):
 
     def __repr__(self):
         return f'<ORMLessonIntro(id={self.id}, type={self.type})>'
+
+
+
+
+
+

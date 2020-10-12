@@ -20,5 +20,6 @@ class LessonIntroPresenter:
 
 		return render_template('lesson_intros/update.html', 
 								lesson=lesson, 
-								lesson_intro=lesson_intro)
+								lesson_intro=lesson_intro, 
+								lesson_intro_json=json.dumps(lesson_intro))
 

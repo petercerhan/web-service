@@ -15,7 +15,7 @@ class InstructionSection:
 	def get_id(self):
 		return self._id
 
-	def get_position(self, position):
+	def get_position(self):
 		return self._position
 
 	def get_type(self):
