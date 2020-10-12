@@ -1,16 +1,24 @@
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy import orm
+from sqlalchemy.orm import relationship
 from mathapp.sqlalchemy.base import Base
 
 from mathapp.curriculum.domain_model.lesson_intro import LessonIntro
 from mathapp.curriculum.data_mapper.lesson_section.orm_lesson_section import ORMLessonSection
+from mathapp.curriculum.data_mapper.instruction_section.orm_instruction_section import ORMInstructionSection
+from mathapp.curriculum.data_mapper.detail_section.orm_detail_section import ORMDetailSection
+from mathapp.curriculum.data_mapper.derivation_instruction_section.orm_derivation_instruction_section import ORMDerivationInstructionSection
 
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
+
+import sys
 
 class ORMLessonIntro(ORMLessonSection):
     __tablename__ = 'lesson_intro'
     id = Column(Integer, ForeignKey('lesson_section.id'), primary_key=True)
     description = Column(String)
+
+    instruction_sections = relationship('ORMInstructionSection')
 
     __mapper_args__ = {
         'polymorphic_identity': 'lesson_intro'
@@ -27,6 +35,9 @@ class ORMLessonIntro(ORMLessonSection):
         super().init_on_load()
 
     def get_model(self, unit_of_work):
+
+        print(self.instruction_sections, file=sys.stderr)
+
         if self._lesson_intro is not None:
             return self._lesson_intro
 
