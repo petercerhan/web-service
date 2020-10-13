@@ -6,8 +6,6 @@ from mathapp.library.errors.not_found_error import NotFoundError
 from mathapp.library.errors.mathapp_error import MathAppError
 import json
 
-import sys
-
 class LessonWebController:
 
     def __init__(self, 

@@ -1,5 +1,7 @@
 from flask import request
+from mathapp.library.errors.mathapp_error import MathAppError
 from mathapp.library.errors.validation_error import ValidationError
+import json
 
 
 class LessonIntroWebController:
@@ -41,10 +43,21 @@ class LessonIntroWebController:
 			return self._get_update_form(lesson_id, lesson_section_id)
 
 	def _post_update_form(self, lesson_id, lesson_section_id):
-		pass
+		fields = {}
+		instruction_sections = self._request.form.get('instruction_sections')
+		if instruction_sections is not None:
+			fields['instruction_sections'] = json.loads( instruction_sections )
 
-	def _get_update_form(self, lesson_id, lesson_section_id):
+		try: 
+			self._lesson_intro_interactor.update(lesson_id, lesson_section_id, fields)
+			return self._lesson_intro_presenter.present_update_successful(lesson_id=lesson_id)
+		except MathAppError as error:
+			self._get_update_form(lesson_id=lesson_id, lesson_section_id=lesson_section_id, error=error)
+
+
+
+	def _get_update_form(self, lesson_id, lesson_section_id, error=None):
 		lesson = self._lesson_interactor.read(lesson_id)
 		lesson_intro = self._lesson_intro_interactor.read(lesson_id=lesson_id, lesson_section_id=lesson_section_id)
-		return self._lesson_intro_presenter.present_update(lesson=lesson, lesson_intro=lesson_intro)
+		return self._lesson_intro_presenter.present_update(lesson=lesson, lesson_intro=lesson_intro, error=error)
 

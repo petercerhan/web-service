@@ -19,7 +19,7 @@ class ORMLessonIntro(ORMLessonSection):
     id = Column(Integer, ForeignKey('lesson_section.id'), primary_key=True)
     description = Column(String)
 
-    instruction_sections = relationship('ORMInstructionSection')
+    instruction_sections = relationship('ORMInstructionSection', order_by='asc(ORMInstructionSection.position)')
 
     __mapper_args__ = {
         'polymorphic_identity': 'lesson_intro'

@@ -60,6 +60,14 @@ class Lesson:
     def get_lesson_sections(self):
         return self._lesson_section_list_value_holder.get_list()
 
+    def get_lesson_section(self, id):
+        lesson_sections = self._lesson_section_list_value_holder.get_list()
+        lesson_section = next(x for x in lesson_sections if x.get_id() == id)
+        if lesson_section is None:
+            raise NotFoundError(message=f'Lesson Section {id} not found on lesson {self._id}')
+        return lesson_section
+
+
     def create_lesson_intro(self, lesson_intro_factory):
         max_position = max([x.get_position() for x in self._lesson_section_list_value_holder.get_list()], default=-1)
         lesson_intro = lesson_intro_factory.create(position=max_position+1)

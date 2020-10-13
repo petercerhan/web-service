@@ -22,3 +22,14 @@ class LessonIntroInteractor:
 		lesson_intro = lesson.get_lesson_intro(lesson_section_id)
 		return lesson_intro_to_enriched_data(lesson_intro)
 
+	def update(self, lesson_id, lesson_section_id, fields):
+		lesson = self._lesson_repository.get(id=lesson_id)
+		lesson_intro = lesson.get_lesson_section(id=lesson_section_id)
+
+		instruction_sections = fields.get('instruction_sections')
+		if instruction_sections is not None:
+			lesson_intro.sync_instruction_section_positions(instruction_sections)
+
+		self._unit_of_work.commit()
+
+		return lesson_intro_to_enriched_data(lesson_intro)

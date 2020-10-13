@@ -23,3 +23,5 @@ class LessonIntroPresenter:
 								lesson_intro=lesson_intro, 
 								lesson_intro_json=json.dumps(lesson_intro))
 
+	def present_update_successful(self, lesson_id):
+		return redirect(url_for('lessons.update', id=lesson_id))
