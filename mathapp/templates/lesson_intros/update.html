@@ -8,9 +8,24 @@
   <form method="post">
     <label for="display_name">Description</label>
     <input name="display_name" id="display_name" value="Placeholder" required>
+    <h1>Instruction Sections</h1>
+    <hr>
+    <br>
+    <div id="react_root"></div>
+
 
 <div id="data_container" 
     lesson_intro="{{ lesson_intro_json }}"></div>
 
 {% endblock %}
 
+{% block react_imports %}
+<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+<script type="text/javascript">
+{% include 'lesson_intros/update_transpiled.js' %}
+</script>
+
+
+{% endblock %}
