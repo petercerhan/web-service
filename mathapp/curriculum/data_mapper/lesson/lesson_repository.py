@@ -16,7 +16,7 @@ class LessonRepository:
 	def get(self, id):
 		orm_lesson = self._session.query(ORMLesson).filter(ORMLesson.id == id).first()
 
-		if not orm_lesson:
+		if orm_lesson is None:
 			raise NotFoundError(message='Not Found')
 
 		lesson = orm_lesson.get_model(unit_of_work=self._unit_of_work)
@@ -27,7 +27,7 @@ class LessonRepository:
 	def get_by_name(self, name):
 		orm_lesson = self._session.query(ORMLesson).filter(ORMLesson.name == name).first()
 
-		if not orm_lesson:
+		if orm_lesson is None:
 			raise NotFoundError(message='Not Found')
 
 		lesson = orm_lesson.get_model(unit_of_work=self._unit_of_work)

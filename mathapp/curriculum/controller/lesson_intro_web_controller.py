@@ -11,12 +11,14 @@ class LessonIntroWebController:
 				lesson_intro_presenter, 
 				detail_section_presenter,
 				lesson_intro_interactor,
-				lesson_interactor):
+				lesson_interactor, 
+				detail_section_interactor):
 		self._request = request
 		self._lesson_intro_presenter = lesson_intro_presenter
 		self._detail_section_presenter = detail_section_presenter
 		self._lesson_intro_interactor = lesson_intro_interactor
 		self._lesson_interactor = lesson_interactor
+		self._detail_section_interactor = detail_section_interactor
 
 
 
@@ -74,7 +76,8 @@ class LessonIntroWebController:
 
 
 	def handle_update_detail_section_request(self, lesson_id, lesson_section_id, detail_section_id):
-		return self._detail_section_presenter.present_update()
+		detail_section = self._detail_section_interactor.read(id=detail_section_id)
+		return self._detail_section_presenter.present_update(detail_section)
 
 
 

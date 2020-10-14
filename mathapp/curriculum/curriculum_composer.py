@@ -26,6 +26,8 @@ from mathapp.curriculum.data_mapper.concept_tutorial.concept_tutorial_factory im
 
 from mathapp.curriculum.presenter.detail_section_presenter import DetailSectionPresenter
 from mathapp.curriculum.data_mapper.detail_section.detail_section_factory import DetailSectionFactory
+from mathapp.curriculum.data_mapper.detail_section.detail_section_repository import DetailSectionRepository
+from mathapp.curriculum.interactor.detail_section_interactor import DetailSectionInteractor
 
 class CurriculumComposer:
 
@@ -113,11 +115,13 @@ class CurriculumComposer:
         detail_section_presenter = self.compose_detail_section_presenter()
         interactor = self.compose_lesson_intro_interactor()
         lesson_interactor = self.compose_lesson_interactor()
+        detail_section_interactor = self.compose_detail_section_interactor()
         return LessonIntroWebController(request=self._request, 
                                         lesson_intro_presenter=presenter, 
                                         detail_section_presenter=detail_section_presenter,
                                         lesson_intro_interactor=interactor, 
-                                        lesson_interactor=lesson_interactor)
+                                        lesson_interactor=lesson_interactor, 
+                                        detail_section_interactor=detail_section_interactor)
 
     def compose_lesson_intro_presenter(self):
         return LessonIntroPresenter()
@@ -164,12 +168,18 @@ class CurriculumComposer:
 
     ##Detail Section
 
+    def compose_detail_section_interactor(self):
+        detail_section_repository = self.compose_detail_section_repository()
+        return DetailSectionInteractor(detail_section_repository=detail_section_repository)
+
     def compose_detail_section_presenter(self):
         return DetailSectionPresenter()
 
     def compose_detail_section_factory(self):
         return DetailSectionFactory(unit_of_work=self._unit_of_work)
 
+    def compose_detail_section_repository(self):
+        return DetailSectionRepository(unit_of_work=self._unit_of_work, session = self._sqlalchemy_session)
 
 
 
