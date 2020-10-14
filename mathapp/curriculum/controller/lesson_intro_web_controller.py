@@ -9,10 +9,12 @@ class LessonIntroWebController:
 	def __init__(self, 
 				request, 
 				lesson_intro_presenter, 
+				detail_section_presenter,
 				lesson_intro_interactor,
 				lesson_interactor):
 		self._request = request
 		self._lesson_intro_presenter = lesson_intro_presenter
+		self._detail_section_presenter = detail_section_presenter
 		self._lesson_intro_interactor = lesson_intro_interactor
 		self._lesson_interactor = lesson_interactor
 
@@ -71,6 +73,8 @@ class LessonIntroWebController:
 			self._get_update_form(lesson_id=lesson_id, lesson_section_id=lesson_section_id, error=error)
 
 
+	def handle_update_detail_section_request(self, lesson_id, lesson_section_id, detail_section_id):
+		return self._detail_section_presenter.present_update()
 
 
 

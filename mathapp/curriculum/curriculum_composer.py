@@ -24,6 +24,7 @@ from mathapp.curriculum.presenter.concept_tutorial_presenter import ConceptTutor
 from mathapp.curriculum.interactor.concept_tutorial_interactor import ConceptTutorialInteractor
 from mathapp.curriculum.data_mapper.concept_tutorial.concept_tutorial_factory import ConceptTutorialFactory
 
+from mathapp.curriculum.presenter.detail_section_presenter import DetailSectionPresenter
 from mathapp.curriculum.data_mapper.detail_section.detail_section_factory import DetailSectionFactory
 
 class CurriculumComposer:
@@ -109,10 +110,12 @@ class CurriculumComposer:
 
     def compose_lesson_intro_web_controller(self):
         presenter = self.compose_lesson_intro_presenter()
+        detail_section_presenter = self.compose_detail_section_presenter()
         interactor = self.compose_lesson_intro_interactor()
         lesson_interactor = self.compose_lesson_interactor()
         return LessonIntroWebController(request=self._request, 
                                         lesson_intro_presenter=presenter, 
+                                        detail_section_presenter=detail_section_presenter,
                                         lesson_intro_interactor=interactor, 
                                         lesson_interactor=lesson_interactor)
 
@@ -159,7 +162,10 @@ class CurriculumComposer:
 
 
 
-    ##Instruction Sections
+    ##Detail Section
+
+    def compose_detail_section_presenter(self):
+        return DetailSectionPresenter()
 
     def compose_detail_section_factory(self):
         return DetailSectionFactory(unit_of_work=self._unit_of_work)

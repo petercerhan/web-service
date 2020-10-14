@@ -28,8 +28,8 @@
 
 
 
-<div id="data_container" 
-    lesson_intro="{{ lesson_intro_json }}"></div>
+<div id="data_container" lesson_intro="{{ lesson_intro_json }}"></div>
+<div id="update_detail_section_url_container" url="{{ url_for('lesson_intros.update_detail_section', lesson_id=lesson['id'], lesson_section_id=lesson_intro['id'], detail_section_id=0) }}"></div>
 
 {% endblock %}
 

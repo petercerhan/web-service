@@ -7,6 +7,12 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function InstructionSection(props) {
+	function edit() {
+		if (props.instruction_section.type == 'detail_section') {
+			window.location.href = props.update_detail_section_url;
+		}
+	}
+
 	return React.createElement(
 		"div",
 		{ className: "ordered_option" },
@@ -24,6 +30,11 @@ function InstructionSection(props) {
 			"button",
 			{ type: "button", className: props.last_item ? "hidden" : "", onClick: props.onDownClick },
 			"Down"
+		),
+		React.createElement(
+			"button",
+			{ type: "button", onClick: edit },
+			"Edit"
 		)
 	);
 }
@@ -83,6 +94,7 @@ var InstructionSectionList = function (_React$Component) {
 				return React.createElement(InstructionSection, {
 					key: instruction_section.id.toString(),
 					instruction_section: instruction_section,
+					update_detail_section_url: _this2.props.update_detail_section_url.replace('detail_sections/0', 'detail_sections/' + instruction_section.id.toString()),
 					first_item: index == 0,
 					last_item: index == arrayObj.length - 1,
 					onUpClick: function onUpClick(i) {
@@ -108,5 +120,7 @@ var InstructionSectionList = function (_React$Component) {
 
 var root = document.getElementById('react_root');
 var dataContainer = document.getElementById('data_container');
+var updateDetailSectionURLContainer = document.getElementById('update_detail_section_url_container');
 
-ReactDOM.render(React.createElement(InstructionSectionList, { lesson_intro_json: dataContainer.getAttribute('lesson_intro') }), root);
+ReactDOM.render(React.createElement(InstructionSectionList, { lesson_intro_json: dataContainer.getAttribute('lesson_intro'),
+	update_detail_section_url: updateDetailSectionURLContainer.getAttribute('url') }), root);
