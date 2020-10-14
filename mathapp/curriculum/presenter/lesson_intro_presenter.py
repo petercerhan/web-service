@@ -25,3 +25,6 @@ class LessonIntroPresenter:
 
 	def present_update_successful(self, lesson_id):
 		return redirect(url_for('lessons.update', id=lesson_id))
+
+	def present_create_detail_section_successful(self, lesson_id, lesson_section_id):
+		return redirect(url_for('lesson_intros.update', lesson_id=lesson_id, lesson_section_id=lesson_section_id))

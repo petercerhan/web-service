@@ -16,5 +16,12 @@ def create(lesson_id):
 def update(lesson_id, lesson_section_id):
 	return controller(request).handle_update_request(lesson_id=lesson_id, lesson_section_id=lesson_section_id)
 
+@bp.route('/lessons/<int:lesson_id>/lesson_intros/<int:lesson_section_id>/create_detail_section', methods=('POST',))
+@login_required
+def create_detail_section(lesson_id, lesson_section_id):
+	return controller(request).handle_create_detail_section_request(lesson_id, lesson_section_id)
+
 def controller(request):
 	return RootComposer(request).compose_lesson_intro_web_controller()
+
+

@@ -15,6 +15,17 @@
     <br>
     <input type="submit" value="Save">
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
+</form>
+
+<form method="post" action="{{ url_for('lesson_intros.create_detail_section', lesson_id=lesson['id'], lesson_section_id=lesson_intro['id']) }}">
+    <hr>
+    <input type="submit" value="Create Detail Section">
+    <label for="title">Title</label>
+    <input name="title" id="title" required>
+    <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
+    <hr>
+</form>
+
 
 
 <div id="data_container" 

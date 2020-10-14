@@ -24,6 +24,8 @@ from mathapp.curriculum.presenter.concept_tutorial_presenter import ConceptTutor
 from mathapp.curriculum.interactor.concept_tutorial_interactor import ConceptTutorialInteractor
 from mathapp.curriculum.data_mapper.concept_tutorial.concept_tutorial_factory import ConceptTutorialFactory
 
+from mathapp.curriculum.data_mapper.detail_section.detail_section_factory import DetailSectionFactory
+
 class CurriculumComposer:
 
     def __init__(self, request, sqlalchemy_session, unit_of_work):
@@ -120,9 +122,11 @@ class CurriculumComposer:
     def compose_lesson_intro_interactor(self):
         lesson_repository = self.compose_lesson_repository()
         lesson_intro_factory = self.compose_lesson_intro_factory()
+        detail_section_factory = self.compose_detail_section_factory()
         unit_of_work = self._unit_of_work
         return LessonIntroInteractor(lesson_repository=lesson_repository, 
                                     lesson_intro_factory=lesson_intro_factory, 
+                                    detail_section_factory=detail_section_factory,
                                     unit_of_work=unit_of_work)
 
     def compose_lesson_intro_factory(self):
@@ -155,6 +159,10 @@ class CurriculumComposer:
 
 
 
+    ##Instruction Sections
+
+    def compose_detail_section_factory(self):
+        return DetailSectionFactory(unit_of_work=self._unit_of_work)
 
 
 

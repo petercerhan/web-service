@@ -54,10 +54,32 @@ class LessonIntroWebController:
 		except MathAppError as error:
 			self._get_update_form(lesson_id=lesson_id, lesson_section_id=lesson_section_id, error=error)
 
-
-
 	def _get_update_form(self, lesson_id, lesson_section_id, error=None):
 		lesson = self._lesson_interactor.read(lesson_id)
 		lesson_intro = self._lesson_intro_interactor.read(lesson_id=lesson_id, lesson_section_id=lesson_section_id)
 		return self._lesson_intro_presenter.present_update(lesson=lesson, lesson_intro=lesson_intro, error=error)
+
+
+	def handle_create_detail_section_request(self, lesson_id, lesson_section_id):
+		fields = {}
+		fields['title'] = self._request.form.get('title')
+
+		try:
+			self._lesson_intro_interactor.create_detail_section(lesson_id, lesson_section_id, fields)
+			return self._lesson_intro_presenter.present_create_detail_section_successful(lesson_id, lesson_section_id)
+		except MathAppError as error:
+			self._get_update_form(lesson_id=lesson_id, lesson_section_id=lesson_section_id, error=error)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
