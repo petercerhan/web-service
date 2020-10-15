@@ -75,11 +75,6 @@ class LessonIntroWebController:
 			self._get_update_form(lesson_id=lesson_id, lesson_section_id=lesson_section_id, error=error)
 
 
-	def handle_update_detail_section_request(self, lesson_id, lesson_section_id, detail_section_id):
-		detail_section = self._detail_section_interactor.read(id=detail_section_id)
-		return self._detail_section_presenter.present_update(detail_section)
-
-
 
 
 

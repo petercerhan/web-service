@@ -54,3 +54,24 @@ class RootComposer:
                                                     sqlalchemy_session = self._sqlalchemy_session,
                                                      unit_of_work = self._unit_of_work)
         return curriculum_composer.compose_concept_tutorial_web_controller()
+
+    def compose_detail_section_web_controller(self):
+        curriculum_composer = CurriculumComposer(request=self._request, 
+                                                    sqlalchemy_session = self._sqlalchemy_session,
+                                                     unit_of_work = self._unit_of_work)
+        return curriculum_composer.compose_detail_section_web_controller()
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+

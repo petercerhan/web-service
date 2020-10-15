@@ -24,6 +24,7 @@ from mathapp.curriculum.presenter.concept_tutorial_presenter import ConceptTutor
 from mathapp.curriculum.interactor.concept_tutorial_interactor import ConceptTutorialInteractor
 from mathapp.curriculum.data_mapper.concept_tutorial.concept_tutorial_factory import ConceptTutorialFactory
 
+from mathapp.curriculum.controller.detail_section_web_controller import DetailSectionWebController
 from mathapp.curriculum.presenter.detail_section_presenter import DetailSectionPresenter
 from mathapp.curriculum.data_mapper.detail_section.detail_section_factory import DetailSectionFactory
 from mathapp.curriculum.data_mapper.detail_section.detail_section_repository import DetailSectionRepository
@@ -167,6 +168,13 @@ class CurriculumComposer:
 
 
     ##Detail Section
+
+    def compose_detail_section_web_controller(self):
+        detail_section_presenter = self.compose_detail_section_presenter()
+        detail_section_interactor = self.compose_detail_section_interactor()
+        return DetailSectionWebController(request=self._request, 
+                                          detail_section_presenter=detail_section_presenter, 
+                                          detail_section_interactor=detail_section_interactor)
 
     def compose_detail_section_interactor(self):
         detail_section_repository = self.compose_detail_section_repository()
