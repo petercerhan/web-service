@@ -8,4 +8,5 @@ class LessonSectionParentValueHolder:
 
 	def get(self):
 		orm_lesson = self._orm_lesson_section.lesson
-		return orm_lesson.get_model(unit_of_work=self._unit_of_work)
+		lesson = orm_lesson.get_model(unit_of_work=self._unit_of_work)
+		return NodeContent(model=lesson, model_name='lesson')
