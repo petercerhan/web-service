@@ -20,6 +20,11 @@ class DetailSection(InstructionSection):
 	def get_title(self):
 		return self._title
 
+	def set_title(self, title):
+		self._title = title
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
+
 	def get_type(self):
 		return 'detail_section'
 

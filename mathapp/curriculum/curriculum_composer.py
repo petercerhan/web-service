@@ -178,7 +178,7 @@ class CurriculumComposer:
 
     def compose_detail_section_interactor(self):
         detail_section_repository = self.compose_detail_section_repository()
-        return DetailSectionInteractor(detail_section_repository=detail_section_repository)
+        return DetailSectionInteractor(detail_section_repository=detail_section_repository, unit_of_work=self._unit_of_work)
 
     def compose_detail_section_presenter(self):
         return DetailSectionPresenter()

@@ -12,13 +12,20 @@ class DetailSectionWebController:
 
 	def handle_update_request(self, id):
 		if self._request.method == 'POST':
-			return self._post_create_form()
+			return self._post_update_form(id)
 		else:
-			return self._get_create_form(id)
+			return self._get_update_form(id, error=None)
 
-	def _post_create_form(self):
-		pass
+	def _post_update_form(self, id):
+		fields = {}
+		fields['title'] = self._request.form.get('title')
 
-	def _get_create_form(self, id):
+		try:
+			self._detail_section_interactor.update(id, fields)
+			return self._detail_section_presenter.present_update_successful('/lessons/2/lesson_intros/11')
+		except MathAppError as error:
+			return self._get_update_form(id, error)
+
+	def _get_update_form(self, id, error):
 		detail_section = self._detail_section_interactor.read(id)
 		return self._detail_section_presenter.present_update(detail_section)
