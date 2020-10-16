@@ -22,6 +22,7 @@ class ORMLesson(Base):
     lesson_sequence_items = relationship('ORMLessonSequenceItem', back_populates='lesson')
 
     lesson_sections = relationship('ORMLessonSection', 
+                                    back_populates='lesson',
                                     order_by='asc(ORMLessonSection.position)', 
                                     cascade='all, delete, delete-orphan')
 

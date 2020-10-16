@@ -12,6 +12,8 @@ from mathapp.curriculum.data_mapper.instruction_section.instruction_section_list
 
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
+from mathapp.curriculum.data_mapper.lesson_section.lesson_section_parent_value_holder import LessonSectionParentValueHolder
+
 class ORMLessonIntro(ORMLessonSection):
     __tablename__ = 'lesson_intro'
     id = Column(Integer, ForeignKey('lesson_section.id'), primary_key=True)
@@ -39,13 +41,15 @@ class ORMLessonIntro(ORMLessonSection):
         if self._lesson_intro is not None:
             return self._lesson_intro
 
-        domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
+        parent_value_holder = LessonSectionParentValueHolder(orm_lesson_section=self, unit_of_work=unit_of_work)
         instruction_section_list_value_holder = InstructionSectionListValueHolder(self, unit_of_work)
+        domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
 
         lesson_intro = LessonIntro(position=self.position, 
                                     complete_lesson=self.complete_lesson, 
                                     description=self.description, 
-                                    instruction_section_list_value_holder=instruction_section_list_value_holder,
+                                    instruction_section_list_value_holder=instruction_section_list_value_holder, 
+                                    parent_value_holder=parent_value_holder,
                                     unit_of_work=domain_model_unit_of_work)
         lesson_intro._id = self.id
 

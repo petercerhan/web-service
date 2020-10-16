@@ -7,13 +7,14 @@ class LessonIntro(LessonSection):
                  position, 
                  complete_lesson, 
                  description, 
-                 instruction_section_list_value_holder,
+                 instruction_section_list_value_holder, 
+                 parent_value_holder,
                  unit_of_work):
         self._description = description
         self._instruction_section_list_value_holder = instruction_section_list_value_holder
         self._unit_of_work = unit_of_work
 
-        super().__init__(position, complete_lesson, unit_of_work)
+        super().__init__(position, complete_lesson, parent_value_holder, unit_of_work)
 
         self._check_invariants()
 

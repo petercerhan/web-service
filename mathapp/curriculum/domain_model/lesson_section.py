@@ -2,12 +2,13 @@ from mathapp.library.errors.validation_error import ValidationError
 
 class LessonSection:
 
-    def __init__(self, position, complete_lesson, unit_of_work):
+    def __init__(self, position, complete_lesson, parent_value_holder, unit_of_work):
         self._id = None
 
         self._position = position
         self._complete_lesson = complete_lesson
 
+        self._parent_value_holder = parent_value_holder
         self._unit_of_work = unit_of_work
 
         self._check_invariants()
@@ -38,6 +39,9 @@ class LessonSection:
 
     def delete(self):
         self._unit_of_work.register_deleted(self)
+
+    def get_parent(self):
+        return self._parent_value_holder.get()
 
     def __repr__(self):
         return f'<LessonSection(id={self._id}, positon={self._position})>'

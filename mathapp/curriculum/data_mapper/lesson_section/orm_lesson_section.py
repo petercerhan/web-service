@@ -1,8 +1,11 @@
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy import orm
+from sqlalchemy.orm import relationship
 from mathapp.sqlalchemy.base import Base
 
 from mathapp.curriculum.domain_model.lesson_section import LessonSection
+
+from mathapp.curriculum.data_mapper.lesson_section.lesson_section_parent_value_holder import LessonSectionParentValueHolder
 
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
@@ -13,6 +16,8 @@ class ORMLessonSection(Base):
     type = Column(String)
     position = Column(Integer)
     complete_lesson = Column(Boolean)
+
+    lesson = relationship('ORMLesson', back_populates='lesson_sections')
 
     __mapper_args__ = {
         'polymorphic_identity': 'lesson_section',
@@ -35,10 +40,12 @@ class ORMLessonSection(Base):
         if self._lesson_section is not None:
             return self._lesson_section
 
+        parent_value_holder = LessonSectionParentValueHolder(orm_lesson_section=self, unit_of_work=unit_of_work)
         domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
 
         lesson_section = LessonSection(position=self.position,
                                        complete_lesson=self.complete_lesson, 
+                                       parent_value_holder=parent_value_holder,
                                        unit_of_work=domain_model_unit_of_work)
         lesson_section._id = self.id
 

@@ -4,11 +4,11 @@ from mathapp.library.errors.validation_error import ValidationError
 
 class ConceptTutorial(LessonSection):
 
-	def __init__(self, position, complete_lesson, display_name, unit_of_work):
+	def __init__(self, position, complete_lesson, display_name, parent_value_holder, unit_of_work):
 		self._display_name = display_name
 		self._unit_of_work = unit_of_work
 
-		super().__init__(position, complete_lesson, unit_of_work)
+		super().__init__(position, complete_lesson, parent_value_holder, unit_of_work)
 
 		self._check_invariants()
 
