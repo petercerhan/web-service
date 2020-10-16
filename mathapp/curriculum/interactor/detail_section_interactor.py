@@ -1,4 +1,5 @@
 from mathapp.curriculum.interactor.domain_to_data_transforms.detail_section import detail_section_to_data
+from mathapp.curriculum.interactor.domain_to_data_transforms.node_content import node_content_list_to_data
 from mathapp.curriculum.domain_model.node_content import NodeContent
 from mathapp.library.class_implements_method import class_implements_method
 
@@ -32,4 +33,4 @@ class DetailSectionInteractor:
 			node = node.model.get_parent()
 			nodes.insert(0, node)
 
-		##flatten nodes to data somehow
+		return node_content_list_to_data(nodes)
