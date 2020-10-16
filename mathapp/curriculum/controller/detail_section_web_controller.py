@@ -1,6 +1,6 @@
 from flask import request
-
-import sys
+from mathapp.curriculum.controller.url_from_lesson_graph_branch import url_from_lesson_graph_branch
+from mathapp.library.errors.mathapp_error import MathAppError
 
 class DetailSectionWebController:
 
@@ -24,12 +24,14 @@ class DetailSectionWebController:
 
 		try:
 			self._detail_section_interactor.update(id, fields)
-			return self._detail_section_presenter.present_update_successful('/lessons/2/lesson_intros/11')
+			branch = self._detail_section_interactor.get_branch_for_node(id)
+			branch.pop()
+			url = url_from_lesson_graph_branch(branch)
+			return self._detail_section_presenter.present_update_successful(url)
 		except MathAppError as error:
 			return self._get_update_form(id, error)
 
 	def _get_update_form(self, id, error):
-		print(self._detail_section_interactor.get_branch_for_node(id), file=sys.stderr)
 		self._detail_section_interactor.get_branch_for_node(id)
 		detail_section = self._detail_section_interactor.read(id)
 		return self._detail_section_presenter.present_update(detail_section)
