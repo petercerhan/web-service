@@ -2,9 +2,10 @@ from mathapp.library.errors.validation_error import ValidationError
 
 class InstructionSection:
 
-	def __init__(self, position, unit_of_work):
+	def __init__(self, position, parent_value_holder, unit_of_work):
 		self._id = None
 		self._position = position
+		self._parent_value_holder = parent_value_holder
 		self._unit_of_work = unit_of_work
 		self._check_invariants()
 
@@ -26,6 +27,8 @@ class InstructionSection:
 	def get_type(self):
 		return 'instruction_section'
 
+	def get_parent(self):
+		return self._parent_value_holder.get()
 
 	def __repr__(self):
 		return f'<InstructionSection(id={self._id})>'

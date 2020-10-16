@@ -12,14 +12,14 @@ from mathapp.curriculum.data_mapper.instruction_section.instruction_section_list
 
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
-import sys
-
 class ORMLessonIntro(ORMLessonSection):
     __tablename__ = 'lesson_intro'
     id = Column(Integer, ForeignKey('lesson_section.id'), primary_key=True)
     description = Column(String)
 
-    instruction_sections = relationship('ORMInstructionSection', order_by='asc(ORMInstructionSection.position)')
+    instruction_sections = relationship('ORMInstructionSection', 
+                                        back_populates='lesson_intro',
+                                        order_by='asc(ORMInstructionSection.position)')
 
     __mapper_args__ = {
         'polymorphic_identity': 'lesson_intro'
@@ -36,9 +36,6 @@ class ORMLessonIntro(ORMLessonSection):
         super().init_on_load()
 
     def get_model(self, unit_of_work):
-
-        print(self.instruction_sections, file=sys.stderr)
-
         if self._lesson_intro is not None:
             return self._lesson_intro
 

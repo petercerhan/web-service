@@ -5,6 +5,8 @@ from mathapp.sqlalchemy.base import Base
 from mathapp.curriculum.domain_model.detail_section import DetailSection
 from mathapp.curriculum.data_mapper.instruction_section.orm_instruction_section import ORMInstructionSection
 
+from mathapp.curriculum.data_mapper.instruction_section.instruction_section_parent_value_holder import InstructionSectionParentValueHolder
+
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
 class ORMDetailSection(ORMInstructionSection):
@@ -30,10 +32,12 @@ class ORMDetailSection(ORMInstructionSection):
 		if self._detail_section is not None:
 			return self._detail_section
 
+		parent_value_holder = InstructionSectionParentValueHolder(orm_instruction_section=self, unit_of_work=unit_of_work)
 		domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
 
 		detail_section = DetailSection(position=self.position, 
 										title=self.title, 
+										parent_value_holder=parent_value_holder,
 										unit_of_work=domain_model_unit_of_work)
 		detail_section._id = self.id
 

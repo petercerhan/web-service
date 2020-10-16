@@ -1,5 +1,7 @@
 from mathapp.curriculum.interactor.domain_to_data_transforms.detail_section import detail_section_to_data
 
+import sys
+
 class DetailSectionInteractor:
 
 	def __init__(self, detail_section_repository):

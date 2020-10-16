@@ -3,11 +3,11 @@ from mathapp.library.errors.validation_error import ValidationError
 
 class DetailSection(InstructionSection):
 
-	def __init__(self, position, title, unit_of_work):
+	def __init__(self, position, title, parent_value_holder, unit_of_work):
 		self._title = title
 		self._unit_of_work = unit_of_work
 
-		super().__init__(position, unit_of_work)
+		super().__init__(position, parent_value_holder, unit_of_work)
 
 		self._check_invariants()
 

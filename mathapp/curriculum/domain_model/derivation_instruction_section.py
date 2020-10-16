@@ -3,10 +3,10 @@ from mathapp.library.errors.validation_error import ValidationError
 
 class DerivationInstructionSection(InstructionSection):
 
-	def __init__(self, position, display_name, unit_of_work):
+	def __init__(self, position, display_name, parent_value_holder, unit_of_work):
 		self._display_name = display_name
 		self._unit_of_work = unit_of_work
-		super().__init__(position, unit_of_work)
+		super().__init__(position, parent_value_holder, unit_of_work)
 		self._check_invariants()
 
 	def _check_invariants(self):

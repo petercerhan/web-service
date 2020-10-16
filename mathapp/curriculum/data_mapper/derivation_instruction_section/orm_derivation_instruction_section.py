@@ -5,6 +5,8 @@ from mathapp.sqlalchemy.base import Base
 from mathapp.curriculum.domain_model.derivation_instruction_section import DerivationInstructionSection
 from mathapp.curriculum.data_mapper.instruction_section.orm_instruction_section import ORMInstructionSection
 
+from mathapp.curriculum.data_mapper.instruction_section.instruction_section_parent_value_holder import InstructionSectionParentValueHolder
+
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
 class ORMDerivationInstructionSection(ORMInstructionSection):
@@ -30,10 +32,12 @@ class ORMDerivationInstructionSection(ORMInstructionSection):
 		if self._derivation_instruction_section is not None:
 			return self._derivation_instruction_section
 
+		parent_value_holder = InstructionSectionParentValueHolder(orm_instruction_section=self, unit_of_work=unit_of_work)
 		domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
 
 		derivation_instruction_section = DerivationInstructionSection(position=self.position, 
 																	  display_name=self.display_name, 
+																	  parent_value_holder=parent_value_holder,
 																	  unit_of_work=domain_model_unit_of_work)
 		derivation_instruction_section._id = self.id
 
@@ -50,5 +54,6 @@ class ORMDerivationInstructionSection(ORMInstructionSection):
 
 	def __repr__(self):
 		return f'<ORMDerivationInstructionSection(id={self.id}, display_name={self.display_name})>'
+
 
 
