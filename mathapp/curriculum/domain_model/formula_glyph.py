@@ -15,6 +15,8 @@ class FormulaGlyph(DetailGlyph):
 		if not self._formula.strip():
 			raise ValidationError(message = f'Invalid formula for FormulaGlyph (id={self._id})')
 
+		super()._check_invariants()
+
 	def get_formula(self):
 		return self._formula
 

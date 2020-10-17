@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy import orm
+from sqlalchemy.orm import relationship
 from mathapp.sqlalchemy.base import Base
 
 from mathapp.curriculum.domain_model.detail_section import DetailSection
@@ -7,12 +8,20 @@ from mathapp.curriculum.data_mapper.instruction_section.orm_instruction_section 
 
 from mathapp.curriculum.data_mapper.instruction_section.instruction_section_parent_value_holder import InstructionSectionParentValueHolder
 
+from mathapp.curriculum.data_mapper.detail_glyph.orm_detail_glyph import ORMDetailGlyph
+from mathapp.curriculum.data_mapper.text_glyph.orm_text_glyph import ORMTextGlyph
+from mathapp.curriculum.data_mapper.formula_glyph.orm_formula_glyph import ORMFormulaGlyph
+
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
+
+import sys
 
 class ORMDetailSection(ORMInstructionSection):
 	__tablename__ = 'detail_section'
 	id = Column(Integer, ForeignKey('instruction_section.id'), primary_key=True)
 	title = Column(String)
+
+	detail_glyphs = relationship('ORMDetailGlyph', order_by='asc(ORMDetailGlyph.position)')
 
 	__mapper_args__ = {
 		'polymorphic_identity': 'detail_section'
@@ -29,6 +38,9 @@ class ORMDetailSection(ORMInstructionSection):
 		super().init_on_load()
 
 	def get_model(self, unit_of_work):
+
+		print(self.detail_glyphs, file=sys.stderr)
+
 		if self._detail_section is not None:
 			return self._detail_section
 

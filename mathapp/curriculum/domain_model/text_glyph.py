@@ -15,6 +15,8 @@ class TextGlyph(DetailGlyph):
 		if not self._text.strip():
 			raise ValidationError(message = f'Invalid text for TextGlyph (id={self._id})')
 
+		super()._check_invariants()
+
 	def get_text(self):
 		return self._text
 
