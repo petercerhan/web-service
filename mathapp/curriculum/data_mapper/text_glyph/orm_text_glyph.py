@@ -33,8 +33,8 @@ class ORMTextGlyph(ORMDetailGlyph):
 
 		domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
 
-		text_glyph = TextGlyph(position=position, 
-							   text=text, 
+		text_glyph = TextGlyph(position=self.position, 
+							   text=self.text, 
 							   unit_of_work=domain_model_unit_of_work)
 		text_glyph._id = self.id
 		self._text_glyph = text_glyph

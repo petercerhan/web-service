@@ -11,10 +11,9 @@ from mathapp.curriculum.data_mapper.instruction_section.instruction_section_pare
 from mathapp.curriculum.data_mapper.detail_glyph.orm_detail_glyph import ORMDetailGlyph
 from mathapp.curriculum.data_mapper.text_glyph.orm_text_glyph import ORMTextGlyph
 from mathapp.curriculum.data_mapper.formula_glyph.orm_formula_glyph import ORMFormulaGlyph
+from mathapp.curriculum.data_mapper.detail_glyph.detail_glyph_list_value_holder import DetailGlyphListValueHolder
 
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
-
-import sys
 
 class ORMDetailSection(ORMInstructionSection):
 	__tablename__ = 'detail_section'
@@ -38,18 +37,17 @@ class ORMDetailSection(ORMInstructionSection):
 		super().init_on_load()
 
 	def get_model(self, unit_of_work):
-
-		print(self.detail_glyphs, file=sys.stderr)
-
 		if self._detail_section is not None:
 			return self._detail_section
 
 		parent_value_holder = InstructionSectionParentValueHolder(orm_instruction_section=self, unit_of_work=unit_of_work)
+		detail_glyph_list_value_holder = DetailGlyphListValueHolder(orm_model=self, unit_of_work=unit_of_work)
 		domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
 
 		detail_section = DetailSection(position=self.position, 
 										title=self.title, 
-										parent_value_holder=parent_value_holder,
+										parent_value_holder=parent_value_holder, 
+										detail_glyph_list_value_holder=detail_glyph_list_value_holder,
 										unit_of_work=domain_model_unit_of_work)
 		detail_section._id = self.id
 

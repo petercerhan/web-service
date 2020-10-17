@@ -3,8 +3,14 @@ from mathapp.library.errors.validation_error import ValidationError
 
 class DetailSection(InstructionSection):
 
-	def __init__(self, position, title, parent_value_holder, unit_of_work):
+	def __init__(self, 
+				 position, 
+				 title, 
+				 parent_value_holder, 
+				 detail_glyph_list_value_holder,
+				 unit_of_work):
 		self._title = title
+		self._detail_glyph_list_value_holder = detail_glyph_list_value_holder
 		self._unit_of_work = unit_of_work
 
 		super().__init__(position, parent_value_holder, unit_of_work)
@@ -27,6 +33,9 @@ class DetailSection(InstructionSection):
 
 	def get_type(self):
 		return 'detail_section'
+
+	def get_detail_glyphs(self):
+		return self._detail_glyph_list_value_holder.get_list()
 
 	def __repr__(self):
 		return f'<DetailSection(id={self._id}, title={self._title})>'

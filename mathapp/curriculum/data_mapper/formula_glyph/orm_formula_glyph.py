@@ -6,6 +6,8 @@ from mathapp.sqlalchemy.base import Base
 from mathapp.curriculum.domain_model.formula_glyph import FormulaGlyph
 from mathapp.curriculum.data_mapper.detail_glyph.orm_detail_glyph import ORMDetailGlyph
 
+from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
+
 class ORMFormulaGlyph(ORMDetailGlyph):
 	__tablename__ = 'formula_glyph'
 	id = Column(Integer, ForeignKey('detail_glyph.id'), primary_key=True)

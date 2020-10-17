@@ -9,7 +9,10 @@ class DetailSectionPresenter:
 	def present_update(self, detail_section, error=None):
 		if error is not None:
 			flash(error.message)
-		return render_template('detail_sections/update.html', detail_section=detail_section)
+		return render_template('detail_sections/update.html', 
+								detail_section=detail_section, 
+								detail_section_json=json.dumps(detail_section))
 
 	def present_update_successful(self, parent_resource_url):
 		return redirect(parent_resource_url)
+

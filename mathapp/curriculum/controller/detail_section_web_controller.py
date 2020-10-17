@@ -32,6 +32,5 @@ class DetailSectionWebController:
 			return self._get_update_form(id, error)
 
 	def _get_update_form(self, id, error):
-		self._detail_section_interactor.get_branch_for_node(id)
 		detail_section = self._detail_section_interactor.read(id)
 		return self._detail_section_presenter.present_update(detail_section)

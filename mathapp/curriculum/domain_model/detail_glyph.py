@@ -12,6 +12,9 @@ class DetailGlyph:
 		if self._position is None:
 			raise ValidationError(message = "DetailGlyph requires position")
 
+	def get_id(self):
+		return self._id
+
 	def get_position(self):
 		return self._position
 

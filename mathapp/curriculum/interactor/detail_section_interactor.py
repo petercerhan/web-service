@@ -1,9 +1,7 @@
-from mathapp.curriculum.interactor.domain_to_data_transforms.detail_section import detail_section_to_data
+from mathapp.curriculum.interactor.domain_to_data_transforms.detail_section import (detail_section_to_data, detail_section_to_enriched_data)
 from mathapp.curriculum.interactor.domain_to_data_transforms.node_content import node_content_list_to_data
 from mathapp.curriculum.domain_model.node_content import NodeContent
 from mathapp.library.class_implements_method import class_implements_method
-
-import sys
 
 class DetailSectionInteractor:
 
@@ -13,7 +11,7 @@ class DetailSectionInteractor:
 
 	def read(self, id):
 		detail_section = self._detail_section_repository.get(id)
-		return detail_section_to_data(detail_section)
+		return detail_section_to_enriched_data(detail_section)
 
 	def update(self, id, fields):
 		detail_section = self._detail_section_repository.get(id)
@@ -23,6 +21,7 @@ class DetailSectionInteractor:
 			detail_section.set_title(title)
 
 		self._unit_of_work.commit()
+		return detail_section_to_enriched_data(detail_section)
 
 	def get_branch_for_node(self, id):
 		detail_section = self._detail_section_repository.get(id)
