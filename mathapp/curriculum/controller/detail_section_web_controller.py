@@ -2,6 +2,8 @@ from flask import request
 from mathapp.curriculum.controller.url_from_lesson_graph_branch import url_from_lesson_graph_branch
 from mathapp.library.errors.mathapp_error import MathAppError
 
+import json
+
 class DetailSectionWebController:
 
 	def __init__(self,
@@ -21,6 +23,9 @@ class DetailSectionWebController:
 	def _post_update_form(self, id):
 		fields = {}
 		fields['title'] = self._request.form.get('title')
+		detail_glyphs = self._request.form.get('detail_glyphs')
+		if detail_glyphs is not None:
+			fields['detail_glyphs'] = json.loads(detail_glyphs)		
 
 		try:
 			self._detail_section_interactor.update(id, fields)

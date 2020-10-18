@@ -37,5 +37,17 @@ class DetailSection(InstructionSection):
 	def get_detail_glyphs(self):
 		return self._detail_glyph_list_value_holder.get_list()
 
+	def sync_detail_glyph_positions(self, detail_glyph_data_array):
+		detail_glyphs = self._detail_glyph_list_value_holder.get_list()
+		for data_item in detail_glyph_data_array:
+			detail_glyph = next(x for x in detail_glyphs if x.get_id() == data_item['id'])
+			if detail_glyph is not None:
+				detail_glyph.set_position(data_item['position'])
+
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
+
 	def __repr__(self):
 		return f'<DetailSection(id={self._id}, title={self._title})>'
+
+

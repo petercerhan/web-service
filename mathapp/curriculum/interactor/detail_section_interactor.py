@@ -20,6 +20,10 @@ class DetailSectionInteractor:
 		if title is not None:
 			detail_section.set_title(title)
 
+		detail_glyphs = fields.get('detail_glyphs')
+		if detail_glyphs is not None:
+			detail_section.sync_detail_glyph_positions(detail_glyphs)
+
 		self._unit_of_work.commit()
 		return detail_section_to_enriched_data(detail_section)
 

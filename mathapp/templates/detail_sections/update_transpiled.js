@@ -35,6 +35,15 @@ function DetailGlyph(props) {
 	);
 }
 
+function DetailGlyphsInput(props) {
+	var detail_glyphs = props.detail_glyphs.map(function (detail_glyph, index) {
+		detail_glyph.position = index;
+		return detail_glyph;
+	});
+	var detail_glyphs_json = JSON.stringify(props.detail_glyphs);
+	return React.createElement('input', { type: 'hidden', name: 'detail_glyphs', value: detail_glyphs_json });
+}
+
 var DetailGlyphList = function (_React$Component) {
 	_inherits(DetailGlyphList, _React$Component);
 
@@ -95,6 +104,7 @@ var DetailGlyphList = function (_React$Component) {
 			return React.createElement(
 				'div',
 				null,
+				React.createElement(DetailGlyphsInput, { detail_glyphs: this.state.detail_glyphs }),
 				detail_glyphs
 			);
 		}

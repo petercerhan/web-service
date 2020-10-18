@@ -19,6 +19,15 @@ function DetailGlyph(props) {
 	)
 }
 
+function DetailGlyphsInput(props) {
+	const detail_glyphs = props.detail_glyphs.map(function (detail_glyph, index) {
+		detail_glyph.position = index;
+		return detail_glyph;
+	});
+	const detail_glyphs_json = JSON.stringify(props.detail_glyphs);
+	return <input type="hidden" name="detail_glyphs" value={detail_glyphs_json} />
+}
+
 class DetailGlyphList extends React.Component {
 	constructor(props) {
 		super(props);
@@ -62,6 +71,7 @@ class DetailGlyphList extends React.Component {
 
 		return (
 			<div>
+				<DetailGlyphsInput detail_glyphs={this.state.detail_glyphs} />
 				{ detail_glyphs }
 			</div>
 		)
