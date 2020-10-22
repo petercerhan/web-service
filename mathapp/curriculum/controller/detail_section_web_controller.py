@@ -39,3 +39,27 @@ class DetailSectionWebController:
 	def _get_update_form(self, id, error):
 		detail_section = self._detail_section_interactor.read(id)
 		return self._detail_section_presenter.present_update(detail_section)
+
+
+	def handle_create_text_glyph_request(self, detail_section_id):
+		fields = {}
+		fields['text'] = self._request.form.get('text')
+
+		try:
+			self._detail_section_interactor.create_text_glyph(detail_section_id, fields)
+			return self._detail_section_presenter.present_create_detail_glyph_successful(detail_section_id)
+		except MathAppError as error:
+			self._get_update_form(id=detail_section_id, error=error)
+
+
+
+
+
+
+
+
+
+
+
+
+

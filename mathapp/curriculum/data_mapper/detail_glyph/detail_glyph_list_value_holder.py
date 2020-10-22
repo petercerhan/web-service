@@ -15,5 +15,9 @@ class DetailGlyphListValueHolder:
 		self._queried = True
 		return detail_glyphs
 
+	def add(self, detail_glyph):
+		orm_detail_glyph = self._unit_of_work.orm_model_for_model(detail_glyph)
+		self._orm_model.detail_glyphs.append(orm_detail_glyph)
+
 	def get_queried(self):
 		return self._queried

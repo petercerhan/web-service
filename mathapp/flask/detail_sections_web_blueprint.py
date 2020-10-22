@@ -11,5 +11,10 @@ bp = Blueprint('detail_sections', __name__)
 def update(id):
 	return controller(request).handle_update_request(id)
 
+@bp.route('/detail_sections/<int:detail_section_id>/create_text_glyph', methods=('POST',))
+@login_required
+def create_text_glyph(detail_section_id):
+	return controller(request).handle_create_text_glyph_request(detail_section_id)
+
 def controller(request):
 	return RootComposer(request).compose_detail_section_web_controller()

@@ -21,7 +21,16 @@ class DetailSection(InstructionSection):
 		if not self._title:
 			raise ValidationError(message = "DetailSection requires title")
 
+		if self._detail_glyph_list_value_holder.get_queried():
+			self._check_detail_glyphs_valid_order()
+
 		super()._check_invariants()
+
+	def _check_detail_glyphs_valid_order(self):
+		detail_glyphs = self._detail_glyph_list_value_holder.get_list()
+		positions = [x.get_position() for x in detail_glyphs]
+		if len(positions) > len(set(positions)):
+			raise ValidationError(message = "DetailGlyphs for DetailSection must have unique positions")
 
 	def get_title(self):
 		return self._title
@@ -47,7 +56,27 @@ class DetailSection(InstructionSection):
 		self._check_invariants()
 		self._unit_of_work.register_dirty(self)
 
+	def create_detail_glyph(self, fields, detail_glyph_factory):
+		max_position = max([x.get_position() for x in self._detail_glyph_list_value_holder.get_list()], default=-1)
+		detail_glyph = detail_glyph_factory.create(fields=fields, position=max_position+1)
+		self._detail_glyph_list_value_holder.add(detail_glyph)
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
+		return detail_glyph
+
 	def __repr__(self):
 		return f'<DetailSection(id={self._id}, title={self._title})>'
+
+
+
+
+
+
+
+
+
+
+
+
 
 

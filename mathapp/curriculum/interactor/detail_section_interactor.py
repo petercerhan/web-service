@@ -3,10 +3,16 @@ from mathapp.curriculum.interactor.domain_to_data_transforms.node_content import
 from mathapp.curriculum.domain_model.node_content import NodeContent
 from mathapp.library.class_implements_method import class_implements_method
 
+from mathapp.curriculum.interactor.domain_to_data_transforms.text_glyph import text_glyph_to_data
+
 class DetailSectionInteractor:
 
-	def __init__(self, detail_section_repository, unit_of_work):
+	def __init__(self, 
+				 detail_section_repository, 
+				 text_glyph_factory,
+				 unit_of_work):
 		self._detail_section_repository = detail_section_repository
+		self._text_glyph_factory = text_glyph_factory
 		self._unit_of_work = unit_of_work
 
 	def read(self, id):
@@ -37,3 +43,18 @@ class DetailSectionInteractor:
 			nodes.insert(0, node)
 
 		return node_content_list_to_data(nodes)
+
+	def create_text_glyph(self, detail_section_id, fields):
+		detail_section = self._detail_section_repository.get(detail_section_id)
+		text_glyph = detail_section.create_detail_glyph(fields=fields, 
+														detail_glyph_factory=self._text_glyph_factory)
+		self._unit_of_work.commit()
+		return text_glyph_to_data(text_glyph)
+
+
+
+
+
+
+
+

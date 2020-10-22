@@ -30,6 +30,8 @@ from mathapp.curriculum.data_mapper.detail_section.detail_section_factory import
 from mathapp.curriculum.data_mapper.detail_section.detail_section_repository import DetailSectionRepository
 from mathapp.curriculum.interactor.detail_section_interactor import DetailSectionInteractor
 
+from mathapp.curriculum.data_mapper.text_glyph.text_glyph_factory import TextGlyphFactory
+
 class CurriculumComposer:
 
     def __init__(self, request, sqlalchemy_session, unit_of_work):
@@ -167,7 +169,7 @@ class CurriculumComposer:
 
 
 
-    ##Detail Section
+    ##Detail Sections
 
     def compose_detail_section_web_controller(self):
         detail_section_presenter = self.compose_detail_section_presenter()
@@ -178,7 +180,10 @@ class CurriculumComposer:
 
     def compose_detail_section_interactor(self):
         detail_section_repository = self.compose_detail_section_repository()
-        return DetailSectionInteractor(detail_section_repository=detail_section_repository, unit_of_work=self._unit_of_work)
+        text_glyph_factory = self.compose_text_glyph_factory()
+        return DetailSectionInteractor(detail_section_repository=detail_section_repository, 
+                                        text_glyph_factory=text_glyph_factory,
+                                        unit_of_work=self._unit_of_work)
 
     def compose_detail_section_presenter(self):
         return DetailSectionPresenter()
@@ -188,6 +193,16 @@ class CurriculumComposer:
 
     def compose_detail_section_repository(self):
         return DetailSectionRepository(unit_of_work=self._unit_of_work, session = self._sqlalchemy_session)
+
+
+    ##Detail Glyphs
+
+    def compose_text_glyph_factory(self):
+        return TextGlyphFactory(unit_of_work=self._unit_of_work)
+
+
+
+
 
 
 

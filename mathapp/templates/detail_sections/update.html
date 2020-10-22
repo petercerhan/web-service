@@ -19,6 +19,16 @@
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
 </form>
 
+<form method="post" action="{{ url_for('detail_sections.create_text_glyph', detail_section_id=detail_section['id']) }}">
+    <hr>
+    <input type="submit" value="Create Text Glyph">
+    <label for="text">Text</label>
+    <input name="text" id="text" required>
+    <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
+    <hr>
+</form>
+
+
 <div id="detail_section_container" detail_section="{{ detail_section_json }}"></div>
 
 
@@ -35,3 +45,5 @@
 
 
 {% endblock %}
+
+
