@@ -28,6 +28,15 @@
     <hr>
 </form>
 
+<form method="post" action="{{ url_for('detail_sections.create_formula_glyph', detail_section_id=detail_section['id']) }}">
+    <hr>
+    <input type="submit" value="Create Formula Glyph">
+    <label for="formula">Formula</label>
+    <input name="formula" id="formula" required>
+    <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
+    <hr>
+</form>
+
 
 <div id="detail_section_container" detail_section="{{ detail_section_json }}"></div>
 

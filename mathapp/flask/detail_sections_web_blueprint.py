@@ -16,5 +16,10 @@ def update(id):
 def create_text_glyph(detail_section_id):
 	return controller(request).handle_create_text_glyph_request(detail_section_id)
 
+@bp.route('/detail_sections/<int:detail_section_id>/create_formula_glyph', methods=('POST',))
+@login_required
+def create_formula_glyph(detail_section_id):
+	return controller(request).handle_create_formula_glyph_request(detail_section_id)
+
 def controller(request):
 	return RootComposer(request).compose_detail_section_web_controller()

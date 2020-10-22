@@ -18,3 +18,4 @@ class DetailSectionPresenter:
 
 	def present_create_detail_glyph_successful(self, detail_section_id):
 		return redirect(url_for('detail_sections.update', id=detail_section_id))
+

@@ -31,6 +31,7 @@ from mathapp.curriculum.data_mapper.detail_section.detail_section_repository imp
 from mathapp.curriculum.interactor.detail_section_interactor import DetailSectionInteractor
 
 from mathapp.curriculum.data_mapper.text_glyph.text_glyph_factory import TextGlyphFactory
+from mathapp.curriculum.data_mapper.formula_glyph.formula_glyph_factory import FormulaGlyphFactory
 
 class CurriculumComposer:
 
@@ -181,8 +182,10 @@ class CurriculumComposer:
     def compose_detail_section_interactor(self):
         detail_section_repository = self.compose_detail_section_repository()
         text_glyph_factory = self.compose_text_glyph_factory()
+        formula_glyph_factory = self.compose_formula_glyph_factory()
         return DetailSectionInteractor(detail_section_repository=detail_section_repository, 
-                                        text_glyph_factory=text_glyph_factory,
+                                        text_glyph_factory=text_glyph_factory, 
+                                        formula_glyph_factory=formula_glyph_factory,
                                         unit_of_work=self._unit_of_work)
 
     def compose_detail_section_presenter(self):
@@ -200,7 +203,8 @@ class CurriculumComposer:
     def compose_text_glyph_factory(self):
         return TextGlyphFactory(unit_of_work=self._unit_of_work)
 
-
+    def compose_formula_glyph_factory(self):
+        return FormulaGlyphFactory(unit_of_work=self._unit_of_work)
 
 
 
