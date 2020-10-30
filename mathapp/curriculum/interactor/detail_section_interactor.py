@@ -5,6 +5,7 @@ from mathapp.library.class_implements_method import class_implements_method
 
 from mathapp.curriculum.interactor.domain_to_data_transforms.text_glyph import text_glyph_to_data
 from mathapp.curriculum.interactor.domain_to_data_transforms.formula_glyph import formula_glyph_to_data
+from mathapp.curriculum.interactor.domain_to_data_transforms.image_glyph import image_glyph_to_data
 
 
 import sys
@@ -71,13 +72,22 @@ class DetailSectionInteractor:
 		return formula_glyph_to_data(formula_glyph)
 
 	def create_image_glyph(self, user_id, detail_section_id, source_code_file, fields):
-		detail_sections = self._detail_section_repository.get(detail_section_id)
+		detail_section = self._detail_section_repository.get(detail_section_id)
+
 		file_extension = self._file_service.get_extension_for_filename(source_code_file.filename)
 		datetime = self._date_service.current_datetime_utc()
 		timestamp = self._date_service.format_datetime_as_timestamp(datetime)
 		filename = f'ImageGlyphSourceCode_{user_id}_{timestamp}.{file_extension}'
-
 		self._file_service.upload_file(file=source_code_file, filename=filename)
+
+		fields = {}
+		fields['source_code_filename'] = filename
+
+		image_glyph = detail_section.create_detail_glyph(fields=fields, 
+														 detail_glyph_factory=self._image_glyph_factory)
+		self._unit_of_work.commit()
+		return image_glyph_to_data(image_glyph)
+
 
 
 

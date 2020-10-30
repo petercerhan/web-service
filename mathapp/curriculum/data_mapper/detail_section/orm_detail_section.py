@@ -11,6 +11,7 @@ from mathapp.curriculum.data_mapper.instruction_section.instruction_section_pare
 from mathapp.curriculum.data_mapper.detail_glyph.orm_detail_glyph import ORMDetailGlyph
 from mathapp.curriculum.data_mapper.text_glyph.orm_text_glyph import ORMTextGlyph
 from mathapp.curriculum.data_mapper.formula_glyph.orm_formula_glyph import ORMFormulaGlyph
+from mathapp.curriculum.data_mapper.image_glyph.orm_image_glyph import ORMImageGlyph
 from mathapp.curriculum.data_mapper.detail_glyph.detail_glyph_list_value_holder import DetailGlyphListValueHolder
 
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork

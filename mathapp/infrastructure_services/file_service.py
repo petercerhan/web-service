@@ -1,4 +1,5 @@
 from werkzeug.utils import secure_filename
+from mathapp.library.errors.mathapp_error import MathAppError
 import os
 
 class FileService:
@@ -11,9 +12,11 @@ class FileService:
 	def upload_file(self, file, filename):
 		extension = self.get_extension_for_filename(filename)
 		if extension is None:
-			return False
+			raise MathAppError(message='No file extension found')
 		if extension not in self._extension_allowlist:
-			return False
+			raise MathAppError(message='File type not allowed')
+
+		filename = secure_filename(filename)
 
 		file_location = os.path.join(self._file_uploads_path, filename)
 		file.save(file_location)

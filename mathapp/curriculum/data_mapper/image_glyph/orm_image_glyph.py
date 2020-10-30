@@ -11,14 +11,14 @@ from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 class ORMImageGlyph(ORMDetailGlyph):
 	__tablename__ = 'image_glyph'
 	id = Column(Integer, ForeignKey('detail_glyph.id'), primary_key=True)
-	source_code_file_path = Column(String)
+	source_code_filename = Column(String)
 
 	__mapper_args__ = {
 		'polymorphic_identity': 'image_glyph'
 	}
 
-	def __init__(self, position, source_code_file_path):
-		self.source_code_file_path = source_code_file_path
+	def __init__(self, position, source_code_filename):
+		self.source_code_filename = source_code_filename
 		super().__init__(position)
 		self._image_glyph = None
 
@@ -34,7 +34,7 @@ class ORMImageGlyph(ORMDetailGlyph):
 		domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
 
 		image_glyph = ImageGlyph(position=self.position, 
-								 source_code_file_path=self.source_code_file_path, 
+								 source_code_filename=self.source_code_filename, 
 								 unit_of_work=domain_model_unit_of_work)
 		image_glyph._id = self.id
 		self._image_glyph = image_glyph
@@ -45,7 +45,7 @@ class ORMImageGlyph(ORMDetailGlyph):
 		self._image_glyph._id = self.id
 
 	def sync_fields(self):
-		self.source_code_file_path = self._image_glyph._source_code_file_path
+		self.source_code_filename = self._image_glyph._source_code_filename
 		super().sync_fields()
 
 	def __repr__(self):
