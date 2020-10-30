@@ -32,12 +32,18 @@ from mathapp.curriculum.interactor.detail_section_interactor import DetailSectio
 
 from mathapp.curriculum.data_mapper.text_glyph.text_glyph_factory import TextGlyphFactory
 from mathapp.curriculum.data_mapper.formula_glyph.formula_glyph_factory import FormulaGlyphFactory
+from mathapp.curriculum.data_mapper.image_glyph.image_glyph_factory import ImageGlyphFactory
 
 class CurriculumComposer:
 
-    def __init__(self, request, sqlalchemy_session, unit_of_work):
+    def __init__(self, 
+                 request, 
+                 sqlalchemy_session, 
+                 infrastructure_service_composer,
+                 unit_of_work):
         self._request = request
         self._sqlalchemy_session = sqlalchemy_session
+        self._infrastructure_service_composer = infrastructure_service_composer
         self._unit_of_work = unit_of_work
 
 
@@ -183,9 +189,15 @@ class CurriculumComposer:
         detail_section_repository = self.compose_detail_section_repository()
         text_glyph_factory = self.compose_text_glyph_factory()
         formula_glyph_factory = self.compose_formula_glyph_factory()
+        image_glyph_factory = self.compose_image_glyph_factory()
+        file_service = self._infrastructure_service_composer.compose_file_service()
+        date_service = self._infrastructure_service_composer.compose_date_service()
         return DetailSectionInteractor(detail_section_repository=detail_section_repository, 
                                         text_glyph_factory=text_glyph_factory, 
-                                        formula_glyph_factory=formula_glyph_factory,
+                                        formula_glyph_factory=formula_glyph_factory, 
+                                        image_glyph_factory=image_glyph_factory, 
+                                        file_service=file_service, 
+                                        date_service=date_service,
                                         unit_of_work=self._unit_of_work)
 
     def compose_detail_section_presenter(self):
@@ -205,6 +217,9 @@ class CurriculumComposer:
 
     def compose_formula_glyph_factory(self):
         return FormulaGlyphFactory(unit_of_work=self._unit_of_work)
+
+    def compose_image_glyph_factory(self):
+        return ImageGlyphFactory(unit_of_work=self._unit_of_work)
 
 
 

@@ -60,7 +60,16 @@ class DetailSectionWebController:
 			return self._detail_section_presenter.present_create_detail_glyph_successful(detail_section_id)
 		except MathAppError as error:
 			self._get_update_form(id=detail_section_id, error=error)
-			
+
+	def handle_create_image_glyph_request(self, user_id, detail_section_id):
+		source_code_file = self._request.files.get('source_code_file')
+		fields = {}
+
+		try:
+			self._detail_section_interactor.create_image_glyph(user_id, detail_section_id, source_code_file, fields)
+			return self._detail_section_presenter.present_create_detail_glyph_successful(detail_section_id)
+		except MathAppError as error:
+			self._get_update_form(id=detail_section_id, error=error)
 
 
 

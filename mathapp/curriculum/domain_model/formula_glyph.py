@@ -1,4 +1,5 @@
 from mathapp.curriculum.domain_model.detail_glyph import DetailGlyph
+from mathapp.library.errors.validation_error import ValidationError
 
 class FormulaGlyph(DetailGlyph):
 

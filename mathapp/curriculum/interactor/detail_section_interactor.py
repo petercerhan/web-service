@@ -6,16 +6,25 @@ from mathapp.library.class_implements_method import class_implements_method
 from mathapp.curriculum.interactor.domain_to_data_transforms.text_glyph import text_glyph_to_data
 from mathapp.curriculum.interactor.domain_to_data_transforms.formula_glyph import formula_glyph_to_data
 
+
+import sys
+
 class DetailSectionInteractor:
 
 	def __init__(self, 
 				 detail_section_repository, 
 				 text_glyph_factory, 
-				 formula_glyph_factory,
+				 formula_glyph_factory, 
+				 image_glyph_factory, 
+				 file_service, 
+				 date_service,
 				 unit_of_work):
 		self._detail_section_repository = detail_section_repository
 		self._text_glyph_factory = text_glyph_factory
 		self._formula_glyph_factory = formula_glyph_factory
+		self._image_glyph_factory = image_glyph_factory
+		self._file_service = file_service
+		self._date_service = date_service
 		self._unit_of_work = unit_of_work
 
 	def read(self, id):
@@ -60,6 +69,21 @@ class DetailSectionInteractor:
 															detail_glyph_factory=self._formula_glyph_factory)
 		self._unit_of_work.commit()
 		return formula_glyph_to_data(formula_glyph)
+
+	def create_image_glyph(self, user_id, detail_section_id, source_code_file, fields):
+		detail_sections = self._detail_section_repository.get(detail_section_id)
+		file_extension = self._file_service.get_extension_for_filename(source_code_file.filename)
+		datetime = self._date_service.current_datetime_utc()
+		timestamp = self._date_service.format_datetime_as_timestamp(datetime)
+		filename = f'ImageGlyphSourceCode_{user_id}_{timestamp}.{file_extension}'
+
+		self._file_service.upload_file(file=source_code_file, filename=filename)
+
+
+
+
+
+
 
 
 

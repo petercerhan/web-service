@@ -3,6 +3,8 @@ from flask import Flask
 from .sqlalchemy.db import Session
 from .sqlalchemy.db import override_session
 
+import sys
+
 def create_app(test_config=None):
 
     app = Flask(__name__, instance_relative_config=True)
@@ -11,6 +13,7 @@ def create_app(test_config=None):
         DATABASE=os.path.join(app.instance_path, 'mathapp.sqlite'),
         SQLALCHEMY_DATABASE_URI='sqlite:///instance/mathapp.sqlite',
         AUTH_SECRET_KEY='auth_placeholder_key',
+        FILE_UPLOADS_PATH=os.path.join(app.instance_path, 'uploads'),
     )
 
     @app.teardown_appcontext

@@ -37,6 +37,15 @@
     <hr>
 </form>
 
+<form method="post" enctype="multipart/form-data" action="{{ url_for('detail_sections.create_image_glyph', detail_section_id=detail_section['id']) }}">
+    <hr>
+    <input type="submit" value="Create Image Glyph">
+    <label for="source_code_file">Source Code File</label>
+    <input type=file name="source_code_file" id="source_code_file" required>
+    <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
+    <hr>
+</form>
+
 
 <div id="detail_section_container" detail_section="{{ detail_section_json }}"></div>
 

@@ -3,6 +3,9 @@ from mathapp.system.system_composer import SystemComposer
 from mathapp.sqlalchemy.sqlalchemy_composer import SQLAlchemyComposer
 from mathapp.infrastructure_services.infrastructure_service_composer import InfrastructureServiceComposer
 
+from flask import current_app
+import sys
+
 class RootComposer:
 
     def __init__(self, request):
@@ -12,21 +15,15 @@ class RootComposer:
         self._sqlalchemy_session = self._sqlalchemy_composer.compose_session()
         self._unit_of_work = self._sqlalchemy_composer.compose_unit_of_work()
 
-        self._infrastructure_service_composer = InfrastructureServiceComposer()
+        self._infrastructure_service_composer = InfrastructureServiceComposer(file_uploads_path=current_app.config['FILE_UPLOADS_PATH'])
 
 
     def compose_course_web_controller(self):
-        curriculum_composer = CurriculumComposer(request=self._request, 
-                                                    sqlalchemy_session = self._sqlalchemy_session,
-                                                     unit_of_work = self._unit_of_work)
-
+        curriculum_composer = self.compose_curriculum_composer()
         return curriculum_composer.compose_course_web_controller()
 
     def compose_lesson_web_controller(self):
-        curriculum_composer = CurriculumComposer(request=self._request, 
-                                                    sqlalchemy_session = self._sqlalchemy_session,
-                                                     unit_of_work = self._unit_of_work)
-
+        curriculum_composer = self.compose_curriculum_composer()
         return curriculum_composer.compose_lesson_web_controller()
 
     def compose_auth_web_controller(self):
@@ -43,25 +40,23 @@ class RootComposer:
         return system_composer.compose_auth_web_controller()
 
     def compose_lesson_intro_web_controller(self):
-        curriculum_composer = CurriculumComposer(request=self._request, 
-                                                    sqlalchemy_session = self._sqlalchemy_session,
-                                                     unit_of_work = self._unit_of_work)
-
+        curriculum_composer = self.compose_curriculum_composer()
         return curriculum_composer.compose_lesson_intro_web_controller()
 
     def compose_concept_tutorial_web_controller(self):
-        curriculum_composer = CurriculumComposer(request=self._request, 
-                                                    sqlalchemy_session = self._sqlalchemy_session,
-                                                     unit_of_work = self._unit_of_work)
+        curriculum_composer = self.compose_curriculum_composer()
         return curriculum_composer.compose_concept_tutorial_web_controller()
 
     def compose_detail_section_web_controller(self):
-        curriculum_composer = CurriculumComposer(request=self._request, 
-                                                    sqlalchemy_session = self._sqlalchemy_session,
-                                                     unit_of_work = self._unit_of_work)
+        curriculum_composer = self.compose_curriculum_composer()
         return curriculum_composer.compose_detail_section_web_controller()
         
 
+    def compose_curriculum_composer(self):
+        return CurriculumComposer(request=self._request,
+                                  sqlalchemy_session = self._sqlalchemy_session, 
+                                  infrastructure_service_composer=self._infrastructure_service_composer,
+                                  unit_of_work = self._unit_of_work)
 
 
 
