@@ -21,27 +21,32 @@
 
 <form method="post" action="{{ url_for('detail_sections.create_text_glyph', detail_section_id=detail_section['id']) }}">
     <hr>
-    <input type="submit" value="Create Text Glyph">
+    <h2>Add Text Glyph</h2>
     <label for="text">Text</label>
     <input name="text" id="text" required>
+    <input type="submit" value="Create Text Glyph">
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
     <hr>
 </form>
 
 <form method="post" action="{{ url_for('detail_sections.create_formula_glyph', detail_section_id=detail_section['id']) }}">
     <hr>
-    <input type="submit" value="Create Formula Glyph">
+    <h2>Add Formula Glyph</h2>
     <label for="formula">Formula</label>
     <input name="formula" id="formula" required>
+    <input type="submit" value="Create Formula Glyph">
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
     <hr>
 </form>
 
 <form method="post" enctype="multipart/form-data" action="{{ url_for('detail_sections.create_image_glyph', detail_section_id=detail_section['id']) }}">
     <hr>
-    <input type="submit" value="Create Image Glyph">
+    <h2>Add Image Glyph</h2>
     <label for="source_code_file">Source Code File</label>
     <input type=file name="source_code_file" id="source_code_file" required>
+    <label for="image_file">Image File</label>
+    <input type=file name="image_file" id="image_file" required>
+    <input type="submit" value="Create Image Glyph">
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
     <hr>
 </form>

@@ -8,6 +8,8 @@ function DetailGlyph(props) {
 		display_name = props.detail_glyph.text;
 	} else if (props.detail_glyph.type == 'formula_glyph') {
 		display_name = props.detail_glyph.formula;
+	} else if (props.detail_glyph.type == 'image_glyph') {
+		display_name = props.detail_glyph.source_code_filename
 	}
 
 	return (

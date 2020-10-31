@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, String, Boolean, LargeBinary, ForeignKey
 from sqlalchemy import orm
 from sqlalchemy.orm import relationship
 from mathapp.sqlalchemy.base import Base
@@ -12,13 +12,15 @@ class ORMImageGlyph(ORMDetailGlyph):
 	__tablename__ = 'image_glyph'
 	id = Column(Integer, ForeignKey('detail_glyph.id'), primary_key=True)
 	source_code_filename = Column(String)
+	image_data = Column(LargeBinary)
 
 	__mapper_args__ = {
 		'polymorphic_identity': 'image_glyph'
 	}
 
-	def __init__(self, position, source_code_filename):
+	def __init__(self, position, source_code_filename, image_data):
 		self.source_code_filename = source_code_filename
+		self.image_data = image_data
 		super().__init__(position)
 		self._image_glyph = None
 
@@ -35,6 +37,7 @@ class ORMImageGlyph(ORMDetailGlyph):
 
 		image_glyph = ImageGlyph(position=self.position, 
 								 source_code_filename=self.source_code_filename, 
+								 image_data=self.image_data,
 								 unit_of_work=domain_model_unit_of_work)
 		image_glyph._id = self.id
 		self._image_glyph = image_glyph
@@ -46,6 +49,7 @@ class ORMImageGlyph(ORMDetailGlyph):
 
 	def sync_fields(self):
 		self.source_code_filename = self._image_glyph._source_code_filename
+		self.image_data = self._image_glyph._image_data
 		super().sync_fields()
 
 	def __repr__(self):

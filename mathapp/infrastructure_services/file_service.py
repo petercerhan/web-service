@@ -1,6 +1,7 @@
 from werkzeug.utils import secure_filename
 from mathapp.library.errors.mathapp_error import MathAppError
 import os
+import base64
 
 class FileService:
 
@@ -25,3 +26,6 @@ class FileService:
 		if '.' not in filename:
 			return None
 		return filename.rsplit('.', 1)[1].lower()
+
+	def base64_encode(self, file):
+		return base64.b64encode(file.read())
