@@ -1,6 +1,16 @@
 
 
-
+function DetailGlyphContent(props) {
+	if(props.detail_glyph.type == 'text_glyph') {
+		return (<p>{ props.detail_glyph.text }</p>)
+	} else if (props.detail_glyph.type == 'formula_glyph') {
+		return (<p>{ props.detail_glyph.formula }</p>)
+	} else if (props.detail_glyph.type == 'image_glyph') {
+		return (<img src={"data:image/png;base64," + props.detail_glyph.image_data} height="200" width="200"/>)
+	} else {
+		return (<p>Unknown Glyph Type</p>)
+	}
+}
 
 function DetailGlyph(props) {
 	var display_name = props.detail_glyph.type;
@@ -14,7 +24,7 @@ function DetailGlyph(props) {
 
 	return (
 		<div className="ordered_option">
-			<p>{ display_name }</p>
+			<DetailGlyphContent detail_glyph={props.detail_glyph} />
 			<button type="button" className={props.first_item ? "hidden" : ""} onClick={props.onUpClick}>Up</button>
 			<button type="button" className={props.last_item ? "hidden" : ""} onClick={props.onDownClick}>Down</button>
 		</div>

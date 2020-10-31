@@ -6,6 +6,30 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+function DetailGlyphContent(props) {
+	if (props.detail_glyph.type == 'text_glyph') {
+		return React.createElement(
+			'p',
+			null,
+			props.detail_glyph.text
+		);
+	} else if (props.detail_glyph.type == 'formula_glyph') {
+		return React.createElement(
+			'p',
+			null,
+			props.detail_glyph.formula
+		);
+	} else if (props.detail_glyph.type == 'image_glyph') {
+		return React.createElement('img', { src: "data:image/png;base64," + props.detail_glyph.image_data, height: '200', width: '200' });
+	} else {
+		return React.createElement(
+			'p',
+			null,
+			'Unknown Glyph Type'
+		);
+	}
+}
+
 function DetailGlyph(props) {
 	var display_name = props.detail_glyph.type;
 	if (props.detail_glyph.type == 'text_glyph') {
@@ -19,11 +43,7 @@ function DetailGlyph(props) {
 	return React.createElement(
 		'div',
 		{ className: 'ordered_option' },
-		React.createElement(
-			'p',
-			null,
-			display_name
-		),
+		React.createElement(DetailGlyphContent, { detail_glyph: props.detail_glyph }),
 		React.createElement(
 			'button',
 			{ type: 'button', className: props.first_item ? "hidden" : "", onClick: props.onUpClick },
