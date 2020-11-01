@@ -64,6 +64,13 @@ class DetailSection(InstructionSection):
 		self._unit_of_work.register_dirty(self)
 		return detail_glyph
 
+	def get_detail_glyph(self, id):
+		detail_glyphs = self._detail_glyph_list_value_holder.get_list()
+		detail_glyph = next(x for x in detail_glyphs if x.get_id() == id)
+		if detail_glyph is None:
+			raise NotFoundError(message=f'Detail Glyph {id} not found on glyph {self._id}')
+		return detail_glyph
+
 	def __repr__(self):
 		return f'<DetailSection(id={self._id}, title={self._title})>'
 

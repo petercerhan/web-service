@@ -70,7 +70,34 @@ class DetailSectionWebController:
 			self._detail_section_interactor.create_image_glyph(user_id, detail_section_id, source_code_file, image_file, fields)
 			return self._detail_section_presenter.present_create_detail_glyph_successful(detail_section_id)
 		except MathAppError as error:
-			self._get_update_form(id=detail_section_id, error=error)
+			return self._get_update_form(id=detail_section_id, error=error)
+
+	def handle_update_text_glyph_request(self, detail_section_id, text_glyph_id):
+		if self._request.method == 'POST':
+			return self._post_update_text_glyph_form(detail_section_id, text_glyph_id)
+		else:
+			return self._get_update_text_glyph_form(detail_section_id, text_glyph_id)
+
+	def _get_update_text_glyph_form(self, detail_section_id, text_glyph_id):
+		text_glyph = self._detail_section_interactor.read_detail_glyph(detail_section_id=detail_section_id, detail_glyph_id=text_glyph_id)
+		return self._detail_section_presenter.present_update_text_glyph(text_glyph=text_glyph)
+
+	def _post_update_text_glyph_form(self, detail_section_id, text_glyph_id):
+		fields = {}
+		fields['text'] = self._request.form.get('text')
+
+		try:
+			self._detail_section_interactor.update_text_glyph(detail_section_id, text_glyph_id, fields)
+			return self._get_update_form(id=detail_section_id, error=None)
+		except MathAppError as error:
+			return self._detail_section_presenter.present_update_detail_glyph_successful(detail_section_id)
+
+
+
+
+
+
+
 
 
 

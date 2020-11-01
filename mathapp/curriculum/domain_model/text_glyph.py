@@ -20,6 +20,11 @@ class TextGlyph(DetailGlyph):
 	def get_text(self):
 		return self._text
 
+	def set_text(self, text):
+		self._text = text
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
+
 	def get_type(self):
 		return 'text_glyph'
 

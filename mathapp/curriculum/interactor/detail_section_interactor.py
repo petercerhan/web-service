@@ -3,6 +3,7 @@ from mathapp.curriculum.interactor.domain_to_data_transforms.node_content import
 from mathapp.curriculum.domain_model.node_content import NodeContent
 from mathapp.library.class_implements_method import class_implements_method
 
+from mathapp.curriculum.interactor.domain_to_data_transforms.detail_glyph import detail_glyph_to_data
 from mathapp.curriculum.interactor.domain_to_data_transforms.text_glyph import text_glyph_to_data
 from mathapp.curriculum.interactor.domain_to_data_transforms.formula_glyph import formula_glyph_to_data
 from mathapp.curriculum.interactor.domain_to_data_transforms.image_glyph import image_glyph_to_data
@@ -89,7 +90,21 @@ class DetailSectionInteractor:
 		self._unit_of_work.commit()
 		return image_glyph_to_data(image_glyph)
 
+	def read_detail_glyph(self, detail_section_id, detail_glyph_id):
+		detail_section = self._detail_section_repository.get(detail_section_id)
+		detail_glyph = detail_section.get_detail_glyph(detail_glyph_id)
+		return detail_glyph_to_data(detail_glyph)
 
+	def update_text_glyph(self, detail_section_id, text_glyph_id, fields):
+		detail_section = self._detail_section_repository.get(detail_section_id)
+		text_glyph = detail_section.get_detail_glyph(text_glyph_id)
+
+		text = fields.get('text')
+		if text is not None:
+			text_glyph.set_text(text)
+
+		self._unit_of_work.commit()
+		return text_glyph_to_data(text_glyph)
 
 
 
