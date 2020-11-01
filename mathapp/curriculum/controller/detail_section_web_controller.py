@@ -78,9 +78,9 @@ class DetailSectionWebController:
 		else:
 			return self._get_update_text_glyph_form(detail_section_id, text_glyph_id)
 
-	def _get_update_text_glyph_form(self, detail_section_id, text_glyph_id):
+	def _get_update_text_glyph_form(self, detail_section_id, text_glyph_id, error=None):
 		text_glyph = self._detail_section_interactor.read_detail_glyph(detail_section_id=detail_section_id, detail_glyph_id=text_glyph_id)
-		return self._detail_section_presenter.present_update_text_glyph(text_glyph=text_glyph)
+		return self._detail_section_presenter.present_update_text_glyph(text_glyph=text_glyph, error=error)
 
 	def _post_update_text_glyph_form(self, detail_section_id, text_glyph_id):
 		fields = {}
@@ -88,10 +88,29 @@ class DetailSectionWebController:
 
 		try:
 			self._detail_section_interactor.update_text_glyph(detail_section_id, text_glyph_id, fields)
-			return self._get_update_form(id=detail_section_id, error=None)
-		except MathAppError as error:
 			return self._detail_section_presenter.present_update_detail_glyph_successful(detail_section_id)
+		except MathAppError as error:
+			return self._get_update_text_glyph_form(self, detail_section_id, text_glyph_id, error)
 
+	def handle_update_formula_glyph_request(self, detail_section_id, formula_glyph_id):
+		if self._request.method == 'POST':
+			return self._post_update_formula_glyph_form(detail_section_id, formula_glyph_id)
+		else:
+			return self._get_update_formula_glyph_form(detail_section_id, formula_glyph_id)
+
+	def _post_update_formula_glyph_form(self, detail_section_id, formula_glyph_id):
+		fields = {}
+		fields['formula'] = self._request.form.get('formula')
+
+		try:
+			self._detail_section_interactor.update_formula_glyph(detail_section_id, formula_glyph_id, fields)
+			return self._detail_section_presenter.present_update_detail_glyph_successful(detail_section_id)
+		except MathAppError as error:
+			return self._get_update_formula_glyph_form(self, detail_section_id, text_glyph_id, error)
+
+	def _get_update_formula_glyph_form(self, detail_section_id, formula_glyph_id, error=None):
+		formula_glyph = self._detail_section_interactor.read_detail_glyph(detail_section_id=detail_section_id, detail_glyph_id=formula_glyph_id)
+		return self._detail_section_presenter.present_update_formula_glyph(formula_glyph=formula_glyph, error=error)
 
 
 

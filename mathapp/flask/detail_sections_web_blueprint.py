@@ -31,6 +31,11 @@ def create_image_glyph(detail_section_id):
 def update_text_glyph(detail_section_id, text_glyph_id):
 	return controller(request).handle_update_text_glyph_request(detail_section_id, text_glyph_id)
 
+@bp.route('/detail_sections/<int:detail_section_id>/formula_glyphs/<int:formula_glyph_id>', methods=('GET','POST'))
+@login_required
+def update_formula_glyph(detail_section_id, formula_glyph_id):
+	return controller(request).handle_update_formula_glyph_request(detail_section_id, formula_glyph_id)
+
 
 
 def controller(request):

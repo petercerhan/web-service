@@ -106,6 +106,20 @@ class DetailSectionInteractor:
 		self._unit_of_work.commit()
 		return text_glyph_to_data(text_glyph)
 
+	def update_formula_glyph(self, detail_section_id, formula_glyph_id, fields):
+		detail_section = self._detail_section_repository.get(detail_section_id)
+		formula_glyph = detail_section.get_detail_glyph(formula_glyph_id)
+
+		formula = fields.get('formula')
+		if formula is not None:
+			formula_glyph.set_formula(formula)
+
+		self._unit_of_work.commit()
+		return formula_glyph_to_data(formula_glyph)
+
+
+
+
 
 
 

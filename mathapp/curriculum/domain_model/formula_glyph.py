@@ -21,6 +21,11 @@ class FormulaGlyph(DetailGlyph):
 	def get_formula(self):
 		return self._formula
 
+	def set_formula(self, formula):
+		self._formula = formula
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
+
 	def get_type(self):
 		return 'formula_glyph'
 
