@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %} Edit Image Glyph {% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <h2>Current Image</h2>
+  <image src="data:image/png;base64,{{ image_glyph['image_data'] }}" height="200" width="200"/>
+  <form method="post" enctype="multipart/form-data" >
+    <label for="source_code_file">New Source Code File</label>
+    <input type=file name="source_code_file" id="source_code_file" required>
+    <label for="image_file">New Image File</label>
+    <input type=file name="image_file" id="image_file" required>
+    <input type="submit" value="Save">
+    <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
+</form>
+
+{% endblock %}

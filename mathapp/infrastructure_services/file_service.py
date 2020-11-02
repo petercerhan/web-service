@@ -22,6 +22,12 @@ class FileService:
 		file_location = os.path.join(self._file_uploads_path, filename)
 		file.save(file_location)
 
+	def delete_file(self, filename):
+		filename = secure_filename(filename)
+		file_location = os.path.join(self._file_uploads_path, filename)
+		if os.path.exists(file_location):
+			os.remove(file_location)
+
 	def get_extension_for_filename(self, filename):
 		if '.' not in filename:
 			return None

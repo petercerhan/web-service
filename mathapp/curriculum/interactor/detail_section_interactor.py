@@ -74,17 +74,14 @@ class DetailSectionInteractor:
 	def create_image_glyph(self, user_id, detail_section_id, source_code_file, image_file, fields):
 		detail_section = self._detail_section_repository.get(detail_section_id)
 
-		file_extension = self._file_service.get_extension_for_filename(source_code_file.filename)
-		datetime = self._date_service.current_datetime_utc()
-		timestamp = self._date_service.format_datetime_as_timestamp(datetime)
-		filename = f'ImageGlyphSourceCode_{user_id}_{timestamp}.{file_extension}'
+		filename = self._filename_for_source_code_file(user_id, source_code_file)
 		self._file_service.upload_file(file=source_code_file, filename=filename)
 
-		fields = {}
-		fields['source_code_filename'] = filename
-		fields['image_data'] = image_file.read()
+		create_fields = {}
+		create_fields['source_code_filename'] = filename
+		create_fields['image_data'] = image_file.read()
 
-		image_glyph = detail_section.create_detail_glyph(fields=fields, 
+		image_glyph = detail_section.create_detail_glyph(fields=create_fields, 
 														 detail_glyph_factory=self._image_glyph_factory)
 
 		self._unit_of_work.commit()
@@ -116,6 +113,29 @@ class DetailSectionInteractor:
 
 		self._unit_of_work.commit()
 		return formula_glyph_to_data(formula_glyph)
+
+	def update_image_glyph(self, user_id, detail_section_id, image_glyph_id, source_code_file, image_file):
+		detail_section = self._detail_section_repository.get(detail_section_id)
+		image_glyph = detail_section.get_detail_glyph(image_glyph_id)
+
+		self._file_service.delete_file(image_glyph.get_source_code_filename())
+		new_filename = self._filename_for_source_code_file(user_id, source_code_file)
+		self._file_service.upload_file(file=source_code_file, filename=new_filename)
+
+		image_glyph.set_source_code_filename(new_filename)
+		image_glyph.set_image_data(image_file.read())
+
+		self._unit_of_work.commit()
+		return image_glyph_to_data(image_glyph)
+
+
+	def _filename_for_source_code_file(self, user_id, source_code_file):
+		file_extension = self._file_service.get_extension_for_filename(source_code_file.filename)
+		datetime = self._date_service.current_datetime_utc()
+		timestamp = self._date_service.format_datetime_as_timestamp(datetime)
+		filename = f'ImageGlyphSourceCode_{user_id}_{timestamp}.{file_extension}'
+		return filename
+
 
 
 

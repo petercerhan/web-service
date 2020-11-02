@@ -112,6 +112,26 @@ class DetailSectionWebController:
 		formula_glyph = self._detail_section_interactor.read_detail_glyph(detail_section_id=detail_section_id, detail_glyph_id=formula_glyph_id)
 		return self._detail_section_presenter.present_update_formula_glyph(formula_glyph=formula_glyph, error=error)
 
+	def handle_update_image_glyph_request(self, user_id, detail_section_id, image_glyph_id):
+		if self._request.method == 'POST':
+			return self._post_update_image_glyph_form(user_id, detail_section_id, image_glyph_id)
+		else:
+			return self._get_update_image_glyph_form(detail_section_id, image_glyph_id)
+
+	def _post_update_image_glyph_form(self, user_id, detail_section_id, image_glyph_id):
+		source_code_file = self._request.files.get('source_code_file')
+		image_file = self._request.files.get('image_file')
+		
+		try:
+			self._detail_section_interactor.update_image_glyph(user_id, detail_section_id, image_glyph_id, source_code_file, image_file)
+			return self._detail_section_presenter.present_update_detail_glyph_successful(detail_section_id)
+		except MathAppError as error:
+			return self._get_update_image_glyph_form(detail_section_id, image_glyph_id, error)
+
+
+	def _get_update_image_glyph_form(self, detail_section_id, image_glyph_id, error=None):
+		image_glyph = self._detail_section_interactor.read_detail_glyph(detail_section_id=detail_section_id, detail_glyph_id=image_glyph_id)
+		return self._detail_section_presenter.present_update_image_glyph(image_glyph=image_glyph, error=error)
 
 
 

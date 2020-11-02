@@ -31,3 +31,8 @@ class DetailSectionPresenter:
 
 	def present_update_detail_glyph_successful(self, detail_section_id):
 		return redirect(url_for('detail_sections.update', id=detail_section_id))
+
+	def present_update_image_glyph(self, image_glyph, error):
+		if error is not None:
+			flash(error.message)
+		return render_template('detail_glyphs/update_image_glyph.html', image_glyph=image_glyph)
