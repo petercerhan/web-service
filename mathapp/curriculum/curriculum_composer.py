@@ -201,7 +201,8 @@ class CurriculumComposer:
                                         unit_of_work=self._unit_of_work)
 
     def compose_detail_section_presenter(self):
-        return DetailSectionPresenter()
+        file_service = self._infrastructure_service_composer.compose_file_service()        
+        return DetailSectionPresenter(file_service=file_service)
 
     def compose_detail_section_factory(self):
         return DetailSectionFactory(unit_of_work=self._unit_of_work)

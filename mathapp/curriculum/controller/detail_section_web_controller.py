@@ -131,8 +131,12 @@ class DetailSectionWebController:
 
 	def _get_update_image_glyph_form(self, detail_section_id, image_glyph_id, error=None):
 		image_glyph = self._detail_section_interactor.read_detail_glyph(detail_section_id=detail_section_id, detail_glyph_id=image_glyph_id)
-		return self._detail_section_presenter.present_update_image_glyph(image_glyph=image_glyph, error=error)
+		return self._detail_section_presenter.present_update_image_glyph(detail_section_id=detail_section_id, image_glyph=image_glyph, error=error)
 
+	def handle_download_image_glyph_source_code_request(self, detail_section_id, image_glyph_id):
+		image_glyph = self._detail_section_interactor.read_detail_glyph(detail_section_id=detail_section_id, detail_glyph_id=image_glyph_id)
+		source_code_filename = image_glyph['source_code_filename']
+		return self._detail_section_presenter.present_file_download(filename=source_code_filename)
 
 
 

@@ -35,3 +35,9 @@ class FileService:
 
 	def base64_encode(self, file):
 		return base64.b64encode(file.read())
+
+	def get_file_uploads_path(self):
+		return self._file_uploads_path
+
+	def secure_filename(self, filename):
+		return secure_filename(filename)
