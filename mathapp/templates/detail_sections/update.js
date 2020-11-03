@@ -22,11 +22,22 @@ function DetailGlyph(props) {
 		display_name = props.detail_glyph.source_code_filename
 	}
 
+	function edit() {
+		if(props.detail_glyph.type == 'text_glyph') {
+			window.location.href = props.update_text_glyph_url;
+		} else if(props.detail_glyph.type == 'formula_glyph') {
+			window.location.href = props.update_formula_glyph_url;
+		} else if(props.detail_glyph.type == 'image_glyph') {
+			window.location.href = props.update_image_glyph_url;
+		}
+	}
+
 	return (
 		<div className="ordered_option">
 			<DetailGlyphContent detail_glyph={props.detail_glyph} />
 			<button type="button" className={props.first_item ? "hidden" : ""} onClick={props.onUpClick}>Up</button>
 			<button type="button" className={props.last_item ? "hidden" : ""} onClick={props.onDownClick}>Down</button>
+			<button type="button" onClick={edit}>Edit</button>
 		</div>
 	)
 }
@@ -74,6 +85,9 @@ class DetailGlyphList extends React.Component {
 			<DetailGlyph
 			    key={detail_glyph.id.toString()}
 			 	detail_glyph={detail_glyph}
+			 	update_text_glyph_url={ (this.props.update_text_glyph_url.replace('text_glyphs/0', 'text_glyphs/' + detail_glyph.id.toString() ) ) }
+			 	update_formula_glyph_url={ (this.props.update_formula_glyph_url.replace('formula_glyphs/0', 'formula_glyphs/' + detail_glyph.id.toString() ) ) }
+			 	update_image_glyph_url={ (this.props.update_image_glyph_url.replace('image_glyphs/0', 'image_glyphs/' + detail_glyph.id.toString() ) ) }
 			 	first_item={index==0}
 			 	last_item={index == (arrayObj.length - 1)}
 				onUpClick={i => this.moveUp(index)}
@@ -90,14 +104,22 @@ class DetailGlyphList extends React.Component {
 	}
 }	
 
-
-
-
 	
 
 
 const root = document.getElementById('react_root');
 const detailSectionContainer = document.getElementById('detail_section_container');
+const updateTextGlyphURLContainer = document.getElementById('update_text_glyph_url');
+const updateFormulaGlyphURLContainer = document.getElementById('update_formula_glyph_url');
+const updateImageGlyphURLContainer = document.getElementById('update_image_glyph_url');
 
-ReactDOM.render(<DetailGlyphList detail_section_json={detailSectionContainer.getAttribute('detail_section')}/>, root)
+ReactDOM.render(<DetailGlyphList detail_section_json={detailSectionContainer.getAttribute('detail_section')} 
+								 update_text_glyph_url={updateTextGlyphURLContainer.getAttribute('url')} 
+								 update_formula_glyph_url={updateFormulaGlyphURLContainer.getAttribute('url')} 
+								 update_image_glyph_url={updateImageGlyphURLContainer.getAttribute('url')}/>, root)
+
+
+
+
+
 

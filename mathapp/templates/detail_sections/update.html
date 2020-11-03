@@ -52,6 +52,9 @@
 </form>
 
 <div id="detail_section_container" detail_section="{{ detail_section_json }}"></div>
+<div id="update_text_glyph_url" url="{{ url_for('detail_sections.update_text_glyph', detail_section_id=detail_section['id'], text_glyph_id=0) }}"></div>
+<div id="update_formula_glyph_url" url="{{ url_for('detail_sections.update_formula_glyph', detail_section_id=detail_section['id'], formula_glyph_id=0) }}"></div>
+<div id="update_image_glyph_url" url="{{ url_for('detail_sections.update_image_glyph', detail_section_id=detail_section['id'], image_glyph_id=0) }}"></div>
 
 
 {% endblock %}
