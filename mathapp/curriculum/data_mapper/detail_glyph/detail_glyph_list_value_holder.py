@@ -19,5 +19,8 @@ class DetailGlyphListValueHolder:
 		orm_detail_glyph = self._unit_of_work.orm_model_for_model(detail_glyph)
 		self._orm_model.detail_glyphs.append(orm_detail_glyph)
 
+	def remove_at_index(self, index):
+		orm_detail_glyph = self._orm_model.detail_glyphs.pop(index)
+
 	def get_queried(self):
 		return self._queried

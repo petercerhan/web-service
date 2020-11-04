@@ -26,5 +26,8 @@ class DetailGlyph:
 	def get_type(self):
 		return 'detail_glyph'
 
+	def delete(self):
+		self._unit_of_work.register_deleted(self)
+
 	def __repr__(self):
 		return f'<DetailGlyph(id={self._id}, text={self._text})>'

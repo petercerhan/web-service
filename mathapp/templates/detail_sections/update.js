@@ -32,12 +32,17 @@ function DetailGlyph(props) {
 		}
 	}
 
+	function remove() {
+		submitDeleteDetailGlyphForm(props.delete_detail_glyph_url);
+	}
+
 	return (
 		<div className="ordered_option">
 			<DetailGlyphContent detail_glyph={props.detail_glyph} />
 			<button type="button" className={props.first_item ? "hidden" : ""} onClick={props.onUpClick}>Up</button>
 			<button type="button" className={props.last_item ? "hidden" : ""} onClick={props.onDownClick}>Down</button>
 			<button type="button" onClick={edit}>Edit</button>
+			<button type="button" onClick={remove}>Delete</button>
 		</div>
 	)
 }
@@ -88,6 +93,7 @@ class DetailGlyphList extends React.Component {
 			 	update_text_glyph_url={ (this.props.update_text_glyph_url.replace('text_glyphs/0', 'text_glyphs/' + detail_glyph.id.toString() ) ) }
 			 	update_formula_glyph_url={ (this.props.update_formula_glyph_url.replace('formula_glyphs/0', 'formula_glyphs/' + detail_glyph.id.toString() ) ) }
 			 	update_image_glyph_url={ (this.props.update_image_glyph_url.replace('image_glyphs/0', 'image_glyphs/' + detail_glyph.id.toString() ) ) }
+			 	delete_detail_glyph_url={ (this.props.delete_detail_glyph_url.replace('detail_glyphs/0', 'detail_glyphs/' + detail_glyph.id.toString() ) ) }
 			 	first_item={index==0}
 			 	last_item={index == (arrayObj.length - 1)}
 				onUpClick={i => this.moveUp(index)}
@@ -112,11 +118,13 @@ const detailSectionContainer = document.getElementById('detail_section_container
 const updateTextGlyphURLContainer = document.getElementById('update_text_glyph_url');
 const updateFormulaGlyphURLContainer = document.getElementById('update_formula_glyph_url');
 const updateImageGlyphURLContainer = document.getElementById('update_image_glyph_url');
+const deleteDetailGlyphURLContainer = document.getElementById('delete_detail_glyph_url');
 
 ReactDOM.render(<DetailGlyphList detail_section_json={detailSectionContainer.getAttribute('detail_section')} 
 								 update_text_glyph_url={updateTextGlyphURLContainer.getAttribute('url')} 
 								 update_formula_glyph_url={updateFormulaGlyphURLContainer.getAttribute('url')} 
-								 update_image_glyph_url={updateImageGlyphURLContainer.getAttribute('url')}/>, root)
+								 update_image_glyph_url={updateImageGlyphURLContainer.getAttribute('url')} 
+								 delete_detail_glyph_url={deleteDetailGlyphURLContainer.getAttribute('url')}/>, root)
 
 
 

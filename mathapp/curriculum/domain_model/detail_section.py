@@ -71,6 +71,27 @@ class DetailSection(InstructionSection):
 			raise NotFoundError(message=f'Detail Glyph {id} not found on glyph {self._id}')
 		return detail_glyph
 
+	def delete_detail_glyph(self, detail_glyph_id):
+		detail_glyphs = self._detail_glyph_list_value_holder.get_list()
+		deleted_position = None
+		for detail_glyph in detail_glyphs:
+			if detail_glyph.get_id() == detail_glyph_id:
+				deleted_position = detail_glyph.get_position()
+				self._detail_glyph_list_value_holder.remove_at_index(deleted_position)
+				detail_glyph.delete()
+
+		if deleted_position is None:
+			return 
+
+		for detail_glyph in detail_glyphs:
+			if detail_glyph.get_position() > deleted_position:
+				prior_position = detail_glyph.get_position()
+				detail_glyph.set_position(prior_position-1)
+
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
+
+
 	def __repr__(self):
 		return f'<DetailSection(id={self._id}, title={self._title})>'
 

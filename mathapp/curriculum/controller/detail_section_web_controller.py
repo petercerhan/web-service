@@ -138,7 +138,12 @@ class DetailSectionWebController:
 		source_code_filename = image_glyph['source_code_filename']
 		return self._detail_section_presenter.present_file_download(filename=source_code_filename)
 
-
+	def handle_delete_detail_glyph_request(self, detail_section_id, detail_glyph_id):
+		try:
+			self._detail_section_interactor.delete_detail_glyph(detail_section_id, detail_glyph_id)
+			return self._detail_section_presenter.present_delete_detail_glyph_successful(detail_section_id)
+		except MathAppError as error:
+			self._get_update_form(id=detail_section_id, error=error)
 
 
 

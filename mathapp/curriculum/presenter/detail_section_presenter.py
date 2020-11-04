@@ -49,3 +49,5 @@ class DetailSectionPresenter:
 		filename = self._file_service.secure_filename(filename)
 		return send_from_directory(path, filename)
 		
+	def present_delete_detail_glyph_successful(self, detail_section_id):
+		return redirect(url_for('detail_sections.update', id=detail_section_id))

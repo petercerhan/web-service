@@ -128,6 +128,17 @@ class DetailSectionInteractor:
 		self._unit_of_work.commit()
 		return image_glyph_to_data(image_glyph)
 
+	def delete_detail_glyph(self, detail_section_id, detail_glyph_id):
+		detail_section = self._detail_section_repository.get(detail_section_id)
+		detail_glyph = detail_section.get_detail_glyph(detail_glyph_id)
+		detail_section.delete_detail_glyph(detail_glyph_id=detail_glyph_id)
+
+		if detail_glyph.get_type() == 'image_glyph':
+			self._file_service.delete_file(detail_glyph.get_source_code_filename())
+
+		self._unit_of_work.commit()
+		return detail_glyph_to_data(detail_glyph)
+
 
 	def _filename_for_source_code_file(self, user_id, source_code_file):
 		file_extension = self._file_service.get_extension_for_filename(source_code_file.filename)

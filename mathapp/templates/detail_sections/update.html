@@ -55,7 +55,11 @@
 <div id="update_text_glyph_url" url="{{ url_for('detail_sections.update_text_glyph', detail_section_id=detail_section['id'], text_glyph_id=0) }}"></div>
 <div id="update_formula_glyph_url" url="{{ url_for('detail_sections.update_formula_glyph', detail_section_id=detail_section['id'], formula_glyph_id=0) }}"></div>
 <div id="update_image_glyph_url" url="{{ url_for('detail_sections.update_image_glyph', detail_section_id=detail_section['id'], image_glyph_id=0) }}"></div>
+<div id="delete_detail_glyph_url" url="{{ url_for('detail_sections.delete_detail_glyph', detail_section_id=detail_section['id'], detail_glyph_id=0) }}"></div>
 
+  <form name="delete_detail_glyph_form" action="placeholder" method="post">
+    <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
+  </form>
 
 {% endblock %}
 
@@ -66,6 +70,13 @@
 
 <script type="text/javascript">
 {% include 'detail_sections/update_transpiled.js' %}
+</script>
+
+<script>
+ function submitDeleteDetailGlyphForm(url) {
+  document.delete_detail_glyph_form.action = url;
+  document.delete_detail_glyph_form.submit();
+ }
 </script>
 
 

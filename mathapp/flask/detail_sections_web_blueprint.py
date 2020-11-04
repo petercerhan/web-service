@@ -46,6 +46,11 @@ def update_image_glyph(detail_section_id, image_glyph_id):
 def download_image_glyph_source_code(detail_section_id, image_glyph_id):
 	return controller(request).handle_download_image_glyph_source_code_request(detail_section_id, image_glyph_id)
 
+@bp.route('/detail_sections/<int:detail_section_id>/detail_glyphs/<int:detail_glyph_id>/delete', methods=('POST',))
+@login_required
+def delete_detail_glyph(detail_section_id, detail_glyph_id):
+	return controller(request).handle_delete_detail_glyph_request(detail_section_id, detail_glyph_id)
+
 
 
 def controller(request):

@@ -50,6 +50,10 @@ function DetailGlyph(props) {
 		}
 	}
 
+	function remove() {
+		submitDeleteDetailGlyphForm(props.delete_detail_glyph_url);
+	}
+
 	return React.createElement(
 		'div',
 		{ className: 'ordered_option' },
@@ -68,6 +72,11 @@ function DetailGlyph(props) {
 			'button',
 			{ type: 'button', onClick: edit },
 			'Edit'
+		),
+		React.createElement(
+			'button',
+			{ type: 'button', onClick: remove },
+			'Delete'
 		)
 	);
 }
@@ -130,6 +139,7 @@ var DetailGlyphList = function (_React$Component) {
 					update_text_glyph_url: _this2.props.update_text_glyph_url.replace('text_glyphs/0', 'text_glyphs/' + detail_glyph.id.toString()),
 					update_formula_glyph_url: _this2.props.update_formula_glyph_url.replace('formula_glyphs/0', 'formula_glyphs/' + detail_glyph.id.toString()),
 					update_image_glyph_url: _this2.props.update_image_glyph_url.replace('image_glyphs/0', 'image_glyphs/' + detail_glyph.id.toString()),
+					delete_detail_glyph_url: _this2.props.delete_detail_glyph_url.replace('detail_glyphs/0', 'detail_glyphs/' + detail_glyph.id.toString()),
 					first_item: index == 0,
 					last_item: index == arrayObj.length - 1,
 					onUpClick: function onUpClick(i) {
@@ -158,8 +168,10 @@ var detailSectionContainer = document.getElementById('detail_section_container')
 var updateTextGlyphURLContainer = document.getElementById('update_text_glyph_url');
 var updateFormulaGlyphURLContainer = document.getElementById('update_formula_glyph_url');
 var updateImageGlyphURLContainer = document.getElementById('update_image_glyph_url');
+var deleteDetailGlyphURLContainer = document.getElementById('delete_detail_glyph_url');
 
 ReactDOM.render(React.createElement(DetailGlyphList, { detail_section_json: detailSectionContainer.getAttribute('detail_section'),
 	update_text_glyph_url: updateTextGlyphURLContainer.getAttribute('url'),
 	update_formula_glyph_url: updateFormulaGlyphURLContainer.getAttribute('url'),
-	update_image_glyph_url: updateImageGlyphURLContainer.getAttribute('url') }), root);
+	update_image_glyph_url: updateImageGlyphURLContainer.getAttribute('url'),
+	delete_detail_glyph_url: deleteDetailGlyphURLContainer.getAttribute('url') }), root);

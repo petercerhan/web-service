@@ -23,7 +23,7 @@ function LessonSection(props) {
 			<button type="button" onClick={edit}>Edit</button>
 			<button type="button" onClick={remove}>Delete</button>
 		</div>
-	) 
+	)
 }
 
 function LessonSectionsInput(props) {
