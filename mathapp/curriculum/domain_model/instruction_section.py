@@ -30,5 +30,8 @@ class InstructionSection:
 	def get_parent(self):
 		return self._parent_value_holder.get()
 
+	def delete(self):
+		self._unit_of_work.register_deleted(self)
+
 	def __repr__(self):
 		return f'<InstructionSection(id={self._id})>'

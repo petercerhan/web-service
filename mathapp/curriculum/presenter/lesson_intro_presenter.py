@@ -28,3 +28,10 @@ class LessonIntroPresenter:
 
 	def present_create_detail_section_successful(self, lesson_id, lesson_section_id):
 		return redirect(url_for('lesson_intros.update', lesson_id=lesson_id, lesson_section_id=lesson_section_id))
+
+	def present_delete_instruction_section_successful(self, lesson_id, lesson_section_id):
+		return redirect(url_for('lesson_intros.update', lesson_id=lesson_id, lesson_section_id=lesson_section_id))
+
+	def present_delete_instruction_section_failed(self, lesson_id, lesson_section_id):
+		return redirect(url_for('lesson_intros.update', lesson_id=lesson_id, lesson_section_id=lesson_section_id))
+

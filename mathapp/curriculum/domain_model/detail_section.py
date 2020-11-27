@@ -46,6 +46,12 @@ class DetailSection(InstructionSection):
 	def get_detail_glyphs(self):
 		return self._detail_glyph_list_value_holder.get_list()
 
+	def delete(self):
+		detail_glyphs = self._detail_glyph_list_value_holder.get_list()
+		for detail_glyph in detail_glyphs:
+			detail_glyph.delete()
+		self._unit_of_work.register_deleted(self)
+
 	def sync_detail_glyph_positions(self, detail_glyph_data_array):
 		detail_glyphs = self._detail_glyph_list_value_holder.get_list()
 		for data_item in detail_glyph_data_array:

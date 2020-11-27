@@ -1,5 +1,6 @@
 from mathapp.curriculum.domain_model.lesson_section import LessonSection
 from mathapp.library.errors.validation_error import ValidationError
+from mathapp.library.errors.not_found_error import NotFoundError
 
 class LessonIntro(LessonSection):
 
@@ -43,6 +44,13 @@ class LessonIntro(LessonSection):
     def get_instruction_sections(self):
         return self._instruction_section_list_value_holder.get_list()
 
+    def get_instruction_section(self, id):
+        instruction_sections = self._instruction_section_list_value_holder.get_list()
+        instruction_section = next(x for x in instruction_sections if x.get_id() == id)
+        if instruction_section is None:
+            raise NotFoundError(message=f'Instruction Section {id} not found on Lesson Intro {self._id}')
+        return instruction_section
+
     def sync_instruction_section_positions(self, instruction_section_data_array):
         instruction_sections = self._instruction_section_list_value_holder.get_list()
         for data_item in instruction_section_data_array:
@@ -60,6 +68,27 @@ class LessonIntro(LessonSection):
         self._check_invariants()
         self._unit_of_work.register_dirty(self)
         return instruction_section
+
+    def delete_instruction_section(self, instruction_section_id):
+        instruction_sections = self._instruction_section_list_value_holder.get_list()
+        delete_position = None
+        for instruction_section in instruction_sections:
+            if instruction_section.get_id() == instruction_section_id:
+                deleted_position = instruction_section.get_position()
+                self._instruction_section_list_value_holder.remove_at_index(deleted_position)
+                instruction_section.delete()
+
+        if deleted_position is None:
+            return
+
+        for instruction_section in instruction_sections:
+            if instruction_section.get_position() > deleted_position:
+                prior_position = instruction_section.get_position()
+                instruction_section.set_position(prior_position-1)
+
+        self._check_invariants()
+        self._unit_of_work.register_dirty(self)
+
 
     def __repr__(self):
         return f'<LessonIntro(id={self._id}, description={self._description})>'

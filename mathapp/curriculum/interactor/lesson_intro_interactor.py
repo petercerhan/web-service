@@ -1,5 +1,6 @@
 from mathapp.curriculum.interactor.domain_to_data_transforms.lesson_intro import lesson_intro_to_enriched_data
 from mathapp.curriculum.interactor.domain_to_data_transforms.detail_section import detail_section_to_data
+from mathapp.curriculum.interactor.domain_to_data_transforms.instruction_section import instruction_section_to_data
 
 class LessonIntroInteractor:
 
@@ -43,5 +44,12 @@ class LessonIntroInteractor:
 		self._unit_of_work.commit()
 		return detail_section_to_data(detail_section)
 
+	def delete_instruction_section(self, lesson_id, lesson_intro_id, instruction_section_id):
+		lesson = self._lesson_repository.get(id=lesson_id)
+		lesson_intro = lesson.get_lesson_section(id=lesson_intro_id)
+		instruction_section = lesson_intro.get_instruction_section(id=instruction_section_id)
+		lesson_intro.delete_instruction_section(instruction_section_id)
+		self._unit_of_work.commit()
+		return instruction_section_to_data(instruction_section)
 
 

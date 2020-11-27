@@ -21,6 +21,13 @@ def update(lesson_id, lesson_section_id):
 def create_detail_section(lesson_id, lesson_section_id):
 	return controller(request).handle_create_detail_section_request(lesson_id, lesson_section_id)
 
+@bp.route('/lessons/<int:lesson_id>/lesson_intros/<int:lesson_section_id>/instruction_sections/<int:instruction_section_id>/delete', methods=('POST',))
+@login_required
+def delete_instruction_section(lesson_id, lesson_section_id, instruction_section_id):
+	return controller(request).handle_delete_instruction_section_request(lesson_id, lesson_section_id, instruction_section_id)
+
+
+
 def controller(request):
 	return RootComposer(request).compose_lesson_intro_web_controller()
 

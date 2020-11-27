@@ -75,6 +75,12 @@ class LessonIntroWebController:
 			self._get_update_form(lesson_id=lesson_id, lesson_section_id=lesson_section_id, error=error)
 
 
+	def handle_delete_instruction_section_request(self, lesson_id, lesson_section_id, instruction_section_id):
+		try:
+			self._lesson_intro_interactor.delete_instruction_section(lesson_id, lesson_section_id, instruction_section_id)
+			return self._lesson_intro_presenter.present_delete_instruction_section_successful(lesson_id, lesson_section_id)
+		except MathAppError as error:
+			return self._lesson_intro_presenter.present_delete_instruction_section_failed(lesson_id, lesson_section_id, error)
 
 
 

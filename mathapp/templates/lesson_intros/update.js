@@ -9,12 +9,18 @@ function InstructionSection(props) {
 		}
 	}
 
+	function remove() {
+		// alert(props.delete_instruction_section_url);
+		submitDeleteInstructionSectionForm(props.delete_instruction_section_url);
+	}
+
 	return (
 		<div className="ordered_option">
 			<p>{props.instruction_section.display_name}</p>
 			<button type="button" className={props.first_item ? "hidden" : ""} onClick={props.onUpClick}>Up</button>
 			<button type="button" className={props.last_item ? "hidden" : ""} onClick={props.onDownClick}>Down</button>
-			<button type="button" onClick={edit}>Edit</button>			
+			<button type="button" onClick={edit}>Edit</button>
+			<button type="button" onClick={remove}>Delete</button>
 		</div>
 	)
 }
@@ -63,6 +69,7 @@ class InstructionSectionList extends React.Component {
 			    key={instruction_section.id.toString()}
 			 	instruction_section={instruction_section}
 			 	update_detail_section_url={ (this.props.update_detail_section_url).replace('detail_sections/0', 'detail_sections/' + instruction_section.id.toString() ) }
+			 	delete_instruction_section_url={ (this.props.delete_instruction_section_url).replace('instruction_sections/0', 'instruction_sections/' + instruction_section.id.toString() ) }
 			 	first_item={index==0}
 			 	last_item={index == (arrayObj.length - 1)}
 				onUpClick={i => this.moveUp(index)}
@@ -82,9 +89,11 @@ class InstructionSectionList extends React.Component {
 const root = document.getElementById('react_root');
 const dataContainer = document.getElementById('data_container');
 const updateDetailSectionURLContainer = document.getElementById('update_detail_section_url_container');
+const deleteInstructionSectionContainer = document.getElementById('delete_instruction_section_url');
 
 ReactDOM.render(<InstructionSectionList lesson_intro_json={dataContainer.getAttribute('lesson_intro')} 
-										update_detail_section_url={updateDetailSectionURLContainer.getAttribute('url')}/>, root)
+										update_detail_section_url={updateDetailSectionURLContainer.getAttribute('url')}
+										delete_instruction_section_url={deleteInstructionSectionContainer.getAttribute('url')}/>, root)
 
 
 

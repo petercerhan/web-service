@@ -19,5 +19,8 @@ class InstructionSectionListValueHolder:
 		orm_instruction_section = self._unit_of_work.orm_model_for_model(instruction_section)
 		self._orm_model.instruction_sections.append(orm_instruction_section)
 
+	def remove_at_index(self, index):
+		orm_instruction_section = self._orm_model.instruction_sections.pop(index)
+
 	def get_queried(self):
 		return self._queried

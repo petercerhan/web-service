@@ -57,9 +57,9 @@
 <div id="update_image_glyph_url" url="{{ url_for('detail_sections.update_image_glyph', detail_section_id=detail_section['id'], image_glyph_id=0) }}"></div>
 <div id="delete_detail_glyph_url" url="{{ url_for('detail_sections.delete_detail_glyph', detail_section_id=detail_section['id'], detail_glyph_id=0) }}"></div>
 
-  <form name="delete_detail_glyph_form" action="placeholder" method="post">
-    <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
-  </form>
+<form name="delete_detail_glyph_form" action="placeholder" method="post">
+ <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
+</form>
 
 {% endblock %}
 
