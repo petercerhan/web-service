@@ -41,6 +41,11 @@ class LessonIntro(LessonSection):
     def get_description(self):
         return self._description
 
+    def set_description(self, description):
+        self._description = description
+        self._check_invariants()
+        self._unit_of_work.register_dirty(self)
+
     def get_instruction_sections(self):
         return self._instruction_section_list_value_holder.get_list()
 

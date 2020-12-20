@@ -33,6 +33,10 @@ class LessonIntroInteractor:
 		if instruction_sections is not None:
 			lesson_intro.sync_instruction_section_positions(instruction_sections)
 
+		description = fields.get('description')
+		if description is not None:
+			lesson_intro.set_description(description)
+
 		self._unit_of_work.commit()
 
 		return lesson_intro_to_enriched_data(lesson_intro)

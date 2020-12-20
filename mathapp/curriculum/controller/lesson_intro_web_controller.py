@@ -48,6 +48,7 @@ class LessonIntroWebController:
 
 	def _post_update_form(self, lesson_id, lesson_section_id):
 		fields = {}
+		fields['description'] = self._request.form.get('description')
 		instruction_sections = self._request.form.get('instruction_sections')
 		if instruction_sections is not None:
 			fields['instruction_sections'] = json.loads( instruction_sections )
