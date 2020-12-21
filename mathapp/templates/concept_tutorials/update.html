@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Edit Concept Tutorial for {{ lesson['display_name'] }}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="display_name">Display Name</label>
+    <input name="display_name" id="display_name" value="{{ concept_tutorial['display_name'] }}" required>
+    <h1>Instruction Sections</h1>
+    <hr>
+    <br>
+    <div id="react_root"></div>
+    <br>
+    <input type="submit" value="Save">
+    <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
+</form>
+
+{% endblock %}

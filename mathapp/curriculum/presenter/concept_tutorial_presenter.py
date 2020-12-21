@@ -13,3 +13,12 @@ class ConceptTutorialPresenter:
 
 	def present_create_successful(self, lesson_id):
 		return redirect(url_for('lessons.update', id=lesson_id))
+
+	def present_update(self, lesson, concept_tutorial):
+		return render_template('concept_tutorials/update.html', 
+							   lesson=lesson, 
+							   concept_tutorial=concept_tutorial, 
+							   concept_tutorial_json=json.dumps(concept_tutorial))
+
+
+

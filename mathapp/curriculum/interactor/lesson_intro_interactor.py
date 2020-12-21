@@ -14,16 +14,19 @@ class LessonIntroInteractor:
 		self._detail_section_factory = detail_section_factory
 		self._unit_of_work = unit_of_work
 
+
 	def create(self, lesson_id):
 		lesson = self._lesson_repository.get(id=lesson_id)
 		lesson_intro = lesson.create_lesson_intro(self._lesson_intro_factory)
 		self._unit_of_work.commit()
 		return lesson_intro_to_enriched_data(lesson_intro)
 
+
 	def read(self, lesson_id, lesson_section_id):
 		lesson = self._lesson_repository.get(id=lesson_id)
 		lesson_intro = lesson.get_lesson_intro(lesson_section_id)
 		return lesson_intro_to_enriched_data(lesson_intro)
+
 
 	def update(self, lesson_id, lesson_section_id, fields):
 		lesson = self._lesson_repository.get(id=lesson_id)
@@ -41,12 +44,14 @@ class LessonIntroInteractor:
 
 		return lesson_intro_to_enriched_data(lesson_intro)
 
+
 	def create_detail_section(self, lesson_id, lesson_section_id, fields):
 		lesson = self._lesson_repository.get(id=lesson_id)
 		lesson_intro = lesson.get_lesson_section(id=lesson_section_id)
 		detail_section = lesson_intro.create_instruction_section(fields=fields, instruction_section_factory=self._detail_section_factory)
 		self._unit_of_work.commit()
 		return detail_section_to_data(detail_section)
+
 
 	def delete_instruction_section(self, lesson_id, lesson_intro_id, instruction_section_id):
 		lesson = self._lesson_repository.get(id=lesson_id)

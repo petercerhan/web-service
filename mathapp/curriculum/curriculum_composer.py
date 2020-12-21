@@ -154,10 +154,12 @@ class CurriculumComposer:
 
     def compose_concept_tutorial_web_controller(self):
         presenter = self.compose_concept_tutorial_presenter()
-        interactor = self.compose_concept_tutorial_interactor()
+        lesson_interactor = self.compose_lesson_interactor()
+        concept_tutorial_interactor = self.compose_concept_tutorial_interactor()
         return ConceptTutorialWebController(request=self._request, 
-                                            presenter=presenter, 
-                                            interactor=interactor)
+                                            presenter=presenter,
+                                            lesson_interactor=lesson_interactor,
+                                            concept_tutorial_interactor=concept_tutorial_interactor)
 
     def compose_concept_tutorial_presenter(self):
         return ConceptTutorialPresenter()
