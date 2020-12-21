@@ -24,3 +24,17 @@ class ConceptTutorialInteractor:
 		concept_tutorial = lesson.get_lesson_section(id=lesson_section_id)
 		return concept_tutorial_to_data(concept_tutorial)
 
+
+	def update(self, lesson_id, lesson_section_id, fields):
+		lesson = self._lesson_repository.get(id=lesson_id)
+		concept_tutorial = lesson.get_lesson_section(id=lesson_section_id)
+
+		display_name = fields.get('display_name')
+		if display_name is not None:
+			concept_tutorial.set_display_name(display_name)
+
+		self._unit_of_work.commit()
+
+		return concept_tutorial_to_data(concept_tutorial)
+
+

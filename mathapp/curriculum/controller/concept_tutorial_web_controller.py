@@ -38,3 +38,18 @@ class ConceptTutorialWebController:
         concept_tutorial = self._concept_tutorial_interactor.read(lesson_id=lesson_id, lesson_section_id=lesson_section_id)
         return self._presenter.present_update(lesson=lesson, concept_tutorial=concept_tutorial)
 
+
+    def post_update_form(self, lesson_id, lesson_section_id):
+        fields = {}
+        fields['display_name'] = self._request.form.get('display_name')
+
+        try:
+            self._concept_tutorial_interactor.update(lesson_id=lesson_id, lesson_section_id=lesson_section_id, fields=fields)
+            lesson = self._lesson_interactor.read(lesson_id)
+            return self._presenter.present_update_successful(lesson=lesson)
+        except ValidationError as error:
+            lesson = self._lesson_interactor.read(lesson_id)
+            concept_tutorial = self._concept_tutorial_interactor.read(lesson_id=lesson_id, lesson_section_id=lesson_section_id)
+            return self._presenter.present_update(lesson=lesson, concept_tutorial=concept_tutorial, error=error)
+
+        
