@@ -15,7 +15,7 @@ function LessonSection(props) {
 		if (props.lesson_section.type == 'lesson_intro') {
 			window.location.href = props.update_lesson_intro_url;
 		} else if (props.lesson_section.type == 'concept_tutorial') {
-			alert('open edit tutorial');
+			window.location.href = props.update_concept_tutorial_url;
 		}
 	}
 
@@ -108,6 +108,7 @@ var LessonSectionList = function (_React$Component) {
 					lesson_section: lesson_section,
 					delete_lesson_section_url: _this2.props.delete_lesson_section_url.replace('0/delete', lesson_section.id.toString() + '/delete'),
 					update_lesson_intro_url: _this2.props.update_lesson_intro_url.replace('lesson_intros/0', 'lesson_intros/' + lesson_section.id.toString()),
+					update_concept_tutorial_url: _this2.props.update_concept_tutorial_url.replace('concept_tutorials/0', 'concept_tutorials/' + lesson_section.id.toString()),
 					first_item: index == 0,
 					last_item: index == arrayObj.length - 1,
 					onUpClick: function onUpClick(i) {
@@ -135,7 +136,9 @@ var root = document.getElementById('react_root');
 var dataContainer = document.getElementById('data_container');
 var deleteURLContainer = document.getElementById('delete_url_container');
 var updateLessonIntroURLContainer = document.getElementById('update_lesson_intro_url_container');
+var updateConceptTutorialContainer = document.getElementById('update_concept_tutorial_url');
 
 ReactDOM.render(React.createElement(LessonSectionList, { lesson_json: dataContainer.getAttribute('lesson'),
 	delete_lesson_section_url: deleteURLContainer.getAttribute('delete_lesson_section_url'),
-	update_lesson_intro_url: updateLessonIntroURLContainer.getAttribute('url') }), root);
+	update_lesson_intro_url: updateLessonIntroURLContainer.getAttribute('url'),
+	update_concept_tutorial_url: updateConceptTutorialContainer.getAttribute('url') }), root);
