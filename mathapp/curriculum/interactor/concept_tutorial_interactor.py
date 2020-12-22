@@ -1,4 +1,4 @@
-from mathapp.curriculum.interactor.domain_to_data_transforms.concept_tutorial import concept_tutorial_to_data
+from mathapp.curriculum.interactor.domain_to_data_transforms.concept_tutorial import concept_tutorial_to_enriched_data
 
 class ConceptTutorialInteractor:
 
@@ -16,13 +16,13 @@ class ConceptTutorialInteractor:
 		concept_tutorial = lesson.create_concept_tutorial(fields=fields, 
 														concept_tutorial_factory=self._concept_tutorial_factory)
 		self._unit_of_work.commit()
-		return concept_tutorial_to_data(concept_tutorial)
+		return concept_tutorial_to_enriched_data(concept_tutorial)
 
 
 	def read(self, lesson_id, lesson_section_id):
 		lesson = self._lesson_repository.get(id=lesson_id)
 		concept_tutorial = lesson.get_lesson_section(id=lesson_section_id)
-		return concept_tutorial_to_data(concept_tutorial)
+		return concept_tutorial_to_enriched_data(concept_tutorial)
 
 
 	def update(self, lesson_id, lesson_section_id, fields):
@@ -35,6 +35,6 @@ class ConceptTutorialInteractor:
 
 		self._unit_of_work.commit()
 
-		return concept_tutorial_to_data(concept_tutorial)
+		return concept_tutorial_to_enriched_data(concept_tutorial)
 
 

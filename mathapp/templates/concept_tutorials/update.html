@@ -17,4 +17,16 @@
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
 </form>
 
+<div id="concept_tutorial_json" concept_tutorial_json="{{ concept_tutorial_json }}"></div>
+
+{% endblock %}
+
+{% block react_imports %}
+<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+<script type="text/javascript">
+{% include 'concept_tutorials/update_transpiled.js' %}
+</script>
+
 {% endblock %}

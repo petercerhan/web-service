@@ -17,6 +17,7 @@ class ORMInstructionSection(Base):
 	lesson_section_id = Column(Integer, ForeignKey('lesson_section.id'))
 
 	lesson_intro = relationship('ORMLessonIntro', back_populates='instruction_sections')
+	concept_tutorial = relationship('ORMConceptTutorial', back_populates='instruction_sections')
 
 	__mapper_args__ = {
 		'polymorphic_identity': 'instruction_section',
