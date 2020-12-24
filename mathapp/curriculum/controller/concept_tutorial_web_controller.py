@@ -36,7 +36,7 @@ class ConceptTutorialWebController:
     def get_update_form(self, lesson_id, lesson_section_id):
         lesson = self._lesson_interactor.read(lesson_id)
         concept_tutorial = self._concept_tutorial_interactor.read(lesson_id=lesson_id, lesson_section_id=lesson_section_id)
-        return self._presenter.present_edit(lesson=lesson, concept_tutorial=concept_tutorial)
+        return self._presenter.present_update(lesson=lesson, concept_tutorial=concept_tutorial)
 
 
     def post_update_form(self, lesson_id, lesson_section_id):
@@ -50,7 +50,7 @@ class ConceptTutorialWebController:
         except ValidationError as error:
             lesson = self._lesson_interactor.read(lesson_id)
             concept_tutorial = self._concept_tutorial_interactor.read(lesson_id=lesson_id, lesson_section_id=lesson_section_id)
-            return self._presenter.present_edit(lesson=lesson, concept_tutorial=concept_tutorial, error_message=error.message)
+            return self._presenter.present_update(lesson=lesson, concept_tutorial=concept_tutorial, error_message=error.message)
 
 
     def create_detail_section(self, lesson_id, lesson_section_id):
@@ -61,11 +61,11 @@ class ConceptTutorialWebController:
             self._concept_tutorial_interactor.create_detail_section(lesson_id, lesson_section_id, fields)
             lesson = self._lesson_interactor.read(lesson_id)
             concept_tutorial = self._concept_tutorial_interactor.read(lesson_id=lesson_id, lesson_section_id=lesson_section_id)
-            return self._presenter.present_edit(lesson=lesson, concept_tutorial=concept_tutorial)
+            return self._presenter.present_update(lesson=lesson, concept_tutorial=concept_tutorial)
         except MathAppError as error:
             lesson = self._lesson_interactor.read(lesson_id)
             concept_tutorial = self._concept_tutorial_interactor.read(lesson_id=lesson_id, lesson_section_id=lesson_section_id)
-            return self._presenter.present_edit(lesson=lesson, concept_tutorial=concept_tutorial)
+            return self._presenter.present_update(lesson=lesson, concept_tutorial=concept_tutorial)
 
 
 
