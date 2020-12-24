@@ -4,6 +4,8 @@ from flask import (
 
 import json
 
+import sys
+
 class ConceptTutorialPresenter:
 
 	def __init__(self, request_path):
@@ -15,6 +17,10 @@ class ConceptTutorialPresenter:
 		return render_template('concept_tutorials/create.html')
 
 	def present_edit(self, lesson, concept_tutorial, error_message=None):
+		target_path = url_for('concept_tutorials.update', lesson_id=lesson['id'], lesson_section_id=concept_tutorial['id'])
+		if target_path != self._request_path:
+			redirect(target_path)
+
 		if error_message is not None:
 			flash(error_message)
 
