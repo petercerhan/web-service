@@ -52,5 +52,21 @@ class ConceptTutorial(LessonSection):
     def get_instruction_sections(self):
         return self._instruction_section_list_value_holder.get_list()
 
+    def create_instruction_section(self, fields, instruction_section_factory):
+        max_position = max([x.get_position() for x in self._instruction_section_list_value_holder.get_list()], default=-1)
+        instruction_section = instruction_section_factory.create(fields=fields, position=max_position+1)
+        self._instruction_section_list_value_holder.add(instruction_section)
+        self._check_invariants()
+        self._unit_of_work.register_dirty(self)
+        return instruction_section
+
+
     def __repr__(self):
         return f'<ConceptTutorial(id={self._id}, display_name={self._display_name})'
+
+
+
+
+
+
+

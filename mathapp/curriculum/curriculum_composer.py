@@ -162,14 +162,16 @@ class CurriculumComposer:
                                             concept_tutorial_interactor=concept_tutorial_interactor)
 
     def compose_concept_tutorial_presenter(self):
-        return ConceptTutorialPresenter()
+        return ConceptTutorialPresenter(request_path=self._request.path)
 
     def compose_concept_tutorial_interactor(self):
         lesson_repository = self.compose_lesson_repository()
         concept_tutorial_factory = self.compose_concept_tutorial_factory()
+        detail_section_factory = self.compose_detail_section_factory()
         unit_of_work = self._unit_of_work
         return ConceptTutorialInteractor(lesson_repository=lesson_repository, 
                                             concept_tutorial_factory=concept_tutorial_factory, 
+                                            detail_section_factory=detail_section_factory,
                                             unit_of_work=unit_of_work)
 
 

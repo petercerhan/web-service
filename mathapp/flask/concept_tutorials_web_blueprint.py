@@ -19,5 +19,10 @@ def update(lesson_id, lesson_section_id):
 	elif request.method == 'POST':
 		return controller(request).post_update_form(lesson_id, lesson_section_id)
 
+@bp.route('/lessons/<int:lesson_id>/concept_tutorials/<int:lesson_section_id>/detail_sections', methods=('POST',))
+@login_required
+def create_detail_section(lesson_id, lesson_section_id):
+	return controller(request).create_detail_section(lesson_id, lesson_section_id)
+
 def controller(request):
 	return RootComposer(request).compose_concept_tutorial_web_controller()
