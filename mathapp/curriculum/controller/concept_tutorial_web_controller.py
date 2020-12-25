@@ -1,5 +1,5 @@
 from flask import request
-from mathapp.library.errors.validation_error import ValidationError
+from mathapp.library.errors.mathapp_error import MathAppError
 
 class ConceptTutorialWebController:
 
@@ -47,7 +47,7 @@ class ConceptTutorialWebController:
             self._concept_tutorial_interactor.update(lesson_id=lesson_id, lesson_section_id=lesson_section_id, fields=fields)
             lesson = self._lesson_interactor.read(lesson_id)
             return self._presenter.present_update_successful(lesson=lesson)
-        except ValidationError as error:
+        except MathAppError as error:
             lesson = self._lesson_interactor.read(lesson_id)
             concept_tutorial = self._concept_tutorial_interactor.read(lesson_id=lesson_id, lesson_section_id=lesson_section_id)
             return self._presenter.present_update(lesson=lesson, concept_tutorial=concept_tutorial, error_message=error.message)

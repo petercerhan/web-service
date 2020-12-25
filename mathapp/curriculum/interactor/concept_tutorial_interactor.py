@@ -1,6 +1,9 @@
 from mathapp.curriculum.interactor.domain_to_data_transforms.concept_tutorial import concept_tutorial_to_enriched_data
 from mathapp.curriculum.interactor.domain_to_data_transforms.detail_section import detail_section_to_data
 
+from mathapp.library.errors.mathapp_error import MathAppError
+from mathapp.library.errors.validation_error import ValidationError
+
 class ConceptTutorialInteractor:
 
 	def __init__(self, 

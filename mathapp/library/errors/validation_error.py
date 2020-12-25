@@ -1,3 +1,4 @@
-class ValidationError(Exception):
-    def __init__(self, message):
-        self.message = message
+from mathapp.library.errors.mathapp_error import MathAppError
+
+class ValidationError(MathAppError):
+	pass

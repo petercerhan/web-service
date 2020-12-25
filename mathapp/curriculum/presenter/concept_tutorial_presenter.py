@@ -4,8 +4,6 @@ from flask import (
 
 import json
 
-import sys
-
 class ConceptTutorialPresenter:
 
 	def __init__(self, request_path):
