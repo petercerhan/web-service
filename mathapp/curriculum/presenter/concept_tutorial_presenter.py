@@ -10,10 +10,12 @@ class ConceptTutorialPresenter:
 		self._request_path = request.path
 		self._request_contains_error_arg = (request.args.get('error_message') is not None)
 
+
 	def present_create(self, error=None):
 		if error is not None:
 			flash(error.message)
 		return render_template('concept_tutorials/create.html')
+
 
 	def present_update(self, lesson, concept_tutorial, error_message=None):
 		target_path = url_for('concept_tutorials.update', lesson_id=lesson['id'], lesson_section_id=concept_tutorial['id'])

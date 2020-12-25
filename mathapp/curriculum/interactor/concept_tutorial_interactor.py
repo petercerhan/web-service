@@ -45,9 +45,6 @@ class ConceptTutorialInteractor:
 
 
 	def create_detail_section(self, lesson_id, lesson_section_id, fields):
-
-		raise ValidationError(message="Test error message")
-
 		lesson = self._lesson_repository.get(id=lesson_id)
 		concept_tutorial = lesson.get_lesson_section(id=lesson_section_id)
 		detail_section = concept_tutorial.create_instruction_section(fields=fields, instruction_section_factory=self._detail_section_factory)
