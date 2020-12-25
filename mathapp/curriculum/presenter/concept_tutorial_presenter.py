@@ -17,6 +17,8 @@ class ConceptTutorialPresenter:
 	def present_update(self, lesson, concept_tutorial, error_message=None):
 		target_path = url_for('concept_tutorials.update', lesson_id=lesson['id'], lesson_section_id=concept_tutorial['id'])
 		if target_path != self._request_path:
+			if error_message is not None:
+				target_path = f'{target_path}?error_message={error_message}'
 			return redirect(target_path)
 
 		if error_message is not None:
