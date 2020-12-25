@@ -20,7 +20,7 @@ class ConceptTutorialInteractor:
 	def create(self, fields, lesson_id):
 		lesson = self._lesson_repository.get(id=lesson_id)
 		concept_tutorial = lesson.create_concept_tutorial(fields=fields, 
-														concept_tutorial_factory=self._concept_tutorial_factory)
+														  concept_tutorial_factory=self._concept_tutorial_factory)
 		self._unit_of_work.commit()
 		return concept_tutorial_to_enriched_data(concept_tutorial)
 
@@ -45,9 +45,6 @@ class ConceptTutorialInteractor:
 
 
 	def create_detail_section(self, lesson_id, lesson_section_id, fields):
-
-		raise ValidationError(message = f'Test validation error raised from ConceptTutorialInteractor')
-
 		lesson = self._lesson_repository.get(id=lesson_id)
 		concept_tutorial = lesson.get_lesson_section(id=lesson_section_id)
 		detail_section = concept_tutorial.create_instruction_section(fields=fields, instruction_section_factory=self._detail_section_factory)

@@ -1,13 +1,15 @@
 from flask import request
 from mathapp.library.errors.mathapp_error import MathAppError
 
+import sys
+
 class ConceptTutorialWebController:
 
     def __init__(self, 
-                request, 
-                presenter,
-                lesson_interactor,
-                concept_tutorial_interactor):
+                 request, 
+                 presenter,
+                 lesson_interactor,
+                 concept_tutorial_interactor):
         self._request = request
         self._presenter = presenter
         self._lesson_interactor = lesson_interactor
@@ -44,10 +46,13 @@ class ConceptTutorialWebController:
         fields = {}
         fields['display_name'] = self._request.form.get('display_name')
 
+        print(f'args has element count {len(self._request.args)}', file=sys.stderr)
+
         try:
             self._concept_tutorial_interactor.update(lesson_id=lesson_id, lesson_section_id=lesson_section_id, fields=fields)
             lesson = self._lesson_interactor.read(lesson_id)
-            return self._presenter.present_update_successful(lesson=lesson)
+            concept_tutorial = self._concept_tutorial_interactor.read(lesson_id=lesson_id, lesson_section_id=lesson_section_id)
+            return self._presenter.present_update(lesson=lesson, concept_tutorial=concept_tutorial)
         except MathAppError as error:
             lesson = self._lesson_interactor.read(lesson_id)
             concept_tutorial = self._concept_tutorial_interactor.read(lesson_id=lesson_id, lesson_section_id=lesson_section_id)

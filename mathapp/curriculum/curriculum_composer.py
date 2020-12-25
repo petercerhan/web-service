@@ -162,7 +162,7 @@ class CurriculumComposer:
                                             concept_tutorial_interactor=concept_tutorial_interactor)
 
     def compose_concept_tutorial_presenter(self):
-        return ConceptTutorialPresenter(request_path=self._request.path)
+        return ConceptTutorialPresenter(request=self._request)
 
     def compose_concept_tutorial_interactor(self):
         lesson_repository = self.compose_lesson_repository()
