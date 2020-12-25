@@ -40,7 +40,3 @@ class ConceptTutorialPresenter:
 		return redirect(url_for('lessons.update', id=lesson_id))
 		
 
-	def present_update_successful(self, lesson):
-		return redirect(url_for('lessons.update', id=lesson['id']))
-
-

@@ -36,27 +36,24 @@ class ConceptTutorialWebController:
 
 
     def get_update_form(self, lesson_id, lesson_section_id):
-        lesson = self._lesson_interactor.read(lesson_id)
-        concept_tutorial = self._concept_tutorial_interactor.read(lesson_id=lesson_id, lesson_section_id=lesson_section_id)
-        error_message = self._request.args.get('error_message')
-        return self._presenter.present_update(lesson=lesson, concept_tutorial=concept_tutorial, error_message=error_message)
+        return self._present_update(lesson_id=lesson_id, 
+                                    lesson_section_id=lesson_section_id, 
+                                    error_message=self._request.args.get('error_message'))
 
 
     def post_update_form(self, lesson_id, lesson_section_id):
         fields = {}
         fields['display_name'] = self._request.form.get('display_name')
 
-        print(f'args has element count {len(self._request.args)}', file=sys.stderr)
-
         try:
             self._concept_tutorial_interactor.update(lesson_id=lesson_id, lesson_section_id=lesson_section_id, fields=fields)
-            lesson = self._lesson_interactor.read(lesson_id)
-            concept_tutorial = self._concept_tutorial_interactor.read(lesson_id=lesson_id, lesson_section_id=lesson_section_id)
-            return self._presenter.present_update(lesson=lesson, concept_tutorial=concept_tutorial)
+            return self._present_update(lesson_id=lesson_id, 
+                                        lesson_section_id=lesson_section_id, 
+                                        error_message=None)
         except MathAppError as error:
-            lesson = self._lesson_interactor.read(lesson_id)
-            concept_tutorial = self._concept_tutorial_interactor.read(lesson_id=lesson_id, lesson_section_id=lesson_section_id)
-            return self._presenter.present_update(lesson=lesson, concept_tutorial=concept_tutorial, error_message=error.message)
+            return self._present_update(lesson_id=lesson_id, 
+                                        lesson_section_id=lesson_section_id, 
+                                        error_message=error.message)
 
 
     def create_detail_section(self, lesson_id, lesson_section_id):
@@ -65,15 +62,19 @@ class ConceptTutorialWebController:
 
         try:
             self._concept_tutorial_interactor.create_detail_section(lesson_id, lesson_section_id, fields)
-            lesson = self._lesson_interactor.read(lesson_id)
-            concept_tutorial = self._concept_tutorial_interactor.read(lesson_id=lesson_id, lesson_section_id=lesson_section_id)
-            return self._presenter.present_update(lesson=lesson, concept_tutorial=concept_tutorial)
+            return self._present_update(lesson_id=lesson_id, 
+                                        lesson_section_id=lesson_section_id, 
+                                        error_message=None)
         except MathAppError as error:
-            lesson = self._lesson_interactor.read(lesson_id)
-            concept_tutorial = self._concept_tutorial_interactor.read(lesson_id=lesson_id, lesson_section_id=lesson_section_id)
-            return self._presenter.present_update(lesson=lesson, concept_tutorial=concept_tutorial, error_message=error.message)
+            return self._present_update(lesson_id=lesson_id, 
+                                        lesson_section_id=lesson_section_id, 
+                                        error_message=error.message)
 
 
+    def _present_update(self, lesson_id, lesson_section_id, error_message):
+        lesson = self._lesson_interactor.read(lesson_id)
+        concept_tutorial = self._concept_tutorial_interactor.read(lesson_id=lesson_id, lesson_section_id=lesson_section_id)
+        return self._presenter.present_update(lesson, concept_tutorial, error_message)
 
 
 
