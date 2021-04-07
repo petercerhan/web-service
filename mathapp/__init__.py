@@ -50,6 +50,9 @@ def create_app(test_config=None):
 
     from mathapp.flask import detail_sections_web_blueprint
     app.register_blueprint(detail_sections_web_blueprint.bp)
+
+    from mathapp.flask import topics_web_blueprint
+    app.register_blueprint(topics_web_blueprint.bp)
         
     return app
 

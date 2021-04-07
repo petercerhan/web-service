@@ -50,6 +50,10 @@ class RootComposer:
     def compose_detail_section_web_controller(self):
         curriculum_composer = self.compose_curriculum_composer()
         return curriculum_composer.compose_detail_section_web_controller()
+
+    def compose_topic_web_controller(self):
+        curriculum_composer = self.compose_curriculum_composer()
+        return curriculum_composer.compose_topic_web_controller()
         
 
     def compose_curriculum_composer(self):
@@ -57,8 +61,6 @@ class RootComposer:
                                   sqlalchemy_session = self._sqlalchemy_session, 
                                   infrastructure_service_composer=self._infrastructure_service_composer,
                                   unit_of_work = self._unit_of_work)
-
-
 
 
 
