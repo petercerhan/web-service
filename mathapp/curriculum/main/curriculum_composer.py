@@ -34,11 +34,6 @@ from mathapp.curriculum.data_mapper.text_glyph.text_glyph_factory import TextGly
 from mathapp.curriculum.data_mapper.formula_glyph.formula_glyph_factory import FormulaGlyphFactory
 from mathapp.curriculum.data_mapper.image_glyph.image_glyph_factory import ImageGlyphFactory
 
-from mathapp.curriculum.controller.topic_web_controller import TopicWebController
-from mathapp.curriculum.interactor.topic_interactor import TopicInteractor
-from mathapp.curriculum.data_mapper.topic.topic_repository import TopicRepository
-from mathapp.curriculum.presenter.topic_presenter import TopicPresenter
-
 class CurriculumComposer:
 
     def __init__(self, 
@@ -232,26 +227,6 @@ class CurriculumComposer:
         return ImageGlyphFactory(unit_of_work=self._unit_of_work)
 
 
-    ##Topic Controller
-
-    def compose_topic_web_controller(self):
-        topic_interactor = self.compose_topic_interactor()
-        topic_presenter = self.compose_topic_presenter()
-        return TopicWebController(request=self._request,
-                                  topic_interactor=topic_interactor,
-                                  topic_presenter=topic_presenter)
-
-    def compose_topic_interactor(self):
-        topic_repository = self.compose_topic_repository()
-        return TopicInteractor(topic_repository=topic_repository,
-                                unit_of_work=self._unit_of_work)
-
-    def compose_topic_repository(self):
-        return TopicRepository(unit_of_work=self._unit_of_work, 
-                               session=self._sqlalchemy_session)
-
-    def compose_topic_presenter(self):
-        return TopicPresenter()
 
 
 
