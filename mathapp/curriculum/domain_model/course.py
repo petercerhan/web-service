@@ -7,7 +7,8 @@ class Course:
     def __init__(self, 
         name, 
         display_name,
-        lesson_sequence_item_list_value_holder, 
+        lesson_sequence_item_list_value_holder,
+        course_topic_list_value_holder,
         unit_of_work):
 
         self._id = None
@@ -15,7 +16,8 @@ class Course:
         self._name = name
         self._display_name = display_name
 
-        self._lesson_sequence_item_list_value_holder = lesson_sequence_item_list_value_holder        
+        self._lesson_sequence_item_list_value_holder = lesson_sequence_item_list_value_holder
+        self._course_topic_list_value_holder = course_topic_list_value_holder
         self._unit_of_work = unit_of_work
 
         self._check_invariants()
@@ -94,6 +96,9 @@ class Course:
                     
         self._check_invariants()
         self._unit_of_work.register_dirty(self)
+
+    def get_course_topics(self):
+        return self._course_topic_list_value_holder.get_list()
         
     def delete(self):
         self._unit_of_work.register_deleted(self)

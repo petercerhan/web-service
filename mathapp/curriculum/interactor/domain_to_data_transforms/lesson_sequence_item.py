@@ -5,3 +5,4 @@ def lesson_sequence_item_to_data(lesson_sequence_item):
 	return {'id': lesson_sequence_item.get_id(), 
 			'position': lesson_sequence_item.get_position(),
 			'lesson': lesson_data}
+
