@@ -142,3 +142,100 @@ var dataContainer = document.getElementById('data_container');
 ReactDOM.render(React.createElement(LessonSequenceList, { course_json: dataContainer.getAttribute('course'),
 	delete_lesson_sequence_item_url: dataContainer.getAttribute('delete_lesson_sequence_item_url'),
 	update_lesson_url: dataContainer.getAttribute('update_lesson_url') }), root);
+
+function CourseTopic(props) {
+
+	return React.createElement(
+		"div",
+		{ className: "ordered_option" },
+		React.createElement(
+			"p",
+			null,
+			props.course_topic.topic.display_name
+		)
+	);
+}
+
+function CourseTopicInput(props) {
+	var course_topics = props.course_topics.map(function (course_topic, index) {
+		course_topic.position = index;
+		return course_topic;
+	});
+	var course_topics_json = JSON.stringify(props.course_topics);
+	return React.createElement("input", { type: "hidden", name: "course_topics", value: course_topics_json });
+}
+
+var CourseTopicList = function (_React$Component2) {
+	_inherits(CourseTopicList, _React$Component2);
+
+	function CourseTopicList(props) {
+		_classCallCheck(this, CourseTopicList);
+
+		var _this3 = _possibleConstructorReturn(this, (CourseTopicList.__proto__ || Object.getPrototypeOf(CourseTopicList)).call(this, props));
+
+		var course = JSON.parse(_this3.props.course_json);
+		_this3.state = {
+			course_topics: course.course_topics,
+			course_id: course.id
+		};
+		return _this3;
+	}
+
+	_createClass(CourseTopicList, [{
+		key: "moveUp",
+		value: function moveUp(i) {
+			var course_topics = this.state.course_topics;
+			var swap_first = course_topics[i - 1];
+			course_topics[i - 1] = course_topics[i];
+			course_topics[i] = swap_first;
+			this.setState({
+				course_topics: course_topics
+			});
+		}
+	}, {
+		key: "moveDown",
+		value: function moveDown(i) {
+			var course_topics = this.state.course_topics;
+			var swap_first = course_topics[i + 1];
+			course_topics[i + 1] = course_topics[i];
+			course_topics[i] = swap_first;
+			this.setState({
+				course_topics: course_topics
+			});
+		}
+	}, {
+		key: "render",
+		value: function render() {
+			var _this4 = this;
+
+			var course_topics = this.state.course_topics.map(function (course_topic, index, arrayObj) {
+				return React.createElement(CourseTopic, {
+					key: course_topic.id.toString(),
+					course_topic: course_topic,
+					first_item: index == 0,
+					last_item: index == arrayObj.length - 1,
+					onUpClick: function onUpClick(i) {
+						return _this4.moveUp(index);
+					},
+					onDownClick: function onDownClick(i) {
+						return _this4.moveDown(index);
+					}
+				});
+			});
+
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(CourseTopicInput, { course_topics: this.state.course_topics }),
+				course_topics,
+				React.createElement("hr", null)
+			);
+		}
+	}]);
+
+	return CourseTopicList;
+}(React.Component);
+
+var rootTwo = document.getElementById('react_root_2');
+
+ReactDOM.render(React.createElement(CourseTopicList, { course_json: dataContainer.getAttribute('course') }), rootTwo);
