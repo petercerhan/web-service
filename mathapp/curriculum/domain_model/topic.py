@@ -3,9 +3,9 @@ from mathapp.library.errors.validation_error import ValidationError
 class Topic:
 
     def __init__(self,
-                name,
-                display_name,
-                unit_of_work):
+                 name,
+                 display_name,
+                 unit_of_work):
 
         self._id = None
         self._name = name

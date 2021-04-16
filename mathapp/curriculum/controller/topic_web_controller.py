@@ -2,6 +2,8 @@ from flask import (
     request, flash, redirect, url_for, render_template, abort
 )
 
+from mathapp.library.errors.validation_error import ValidationError
+
 import json
 
 class TopicWebController:
@@ -16,5 +18,19 @@ class TopicWebController:
 
 	def get_index(self):
 		topics = self._topic_interactor.list()
-		# return json.dumps(topics)
 		return self._topic_presenter.index(topics)
+
+	def get_create_form(self, course_id):
+		return self._topic_presenter.create_form(course_id)
+
+	def post_create_form(self, course_id):
+		fields = {}
+		fields['name'] = self._request.form.get('name')
+		fields['display_name'] = self._request.form.get('display_name')
+
+		try:
+			self._topic_interactor.create(fields=fields)
+			return 'success'
+		except ValidationError as error:
+			return self._topic_presenter.create_form(course_id, error=error)
+

@@ -1,4 +1,5 @@
 from mathapp.curriculum.data_mapper.topic.orm_topic import ORMTopic
+from mathapp.library.errors.not_found_error import NotFoundError
 
 class TopicRepository:
 	
@@ -12,3 +13,13 @@ class TopicRepository:
 		self._unit_of_work.register_queried(orm_topics)
 		return topics
 
+	def get_by_name(self, name):
+		orm_topic = self._session.query(ORMTopic).filter(ORMTopic.name == name).first()
+
+		if orm_topic is None:
+			raise NotFoundError(message='Not Found')
+
+		topic = orm_topic.get_model(unit_of_work=self._unit_of_work)
+		self._unit_of_work.register_queried([orm_topic])
+
+		return topic

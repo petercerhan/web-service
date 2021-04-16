@@ -11,5 +11,12 @@ bp = Blueprint('topics', __name__)
 def index():
 	return controller(request).get_index()
 
+@bp.route('/courses/<int:course_id>/create-topic', methods=('GET', 'POST'))
+def createTopic(course_id):
+	if request.method == 'GET':
+		return controller(request).get_create_form(course_id)
+	elif request.method == 'POST':
+		return controller(request).post_create_form(course_id)
+
 def controller(request):
 	return RootComposer(request).compose_topic_web_controller()
