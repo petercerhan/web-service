@@ -19,4 +19,5 @@ class TopicPresenter:
 		target_path = f'{target_path}?topic_id={topic_id}'
 		return redirect(target_path)
 		
-
+	def edit_form(self, topic):
+		return render_template('topics/edit.html', topic=topic)

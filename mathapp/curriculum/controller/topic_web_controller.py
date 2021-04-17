@@ -3,6 +3,7 @@ from flask import (
 )
 
 from mathapp.library.errors.validation_error import ValidationError
+from mathapp.library.errors.mathapp_error import MathAppError
 
 import json
 
@@ -36,3 +37,9 @@ class TopicWebController:
 		except ValidationError as error:
 			return self._topic_presenter.create_form(course_id, error=error)
 
+	def get_edit_form(self, course_id, topic_id):
+		try:
+			topic = self._topic_interactor.get(topic_id)
+			return self._topic_presenter.edit_form(topic=topic)
+		except MathAppError as error:
+			return error.message

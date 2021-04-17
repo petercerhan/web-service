@@ -20,3 +20,7 @@ class TopicInteractor:
 		topic = self._topic_factory.create(fields)
 		self._unit_of_work.commit()
 		return topic_to_data(topic)
+
+	def get(self, topic_id):
+		topic = self._topic_repository.get(topic_id)
+		return topic_to_data(topic)
