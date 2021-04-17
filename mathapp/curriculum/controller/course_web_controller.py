@@ -8,6 +8,8 @@ import json
 
 from mathapp.sqlalchemy.db import Session
 
+import sys
+
 class CourseWebController:
     
     def __init__(self, request, course_interactor, course_presenter):
@@ -91,10 +93,17 @@ class CourseWebController:
 
 
 
-    def get_create_course_topic_form(self, course_id):
-        return self._course_presenter.create_course_topic_form()
+    def get_create_course_topic_form(self, course_id, topic_id):
+        return self._course_presenter.create_course_topic_form(topic_id=topic_id)
 
+    def post_create_course_topic_form(self, course_id):
+        topic_id = self.request.form.get('topic_id')
 
+        try:
+            course = self._course_interactor.create_course_topic(course_id=course_id, topic_id=topic_id)
+            return self._course_presenter.edit_course_redirect(course_id)
+        except MathAppError as error:
+            return self._course_presenter.create_course_topic_form(topic_id, error=error)
 
 
 

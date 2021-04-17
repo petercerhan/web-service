@@ -34,6 +34,10 @@ from mathapp.curriculum.data_mapper.text_glyph.text_glyph_factory import TextGly
 from mathapp.curriculum.data_mapper.formula_glyph.formula_glyph_factory import FormulaGlyphFactory
 from mathapp.curriculum.data_mapper.image_glyph.image_glyph_factory import ImageGlyphFactory
 
+from mathapp.curriculum.data_mapper.course_topic.course_topic_factory import CourseTopicFactory
+
+from mathapp.curriculum.main.curriculum_repository_composer import CurriculumRepositoryComposer
+
 class CurriculumComposer:
 
     def __init__(self, 
@@ -45,6 +49,10 @@ class CurriculumComposer:
         self._sqlalchemy_session = sqlalchemy_session
         self._infrastructure_service_composer = infrastructure_service_composer
         self._unit_of_work = unit_of_work
+
+        self._curriculum_repository_composer = CurriculumRepositoryComposer(unit_of_work=unit_of_work,
+                                                                            sqlalchemy_session=sqlalchemy_session)
+
 
 
     ##Course Web Controller
@@ -60,11 +68,15 @@ class CurriculumComposer:
         return CoursePresenter()
     
     def compose_course_interactor(self):
-        course_factory = self.compose_course_factory()
         course_repository = self.compose_course_repository()
-        return CourseInteractor(course_repository = course_repository, 
-                                course_factory = course_factory, 
-                                unit_of_work_committer = self._unit_of_work)
+        topic_repository = self._curriculum_repository_composer.compose_topic_repository()
+        course_factory = self.compose_course_factory()
+        course_topic_factory = CourseTopicFactory(unit_of_work=self._unit_of_work)
+        return CourseInteractor(course_repository=course_repository,  
+                                topic_repository=topic_repository, 
+                                course_factory=course_factory,
+                                course_topic_factory=course_topic_factory,
+                                unit_of_work_committer=self._unit_of_work)
 
     def compose_course_repository(self):
         return CourseRepository(unit_of_work = self._unit_of_work, 

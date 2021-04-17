@@ -1,13 +1,18 @@
 from mathapp.curriculum.interactor.domain_to_data_transforms.course import course_to_data
 from mathapp.curriculum.interactor.domain_to_data_transforms.course import course_to_enriched_data
 
-import sys
-
 class CourseInteractor:
 
-    def __init__(self, course_repository, course_factory, unit_of_work_committer):
+    def __init__(self, 
+                 course_repository, 
+                 topic_repository,
+                 course_factory, 
+                 course_topic_factory,
+                 unit_of_work_committer):
         self._course_repository = course_repository
+        self._topic_repository = topic_repository
         self._course_factory = course_factory
+        self._course_topic_factory = course_topic_factory
         self._unit_of_work_committer = unit_of_work_committer
 
     def list(self):
@@ -61,6 +66,14 @@ class CourseInteractor:
 
 
 
+    def create_course_topic(self, course_id, topic_id):        
+        course = self._course_repository.get(course_id)
+        topic = self._topic_repository.get(topic_id)
+
+        course.create_course_topic(topic=topic,
+                                   course_topic_factory=self._course_topic_factory)
+        self._unit_of_work_committer.commit()
+        return course_to_enriched_data(course)
 
 
 

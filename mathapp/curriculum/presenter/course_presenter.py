@@ -41,5 +41,10 @@ class CoursePresenter:
 
 
 
-	def create_course_topic_form(self):
-		return render_template('courses/create-course-topic.html')
+	def create_course_topic_form(self, topic_id, error=None):
+		if error:
+			flash(error.message)
+		return render_template('courses/create-course-topic.html', topic_id=topic_id)
+
+	def edit_course_redirect(self, course_id):
+		return redirect(url_for('courses.update', id=course_id))

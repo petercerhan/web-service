@@ -13,6 +13,16 @@ class TopicRepository:
 		self._unit_of_work.register_queried(orm_topics)
 		return topics
 
+	def get(self, id):
+		orm_topic = self._session.query(ORMTopic).filter(ORMTopic.id == id).first()
+
+		if not orm_topic:
+			raise NotFoundError(message=f'Topic id={id} not found')
+
+		topic = orm_topic.get_model(unit_of_work=self._unit_of_work)
+		self._unit_of_work.register_queried([orm_topic])
+		return topic
+
 	def get_by_name(self, name):
 		orm_topic = self._session.query(ORMTopic).filter(ORMTopic.name == name).first()
 

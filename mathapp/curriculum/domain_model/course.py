@@ -103,6 +103,17 @@ class Course:
     def delete(self):
         self._unit_of_work.register_deleted(self)
 
+
+
+
+    def create_course_topic(self, topic, course_topic_factory):
+        max_position = max([x.get_position() for x in self._course_topic_list_value_holder.get_list()], default=-1)
+        next_position = max_position+1
+        course_topic = course_topic_factory.create(position=next_position, topic=topic)
+        self._course_topic_list_value_holder.add(course_topic)
+
+
+
     def __repr__(self):
         return "<Course(name='%s') ID(id='%s')>" % (self._name, self._id)
 
