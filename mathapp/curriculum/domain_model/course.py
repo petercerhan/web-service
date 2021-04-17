@@ -28,22 +28,33 @@ class Course:
             raise ValidationError(message = "Course requires name")
 
         if not self._name.strip():
-            raise ValidationError(message = "Invalid name for course")
+            raise ValidationError(message = "Invalid name for Course")
 
         if not self._display_name:
-            raise ValidationError(message = "Invalid display_name for course")
+            raise ValidationError(message = "Course requires displa_name")
 
         if not self._display_name.strip():
-            raise ValidationError(message = "Invalid display_name for course")
+            raise ValidationError(message = "Invalid display_name for Course")
 
         if (self._lesson_sequence_item_list_value_holder.get_queried()):
             self._check_lesson_sequence_items_valid_order()
+
+        if (self._course_topic_list_value_holder.get_queried()):
+            self._check_course_topics_valid_order()
+
+
 
     def _check_lesson_sequence_items_valid_order(self):
         lesson_sequence_items = self._lesson_sequence_item_list_value_holder.get_list()
         positions = [item.get_position() for item in lesson_sequence_items]
         if len(positions) > len(set(positions)):
             raise ValidationError(message = "Lessons Sequence Items for course must have unique positions")
+
+    def _check_course_topics_valid_order(self):
+        course_topics = self._course_topic_list_value_holder.get_list()
+        positions = [x.get_position() for x in course_topics]
+        if len(positions) > len(set(positions)):
+            raise ValidationError(message = "CourseTopics for Course must have unique positions")
 
     def get_id(self):
         return self._id
