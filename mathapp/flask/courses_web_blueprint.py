@@ -41,6 +41,15 @@ def delete(id):
 def delete_lesson_sequence_item(course_id, lesson_sequence_item_id):
 	return controller(request).handle_delete_lesson_sequence_item_request(course_id, lesson_sequence_item_id)
 
+
+## Create CourseTopic
+
+@bp.route('/courses/<int:course_id>/create-course-topic', methods=('GET', 'POST'))
+@login_required
+def create_course_topic(course_id):
+    return controller(request).get_create_course_topic_form(course_id)
+
+
 ## Util
 
 def controller(request):

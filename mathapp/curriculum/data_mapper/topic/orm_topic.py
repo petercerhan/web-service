@@ -39,7 +39,7 @@ class ORMTopic(Base):
         return topic
 
     def sync_id(self):
-        self._topic.id = self.id
+        self._topic._id = self.id
 
     def sync_fields(self):
         self.name = self._topic._name

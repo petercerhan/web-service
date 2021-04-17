@@ -6,6 +6,8 @@ from mathapp.library.errors.validation_error import ValidationError
 
 import json
 
+import sys
+
 class TopicWebController:
 
 	def __init__(self,
@@ -29,8 +31,8 @@ class TopicWebController:
 		fields['display_name'] = self._request.form.get('display_name')
 
 		try:
-			self._topic_interactor.create(fields=fields)
-			return 'success'
+			topic = self._topic_interactor.create(fields=fields)
+			return self._topic_presenter.create_course_topic_form(course_id, topic['id'])
 		except ValidationError as error:
 			return self._topic_presenter.create_form(course_id, error=error)
 

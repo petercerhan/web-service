@@ -14,4 +14,9 @@ class TopicPresenter:
 			flash(error.message)
 		return render_template('topics/create.html')
 
+	def create_course_topic_form(self, course_id, topic_id):
+		target_path = url_for('courses.create_course_topic', course_id=course_id)
+		target_path = f'{target_path}?topic_id={topic_id}'
+		return redirect(target_path)
+		
 

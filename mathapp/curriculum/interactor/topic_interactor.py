@@ -1,5 +1,7 @@
 from mathapp.curriculum.interactor.domain_to_data_transforms.topic import topic_to_data
 
+import sys
+
 class TopicInteractor:
 
 	def __init__(self,

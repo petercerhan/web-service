@@ -37,3 +37,9 @@ class CoursePresenter:
 
 	def present_not_found(self, error):
 		abort(404, error.message)
+
+
+
+
+	def create_course_topic_form(self):
+		return render_template('courses/create-course-topic.html')

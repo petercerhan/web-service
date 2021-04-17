@@ -91,7 +91,8 @@ class CourseWebController:
 
 
 
-
+    def get_create_course_topic_form(self, course_id):
+        return self._course_presenter.create_course_topic_form()
 
 
 
