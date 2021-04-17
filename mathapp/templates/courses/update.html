@@ -10,6 +10,9 @@
     <input name="display_name" id="display_name" value="{{ request.form['display_name'] or course['display_name'] }}" required>
     <h1>Course-Topics</h1>
     <hr>
+    <br>
+    <a class="action" href="{{ url_for('topics.create', course_id=course['id']) }}">Add Topic</a>
+    <br>
     <div id="react_root_2"></div>
     <h1>Lessons</h1>
     <hr>

@@ -13,7 +13,7 @@ def index():
 
 @bp.route('/courses/<int:course_id>/create-topic', methods=('GET', 'POST'))
 @login_required
-def createTopic(course_id):
+def create(course_id):
 	if request.method == 'GET':
 		return controller(request).get_create_form(course_id)
 	elif request.method == 'POST':
