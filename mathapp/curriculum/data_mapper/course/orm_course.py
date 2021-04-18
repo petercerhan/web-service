@@ -26,7 +26,6 @@ class ORMCourse(Base):
 
     course_topics = relationship('ORMCourseTopic',
                                  order_by='asc(ORMCourseTopic.position)',
-                                 cascade='all, delete, delete-orphan',
                                  back_populates='course')
 
     def __init__(self, name, display_name):

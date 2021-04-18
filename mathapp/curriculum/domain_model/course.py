@@ -119,6 +119,9 @@ class Course:
                 course_topic.set_position(data_item['position'])
         
     def delete(self):
+        course_topics = self._course_topic_list_value_holder.get_list()
+        for course_topic in course_topics:
+            course_topic.delete()
         self._unit_of_work.register_deleted(self)
 
 
