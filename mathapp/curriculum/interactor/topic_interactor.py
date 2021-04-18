@@ -24,3 +24,13 @@ class TopicInteractor:
 	def get(self, topic_id):
 		topic = self._topic_repository.get(topic_id)
 		return topic_to_data(topic)
+
+	def update(self, id, fields):
+		topic = self._topic_repository.get(id)
+
+		display_name = fields.get('display_name')
+		if display_name is not None:
+			topic.set_display_name(display_name)
+
+		self._unit_of_work.commit()
+		return topic_to_data(topic)

@@ -36,6 +36,11 @@ class Topic:
     def get_display_name(self):
         return self._display_name
 
+    def set_display_name(self, display_name):
+        self._display_name = display_name
+        self._check_invariants()
+        self._unit_of_work.register_dirty(self)
+
 
     def __repr__(self):
         return "<Topic(name='%s') ID(id='%s')>" % (self._name, self._id)

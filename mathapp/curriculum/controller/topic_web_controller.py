@@ -38,8 +38,27 @@ class TopicWebController:
 			return self._topic_presenter.create_form(course_id, error=error)
 
 	def get_edit_form(self, course_id, topic_id):
+		return self._edit_form(course_id=course_id, topic_id=topic_id)
+
+	def post_edit_form(self, course_id, topic_id):
+		fields = {}
+		fields['display_name'] = self._request.form.get('display_name')
+
+		try:
+			self._topic_interactor.update(id=topic_id, fields=fields)
+			return self._topic_presenter.edit_course_form(course_id=course_id)
+		except MathAppError as error:
+			return self._edit_form(course_id=course_id, topic_id=topic_id, error=error)
+
+	def _edit_form(self, course_id, topic_id, error=None):
 		try:
 			topic = self._topic_interactor.get(topic_id)
-			return self._topic_presenter.edit_form(topic=topic)
+			return self._topic_presenter.edit_form(topic=topic, error=error)
 		except MathAppError as error:
 			return error.message
+
+
+
+
+
+
