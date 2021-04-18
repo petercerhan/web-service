@@ -26,6 +26,11 @@ class CourseTopic:
     def get_position(self):
         return self._position
 
+    def set_position(self, position):
+        self._position = position
+        self._check_invariants()
+        self._unit_of_work.register_dirty(self)
+
     def get_topic(self):
         return self._topic_value_holder.get()
 

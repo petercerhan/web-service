@@ -45,6 +45,10 @@ class CourseInteractor:
         if lesson_sequence_items is not None:
             course.sync_lesson_sequence_item_positions(lesson_sequence_items)
 
+        course_topics = fields.get('course_topics')
+        if course_topics is not None:
+            course.sync_course_topic_positions(course_topics)
+
         self._unit_of_work_committer.commit()
 
         enriched_course = course_to_enriched_data(course)

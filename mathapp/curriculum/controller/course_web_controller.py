@@ -53,9 +53,14 @@ class CourseWebController:
     def _post_update_form(self, id):
         fields = {}
         fields['display_name'] = self.request.form.get('display_name')
+
         lesson_sequence_items = self.request.form.get('lesson_sequence_items')
         if lesson_sequence_items is not None:
             fields['lesson_sequence_items'] = json.loads( lesson_sequence_items )
+
+        course_topics = self.request.form.get('course_topics')
+        if course_topics is not None:
+            fields['course_topics'] = json.loads(course_topics)
         
         try:
             self._course_interactor.update(id, fields)

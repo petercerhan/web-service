@@ -110,6 +110,13 @@ class Course:
 
     def get_course_topics(self):
         return self._course_topic_list_value_holder.get_list()
+
+    def sync_course_topic_positions(self, course_topics_data_array):
+        course_topics = self._course_topic_list_value_holder.get_list()
+        for data_item in course_topics_data_array:
+            course_topic = next(x for x in course_topics if x.get_id() == data_item['id'])
+            if course_topic is not None:
+                course_topic.set_position(data_item['position'])
         
     def delete(self):
         self._unit_of_work.register_deleted(self)

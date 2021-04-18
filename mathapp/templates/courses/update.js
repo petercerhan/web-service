@@ -108,6 +108,8 @@ function CourseTopic(props) {
 	return (
 		<div className="ordered_option">
 			<p>{ props.course_topic.topic.display_name }</p>
+			<button type="button" className={props.first_item ? "hidden" : ""} onClick={props.onUpClick}>Up</button>
+			<button type="button" className={props.last_item ? "hidden" : ""} onClick={props.onDownClick}>Down</button>
 			<button type="button" onClick={edit}>Edit</button>
 		</div>
 	) 
