@@ -145,6 +145,10 @@ ReactDOM.render(React.createElement(LessonSequenceList, { course_json: dataConta
 
 function CourseTopic(props) {
 
+	function edit() {
+		window.location.href = props.edit_topic_url;
+	}
+
 	return React.createElement(
 		"div",
 		{ className: "ordered_option" },
@@ -152,6 +156,11 @@ function CourseTopic(props) {
 			"p",
 			null,
 			props.course_topic.topic.display_name
+		),
+		React.createElement(
+			"button",
+			{ type: "button", onClick: edit },
+			"Edit"
 		)
 	);
 }
@@ -212,6 +221,7 @@ var CourseTopicList = function (_React$Component2) {
 				return React.createElement(CourseTopic, {
 					key: course_topic.id.toString(),
 					course_topic: course_topic,
+					edit_topic_url: _this4.props.edit_topic_url.replace('0/edit', course_topic.topic.id).toString(),
 					first_item: index == 0,
 					last_item: index == arrayObj.length - 1,
 					onUpClick: function onUpClick(i) {
@@ -237,5 +247,7 @@ var CourseTopicList = function (_React$Component2) {
 }(React.Component);
 
 var rootTwo = document.getElementById('react_root_2');
+var edit_topic_url_div = document.getElementById('edit_topic_url_div');
 
-ReactDOM.render(React.createElement(CourseTopicList, { course_json: dataContainer.getAttribute('course') }), rootTwo);
+ReactDOM.render(React.createElement(CourseTopicList, { course_json: dataContainer.getAttribute('course'),
+	edit_topic_url: edit_topic_url_div.getAttribute('url') }), rootTwo);

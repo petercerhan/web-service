@@ -29,6 +29,8 @@
           delete_lesson_sequence_item_url="{{ url_for('courses.delete_lesson_sequence_item', course_id=course['id'], lesson_sequence_item_id=0) }}" 
           update_lesson_url="{{ url_for('lessons.updateForCourse', course_id=course['id'], lesson_id=0) }}/update" ></div>
 
+    <div id="edit_topic_url_div" url="{{ url_for('topics.edit', course_id=course['id'], topic_id=0) }}/edit" ></div>
+
   <form action="{{ url_for('courses.delete', id=course['id']) }}" method="post">
     <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>

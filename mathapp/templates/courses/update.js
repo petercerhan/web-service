@@ -101,9 +101,14 @@ ReactDOM.render(<LessonSequenceList course_json={dataContainer.getAttribute('cou
 
 function CourseTopic(props) {
 
+	function edit() {
+		window.location.href = props.edit_topic_url;
+	}
+
 	return (
 		<div className="ordered_option">
 			<p>{ props.course_topic.topic.display_name }</p>
+			<button type="button" onClick={edit}>Edit</button>
 		</div>
 	) 
 }
@@ -152,6 +157,7 @@ class CourseTopicList extends React.Component {
 			<CourseTopic 
 			 key={course_topic.id.toString()}
 			 course_topic={course_topic}
+			 edit_topic_url={ (this.props.edit_topic_url).replace('0/edit', course_topic.topic.id).toString() }
 			 first_item={index==0} 
 			 last_item={index == (arrayObj.length - 1)} 
 			 onUpClick={i => this.moveUp(index)}
@@ -172,8 +178,10 @@ class CourseTopicList extends React.Component {
 
 
 const rootTwo = document.getElementById('react_root_2');
+const edit_topic_url_div = document.getElementById('edit_topic_url_div');
 
-ReactDOM.render(<CourseTopicList course_json={dataContainer.getAttribute('course')}/>, rootTwo)
+ReactDOM.render(<CourseTopicList course_json={dataContainer.getAttribute('course')}
+								 edit_topic_url={edit_topic_url_div.getAttribute('url')} />, rootTwo)
 
 
 
