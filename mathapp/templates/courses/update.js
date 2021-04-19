@@ -100,6 +100,9 @@ ReactDOM.render(<LessonSequenceList course_json={dataContainer.getAttribute('cou
 
 
 function CourseTopic(props) {
+	function remove() {
+		submitDeleteCourseTopicForm(props.delete_course_topic_url);
+	}
 
 	function edit() {
 		window.location.href = props.edit_topic_url;
@@ -111,6 +114,7 @@ function CourseTopic(props) {
 			<button type="button" className={props.first_item ? "hidden" : ""} onClick={props.onUpClick}>Up</button>
 			<button type="button" className={props.last_item ? "hidden" : ""} onClick={props.onDownClick}>Down</button>
 			<button type="button" onClick={edit}>Edit</button>
+			<button type="button" onClick={remove}>Remove</button>
 		</div>
 	) 
 }
@@ -159,6 +163,7 @@ class CourseTopicList extends React.Component {
 			<CourseTopic 
 			 key={course_topic.id.toString()}
 			 course_topic={course_topic}
+			 delete_course_topic_url={ (this.props.delete_course_topic_url).replace('0/delete', course_topic.id.toString() + '/delete') }
 			 edit_topic_url={ (this.props.edit_topic_url).replace('0/edit', course_topic.topic.id).toString() }
 			 first_item={index==0} 
 			 last_item={index == (arrayObj.length - 1)} 
@@ -181,9 +186,11 @@ class CourseTopicList extends React.Component {
 
 const rootTwo = document.getElementById('react_root_2');
 const edit_topic_url_div = document.getElementById('edit_topic_url_div');
+const delete_course_topic_url_div = document.getElementById('delete_course_topic_url_div');
 
 ReactDOM.render(<CourseTopicList course_json={dataContainer.getAttribute('course')}
-								 edit_topic_url={edit_topic_url_div.getAttribute('url')} />, rootTwo)
+								 edit_topic_url={edit_topic_url_div.getAttribute('url')}
+								 delete_course_topic_url={delete_course_topic_url_div.getAttribute('url')} />, rootTwo)
 
 
 

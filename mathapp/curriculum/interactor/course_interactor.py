@@ -79,7 +79,12 @@ class CourseInteractor:
         self._unit_of_work_committer.commit()
         return course_to_enriched_data(course)
 
-
+    def delete_course_topic(self, course_id, course_topic_id):      
+        course = self._course_repository.get(course_id)
+        course.delete_course_topic(course_topic_id)
+        self._unit_of_work_committer.commit()
+        return course_to_enriched_data(course)
+        
 
 
 

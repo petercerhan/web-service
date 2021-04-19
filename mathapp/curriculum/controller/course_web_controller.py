@@ -87,6 +87,7 @@ class CourseWebController:
             
         return self._course_presenter.present_delete_successful()
 
+
     def handle_delete_lesson_sequence_item_request(self, course_id, lesson_sequence_item_id):
         try:
             course = self._course_interactor.delete_lesson_sequence_item(course_id=course_id, lesson_sequence_item_id=lesson_sequence_item_id)
@@ -101,11 +102,20 @@ class CourseWebController:
     def get_create_course_topic_form(self, course_id, topic_id):
         return self._course_presenter.create_course_topic_form(topic_id=topic_id)
 
+
     def post_create_course_topic_form(self, course_id):
         topic_id = self.request.form.get('topic_id')
 
         try:
             course = self._course_interactor.create_course_topic(course_id=course_id, topic_id=topic_id)
+            return self._course_presenter.edit_course_redirect(course_id)
+        except MathAppError as error:
+            return self._course_presenter.create_course_topic_form(topic_id, error=error)
+
+
+    def delete_course_topic(self, course_id, course_topic_id):
+        try:
+            course = self._course_interactor.delete_course_topic(course_id, course_topic_id)
             return self._course_presenter.edit_course_redirect(course_id)
         except MathAppError as error:
             return self._course_presenter.create_course_topic_form(topic_id, error=error)

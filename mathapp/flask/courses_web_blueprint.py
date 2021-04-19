@@ -53,6 +53,13 @@ def create_course_topic(course_id):
 	elif request.method == 'POST':
 		return controller(request).post_create_course_topic_form(course_id)
 
+## Delete CourseTopic
+
+@bp.route('/courses/<int:course_id>/course-topics/<int:course_topic_id>/delete', methods=('POST',))
+@login_required
+def delete_course_topic(course_id, course_topic_id):
+    return controller(request).delete_course_topic(course_id=course_id, course_topic_id=course_topic_id)
+
 
 ## Util
 

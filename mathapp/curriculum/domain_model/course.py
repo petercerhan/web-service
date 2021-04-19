@@ -107,16 +107,6 @@ class Course:
                     
         self._check_invariants()
         self._unit_of_work.register_dirty(self)
-
-    def get_course_topics(self):
-        return self._course_topic_list_value_holder.get_list()
-
-    def sync_course_topic_positions(self, course_topics_data_array):
-        course_topics = self._course_topic_list_value_holder.get_list()
-        for data_item in course_topics_data_array:
-            course_topic = next(x for x in course_topics if x.get_id() == data_item['id'])
-            if course_topic is not None:
-                course_topic.set_position(data_item['position'])
         
     def delete(self):
         course_topics = self._course_topic_list_value_holder.get_list()
@@ -127,11 +117,41 @@ class Course:
 
 
 
+    def get_course_topics(self):
+        return self._course_topic_list_value_holder.get_list()
+
     def create_course_topic(self, topic, course_topic_factory):
         max_position = max([x.get_position() for x in self._course_topic_list_value_holder.get_list()], default=-1)
         next_position = max_position+1
         course_topic = course_topic_factory.create(position=next_position, topic=topic)
         self._course_topic_list_value_holder.add(course_topic)
+
+    def sync_course_topic_positions(self, course_topics_data_array):
+        course_topics = self._course_topic_list_value_holder.get_list()
+        for data_item in course_topics_data_array:
+            course_topic = next(x for x in course_topics if x.get_id() == data_item['id'])
+            if course_topic is not None:
+                course_topic.set_position(data_item['position'])
+
+    def delete_course_topic(self, course_topic_id):
+        course_topics = self._course_topic_list_value_holder.get_list()
+        deleted_position = None
+        for course_topic in course_topics:
+            if course_topic.get_id() == course_topic_id:
+                deleted_position = course_topic.get_position()
+                course_topic.delete()
+                self._course_topic_list_value_holder.removeAtIndex(deleted_position)
+
+        if deleted_position is None:
+            return
+
+        for course_topic in course_topics:
+            if course_topic.get_position() > deleted_position:
+                prior_position = course_topic.get_position()
+                course_topic.set_position(prior_position-1)
+
+        self._check_invariants()
+        self._unit_of_work.register_dirty(self)
 
 
 

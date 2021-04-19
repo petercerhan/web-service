@@ -144,6 +144,9 @@ ReactDOM.render(React.createElement(LessonSequenceList, { course_json: dataConta
 	update_lesson_url: dataContainer.getAttribute('update_lesson_url') }), root);
 
 function CourseTopic(props) {
+	function remove() {
+		submitDeleteCourseTopicForm(props.delete_course_topic_url);
+	}
 
 	function edit() {
 		window.location.href = props.edit_topic_url;
@@ -171,6 +174,11 @@ function CourseTopic(props) {
 			"button",
 			{ type: "button", onClick: edit },
 			"Edit"
+		),
+		React.createElement(
+			"button",
+			{ type: "button", onClick: remove },
+			"Remove"
 		)
 	);
 }
@@ -231,6 +239,7 @@ var CourseTopicList = function (_React$Component2) {
 				return React.createElement(CourseTopic, {
 					key: course_topic.id.toString(),
 					course_topic: course_topic,
+					delete_course_topic_url: _this4.props.delete_course_topic_url.replace('0/delete', course_topic.id.toString() + '/delete'),
 					edit_topic_url: _this4.props.edit_topic_url.replace('0/edit', course_topic.topic.id).toString(),
 					first_item: index == 0,
 					last_item: index == arrayObj.length - 1,
@@ -258,6 +267,8 @@ var CourseTopicList = function (_React$Component2) {
 
 var rootTwo = document.getElementById('react_root_2');
 var edit_topic_url_div = document.getElementById('edit_topic_url_div');
+var delete_course_topic_url_div = document.getElementById('delete_course_topic_url_div');
 
 ReactDOM.render(React.createElement(CourseTopicList, { course_json: dataContainer.getAttribute('course'),
-	edit_topic_url: edit_topic_url_div.getAttribute('url') }), rootTwo);
+	edit_topic_url: edit_topic_url_div.getAttribute('url'),
+	delete_course_topic_url: delete_course_topic_url_div.getAttribute('url') }), rootTwo);
