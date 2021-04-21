@@ -5,12 +5,12 @@ from mathapp.curriculum.data_mapper.course.course_factory import CourseFactory
 from mathapp.curriculum.domain_model.course_factory_validating_decorator import CourseFactoryValidatingDecorator
 from mathapp.curriculum.presenter.course_presenter import CoursePresenter
 
-from mathapp.curriculum.controller.lesson_web_controller import LessonWebController
-from mathapp.curriculum.interactor.lesson_interactor import LessonInteractor
-from mathapp.curriculum.data_mapper.lesson.lesson_repository import LessonRepository
-from mathapp.curriculum.presenter.lesson_presenter import LessonPresenter
-from mathapp.curriculum.data_mapper.lesson.lesson_factory import LessonFactory
-from mathapp.curriculum.domain_model.lesson_factory_validating_decorator import LessonFactoryValidatingDecorator
+# from mathapp.curriculum.controller.lesson_web_controller import LessonWebController
+# from mathapp.curriculum.interactor.lesson_interactor import LessonInteractor
+# from mathapp.curriculum.data_mapper.lesson.lesson_repository import LessonRepository
+# from mathapp.curriculum.presenter.lesson_presenter import LessonPresenter
+# from mathapp.curriculum.data_mapper.lesson.lesson_factory import LessonFactory
+# from mathapp.curriculum.domain_model.lesson_factory_validating_decorator import LessonFactoryValidatingDecorator
 
 from mathapp.curriculum.data_mapper.lesson_sequence_item.lesson_sequence_item_factory import LessonSequenceItemFactory
 
@@ -91,39 +91,39 @@ class CurriculumComposer:
 
     ##Lesson Web Controller
 
-    def compose_lesson_web_controller(self):
-        lesson_interactor = self.compose_lesson_interactor()
-        lesson_presenter = self.compose_lesson_presenter()
-        course_interactor = self.compose_course_interactor()
-        return LessonWebController(request = self._request, 
-                                    lesson_interactor = lesson_interactor, 
-                                    lesson_presenter = lesson_presenter, 
-                                    course_interactor = course_interactor)
+    # def compose_lesson_web_controller(self):
+    #     lesson_interactor = self.compose_lesson_interactor()
+    #     lesson_presenter = self.compose_lesson_presenter()
+    #     course_interactor = self.compose_course_interactor()
+    #     return LessonWebController(request = self._request, 
+    #                                 lesson_interactor = lesson_interactor, 
+    #                                 lesson_presenter = lesson_presenter, 
+    #                                 course_interactor = course_interactor)
 
-    def compose_lesson_presenter(self):
-        return LessonPresenter()
+    # def compose_lesson_presenter(self):
+    #     return LessonPresenter()
 
-    def compose_lesson_interactor(self):
-        repository = self.compose_lesson_repository()
-        lesson_factory = self.compose_lesson_factory()
-        course_repository = self.compose_course_repository()
-        lesson_sequence_item_factory = self.compose_lesson_sequence_item_factory()
-        return LessonInteractor(lesson_repository = repository, 
-                                lesson_factory = lesson_factory, 
-                                course_repository=course_repository, 
-                                lesson_sequence_item_factory=lesson_sequence_item_factory,
-                                unit_of_work_committer = self._unit_of_work)
+    # def compose_lesson_interactor(self):
+    #     repository = self.compose_lesson_repository()
+    #     lesson_factory = self.compose_lesson_factory()
+    #     course_repository = self.compose_course_repository()
+    #     lesson_sequence_item_factory = self.compose_lesson_sequence_item_factory()
+    #     return LessonInteractor(lesson_repository = repository, 
+    #                             lesson_factory = lesson_factory, 
+    #                             course_repository=course_repository, 
+    #                             lesson_sequence_item_factory=lesson_sequence_item_factory,
+    #                             unit_of_work_committer = self._unit_of_work)
 
 
-    def compose_lesson_repository(self):
-        return LessonRepository(unit_of_work = self._unit_of_work, 
-                                session = self._sqlalchemy_session)
+    # def compose_lesson_repository(self):
+    #     return LessonRepository(unit_of_work = self._unit_of_work, 
+    #                             session = self._sqlalchemy_session)
 
-    def compose_lesson_factory(self):
-        lesson_factory = LessonFactory(unit_of_work = self._unit_of_work)
-        lesson_repository = self.compose_lesson_repository()
-        return LessonFactoryValidatingDecorator(lesson_factory=lesson_factory,
-                                                 lesson_repository=lesson_repository)
+    # def compose_lesson_factory(self):
+    #     lesson_factory = LessonFactory(unit_of_work = self._unit_of_work)
+    #     lesson_repository = self.compose_lesson_repository()
+    #     return LessonFactoryValidatingDecorator(lesson_factory=lesson_factory,
+    #                                              lesson_repository=lesson_repository)
 
 
     def compose_lesson_sequence_item_factory(self):

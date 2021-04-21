@@ -6,7 +6,7 @@ from sqlalchemy.orm import relationship
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
 from mathapp.curriculum.domain_model.lesson_sequence_item import LessonSequenceItem
-from mathapp.curriculum.data_mapper.lesson.orm_lesson import ORMLesson
+from mathapp.curriculum.data_mapper.lesson_prior.orm_lesson import ORMLesson
 from mathapp.curriculum.data_mapper.course.course_value_holder import CourseValueHolder
 
 class ORMLessonSequenceItem(Base):

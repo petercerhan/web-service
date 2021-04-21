@@ -6,7 +6,7 @@ from sqlalchemy import orm
 from mathapp.curriculum.data_mapper.lesson_section.orm_lesson_section import ORMLessonSection
 from mathapp.curriculum.data_mapper.lesson_intro.orm_lesson_intro import ORMLessonIntro
 from mathapp.curriculum.data_mapper.concept_tutorial.orm_concept_tutorial import ORMConceptTutorial
-from mathapp.curriculum.domain_model.lesson import Lesson
+from mathapp.curriculum.domain_model.lesson_prior import Lesson
 
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
