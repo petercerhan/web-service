@@ -12,12 +12,12 @@ from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 class ORMLessonSection(Base):
     __tablename__ = 'lesson_section'
     id = Column(Integer, primary_key=True)
-    lesson_id = Column(Integer, ForeignKey('lesson.id'))
+    lesson_id = Column(Integer, ForeignKey('lesson_prior.id'))
     type = Column(String)
     position = Column(Integer)
     complete_lesson = Column(Boolean)
 
-    lesson = relationship('ORMLesson', back_populates='lesson_sections')
+    lesson = relationship('ORMLessonPrior', back_populates='lesson_sections')
 
     __mapper_args__ = {
         'polymorphic_identity': 'lesson_section',

@@ -8,7 +8,6 @@ class CourseTopic:
                  topic_value_holder,
                  unit_of_work):
         self._id = None
-
         self._position = position
         self._course_value_holder = course_value_holder
         self._topic_value_holder = topic_value_holder

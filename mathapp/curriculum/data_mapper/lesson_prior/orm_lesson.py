@@ -13,8 +13,8 @@ from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 from mathapp.curriculum.data_mapper.lesson_section.lesson_section_list_value_holder import LessonSectionListValueHolder
 from mathapp.curriculum.data_mapper.lesson_sequence_item.lesson_sequence_item_list_value_holder import LessonSequenceItemListValueHolder
 
-class ORMLesson(Base):
-    __tablename__ = 'lesson'
+class ORMLessonPrior(Base):
+    __tablename__ = 'lesson_prior'
     id = Column(Integer, primary_key=True)
     name = Column(String)
     display_name = Column(String)

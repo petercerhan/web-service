@@ -7,11 +7,19 @@ from mathapp.curriculum.domain_model.topic import Topic
 
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
+from mathapp.curriculum.data_mapper.lesson.orm_lesson import ORMLesson
+
+from mathapp.curriculum.data_mapper.lesson.lesson_list_value_holder import LessonListValueHolder
+
 class ORMTopic(Base):
     __tablename__ = 'topic'
     id = Column(Integer, primary_key=True)
     name = Column(String)
     display_name = Column(String)
+
+    lessons = relationship('ORMLesson', 
+                           order_by='asc(ORMLesson.position)',
+                           back_populates='topic')
 
     def __init__(self,
                 name,
@@ -29,9 +37,11 @@ class ORMTopic(Base):
             return self._topic
 
         domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
+        lesson_list_value_holder = LessonListValueHolder(orm_model=self, unit_of_work=unit_of_work)
 
         topic = Topic(name=self.name,
                       display_name=self.display_name,
+                      lesson_list_value_holder=lesson_list_value_holder,
                       unit_of_work=domain_model_unit_of_work)
         topic._id = self.id
 

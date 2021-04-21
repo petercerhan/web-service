@@ -1,6 +1,5 @@
 from mathapp.curriculum.interactor.domain_to_data_transforms.topic import topic_to_data
-
-import sys
+from mathapp.curriculum.interactor.domain_to_data_transforms.topic import topic_to_enriched_data
 
 class TopicInteractor:
 
@@ -19,11 +18,11 @@ class TopicInteractor:
 	def create(self, fields):
 		topic = self._topic_factory.create(fields)
 		self._unit_of_work.commit()
-		return topic_to_data(topic)
+		return topic_to_enriched_data(topic)
 
 	def get(self, topic_id):
 		topic = self._topic_repository.get(topic_id)
-		return topic_to_data(topic)
+		return topic_to_enriched_data(topic)
 
 	def update(self, id, fields):
 		topic = self._topic_repository.get(id)
@@ -33,4 +32,4 @@ class TopicInteractor:
 			topic.set_display_name(display_name)
 
 		self._unit_of_work.commit()
-		return topic_to_data(topic)
+		return topic_to_enriched_data(topic)
