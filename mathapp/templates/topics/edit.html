@@ -8,10 +8,26 @@
   <form method="post">
     <label for="display_name">Display Name</label>
     <input name="display_name" id="display_name" value="{{ request.form['display_name'] or topic['display_name'] }}" required>
+    <h1>Lessons</h1>
+    <hr>
+    <div id="react_lesson_table"></div>
+
     <input type="submit" value="Save">
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
 </form>
- <div id="data_container"
-          topic="{{ topic_json }}" ></div>
+
+<div id="topic_json_div" topic="{{ topic_json }}" ></div>
+
+
+{% endblock %}
+
+{% block react_imports %}
+
+<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+<script type="text/javascript">
+{% include 'topics/edit_transpiled.js' %}
+</script>
 
 {% endblock %}
