@@ -32,6 +32,26 @@ class LessonList extends React.Component {
 		};
 	}
 
+	moveUp(i) {
+		var lessons = this.state.lessons;
+		const swap_first = lessons[i-1];
+		lessons[i-1] = lessons[i];
+		lessons[i] = swap_first;
+		this.setState({
+			lessons: lessons
+		})
+	}
+
+	moveDown(i) {
+		var lessons = this.state.lessons;
+		const swap_first = lessons[i+1];
+		lessons[i+1] = lessons[i];
+		lessons[i] = swap_first;
+		this.setState({
+			course_topics: lessons
+		})
+	}
+
 	render() {
 		const lessons = this.state.lessons.map( (lesson, index, arrayObj) => 
 			<Lesson 
@@ -40,6 +60,8 @@ class LessonList extends React.Component {
 			 edit_lesson_url={ (this.props.edit_lesson_url).replace('0/edit', lesson.id).toString() }
 			 first_item={index==0} 
 			 last_item={index == (arrayObj.length - 1)}
+			 onUpClick={i => this.moveUp(index)}
+			 onDownClick={i => this.moveDown(index)}
 			/>
 		);
 

@@ -27,5 +27,10 @@ def edit(course_id, topic_id):
 	elif request.method == 'POST':
 		return controller(request).post_edit_form(course_id, topic_id)
 
+@bp.route('/courses/<int:course_id>/topics/<int:topic_id>/create-lesson', methods=('GET', 'POST'))
+@login_required
+def create_lesson(course_id, topic_id):
+	return controller(request).get_create_lesson_form(course_id, topic_id)
+
 def controller(request):
 	return RootComposer(request).compose_topic_web_controller()

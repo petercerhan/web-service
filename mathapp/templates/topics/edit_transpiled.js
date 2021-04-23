@@ -53,6 +53,28 @@ var LessonList = function (_React$Component) {
 	}
 
 	_createClass(LessonList, [{
+		key: "moveUp",
+		value: function moveUp(i) {
+			var lessons = this.state.lessons;
+			var swap_first = lessons[i - 1];
+			lessons[i - 1] = lessons[i];
+			lessons[i] = swap_first;
+			this.setState({
+				lessons: lessons
+			});
+		}
+	}, {
+		key: "moveDown",
+		value: function moveDown(i) {
+			var lessons = this.state.lessons;
+			var swap_first = lessons[i + 1];
+			lessons[i + 1] = lessons[i];
+			lessons[i] = swap_first;
+			this.setState({
+				course_topics: lessons
+			});
+		}
+	}, {
 		key: "render",
 		value: function render() {
 			var _this2 = this;
@@ -63,7 +85,13 @@ var LessonList = function (_React$Component) {
 					lesson: lesson,
 					edit_lesson_url: _this2.props.edit_lesson_url.replace('0/edit', lesson.id).toString(),
 					first_item: index == 0,
-					last_item: index == arrayObj.length - 1
+					last_item: index == arrayObj.length - 1,
+					onUpClick: function onUpClick(i) {
+						return _this2.moveUp(index);
+					},
+					onDownClick: function onDownClick(i) {
+						return _this2.moveDown(index);
+					}
 				});
 			});
 

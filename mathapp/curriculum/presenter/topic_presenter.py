@@ -29,3 +29,7 @@ class TopicPresenter:
 
 	def edit_course_form(self, course_id):
 		return redirect(url_for('courses.update', id=course_id))
+
+
+	def create_lesson_form(self):
+		return render_template('lessons/create.html')

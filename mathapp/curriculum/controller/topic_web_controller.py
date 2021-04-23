@@ -58,7 +58,8 @@ class TopicWebController:
 			return error.message
 
 
-
+	def get_create_lesson_form(self, course_id, topic_id):
+		return self._topic_presenter.create_lesson_form()
 
 
 

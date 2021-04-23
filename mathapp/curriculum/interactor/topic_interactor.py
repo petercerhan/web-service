@@ -33,3 +33,5 @@ class TopicInteractor:
 
 		self._unit_of_work.commit()
 		return topic_to_enriched_data(topic)
+
+
