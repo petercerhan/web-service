@@ -17,7 +17,7 @@
     <h1>Lessons</h1>
     <hr>
     <br>
-    <a class="action" href="{{ url_for('lessons.createForCourse', course_id=course['id']) }}">Add Lesson For This Course</a>
+    <a class="action" href="/createPrior">Add Lesson For This Course</a>
     <br>
     <div id="react_root"></div>
     <input type="submit" value="Save">
@@ -27,7 +27,7 @@
     <div id="data_container"
           course="{{ course_json }}" 
           delete_lesson_sequence_item_url="{{ url_for('courses.delete_lesson_sequence_item', course_id=course['id'], lesson_sequence_item_id=0) }}" 
-          update_lesson_url="{{ url_for('lessons.updateForCourse', course_id=course['id'], lesson_id=0) }}/update" ></div>
+          update_lesson_url="/update" ></div>
 
     <div id="edit_topic_url_div" url="{{ url_for('topics.edit', course_id=course['id'], topic_id=0) }}/edit" ></div>
     <div id="delete_course_topic_url_div" url="{{ url_for('courses.delete_course_topic', course_id=course['id'], course_topic_id=0) }}" ></div>

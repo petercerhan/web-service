@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %} Edit Lesson {% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="name">Name</label>
+    <input name="name" id="name" value="{{ request.form['name'] or lesson['name'] }}" required>
+    <input type="submit" value="Save">
+    <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
+</form>
+
+
+{% endblock %}

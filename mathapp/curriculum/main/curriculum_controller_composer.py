@@ -30,6 +30,8 @@ class CurriculumControllerComposer:
 
     def compose_lesson_web_controller(self):
         lesson_interactor = self._curriculum_interactor_composer.compose_lesson_interactor()
+        lesson_presenter = self._curriculum_presenter_composer.compose_lesson_presenter()
         return LessonWebController(request=self._request,
-                                    lesson_interactor=lesson_interactor)
+                                    lesson_interactor=lesson_interactor,
+                                    lesson_presenter=lesson_presenter)
     
