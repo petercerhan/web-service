@@ -1,4 +1,5 @@
 from mathapp.curriculum.interactor.domain_to_data_transforms.lesson import lesson_to_data
+from mathapp.curriculum.interactor.domain_to_data_transforms.lesson_enriched import lesson_to_enriched_data
 
 class LessonInteractor:
 
@@ -10,7 +11,7 @@ class LessonInteractor:
 
 	def get(self, id):
 		lesson = self._lesson_repository.get(id)
-		return lesson_to_data(lesson)
+		return lesson_to_enriched_data(lesson)
 
 	def update(self, id, fields):
 		lesson = self._lesson_repository.get(id)
@@ -20,4 +21,4 @@ class LessonInteractor:
 			lesson.set_name(name)
 
 		self._unit_of_work.commit()
-		return lesson_to_data(lesson)
+		return lesson_to_enriched_data(lesson)

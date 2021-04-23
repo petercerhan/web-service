@@ -7,6 +7,8 @@ from mathapp.curriculum.domain_model.lesson import Lesson
 
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
+from mathapp.curriculum.data_mapper.topic.topic_value_holder import TopicValueHolder
+
 class ORMLesson(Base):
     __tablename__ = 'lesson'
     id = Column(Integer, primary_key=True)
@@ -32,9 +34,11 @@ class ORMLesson(Base):
             return self._lesson
 
         domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
+        topic_value_holder = TopicValueHolder(orm_model=self, unit_of_work=unit_of_work)
 
         lesson = Lesson(name=self.name,
                         position=self.position,
+                        topic_value_holder=topic_value_holder,
                         unit_of_work=domain_model_unit_of_work)
         lesson._id = self.id
 

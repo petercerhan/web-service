@@ -12,5 +12,7 @@
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
 </form>
 
+<a class="action" href="{{ url_for('topics.edit', course_id=course_id, topic_id=lesson['topic']['id']) }}">Back to Topic: {{ lesson['topic']['display_name'] }}</a>
+
 
 {% endblock %}

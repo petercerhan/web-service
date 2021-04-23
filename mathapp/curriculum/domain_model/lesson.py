@@ -5,10 +5,12 @@ class Lesson:
     def __init__(self, 
                  name,
                  position,
+                 topic_value_holder,
                  unit_of_work):
         self._id = None
         self._name = name
         self._position = position
+        self._topic_value_holder = topic_value_holder
         self._unit_of_work = unit_of_work
         self._check_invariants()
 
@@ -40,6 +42,9 @@ class Lesson:
         self._position = position
         self._check_invariants()
         self._unit_of_work.register_dirty(self)
+
+    def get_topic(self):
+        return self._topic_value_holder.get()
 
     
 

@@ -17,7 +17,7 @@ class LessonWebController:
 		self._lesson_presenter = lesson_presenter
 
 	def get_edit_form(self, course_id, lesson_id):
-		return self._edit_form(lesson_id=lesson_id)
+		return self._edit_form(course_id=course_id, lesson_id=lesson_id)
 	
 	def post_edit_form(self, course_id, lesson_id):
 		fields = {}
@@ -25,13 +25,13 @@ class LessonWebController:
 
 		try:
 			self._lesson_interactor.update(id=lesson_id, fields=fields)
-			return self._edit_form(lesson_id=lesson_id)
+			return self._edit_form(course_id=course_id, lesson_id=lesson_id)
 		except MathAppError as error:
-			return self._edit_form(lesson_id=lesson_id, error=error)
+			return self._edit_form(course_id=course_id, lesson_id=lesson_id, error=error)
 
-	def _edit_form(self, lesson_id, error=None):
+	def _edit_form(self, course_id, lesson_id, error=None):
 		try:
 			lesson = self._lesson_interactor.get(lesson_id)
-			return self._lesson_presenter.edit_form(lesson=lesson, error=error)
+			return self._lesson_presenter.edit_form(course_id=course_id, lesson=lesson, error=error)
 		except MathAppError as error:
 			return error.message
