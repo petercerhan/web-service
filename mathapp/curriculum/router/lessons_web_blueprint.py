@@ -9,7 +9,10 @@ bp = Blueprint('lessons', __name__)
 @bp.route('/courses/<int:course_id>/lessons/<int:lesson_id>', methods=('GET', 'POST'))
 @login_required
 def edit(course_id, lesson_id):
-	return controller(request).get_edit_form(course_id=course_id, lesson_id=lesson_id)
+	if request.method == 'GET':
+		return controller(request).get_edit_form(course_id=course_id, lesson_id=lesson_id)
+	elif request.method == 'POST':
+		return controller(request).post_edit_form(course_id=course_id, lesson_id=lesson_id)
 
 
 def controller(request):

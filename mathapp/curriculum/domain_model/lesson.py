@@ -28,8 +28,20 @@ class Lesson:
     def get_name(self):
         return self._name
 
+    def set_name(self, name):
+        self._name = name
+        self._check_invariants()
+        self._unit_of_work.register_dirty(self)
+
     def get_position(self):
         return self._position
+
+    def set_position(self, position):
+        self._position = position
+        self._check_invariants()
+        self._unit_of_work.register_dirty(self)
+
+    
 
 
     def __repr__(self):
