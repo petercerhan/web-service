@@ -44,6 +44,10 @@ class TopicWebController:
 		fields = {}
 		fields['display_name'] = self._request.form.get('display_name')
 
+		lessons = self._request.form.get('lessons')
+		if lessons is not None:
+			fields['lessons'] = json.loads(lessons)
+
 		try:
 			self._topic_interactor.update(id=topic_id, fields=fields)
 			return self._topic_presenter.edit_course_form(course_id=course_id)

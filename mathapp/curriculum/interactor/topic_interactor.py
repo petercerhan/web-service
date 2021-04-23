@@ -33,6 +33,10 @@ class TopicInteractor:
 		if display_name is not None:
 			topic.set_display_name(display_name)
 
+		lessons = fields.get('lessons')
+		if lessons is not None:
+			topic.sync_lesson_positions(lessons)
+
 		self._unit_of_work.commit()
 		return topic_to_enriched_data(topic)
 

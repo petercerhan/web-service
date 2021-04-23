@@ -21,6 +21,16 @@ function Lesson(props) {
 		),
 		React.createElement(
 			"button",
+			{ type: "button", className: props.first_item ? "hidden" : "", onClick: props.onUpClick },
+			"Up"
+		),
+		React.createElement(
+			"button",
+			{ type: "button", className: props.last_item ? "hidden" : "", onClick: props.onDownClick },
+			"Down"
+		),
+		React.createElement(
+			"button",
 			{ type: "button", onClick: edit },
 			"Edit"
 		)

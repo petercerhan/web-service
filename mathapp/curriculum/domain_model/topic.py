@@ -53,6 +53,13 @@ class Topic:
         self._lesson_list_value_holder.add(lesson)
         self._check_invariants()
 
+    def sync_lesson_positions(self, lessons_data_array):
+        lessons = self._lesson_list_value_holder.get_list()
+        for data_item in lessons_data_array:
+            lesson = next(x for x in lessons if x.get_id() == data_item['id'])
+            if lesson is not None:
+                lesson.set_position(data_item['position'])
+
     def __repr__(self):
         return "<Topic(name='%s') ID(id='%s')>" % (self._name, self._id)
 
