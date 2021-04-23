@@ -4,7 +4,7 @@ from flask import (
 from mathapp.flask.auth_web_blueprint import login_required
 from mathapp.flask.root_composer import RootComposer
 
-bp = Blueprint('lessons', __name__)
+bp = Blueprint('lessons_prior', __name__)
 
 ## Index
 

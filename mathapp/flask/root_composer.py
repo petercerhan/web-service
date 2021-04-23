@@ -24,9 +24,9 @@ class RootComposer:
         curriculum_composer = self.compose_curriculum_composer()
         return curriculum_composer.compose_course_web_controller()
 
-    def compose_lesson_web_controller(self):
-        curriculum_composer = self.compose_curriculum_composer()
-        return curriculum_composer.compose_lesson_web_controller()
+    # def compose_lesson_web_controller(self):
+    #     curriculum_composer = self.compose_curriculum_composer()
+    #     return curriculum_composer.compose_lesson_web_controller()
 
     def compose_auth_web_controller(self):
         encryption_service = self._infrastructure_service_composer.compose_encryption_service()
@@ -56,6 +56,10 @@ class RootComposer:
     def compose_topic_web_controller(self):
         controller_composer = self._get_curriculum_controller_composer()
         return controller_composer.compose_topic_web_controller()
+
+    def compose_lesson_web_controller(self):
+        controller_composer = self._get_curriculum_controller_composer()
+        return controller_composer.compose_lesson_web_controller()
 
     def _get_curriculum_controller_composer(self):
         return CurriculumControllerComposer(request=self._request,

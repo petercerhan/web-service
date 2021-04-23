@@ -2,6 +2,7 @@ from mathapp.curriculum.main.curriculum_presenter_composer import CurriculumPres
 from mathapp.curriculum.main.curriculum_interactor_composer import CurriculumInteractorComposer
 
 from mathapp.curriculum.controller.topic_web_controller import TopicWebController
+from mathapp.curriculum.controller.lesson_web_controller import LessonWebController
 
 
 class CurriculumControllerComposer:
@@ -26,3 +27,9 @@ class CurriculumControllerComposer:
         return TopicWebController(request=self._request,
                                   topic_interactor=topic_interactor,
                                   topic_presenter=topic_presenter)
+
+    def compose_lesson_web_controller(self):
+        lesson_interactor = self._curriculum_interactor_composer.compose_lesson_interactor()
+        return LessonWebController(request=self._request,
+                                    lesson_interactor=lesson_interactor)
+    
