@@ -31,5 +31,11 @@ class TopicPresenter:
 		return redirect(url_for('courses.update', id=course_id))
 
 
-	def create_lesson_form(self):
+	def create_lesson_form(self, error=None):
+		if error is not None:
+			flash(error.message)
 		return render_template('lessons/create.html')
+
+	def edit_topic_form_redirect(self, course_id, topic_id):
+		target_path = url_for('topics.edit', course_id=course_id, topic_id=topic_id)
+		return redirect(target_path)

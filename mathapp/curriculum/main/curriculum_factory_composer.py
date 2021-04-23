@@ -2,6 +2,7 @@ from mathapp.curriculum.main.curriculum_repository_composer import CurriculumRep
 
 from mathapp.curriculum.data_mapper.topic.topic_factory import TopicFactory
 from mathapp.curriculum.domain_model.topic_factory_validating_decorator import TopicFactoryValidatingDecorator
+from mathapp.curriculum.data_mapper.lesson.lesson_factory import LessonFactory
 
 class CurriculumFactoryComposer:
 
@@ -17,3 +18,6 @@ class CurriculumFactoryComposer:
         topic_repository = self._curriculum_repository_composer.compose_topic_repository()
         return TopicFactoryValidatingDecorator(topic_factory=topic_factory,
                                                topic_repository=topic_repository)
+
+    def compose_lesson_factory(self):
+        return LessonFactory(unit_of_work=self._unit_of_work)

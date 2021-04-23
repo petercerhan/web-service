@@ -46,6 +46,12 @@ class Topic:
     def get_lessons(self):
         return self._lesson_list_value_holder.get_list()
 
+    def create_lesson(self, lesson_factory, fields):
+        max_position = max([x.get_position() for x in self._lesson_list_value_holder.get_list()], default=-1)
+        next_position = max_position+1
+        lesson = lesson_factory.create(position=next_position, fields=fields)
+        self._lesson_list_value_holder.add(lesson)
+        self._check_invariants()
 
     def __repr__(self):
         return "<Topic(name='%s') ID(id='%s')>" % (self._name, self._id)
