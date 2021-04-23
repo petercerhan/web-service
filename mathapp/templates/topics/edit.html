@@ -10,6 +10,9 @@
     <input name="display_name" id="display_name" value="{{ request.form['display_name'] or topic['display_name'] }}" required>
     <h1>Lessons</h1>
     <hr>
+    <br>
+    <a class="action" href="{{ url_for('topics.create_lesson', course_id=course_id, topic_id=topic['id']) }}">Add Lesson</a>
+    <br>
     <div id="react_lesson_table"></div>
 
     <input type="submit" value="Save">
