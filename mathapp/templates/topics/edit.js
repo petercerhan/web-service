@@ -1,9 +1,14 @@
 
 
 function Lesson(props) {
+	function edit() {
+		window.location.href = props.edit_lesson_url;
+	}
+	
 	return (
 		<div className="ordered_option">
 			<p>{ props.lesson.name }</p>
+			<button type="button" onClick={edit}>Edit</button>
 		</div>
 	) 
 }
@@ -32,6 +37,7 @@ class LessonList extends React.Component {
 			<Lesson 
 			 key={lesson.id.toString()}
 			 lesson={lesson}
+			 edit_lesson_url={ (this.props.edit_lesson_url).replace('0/edit', lesson.id).toString() }
 			 first_item={index==0} 
 			 last_item={index == (arrayObj.length - 1)}
 			/>
@@ -49,5 +55,7 @@ class LessonList extends React.Component {
 
 const lessonTableRoot = document.getElementById('react_lesson_table');
 const topicJsonDiv = document.getElementById('topic_json_div');
+const editLessonURLDiv = document.getElementById('edit_lesson_url_div')
 
-ReactDOM.render(<LessonList topic_json={topicJsonDiv.getAttribute('topic')} />, lessonTableRoot)
+ReactDOM.render(<LessonList topic_json={topicJsonDiv.getAttribute('topic')} 
+							edit_lesson_url={editLessonURLDiv.getAttribute('url')} />, lessonTableRoot)

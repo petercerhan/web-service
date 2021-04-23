@@ -53,7 +53,7 @@ class TopicWebController:
 	def _edit_form(self, course_id, topic_id, error=None):
 		try:
 			topic = self._topic_interactor.get(topic_id)
-			return self._topic_presenter.edit_form(topic=topic, error=error)
+			return self._topic_presenter.edit_form(course_id=course_id, topic=topic, error=error)
 		except MathAppError as error:
 			return error.message
 

@@ -19,10 +19,13 @@ class TopicPresenter:
 		target_path = f'{target_path}?topic_id={topic_id}'
 		return redirect(target_path)
 		
-	def edit_form(self, topic, error=None):
+	def edit_form(self, course_id, topic, error=None):
 		if error is not None:
 			flash(error.message)
-		return render_template('topics/edit.html', topic=topic, topic_json=json.dumps(topic))
+		return render_template('topics/edit.html', 
+								course_id=course_id,
+								topic=topic, 
+								topic_json=json.dumps(topic))
 
 	def edit_course_form(self, course_id):
 		return redirect(url_for('courses.update', id=course_id))

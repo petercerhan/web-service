@@ -7,6 +7,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function Lesson(props) {
+	function edit() {
+		window.location.href = props.edit_lesson_url;
+	}
+
 	return React.createElement(
 		"div",
 		{ className: "ordered_option" },
@@ -14,6 +18,11 @@ function Lesson(props) {
 			"p",
 			null,
 			props.lesson.name
+		),
+		React.createElement(
+			"button",
+			{ type: "button", onClick: edit },
+			"Edit"
 		)
 	);
 }
@@ -46,10 +55,13 @@ var LessonList = function (_React$Component) {
 	_createClass(LessonList, [{
 		key: "render",
 		value: function render() {
+			var _this2 = this;
+
 			var lessons = this.state.lessons.map(function (lesson, index, arrayObj) {
 				return React.createElement(Lesson, {
 					key: lesson.id.toString(),
 					lesson: lesson,
+					edit_lesson_url: _this2.props.edit_lesson_url.replace('0/edit', lesson.id).toString(),
 					first_item: index == 0,
 					last_item: index == arrayObj.length - 1
 				});
@@ -70,5 +82,7 @@ var LessonList = function (_React$Component) {
 
 var lessonTableRoot = document.getElementById('react_lesson_table');
 var topicJsonDiv = document.getElementById('topic_json_div');
+var editLessonURLDiv = document.getElementById('edit_lesson_url_div');
 
-ReactDOM.render(React.createElement(LessonList, { topic_json: topicJsonDiv.getAttribute('topic') }), lessonTableRoot);
+ReactDOM.render(React.createElement(LessonList, { topic_json: topicJsonDiv.getAttribute('topic'),
+	edit_lesson_url: editLessonURLDiv.getAttribute('url') }), lessonTableRoot);
