@@ -62,6 +62,28 @@ class Topic:
             if lesson is not None:
                 lesson.set_position(data_item['position'])
 
+    def delete_lesson(self, lesson_id):
+        lessons = self._lesson_list_value_holder.get_list()
+        delete_position = None
+        for lesson in lessons:
+            if lesson.get_id() == lesson_id:
+                deleted_position = lesson.get_position()
+                lesson.delete()
+                self._lesson_list_value_holder.removeAtIndex(deleted_position)
+
+        if deleted_position is None:
+            return
+
+        for lesson in lessons:
+            if lesson.get_position() > deleted_position:
+                prior_position = lesson.get_position()
+                lesson.set_position(prior_position-1)
+
+        self._check_invariants()
+        self._unit_of_work.register_dirty(self)
+
+
+
     def delete(self):
         course_topics = self._course_topic_list_value_holder.get_list()
         for course_topic in course_topics:
@@ -72,8 +94,6 @@ class Topic:
             lesson.delete()
 
         self._unit_of_work.register_deleted(self)
-
-    ##delete lesson
     
 
     def __repr__(self):

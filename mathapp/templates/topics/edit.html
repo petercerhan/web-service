@@ -19,13 +19,18 @@
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
 </form>
 
-<div id="topic_json_div" topic="{{ topic_json }}" ></div>
-<div id="edit_lesson_url_div" url="{{ url_for('lessons.edit', course_id=course_id, lesson_id=0) }}/edit" ></div>
-
 <form action="{{ url_for('topics.delete', course_id=course_id, topic_id=topic['id']) }}" method="post">
   <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
   <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
 </form>
+
+<form name="delete_lesson_form" action="placeholder" method="post">
+  <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
+</form>
+
+<div id="topic_json_div" topic="{{ topic_json }}" ></div>
+<div id="edit_lesson_url_div" url="{{ url_for('lessons.edit', course_id=course_id, lesson_id=0) }}/edit" ></div>
+<div id="delete_lesson_url_div" url="{{ url_for('topics.delete_lesson', course_id=course_id, topic_id=topic['id'], lesson_id=0) }}" ></div>
 
 {% endblock %}
 
@@ -38,4 +43,16 @@
 {% include 'topics/edit_transpiled.js' %}
 </script>
 
+
+<script>
+ function submitDeleteLessonForm(endpoint) {
+  document.delete_lesson_form.action = endpoint;
+  document.delete_lesson_form.submit();
+ }
+</script>
+
 {% endblock %}
+
+
+
+

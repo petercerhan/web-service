@@ -27,6 +27,14 @@ def edit(course_id, topic_id):
 	elif request.method == 'POST':
 		return controller(request).post_edit_form(course_id, topic_id)
 
+@bp.route('/courses/<int:course_id>/topics/<int:topic_id>/delete', methods=('POST',))
+@login_required
+def delete(course_id, topic_id):
+	return controller(request).delete(course_id=course_id, topic_id=topic_id)
+
+
+##Lessons
+
 @bp.route('/courses/<int:course_id>/topics/<int:topic_id>/create-lesson', methods=('GET', 'POST'))
 @login_required
 def create_lesson(course_id, topic_id):
@@ -35,12 +43,16 @@ def create_lesson(course_id, topic_id):
 	elif request.method == 'POST':
 		return controller(request).post_create_lesson_form(course_id, topic_id)
 
-@bp.route('/courses/<int:course_id>/topics/<int:topic_id>/delete', methods=('POST',))
+@bp.route('/courses/<int:course_id>/topics/<int:topic_id>/lessons/<int:lesson_id>/delete', methods=('POST',))
 @login_required
-def delete(course_id, topic_id):
-	return controller(request).delete(course_id=course_id, topic_id=topic_id)
-
+def delete_lesson(course_id, topic_id, lesson_id):
+	return controller(request).delete_lesson(course_id=course_id, topic_id=topic_id, lesson_id=lesson_id)
 
 
 def controller(request):
 	return RootComposer(request).compose_topic_web_controller()
+
+
+
+
+

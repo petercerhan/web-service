@@ -7,6 +7,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function Lesson(props) {
+	function remove() {
+		submitDeleteLessonForm(props.delete_delete_url);
+	}
+
 	function edit() {
 		window.location.href = props.edit_lesson_url;
 	}
@@ -33,6 +37,11 @@ function Lesson(props) {
 			"button",
 			{ type: "button", onClick: edit },
 			"Edit"
+		),
+		React.createElement(
+			"button",
+			{ type: "button", onClick: remove },
+			"Delete"
 		)
 	);
 }
@@ -94,6 +103,7 @@ var LessonList = function (_React$Component) {
 					key: lesson.id.toString(),
 					lesson: lesson,
 					edit_lesson_url: _this2.props.edit_lesson_url.replace('0/edit', lesson.id).toString(),
+					delete_delete_url: _this2.props.delete_lesson_url.replace('0/delete', lesson.id.toString() + '/delete'),
 					first_item: index == 0,
 					last_item: index == arrayObj.length - 1,
 					onUpClick: function onUpClick(i) {
@@ -121,6 +131,8 @@ var LessonList = function (_React$Component) {
 var lessonTableRoot = document.getElementById('react_lesson_table');
 var topicJsonDiv = document.getElementById('topic_json_div');
 var editLessonURLDiv = document.getElementById('edit_lesson_url_div');
+var delete_lesson_url_div = document.getElementById('delete_lesson_url_div');
 
 ReactDOM.render(React.createElement(LessonList, { topic_json: topicJsonDiv.getAttribute('topic'),
-	edit_lesson_url: editLessonURLDiv.getAttribute('url') }), lessonTableRoot);
+	edit_lesson_url: editLessonURLDiv.getAttribute('url'),
+	delete_lesson_url: delete_lesson_url_div.getAttribute('url') }), lessonTableRoot);

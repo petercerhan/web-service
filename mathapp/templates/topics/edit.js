@@ -1,6 +1,10 @@
 
 
 function Lesson(props) {
+	function remove() {
+		submitDeleteLessonForm(props.delete_delete_url);
+	}
+
 	function edit() {
 		window.location.href = props.edit_lesson_url;
 	}
@@ -11,6 +15,7 @@ function Lesson(props) {
 			<button type="button" className={props.first_item ? "hidden" : ""} onClick={props.onUpClick}>Up</button>
 			<button type="button" className={props.last_item ? "hidden" : ""} onClick={props.onDownClick}>Down</button>
 			<button type="button" onClick={edit}>Edit</button>
+			<button type="button" onClick={remove}>Delete</button>
 		</div>
 	) 
 }
@@ -60,6 +65,7 @@ class LessonList extends React.Component {
 			 key={lesson.id.toString()}
 			 lesson={lesson}
 			 edit_lesson_url={ (this.props.edit_lesson_url).replace('0/edit', lesson.id).toString() }
+			 delete_delete_url={ (this.props.delete_lesson_url).replace('0/delete', lesson.id.toString() + '/delete') }
 			 first_item={index==0} 
 			 last_item={index == (arrayObj.length - 1)}
 			 onUpClick={i => this.moveUp(index)}
@@ -80,6 +86,12 @@ class LessonList extends React.Component {
 const lessonTableRoot = document.getElementById('react_lesson_table');
 const topicJsonDiv = document.getElementById('topic_json_div');
 const editLessonURLDiv = document.getElementById('edit_lesson_url_div')
+const delete_lesson_url_div = document.getElementById('delete_lesson_url_div');
 
 ReactDOM.render(<LessonList topic_json={topicJsonDiv.getAttribute('topic')} 
-							edit_lesson_url={editLessonURLDiv.getAttribute('url')} />, lessonTableRoot)
+							edit_lesson_url={editLessonURLDiv.getAttribute('url')}
+							delete_lesson_url={delete_lesson_url_div.getAttribute('url')} />, lessonTableRoot)
+
+
+
+
