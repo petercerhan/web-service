@@ -76,6 +76,12 @@ class TopicWebController:
 			return self._topic_presenter.create_lesson_form(error=error)
 
 
+	def delete(self, course_id, topic_id):
+		try:
+			self._topic_interactor.delete(topic_id)
+			return self._topic_presenter.edit_course_form(course_id)
+		except MathAppError as error:
+			return error.message
 
 
 

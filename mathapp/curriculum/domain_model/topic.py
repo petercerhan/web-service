@@ -6,12 +6,14 @@ class Topic:
                  name,
                  display_name,
                  lesson_list_value_holder,
+                 course_topic_list_value_holder,
                  unit_of_work):
 
         self._id = None
         self._name = name
         self._display_name = display_name
         self._lesson_list_value_holder = lesson_list_value_holder
+        self._course_topic_list_value_holder = course_topic_list_value_holder
         self._unit_of_work = unit_of_work
         self._check_invariants()
 
@@ -60,8 +62,30 @@ class Topic:
             if lesson is not None:
                 lesson.set_position(data_item['position'])
 
+    def delete(self):
+        course_topics = self._course_topic_list_value_holder.get_list()
+        for course_topic in course_topics:
+            course_topic.topic_deleted()
+
+        lessons = self._lesson_list_value_holder.get_list()
+        for lesson in lessons:
+            lesson.delete()
+
+        self._unit_of_work.register_deleted(self)
+
+    ##delete lesson
+    
+
     def __repr__(self):
         return "<Topic(name='%s') ID(id='%s')>" % (self._name, self._id)
+
+
+
+
+
+
+
+
 
 
 

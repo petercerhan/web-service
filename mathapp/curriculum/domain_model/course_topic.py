@@ -37,6 +37,9 @@ class CourseTopic:
     def delete(self):
         self._unit_of_work.register_deleted(self)
 
+    def topic_deleted(self):
+        course = self._course_value_holder.get()
+        course.delete_course_topic(self.get_id())
 
     def __repr__(self):
         return "<CourseTopic(position='%s') topic_id(name='%s')>" % (self._position, self._topic_value_holder.get().get_id())
