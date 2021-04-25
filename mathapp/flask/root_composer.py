@@ -61,6 +61,10 @@ class RootComposer:
         controller_composer = self._get_curriculum_controller_composer()
         return controller_composer.compose_lesson_web_controller()
 
+    def compose_tutorial_web_controller(self):
+        controller_composer = self._get_curriculum_controller_composer()
+        return controller_composer.compose_tutorial_web_controller()
+
     def _get_curriculum_controller_composer(self):
         return CurriculumControllerComposer(request=self._request,
                                             sqlalchemy_session = self._sqlalchemy_session, 

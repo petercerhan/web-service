@@ -3,6 +3,7 @@ from mathapp.curriculum.main.curriculum_interactor_composer import CurriculumInt
 
 from mathapp.curriculum.controller.topic_web_controller import TopicWebController
 from mathapp.curriculum.controller.lesson_web_controller import LessonWebController
+from mathapp.curriculum.controller.tutorial_web_controller import TutorialWebController
 
 
 class CurriculumControllerComposer:
@@ -34,4 +35,9 @@ class CurriculumControllerComposer:
         return LessonWebController(request=self._request,
                                     lesson_interactor=lesson_interactor,
                                     lesson_presenter=lesson_presenter)
+
+    def compose_tutorial_web_controller(self):
+        tutorial_presenter = self._curriculum_presenter_composer.compose_tutorial_presenter()
+        return TutorialWebController(request=self._request,
+                                     tutorial_presenter=tutorial_presenter)
     

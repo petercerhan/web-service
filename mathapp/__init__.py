@@ -53,6 +53,9 @@ def create_app(test_config=None):
 
     from mathapp.curriculum.router import lessons_web_blueprint
     app.register_blueprint(lessons_web_blueprint.bp)
+
+    from mathapp.curriculum.router import tutorials_web_blueprint
+    app.register_blueprint(tutorials_web_blueprint.bp)
         
     return app
 
