@@ -13,7 +13,10 @@
     {% if lesson['tutorial'] is not none %}
     <label>{{ lesson['tutorial']['name'] }}</label>
     {% else %}
-    <label>No Tutorial Set</label>
+    <div display="inline-block">
+    <label>No Tutorial Set - </label>
+    <a class="action" href="{{ url_for('tutorials.create', course_id=course_id, lesson_id=lesson['id']) }}">Create Tutorial</a>
+    </div>
     {% endif %}
     <br>
 
