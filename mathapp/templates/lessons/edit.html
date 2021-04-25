@@ -8,6 +8,15 @@
   <form method="post">
     <label for="name">Name</label>
     <input name="name" id="name" value="{{ request.form['name'] or lesson['name'] }}" required>
+
+    <label>Tutorial:</label>
+    {% if lesson['tutorial'] is not none %}
+    <label>{{ lesson['tutorial']['name'] }}</label>
+    {% else %}
+    <label>No Tutorial Set</label>
+    {% endif %}
+    <br>
+
     <input type="submit" value="Save">
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
 </form>
