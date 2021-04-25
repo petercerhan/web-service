@@ -16,8 +16,8 @@ class ORMCourseTopic(Base):
     topic_id = Column(Integer, ForeignKey('topic.id'))
     position = Column(Integer)
 
-    course = relationship('ORMCourse', back_populates='course_topics')
-    topic = relationship('ORMTopic', lazy='joined', back_populates='course_topics')
+    course = relationship('ORMCourse', uselist=False, back_populates='course_topics')
+    topic = relationship('ORMTopic', uselist=False, lazy='joined', back_populates='course_topics')
 
     def __init__(self, position):
         self.position = position

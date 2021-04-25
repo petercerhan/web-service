@@ -46,6 +46,10 @@
 
 <script>
  function submitDeleteLessonForm(endpoint) {
+  const confirmation = window.confirm("Are you sure you want to delete this lesson?");
+  if(confirmation == false) {
+    return;
+  }
   document.delete_lesson_form.action = endpoint;
   document.delete_lesson_form.submit();
  }

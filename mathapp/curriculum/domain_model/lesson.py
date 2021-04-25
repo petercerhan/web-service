@@ -6,11 +6,13 @@ class Lesson:
                  name,
                  position,
                  topic_value_holder,
+                 tutorial_value_holder,
                  unit_of_work):
         self._id = None
         self._name = name
         self._position = position
         self._topic_value_holder = topic_value_holder
+        self._tutorial_value_holder = tutorial_value_holder
         self._unit_of_work = unit_of_work
         self._check_invariants()
 
@@ -45,6 +47,9 @@ class Lesson:
 
     def get_topic(self):
         return self._topic_value_holder.get()
+
+    def get_tutorial(self):
+        return self._tutorial_value_holder.get()
 
     def delete(self):
         self._unit_of_work.register_deleted(self)
