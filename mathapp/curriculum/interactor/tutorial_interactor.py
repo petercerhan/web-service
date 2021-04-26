@@ -23,3 +23,12 @@ class TutorialInteractor:
 		tutorial = self._tutorial_repository.get(id)
 		return tutorial_to_enriched_data(tutorial)
 
+	def update(self, id, fields):
+		tutorial = self._tutorial_repository.get(id)
+
+		name = fields.get('name')
+		if name is not None:
+			tutorial.set_name(name)
+
+		self._unit_of_work.commit()
+		return tutorial_to_enriched_data(tutorial)

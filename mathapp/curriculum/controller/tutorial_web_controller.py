@@ -30,8 +30,21 @@ class TutorialWebController:
 			return self._tutorial_presenter.create_form(error=error)
 
 	def get_edit_form(self, course_id, tutorial_id):
+		return self._edit_form(course_id=course_id, tutorial_id=tutorial_id)
+
+	def post_edit_form(self, course_id, tutorial_id):
+		fields = {}
+		fields['name'] = self._request.form.get('name')
+
+		try: 
+			tutorial = self._tutorial_interactor.update(id=tutorial_id, fields=fields)
+			return self._tutorial_presenter.edit_lesson_form_redirect(course_id=course_id, lesson_id=tutorial['lesson']['id'])
+		except MathAppError as error:
+			return self._edit_form(course_id=course_id, tutorial_id=tutorial_id, error=error)
+
+	def _edit_form(self, course_id, tutorial_id, error=None):
 		try:
 			tutorial = self._tutorial_interactor.get(tutorial_id)
-			return self._tutorial_presenter.edit_form(course_id=course_id, tutorial=tutorial)
+			return self._tutorial_presenter.edit_form(course_id=course_id, tutorial=tutorial, error=error)
 		except MathAppError as error:
 			return error.message
