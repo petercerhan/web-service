@@ -52,6 +52,10 @@ class Lesson:
         return self._tutorial_value_holder.get()
 
     def delete(self):
+        tutorial = self._tutorial_value_holder.get()
+        if tutorial is not None:
+            tutorial.delete()
+
         self._unit_of_work.register_deleted(self)
 
 
