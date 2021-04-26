@@ -28,3 +28,10 @@ class TutorialWebController:
 			return self._tutorial_presenter.edit_lesson_form_redirect(course_id=course_id, lesson_id=lesson_id)
 		except MathAppError as error:
 			return self._tutorial_presenter.create_form(error=error)
+
+	def get_edit_form(self, course_id, tutorial_id):
+		try:
+			tutorial = self._tutorial_interactor.get(tutorial_id)
+			return self._tutorial_presenter.edit_form(course_id=course_id, tutorial=tutorial)
+		except MathAppError as error:
+			return error.message

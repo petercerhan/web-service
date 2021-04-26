@@ -32,7 +32,9 @@ class CurriculumInteractorComposer:
 
     def compose_tutorial_interactor(self):
       tutorial_factory = self._curriculum_factory_composer.compose_tutorial_factory()
+      tutorial_repository = self._curriculum_repository_composer.compose_tutorial_repository()
       lesson_repository = self._curriculum_repository_composer.compose_lesson_repository()
       return TutorialInteractor(tutorial_factory=tutorial_factory,
+                                tutorial_repository=tutorial_repository,
                                 lesson_repository=lesson_repository,
                                 unit_of_work=self._unit_of_work)      
