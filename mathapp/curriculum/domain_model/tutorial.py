@@ -4,9 +4,11 @@ class Tutorial:
 
     def __init__(self,
                  name,
+                 lesson_value_holder,
                  unit_of_work):
         self._id = None
         self._name = name
+        self._lesson_value_holder = lesson_value_holder
         self._unit_of_work = unit_of_work
         self._check_invariants()
 
@@ -22,6 +24,9 @@ class Tutorial:
 
     def get_name(self):
         return self._name
+
+    def get_lesson(self):
+        return self._lesson_value_holder.get()
 
     def __repr__(self):
         return "<Tutorial(name='%s') ID(id='%s')>" % (self._name, self._id)

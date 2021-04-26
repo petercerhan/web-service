@@ -1,4 +1,5 @@
 from mathapp.curriculum.interactor.domain_to_data_transforms.tutorial import tutorial_to_data
+from mathapp.curriculum.interactor.domain_to_data_transforms.tutorial import tutorial_to_enriched_data
 
 class TutorialInteractor:
 
@@ -16,9 +17,9 @@ class TutorialInteractor:
 		lesson = self._lesson_repository.get(lesson_id)
 		tutorial = self._tutorial_factory.create(fields=fields, lesson=lesson)
 		self._unit_of_work.commit()
-		return tutorial_to_data(tutorial)
+		return tutorial_to_enriched_data(tutorial)
 
 	def get(self, id):
 		tutorial = self._tutorial_repository.get(id)
-		return tutorial_to_data(tutorial)
+		return tutorial_to_enriched_data(tutorial)
 
