@@ -44,7 +44,7 @@ class TopicInteractor:
 		topic = self._topic_repository.get(id)
 		topic.delete()
 		self._unit_of_work.commit()
-		return topic_to_enriched_data(topic)
+		return id
 
 
 	def create_lesson(self, topic_id, fields):

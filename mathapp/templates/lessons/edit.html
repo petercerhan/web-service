@@ -14,6 +14,7 @@
     <div display="inline-block">
     <label>{{ lesson['tutorial']['name'] }}</label>
     <a class="action" href="{{ url_for('tutorials.edit', course_id=course_id, tutorial_id=lesson['tutorial']['id']) }}">Edit</a>
+    <a onclick="submitDeleteTutorialForm(' {{ url_for('tutorials.delete', course_id=course_id, tutorial_id=lesson['tutorial']['id']) }} ')" >Delete</a>
     </div>
 
     {% else %}
@@ -31,5 +32,22 @@
 
 <a class="action" href="{{ url_for('topics.edit', course_id=course_id, topic_id=lesson['topic']['id']) }}">Back to Topic: {{ lesson['topic']['display_name'] }}</a>
 
+<form id="delete_tutorial_form" action="placeholder" method="post">
+  <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
+</form>
+
+
+<script>
+ function submitDeleteTutorialForm(endpoint) {
+  const confirmation = window.confirm("Are you sure you want to delete this tutorial?");
+  if(confirmation == false) {
+    return;
+  }
+  document.getElementById("delete_tutorial_form").action = endpoint;
+  document.getElementById("delete_tutorial_form").submit();
+ }
+</script>
 
 {% endblock %}
+
+

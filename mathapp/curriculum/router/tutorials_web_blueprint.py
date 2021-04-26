@@ -23,6 +23,10 @@ def edit(course_id, tutorial_id):
 	elif request.method == 'POST':
 		return controller(request).post_edit_form(course_id=course_id, tutorial_id=tutorial_id)
 
+@bp.route('/courses/<int:course_id>/tutorials/<int:tutorial_id>/delete', methods=('POST', ))
+@login_required
+def delete(course_id, tutorial_id):
+	return controller(request).delete(course_id=course_id, tutorial_id=tutorial_id)
 
 
 def controller(request):

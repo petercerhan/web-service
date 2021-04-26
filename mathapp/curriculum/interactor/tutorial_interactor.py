@@ -32,3 +32,10 @@ class TutorialInteractor:
 
 		self._unit_of_work.commit()
 		return tutorial_to_enriched_data(tutorial)
+
+	def delete(self, id):
+		tutorial = self._tutorial_repository.get(id)
+		tutorial.delete()
+		self._unit_of_work.commit()
+		return id
+		
