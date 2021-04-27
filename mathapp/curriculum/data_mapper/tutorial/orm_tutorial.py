@@ -7,7 +7,12 @@ from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
 from mathapp.curriculum.domain_model.tutorial import Tutorial
 
+from mathapp.curriculum.data_mapper.tutorial_step.orm_tutorial_step import ORMTutorialStep
+from mathapp.curriculum.data_mapper.text_tutorial_step.orm_text_tutorial_step import ORMTextTutorialStep
+from mathapp.curriculum.data_mapper.formula_tutorial_step.orm_formula_tutorial_step import ORMFormulaTutorialStep
+
 from mathapp.curriculum.data_mapper.lesson.lesson_value_holder import LessonValueHolder
+from mathapp.curriculum.data_mapper.tutorial_step.tutorial_step_list_value_holder import TutorialStepListValueHolder
 
 class ORMTutorial(Base):
     __tablename__ = 'tutorial'
@@ -15,6 +20,7 @@ class ORMTutorial(Base):
     name = Column(String)
 
     lesson = relationship('ORMLesson', uselist=False, back_populates='tutorial')
+    tutorial_steps = relationship('ORMTutorialStep', order_by='asc(ORMTutorialStep.position)')
 
     def __init__(self,
                  name):
@@ -31,8 +37,10 @@ class ORMTutorial(Base):
 
         domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
         lesson_value_holder = LessonValueHolder(orm_model=self, unit_of_work=unit_of_work)
+        tutorial_step_list_value_holder = TutorialStepListValueHolder(orm_model=self, unit_of_work=unit_of_work)
         tutorial = Tutorial(name=self.name,
                             lesson_value_holder=lesson_value_holder,
+                            tutorial_step_list_value_holder=tutorial_step_list_value_holder,
                             unit_of_work=domain_model_unit_of_work)
         tutorial._id = self.id
 
