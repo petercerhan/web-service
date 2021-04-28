@@ -22,6 +22,15 @@ class TutorialStep:
 	def get_type(self):
 		return 'tutorial_step'
 
+	def get_id(self):
+		return self._id
+
+	def get_position(self):
+		return self._position
+
+	def get_display_group(self):
+		return self._display_group
+
 	def __repr__(self):
 		return f'<TutorialStep(id={self._id})>'
 

@@ -14,7 +14,10 @@ class TutorialPresenter:
 	def edit_form(self, course_id, tutorial, error=None):
 		if error is not None:
 			flash(error.message)
-		return render_template('tutorials/edit.html', course_id=course_id, tutorial=tutorial)
+		return render_template('tutorials/edit.html', 
+								course_id=course_id, 
+								tutorial=tutorial,
+								tutorial_json=json.dumps(tutorial))
 
 
 	def edit_lesson_form_redirect(self, course_id, lesson_id):

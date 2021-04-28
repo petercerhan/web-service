@@ -23,7 +23,10 @@ class TextTutorialStep(TutorialStep):
 		super()._check_invariants()
 
 	def get_type(self):
-		return 'text_tutorial_glyph'
+		return 'text_tutorial_step'
+
+	def get_text(self):
+		return self._text
 
 	def __repr__(self):
 		return f'<TextTutorialStep(id={self._id}, text={self._text})>'

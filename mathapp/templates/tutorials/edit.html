@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+k{% extends 'base.html' %}
 
 {% block header %}
   <h1>{% block title %} Edit Tutorial {% endblock %}</h1>
@@ -8,11 +8,28 @@
   <form method="post">
     <label for="name">Name</label>
     <input name="name" id="name" value="{{ request.form['name'] or tutorial['name'] }}" required>
+    <h1>Tutorial Steps</h1>
+    <hr>
+    <div id="react_tutorial_step_table"></div>
+
+
     <input type="submit" value="Save">
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
 </form>
 
 <a class="action" href="{{ url_for('lessons.edit', course_id=course_id, lesson_id=tutorial['lesson']['id']) }}">Back to Lesson: {{ tutorial['lesson']['name'] }}</a>
 
+<div id="tutorial_json_div" tutorial="{{ tutorial_json }}" ></div>
 
 {% endblock %}
+
+{% block react_imports %}
+
+<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+<script type="text/javascript">
+{% include 'tutorials/edit_transpiled.js' %}
+</script>
+
+{% endblock %}k

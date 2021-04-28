@@ -23,7 +23,10 @@ class FormulaTutorialStep(TutorialStep):
 		super()._check_invariants()
 
 	def get_type(self):
-		return 'formula_tutorial_glyph'
+		return 'formula_tutorial_step'
+
+	def get_formula_latex(self):
+		return self._formula_latex
 
 	def __repr__(self):
 		return f'<FormulaTutorialStep(id={self._id}, formula_latex={self._formula_latex})>'
