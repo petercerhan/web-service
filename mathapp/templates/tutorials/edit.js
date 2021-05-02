@@ -1,10 +1,17 @@
 
 
-function TutorialStep(props) {
-	
+function TutorialStepContent(props) {
+	if(props.tutorial_step.type == 'text_tutorial_step') {
+		return (<p>{ props.tutorial_step.text }</p>)
+	} else if (props.tutorial_step.type == 'formula_tutorial_step') {
+		return (<p>{ props.tutorial_step.formula_latex }</p>)
+	}
+}
+
+function TutorialStep(props) {	
 	return (
 		<div className="ordered_option">
-			<p>{ props.tutorial_step.type }</p>
+			<TutorialStepContent tutorial_step={props.tutorial_step} />
 		</div>
 	) 
 }

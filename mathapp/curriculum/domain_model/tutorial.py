@@ -38,6 +38,15 @@ class Tutorial:
     def get_tutorial_steps(self):
         return self._tutorial_step_list_value_holder.get_list()
 
+    def create_tutorial_step(self, tutorial_step_factory, fields):
+        max_position = max([x.get_position() for x in self._tutorial_step_list_value_holder.get_list()], default=-1)
+        display_group = max_position
+        tutorial_step = tutorial_step_factory.create(position=max_position,
+                                                     display_group=display_group,
+                                                     fields=fields)
+        self._tutorial_step_list_value_holder.add(tutorial_step)
+        return tutorial_step
+
     def delete(self):
         self._unit_of_work.register_deleted(self)
 

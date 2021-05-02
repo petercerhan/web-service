@@ -6,16 +6,27 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-function TutorialStep(props) {
-
-	return React.createElement(
-		"div",
-		{ className: "ordered_option" },
-		React.createElement(
-			"p",
+function TutorialStepContent(props) {
+	if (props.tutorial_step.type == 'text_tutorial_step') {
+		return React.createElement(
+			'p',
 			null,
-			props.tutorial_step.type
-		)
+			props.tutorial_step.text
+		);
+	} else if (props.tutorial_step.type == 'formula_tutorial_step') {
+		return React.createElement(
+			'p',
+			null,
+			props.tutorial_step.formula_latex
+		);
+	}
+}
+
+function TutorialStep(props) {
+	return React.createElement(
+		'div',
+		{ className: 'ordered_option' },
+		React.createElement(TutorialStepContent, { tutorial_step: props.tutorial_step })
 	);
 }
 
@@ -25,7 +36,7 @@ function TutorialStepInput(props) {
 		return tutorial_step;
 	});
 	var tutorial_steps_json = JSON.stringify(props.tutorial_steps);
-	return React.createElement("input", { type: "hidden", name: "tutorial_steps", value: tutorial_steps_json });
+	return React.createElement('input', { type: 'hidden', name: 'tutorial_steps', value: tutorial_steps_json });
 }
 
 var TutorialStepList = function (_React$Component) {
@@ -45,7 +56,7 @@ var TutorialStepList = function (_React$Component) {
 	}
 
 	_createClass(TutorialStepList, [{
-		key: "render",
+		key: 'render',
 		value: function render() {
 			var tutorial_steps = this.state.tutorial_steps.map(function (tutorial_step, index, arrayObj) {
 				return React.createElement(TutorialStep, {
@@ -57,11 +68,11 @@ var TutorialStepList = function (_React$Component) {
 			});
 
 			return React.createElement(
-				"div",
+				'div',
 				null,
 				React.createElement(TutorialStepInput, { tutorial_steps: this.state.tutorial_steps }),
 				tutorial_steps,
-				React.createElement("hr", null)
+				React.createElement('hr', null)
 			);
 		}
 	}]);

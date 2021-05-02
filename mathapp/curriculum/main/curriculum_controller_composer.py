@@ -4,6 +4,7 @@ from mathapp.curriculum.main.curriculum_interactor_composer import CurriculumInt
 from mathapp.curriculum.controller.topic_web_controller import TopicWebController
 from mathapp.curriculum.controller.lesson_web_controller import LessonWebController
 from mathapp.curriculum.controller.tutorial_web_controller import TutorialWebController
+from mathapp.curriculum.controller.tutorial_step_web_controller import TutorialStepWebController
 
 
 class CurriculumControllerComposer:
@@ -43,3 +44,10 @@ class CurriculumControllerComposer:
                                      tutorial_presenter=tutorial_presenter,
                                      tutorial_interactor=tutorial_interactor)
     
+    def compose_tutorial_step_web_controller(self):
+        tutorial_step_presenter = self._curriculum_presenter_composer.compose_tutorial_step_presenter()
+        tutorial_step_interactor = self._curriculum_interactor_composer.compose_tutorial_step_interactor()
+        return TutorialStepWebController(request=self._request,
+                                         tutorial_step_presenter=tutorial_step_presenter,
+                                         tutorial_step_interactor=tutorial_step_interactor)
+

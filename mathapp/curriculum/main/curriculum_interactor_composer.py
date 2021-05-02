@@ -4,6 +4,7 @@ from mathapp.curriculum.main.curriculum_factory_composer import CurriculumFactor
 from mathapp.curriculum.interactor.topic_interactor import TopicInteractor
 from mathapp.curriculum.interactor.lesson_interactor import LessonInteractor
 from mathapp.curriculum.interactor.tutorial_interactor import TutorialInteractor
+from mathapp.curriculum.interactor.tutorial_step_interactor import TutorialStepInteractor
 
 class CurriculumInteractorComposer:
 
@@ -38,3 +39,16 @@ class CurriculumInteractorComposer:
                                 tutorial_repository=tutorial_repository,
                                 lesson_repository=lesson_repository,
                                 unit_of_work=self._unit_of_work)      
+
+    def compose_tutorial_step_interactor(self):
+      tutorial_repository = self._curriculum_repository_composer.compose_tutorial_repository()
+      text_tutorial_step_factory = self._curriculum_factory_composer.compose_text_tutorial_step_factory()
+      formula_tutorial_step_factory = self._curriculum_factory_composer.compose_formula_tutorial_step_factory()
+      return TutorialStepInteractor(tutorial_repository=tutorial_repository,
+                                    text_tutorial_step_factory=text_tutorial_step_factory,
+                                    formula_tutorial_step_factory=formula_tutorial_step_factory,
+                                    unit_of_work=self._unit_of_work)
+
+
+
+
