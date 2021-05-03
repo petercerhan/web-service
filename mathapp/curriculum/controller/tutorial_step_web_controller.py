@@ -25,3 +25,15 @@ class TutorialStepWebController:
 			return self._tutorial_step_presenter.edit_tutorial_form_redirect(course_id, tutorial_id)
 		except MathAppError as error:
 			return error.message
+
+	def post_create_formula_step_form(self, course_id, tutorial_id):
+		fields = {}
+		fields['formula_latex'] = self._request.form.get('formula_latex')
+
+		try:
+			self._tutorial_step_interactor.create_formula_tutorial_step(tutorial_id=tutorial_id, fields=fields)
+			return self._tutorial_step_presenter.edit_tutorial_form_redirect(course_id, tutorial_id)
+		except MathAppError as error:
+			return error.message
+
+

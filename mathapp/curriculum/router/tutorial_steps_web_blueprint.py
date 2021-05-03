@@ -11,6 +11,11 @@ bp = Blueprint('tutorial_steps', __name__)
 def create_text_tutorial_step(course_id, tutorial_id):
 	return controller(request).post_create_text_step_form(course_id=course_id, tutorial_id=tutorial_id)
 
+@bp.route('/courses/<int:course_id>/tutorials/<int:tutorial_id>/create-formula-tutorial-step', methods=('POST', ))
+@login_required
+def create_formula_tutorial_step(course_id, tutorial_id):
+	return controller(request).post_create_formula_step_form(course_id=course_id, tutorial_id=tutorial_id)
+
 
 
 def controller(request):

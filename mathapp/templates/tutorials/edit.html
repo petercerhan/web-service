@@ -27,6 +27,16 @@
     <hr>
 </form>
 
+<form method="post" action="{{ url_for('tutorial_steps.create_formula_tutorial_step', course_id=course_id, tutorial_id=tutorial['id']) }}">
+    <hr>
+    <h2>Add Formula Step</h2>
+    <label for="formula_latex">Formula</label>
+    <input name="formula_latex" id="formula_latex" required>
+    <input type="submit" value="Create Formula Step">
+    <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
+    <hr>
+</form>
+
 <a class="action" href="{{ url_for('lessons.edit', course_id=course_id, lesson_id=tutorial['lesson']['id']) }}">Back to Lesson: {{ tutorial['lesson']['name'] }}</a>
 
 <div id="tutorial_json_div" tutorial="{{ tutorial_json }}" ></div>
