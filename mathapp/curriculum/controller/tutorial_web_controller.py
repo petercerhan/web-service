@@ -42,7 +42,7 @@ class TutorialWebController:
 
 		try: 
 			tutorial = self._tutorial_interactor.update(id=tutorial_id, fields=fields)
-			return self._tutorial_presenter.edit_lesson_form_redirect(course_id=course_id, lesson_id=tutorial['lesson']['id'])
+			return self._tutorial_presenter.edit_form(course_id=course_id, tutorial=tutorial)
 		except MathAppError as error:
 			return self._edit_form(course_id=course_id, tutorial_id=tutorial_id, error=error)
 

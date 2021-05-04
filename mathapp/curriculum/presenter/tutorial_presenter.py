@@ -19,7 +19,6 @@ class TutorialPresenter:
 								tutorial=tutorial,
 								tutorial_json=json.dumps(tutorial))
 
-
 	def edit_lesson_form_redirect(self, course_id, lesson_id):
 		return redirect(url_for('lessons.edit', course_id=course_id, lesson_id=lesson_id))
 
