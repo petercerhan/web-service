@@ -28,8 +28,18 @@ class TutorialStep:
 	def get_position(self):
 		return self._position
 
+	def set_position(self, position):
+		self._position = position
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
+
 	def get_display_group(self):
 		return self._display_group
+
+	def set_display_group(self, display_group):
+		self._display_group = display_group
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
 
 	def __repr__(self):
 		return f'<TutorialStep(id={self._id})>'

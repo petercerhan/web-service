@@ -36,6 +36,10 @@ class TutorialWebController:
 		fields = {}
 		fields['name'] = self._request.form.get('name')
 
+		tutorial_steps = self._request.form.get('tutorial_steps')
+		if tutorial_steps is not None:
+			fields['tutorial_steps'] = json.loads(tutorial_steps)
+
 		try: 
 			tutorial = self._tutorial_interactor.update(id=tutorial_id, fields=fields)
 			return self._tutorial_presenter.edit_lesson_form_redirect(course_id=course_id, lesson_id=tutorial['lesson']['id'])

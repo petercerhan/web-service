@@ -40,12 +40,36 @@ class Tutorial:
 
     def create_tutorial_step(self, tutorial_step_factory, fields):
         max_position = max([x.get_position() for x in self._tutorial_step_list_value_holder.get_list()], default=-1)
-        display_group = max_position
-        tutorial_step = tutorial_step_factory.create(position=max_position,
+        next_position = max_position+1
+        display_group = next_position
+        tutorial_step = tutorial_step_factory.create(position=next_position,
                                                      display_group=display_group,
                                                      fields=fields)
         self._tutorial_step_list_value_holder.add(tutorial_step)
         return tutorial_step
+
+    def sync_tutorial_step_positions(self, tutorial_steps_data_array):
+        tutorial_steps = self._tutorial_step_list_value_holder.get_list()
+        for data_item in tutorial_steps_data_array:
+            tutorial_step = next(x for x in tutorial_steps if x.get_id() == data_item['id'])
+            if tutorial_step is not None:
+                tutorial_step.set_position(data_item['position'])
+
+        self._adjust_display_groups(tutorial_steps)
+
+    def _adjust_display_groups(self, tutorial_steps):
+        sorted_tutorial_steps = sorted(tutorial_steps, key=lambda x: x.get_position())
+        array_length = len(sorted_tutorial_steps)
+        display_group_order_broken = False
+        for index, tutorial_step in enumerate(sorted_tutorial_steps):
+            if display_group_order_broken:                
+                tutorial_step.set_display_group(sorted_tutorial_steps[index-1].get_display_group()+1)
+            elif index+1 < array_length and tutorial_step.get_display_group() > sorted_tutorial_steps[index+1].get_display_group():
+                display_group_order_broken = True
+                if index == 0:
+                    tutorial_step.set_display_group(0)
+                else:
+                    tutorial_step.set_display_group(sorted_tutorial_steps[index-1].get_display_group()+1)
 
     def delete(self):
         self._unit_of_work.register_deleted(self)

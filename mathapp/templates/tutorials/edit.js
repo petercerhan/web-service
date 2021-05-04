@@ -12,6 +12,9 @@ function TutorialStep(props) {
 	return (
 		<div className="ordered_option">
 			<TutorialStepContent tutorial_step={props.tutorial_step} />
+			<button type="button" className={props.first_item ? "hidden" : ""} onClick={props.onUpClick}>Up</button>
+			<button type="button" className={props.last_item ? "hidden" : ""} onClick={props.onDownClick}>Down</button>
+			<button>(group {props.tutorial_step.display_group})</button>
 		</div>
 	) 
 }
@@ -35,13 +38,35 @@ class TutorialStepList extends React.Component {
 		};
 	}
 
+	moveUp(i) {
+		var tutorial_steps = this.state.tutorial_steps;
+		const swap_first = tutorial_steps[i-1];
+		tutorial_steps[i-1] = tutorial_steps[i];
+		tutorial_steps[i] = swap_first;
+		this.setState({
+			tutorial_steps: tutorial_steps
+		})
+	}
+
+	moveDown(i) {
+		var tutorial_steps = this.state.tutorial_steps;
+		const swap_first = tutorial_steps[i+1];
+		tutorial_steps[i+1] = tutorial_steps[i];
+		tutorial_steps[i] = swap_first;
+		this.setState({
+			tutorial_steps: tutorial_steps
+		})
+	}
+
 	render() {
 		const tutorial_steps = this.state.tutorial_steps.map( (tutorial_step, index, arrayObj) => 
 			<TutorialStep 
 			 key={tutorial_step.id.toString()}
 			 tutorial_step={tutorial_step}
 			 first_item={index==0} 
-			 last_item={index == (arrayObj.length - 1)}
+			 last_item={index == (arrayObj.length - 1)} 
+			 onUpClick={i => this.moveUp(index)}
+			 onDownClick={i => this.moveDown(index)}
 			/>
 		);
 

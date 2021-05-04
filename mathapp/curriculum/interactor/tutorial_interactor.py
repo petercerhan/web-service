@@ -30,6 +30,10 @@ class TutorialInteractor:
 		if name is not None:
 			tutorial.set_name(name)
 
+		tutorial_steps = fields.get('tutorial_steps')
+		if tutorial_steps is not None:
+			tutorial.sync_tutorial_step_positions(tutorial_steps_data_array=tutorial_steps)
+
 		self._unit_of_work.commit()
 		return tutorial_to_enriched_data(tutorial)
 

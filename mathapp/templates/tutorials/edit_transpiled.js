@@ -26,7 +26,24 @@ function TutorialStep(props) {
 	return React.createElement(
 		'div',
 		{ className: 'ordered_option' },
-		React.createElement(TutorialStepContent, { tutorial_step: props.tutorial_step })
+		React.createElement(TutorialStepContent, { tutorial_step: props.tutorial_step }),
+		React.createElement(
+			'button',
+			{ type: 'button', className: props.first_item ? "hidden" : "", onClick: props.onUpClick },
+			'Up'
+		),
+		React.createElement(
+			'button',
+			{ type: 'button', className: props.last_item ? "hidden" : "", onClick: props.onDownClick },
+			'Down'
+		),
+		React.createElement(
+			'button',
+			null,
+			'(group ',
+			props.tutorial_step.display_group,
+			')'
+		)
 	);
 }
 
@@ -56,14 +73,44 @@ var TutorialStepList = function (_React$Component) {
 	}
 
 	_createClass(TutorialStepList, [{
+		key: 'moveUp',
+		value: function moveUp(i) {
+			var tutorial_steps = this.state.tutorial_steps;
+			var swap_first = tutorial_steps[i - 1];
+			tutorial_steps[i - 1] = tutorial_steps[i];
+			tutorial_steps[i] = swap_first;
+			this.setState({
+				tutorial_steps: tutorial_steps
+			});
+		}
+	}, {
+		key: 'moveDown',
+		value: function moveDown(i) {
+			var tutorial_steps = this.state.tutorial_steps;
+			var swap_first = tutorial_steps[i + 1];
+			tutorial_steps[i + 1] = tutorial_steps[i];
+			tutorial_steps[i] = swap_first;
+			this.setState({
+				tutorial_steps: tutorial_steps
+			});
+		}
+	}, {
 		key: 'render',
 		value: function render() {
+			var _this2 = this;
+
 			var tutorial_steps = this.state.tutorial_steps.map(function (tutorial_step, index, arrayObj) {
 				return React.createElement(TutorialStep, {
 					key: tutorial_step.id.toString(),
 					tutorial_step: tutorial_step,
 					first_item: index == 0,
-					last_item: index == arrayObj.length - 1
+					last_item: index == arrayObj.length - 1,
+					onUpClick: function onUpClick(i) {
+						return _this2.moveUp(index);
+					},
+					onDownClick: function onDownClick(i) {
+						return _this2.moveDown(index);
+					}
 				});
 			});
 
