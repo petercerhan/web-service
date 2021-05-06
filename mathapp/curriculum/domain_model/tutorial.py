@@ -1,4 +1,5 @@
 from mathapp.library.errors.validation_error import ValidationError
+from mathapp.library.errors.not_found_error import NotFoundError
 
 class Tutorial:
 
@@ -70,6 +71,15 @@ class Tutorial:
                     tutorial_step.set_display_group(0)
                 else:
                     tutorial_step.set_display_group(sorted_tutorial_steps[index-1].get_display_group()+1)
+
+
+    def get_tutorial_step(self, id):
+        tutorial_steps = self._tutorial_step_list_value_holder.get_list()
+        tutorial_step = next(x for x in tutorial_steps if x.get_id() == id)
+        if tutorial_step is None:
+            raise NotFoundError(message=f'Tutorial Step {id} not found on tutorial {self._id}')
+        return tutorial_step
+
 
     def delete(self):
         self._unit_of_work.register_deleted(self)

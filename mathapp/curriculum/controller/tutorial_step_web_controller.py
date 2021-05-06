@@ -36,4 +36,13 @@ class TutorialStepWebController:
 		except MathAppError as error:
 			return error.message
 
+	def get_edit_text_tutorial_step_form(self, course_id, tutorial_id, tutorial_step_id):
+		try:
+			text_tutorial_step = self._tutorial_step_interactor.read(tutorial_id=tutorial_id, tutorial_step_id=tutorial_step_id)
+			return self._tutorial_step_presenter.edit_text_tutorial_step_form(course_id=course_id, 
+																			  tutorial_id=tutorial_id, 
+																			  tutorial_step=text_tutorial_step)
+		except MathAppError as error:
+			return error.message
+
 

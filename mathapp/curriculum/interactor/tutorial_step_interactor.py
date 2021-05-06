@@ -1,5 +1,4 @@
-from mathapp.curriculum.interactor.domain_to_data_transforms.text_tutorial_step import text_tutorial_step_to_data
-from mathapp.curriculum.interactor.domain_to_data_transforms.formula_tutorial_step import formula_tutorial_step_to_data
+from mathapp.curriculum.interactor.domain_to_data_transforms.tutorial_step import tutorial_step_to_data
 
 class TutorialStepInteractor:
 
@@ -17,10 +16,17 @@ class TutorialStepInteractor:
 		tutorial = self._tutorial_repository.get(tutorial_id)
 		text_tutorial_step = tutorial.create_tutorial_step(self._text_tutorial_step_factory, fields)
 		self._unit_of_work.commit()
-		return text_tutorial_step_to_data(text_tutorial_step)
+		return tutorial_step_to_data(text_tutorial_step)
 
 	def create_formula_tutorial_step(self, tutorial_id, fields):
 		tutorial = self._tutorial_repository.get(tutorial_id)
 		formula_tutorial_step = tutorial.create_tutorial_step(self._formula_tutorial_step_factory, fields)
 		self._unit_of_work.commit()
-		return formula_tutorial_step_to_data(formula_tutorial_step)
+		return tutorial_step_to_data(formula_tutorial_step)
+
+	def read(self, tutorial_id, tutorial_step_id):
+		tutorial = self._tutorial_repository.get(tutorial_id)
+		tutorial_step = tutorial.get_tutorial_step(tutorial_step_id)
+		return tutorial_step_to_data(tutorial_step)
+
+

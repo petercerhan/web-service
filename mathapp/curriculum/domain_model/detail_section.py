@@ -1,5 +1,6 @@
 from mathapp.curriculum.domain_model.instruction_section import InstructionSection
 from mathapp.library.errors.validation_error import ValidationError
+from mathapp.library.errors.not_found_error import NotFoundError
 
 class DetailSection(InstructionSection):
 
