@@ -8,12 +8,21 @@ function TutorialStepContent(props) {
 	}
 }
 
-function TutorialStep(props) {	
+function TutorialStep(props) {
+	function edit() {
+		if(props.tutorial_step.type == 'text_tutorial_step') {
+			window.location.href = props.edit_text_step_url;
+		} else if(props.tutorial_step.type == 'formula_tutorial_step') {
+			window.location.href = props.edit_formula_step_url;
+		}
+	}
+
 	return (
 		<div className="ordered_option">
 			<TutorialStepContent tutorial_step={props.tutorial_step} />
 			<button type="button" className={props.first_item ? "hidden" : ""} onClick={props.onUpClick}>Up</button>
 			<button type="button" className={props.last_item ? "hidden" : ""} onClick={props.onDownClick}>Down</button>
+			<button type="button" onClick={edit}>Edit</button>
 			<button>(group {props.tutorial_step.display_group})</button>
 		</div>
 	) 
@@ -63,7 +72,9 @@ class TutorialStepList extends React.Component {
 			<TutorialStep 
 			 key={tutorial_step.id.toString()}
 			 tutorial_step={tutorial_step}
-			 first_item={index==0} 
+			 edit_text_step_url={ (this.props.edit_text_step_url.replace('0/edit', '/' + tutorial_step.id.toString() ) ) }
+			 edit_formula_step_url={ (this.props.edit_formula_step_url.replace('0/edit', '/' + tutorial_step.id.toString() ) ) }
+			 first_item={index==0}
 			 last_item={index == (arrayObj.length - 1)} 
 			 onUpClick={i => this.moveUp(index)}
 			 onDownClick={i => this.moveDown(index)}
@@ -87,8 +98,12 @@ class TutorialStepList extends React.Component {
 
 const tutorialStepTableRoot = document.getElementById('react_tutorial_step_table');
 const tutorialJsonDiv = document.getElementById('tutorial_json_div');
+const editTextUrlDiv = document.getElementById('edit_text_tutorial_step_url_div');
+const editFormulaUrlDiv = document.getElementById('edit_formula_tutorial_step_url_div');
 
-ReactDOM.render(<TutorialStepList tutorial_json={tutorialJsonDiv.getAttribute('tutorial')} />, tutorialStepTableRoot)
+ReactDOM.render(<TutorialStepList tutorial_json={tutorialJsonDiv.getAttribute('tutorial')}
+								  edit_text_step_url={editTextUrlDiv.getAttribute('url')}
+								  edit_formula_step_url={editFormulaUrlDiv.getAttribute('url')} />, tutorialStepTableRoot)
 
 
 

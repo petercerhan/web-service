@@ -23,6 +23,14 @@ function TutorialStepContent(props) {
 }
 
 function TutorialStep(props) {
+	function edit() {
+		if (props.tutorial_step.type == 'text_tutorial_step') {
+			window.location.href = props.edit_text_step_url;
+		} else if (props.tutorial_step.type == 'formula_tutorial_step') {
+			window.location.href = props.edit_formula_step_url;
+		}
+	}
+
 	return React.createElement(
 		'div',
 		{ className: 'ordered_option' },
@@ -36,6 +44,11 @@ function TutorialStep(props) {
 			'button',
 			{ type: 'button', className: props.last_item ? "hidden" : "", onClick: props.onDownClick },
 			'Down'
+		),
+		React.createElement(
+			'button',
+			{ type: 'button', onClick: edit },
+			'Edit'
 		),
 		React.createElement(
 			'button',
@@ -103,6 +116,8 @@ var TutorialStepList = function (_React$Component) {
 				return React.createElement(TutorialStep, {
 					key: tutorial_step.id.toString(),
 					tutorial_step: tutorial_step,
+					edit_text_step_url: _this2.props.edit_text_step_url.replace('0/edit', '/' + tutorial_step.id.toString()),
+					edit_formula_step_url: _this2.props.edit_formula_step_url.replace('0/edit', '/' + tutorial_step.id.toString()),
 					first_item: index == 0,
 					last_item: index == arrayObj.length - 1,
 					onUpClick: function onUpClick(i) {
@@ -129,5 +144,9 @@ var TutorialStepList = function (_React$Component) {
 
 var tutorialStepTableRoot = document.getElementById('react_tutorial_step_table');
 var tutorialJsonDiv = document.getElementById('tutorial_json_div');
+var editTextUrlDiv = document.getElementById('edit_text_tutorial_step_url_div');
+var editFormulaUrlDiv = document.getElementById('edit_formula_tutorial_step_url_div');
 
-ReactDOM.render(React.createElement(TutorialStepList, { tutorial_json: tutorialJsonDiv.getAttribute('tutorial') }), tutorialStepTableRoot);
+ReactDOM.render(React.createElement(TutorialStepList, { tutorial_json: tutorialJsonDiv.getAttribute('tutorial'),
+	edit_text_step_url: editTextUrlDiv.getAttribute('url'),
+	edit_formula_step_url: editFormulaUrlDiv.getAttribute('url') }), tutorialStepTableRoot);

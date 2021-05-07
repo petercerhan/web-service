@@ -40,6 +40,8 @@
 <a class="action" href="{{ url_for('lessons.edit', course_id=course_id, lesson_id=tutorial['lesson']['id']) }}">Back to Lesson: {{ tutorial['lesson']['name'] }}</a>
 
 <div id="tutorial_json_div" tutorial="{{ tutorial_json }}" ></div>
+<div id="edit_text_tutorial_step_url_div" url="{{ url_for('tutorial_steps.edit_text_tutorial_step', course_id=course_id, tutorial_id=tutorial['id'], tutorial_step_id=0) }}/edit" ></div>
+<div id="edit_formula_tutorial_step_url_div" url="{{ url_for('tutorial_steps.edit_formula_tutorial_step', course_id=course_id, tutorial_id=tutorial['id'], tutorial_step_id=0) }}/edit" ></div>
 
 {% endblock %}
 
