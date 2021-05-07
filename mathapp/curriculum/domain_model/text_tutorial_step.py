@@ -28,5 +28,10 @@ class TextTutorialStep(TutorialStep):
 	def get_text(self):
 		return self._text
 
+	def set_text(self, text):
+		self._text = text
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
+
 	def __repr__(self):
 		return f'<TextTutorialStep(id={self._id}, text={self._text})>'

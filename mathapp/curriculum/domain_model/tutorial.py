@@ -65,7 +65,7 @@ class Tutorial:
         for index, tutorial_step in enumerate(sorted_tutorial_steps):
             if display_group_order_broken:                
                 tutorial_step.set_display_group(sorted_tutorial_steps[index-1].get_display_group()+1)
-            elif index+1 < array_length and tutorial_step.get_display_group() > sorted_tutorial_steps[index+1].get_display_group():
+            elif (index+1 < array_length) and ( tutorial_step.get_display_group() > sorted_tutorial_steps[index+1].get_display_group() ):
                 display_group_order_broken = True
                 if index == 0:
                     tutorial_step.set_display_group(0)
@@ -79,6 +79,19 @@ class Tutorial:
         if tutorial_step is None:
             raise NotFoundError(message=f'Tutorial Step {id} not found on tutorial {self._id}')
         return tutorial_step
+
+    def set_tutorial_step_display_group(self, tutorial_step_id, display_group):
+        tutorial_steps = self._tutorial_step_list_value_holder.get_list()
+        sorted_tutorial_steps = sorted(tutorial_steps, key=lambda x: x.get_position())
+        final_index = len(sorted_tutorial_steps) - 1
+
+        for index, tutorial_step in enumerate(sorted_tutorial_steps):
+            if tutorial_step.get_id() == tutorial_step_id:
+                if (index > 0) and (sorted_tutorial_steps[index-1].get_display_group() > display_group):
+                    raise ValidationError(message=f'display_group must be greater than or equal to previous step display_group')
+                if (index < final_index) and (display_group > sorted_tutorial_steps[index+1].get_display_group()):
+                    raise ValidationError(message=f'display_group must be less than or equal to following step display_group')
+                tutorial_step.set_display_group(display_group)
 
 
     def delete(self):

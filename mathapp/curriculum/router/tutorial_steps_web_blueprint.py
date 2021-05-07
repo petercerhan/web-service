@@ -19,7 +19,10 @@ def create_formula_tutorial_step(course_id, tutorial_id):
 @bp.route('/courses/<int:course_id>/tutorials/<int:tutorial_id>/text_tutorial_steps/<int:tutorial_step_id>', methods=('GET', 'POST'))
 @login_required
 def edit_text_tutorial_step(course_id, tutorial_id, tutorial_step_id):
-	return controller(request).get_edit_text_tutorial_step_form(course_id=course_id, tutorial_id=tutorial_id, tutorial_step_id=tutorial_step_id)
+	if request.method == 'GET':
+		return controller(request).get_edit_text_tutorial_step_form(course_id=course_id, tutorial_id=tutorial_id, tutorial_step_id=tutorial_step_id)
+	elif request.method == 'POST':
+		return controller(request).post_edit_text_tutorial_step_form(course_id=course_id, tutorial_id=tutorial_id, tutorial_step_id=tutorial_step_id)
 
 
 def controller(request):

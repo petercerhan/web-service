@@ -8,6 +8,8 @@
   <form method="post">
     <label for="text">Text</label>
     <input name="text" id="text" value="{{ tutorial_step['text'] }}" required>
+    <label for="display_group">Display Group</label>
+    <input name="display_group" id="display_group" value="{{ tutorial_step['display_group'] }}" required>
     <input type="submit" value="Save">
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
 </form>
