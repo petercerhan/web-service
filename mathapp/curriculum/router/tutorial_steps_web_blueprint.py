@@ -24,6 +24,13 @@ def edit_text_tutorial_step(course_id, tutorial_id, tutorial_step_id):
 	elif request.method == 'POST':
 		return controller(request).post_edit_text_tutorial_step_form(course_id=course_id, tutorial_id=tutorial_id, tutorial_step_id=tutorial_step_id)
 
+@bp.route('/courses/<int:course_id>/tutorials/<int:tutorial_id>/formula_tutorial_steps/<int:tutorial_step_id>', methods=('GET', 'POST'))
+@login_required
+def edit_formula_tutorial_step(course_id, tutorial_id, tutorial_step_id):
+	if request.method == 'GET':
+		return controller(request).get_edit_formula_tutorial_step_form(course_id=course_id, tutorial_id=tutorial_id, tutorial_step_id=tutorial_step_id)
+	elif request.method == 'POST':
+		return controller(request).post_edit_formula_tutorial_step_form(course_id=course_id, tutorial_id=tutorial_id, tutorial_step_id=tutorial_step_id)
 
 def controller(request):
 	return RootComposer(request).compose_tutorial_step_web_controller()

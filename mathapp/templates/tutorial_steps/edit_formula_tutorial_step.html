@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %} Edit Formula Tutorial Step {% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="formula_latex">Formula</label>
+    <input name="formula_latex" id="formula_latex" value="{{ tutorial_step['formula_latex'] }}" required>
+    <label for="display_group">Display Group</label>
+    <input name="display_group" id="display_group" value="{{ tutorial_step['display_group'] }}" required>
+    <input type="submit" value="Save">
+    <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
+</form>
+
+{% endblock %}
