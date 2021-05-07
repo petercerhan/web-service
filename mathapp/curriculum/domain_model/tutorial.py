@@ -116,6 +116,9 @@ class Tutorial:
 
 
     def delete(self):
+        tutorial_steps = self._tutorial_step_list_value_holder.get_list()
+        for tutorial_step in tutorial_steps:
+            tutorial_step.delete()
         self._unit_of_work.register_deleted(self)
 
     def __repr__(self):
