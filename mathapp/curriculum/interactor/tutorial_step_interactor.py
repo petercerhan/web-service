@@ -60,6 +60,11 @@ class TutorialStepInteractor:
 		return tutorial_step_to_data(tutorial_step)
 
 
+	def delete(self, tutorial_id, tutorial_step_id):
+		tutorial = self._tutorial_repository.get(tutorial_id)
+		tutorial.delete_tutorial_step(tutorial_step_id=tutorial_step_id)
+		self._unit_of_work.commit()
+		return tutorial_step_id
 
 
 

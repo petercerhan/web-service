@@ -64,7 +64,7 @@ class Topic:
 
     def delete_lesson(self, lesson_id):
         lessons = self._lesson_list_value_holder.get_list()
-        delete_position = None
+        deleted_position = None
         for lesson in lessons:
             if lesson.get_id() == lesson_id:
                 deleted_position = lesson.get_position()

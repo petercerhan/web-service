@@ -93,6 +93,27 @@ class Tutorial:
                     raise ValidationError(message=f'display_group must be less than or equal to following step display_group')
                 tutorial_step.set_display_group(display_group)
 
+    def delete_tutorial_step(self, tutorial_step_id):
+        tutorial_steps = self._tutorial_step_list_value_holder.get_list()
+        deleted_position = None
+        for tutorial_step in tutorial_steps:
+            if tutorial_step.get_id() == tutorial_step_id:
+                deleted_position = tutorial_step.get_position()
+                tutorial_step.delete()
+                self._tutorial_step_list_value_holder.remove_at_index(deleted_position)
+
+        if deleted_position is None:
+            return
+
+        for tutorial_step in tutorial_steps:
+            if tutorial_step.get_position() > deleted_position:
+                prior_position = tutorial_step.get_position()
+                tutorial_step.set_position(prior_position-1)
+
+        self._check_invariants()
+        self._unit_of_work.register_dirty(self)
+        
+
 
     def delete(self):
         self._unit_of_work.register_deleted(self)

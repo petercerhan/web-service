@@ -9,6 +9,10 @@ function TutorialStepContent(props) {
 }
 
 function TutorialStep(props) {
+	function remove() {
+		submitDeleteTutorialStepForm(props.delete_url);
+	}
+
 	function edit() {
 		if(props.tutorial_step.type == 'text_tutorial_step') {
 			window.location.href = props.edit_text_step_url;
@@ -23,6 +27,7 @@ function TutorialStep(props) {
 			<button type="button" className={props.first_item ? "hidden" : ""} onClick={props.onUpClick}>Up</button>
 			<button type="button" className={props.last_item ? "hidden" : ""} onClick={props.onDownClick}>Down</button>
 			<button type="button" onClick={edit}>Edit</button>
+			<button type="button" onClick={remove}>Delete</button>
 			<button>(group {props.tutorial_step.display_group})</button>
 		</div>
 	) 
@@ -74,6 +79,7 @@ class TutorialStepList extends React.Component {
 			 tutorial_step={tutorial_step}
 			 edit_text_step_url={ (this.props.edit_text_step_url.replace('0/edit', '/' + tutorial_step.id.toString() ) ) }
 			 edit_formula_step_url={ (this.props.edit_formula_step_url.replace('0/edit', '/' + tutorial_step.id.toString() ) ) }
+			 delete_url={ (this.props.delete_url).replace('0/delete', tutorial_step.id.toString() + '/delete') }
 			 first_item={index==0}
 			 last_item={index == (arrayObj.length - 1)} 
 			 onUpClick={i => this.moveUp(index)}
@@ -100,10 +106,12 @@ const tutorialStepTableRoot = document.getElementById('react_tutorial_step_table
 const tutorialJsonDiv = document.getElementById('tutorial_json_div');
 const editTextUrlDiv = document.getElementById('edit_text_tutorial_step_url_div');
 const editFormulaUrlDiv = document.getElementById('edit_formula_tutorial_step_url_div');
+const deleteUrlDiv = document.getElementById('delete_tutorial_step_url_div');
 
 ReactDOM.render(<TutorialStepList tutorial_json={tutorialJsonDiv.getAttribute('tutorial')}
 								  edit_text_step_url={editTextUrlDiv.getAttribute('url')}
-								  edit_formula_step_url={editFormulaUrlDiv.getAttribute('url')} />, tutorialStepTableRoot)
+								  edit_formula_step_url={editFormulaUrlDiv.getAttribute('url')}
+								  delete_url={deleteUrlDiv.getAttribute('url')} />, tutorialStepTableRoot)
 
 
 

@@ -76,6 +76,14 @@ class TutorialStepWebController:
 		except MathAppError as error:
 			return error.message
 
+	def delete(self, course_id, tutorial_id, tutorial_step_id):
+		try: 
+			self._tutorial_step_interactor.delete(tutorial_id=tutorial_id, tutorial_step_id=tutorial_step_id)
+			return self._tutorial_step_presenter.edit_tutorial_form_redirect(course_id, tutorial_id)
+		except MathAppError as error:
+			return error.message
+			
+
 
 
 

@@ -32,5 +32,11 @@ def edit_formula_tutorial_step(course_id, tutorial_id, tutorial_step_id):
 	elif request.method == 'POST':
 		return controller(request).post_edit_formula_tutorial_step_form(course_id=course_id, tutorial_id=tutorial_id, tutorial_step_id=tutorial_step_id)
 
+@bp.route('/courses/<int:course_id>/tutorials/<int:tutorial_id>/tutorial_steps/<int:tutorial_step_id>/delete', methods=('POST', ))
+@login_required
+def delete(course_id, tutorial_id, tutorial_step_id):
+	return controller(request).delete(course_id=course_id, tutorial_id=tutorial_id, tutorial_step_id=tutorial_step_id)
+
+
 def controller(request):
 	return RootComposer(request).compose_tutorial_step_web_controller()
