@@ -49,9 +49,9 @@ class TutorialStepWebController:
 		fields['display_group'] = int(self._request.form.get('display_group'))
 
 		try:
-			self._tutorial_step_interactor.update(tutorial_id=tutorial_id, 
-												  tutorial_step_id=tutorial_step_id, 
-												  fields=fields)
+			self._tutorial_step_interactor.update_text_tutorial_step(tutorial_id=tutorial_id, 
+												  					 tutorial_step_id=tutorial_step_id,
+												  					 fields=fields)
 			return self._tutorial_step_presenter.edit_tutorial_form_redirect(course_id, tutorial_id)
 		except MathAppError as error:
 			return error.message
@@ -60,6 +60,19 @@ class TutorialStepWebController:
 		try:
 			formula_tutorial_step = self._tutorial_step_interactor.read(tutorial_id=tutorial_id, tutorial_step_id=tutorial_step_id)
 			return self._tutorial_step_presenter.edit_formula_tutorial_step_form(tutorial_step=formula_tutorial_step)
+		except MathAppError as error:
+			return error.message
+
+	def post_edit_formula_tutorial_step_form(self, course_id, tutorial_id, tutorial_step_id):
+		fields = {}
+		fields['formula_latex'] = self._request.form.get('formula_latex')
+		fields['display_group'] = int(self._request.form.get('display_group'))
+
+		try:
+			self._tutorial_step_interactor.update_formula_tutorial_step(tutorial_id=tutorial_id, 
+												  					    tutorial_step_id=tutorial_step_id,
+												  					    fields=fields)
+			return self._tutorial_step_presenter.edit_tutorial_form_redirect(course_id, tutorial_id)
 		except MathAppError as error:
 			return error.message
 

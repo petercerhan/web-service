@@ -28,5 +28,10 @@ class FormulaTutorialStep(TutorialStep):
 	def get_formula_latex(self):
 		return self._formula_latex
 
+	def set_formula_latex(self, formula_latex):
+		self._formula_latex = formula_latex
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
+
 	def __repr__(self):
 		return f'<FormulaTutorialStep(id={self._id}, formula_latex={self._formula_latex})>'

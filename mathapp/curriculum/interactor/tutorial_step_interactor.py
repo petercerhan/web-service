@@ -29,7 +29,7 @@ class TutorialStepInteractor:
 		tutorial_step = tutorial.get_tutorial_step(tutorial_step_id)
 		return tutorial_step_to_data(tutorial_step)
 
-	def update(self, tutorial_id, tutorial_step_id, fields):
+	def update_text_tutorial_step(self, tutorial_id, tutorial_step_id, fields):
 		tutorial = self._tutorial_repository.get(tutorial_id)
 		tutorial_step = tutorial.get_tutorial_step(id=tutorial_step_id)
 
@@ -43,4 +43,27 @@ class TutorialStepInteractor:
 
 		self._unit_of_work.commit()
 		return tutorial_step_to_data(tutorial_step)
+
+	def update_formula_tutorial_step(self, tutorial_id, tutorial_step_id, fields):
+		tutorial = self._tutorial_repository.get(tutorial_id)
+		tutorial_step = tutorial.get_tutorial_step(id=tutorial_step_id)
+
+		display_group = fields.get('display_group')
+		if display_group is not None:
+			tutorial.set_tutorial_step_display_group(tutorial_step_id=tutorial_step_id, display_group=display_group)
+
+		formula_latex = fields.get('formula_latex')
+		if formula_latex is not None:
+			tutorial_step.set_formula_latex(formula_latex)
+
+		self._unit_of_work.commit()
+		return tutorial_step_to_data(tutorial_step)
+
+
+
+
+
+
+
+
 
