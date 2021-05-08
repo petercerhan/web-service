@@ -10,8 +10,10 @@ class CurriculumInteractorComposer:
 
     def __init__(self,
                  unit_of_work,
-                 sqlalchemy_session):
+                 sqlalchemy_session,
+                 infrastructure_service_composer):
       self._unit_of_work = unit_of_work
+      self._infrastructure_service_composer = infrastructure_service_composer
       self._curriculum_repository_composer = CurriculumRepositoryComposer(unit_of_work=unit_of_work,
                                                                             sqlalchemy_session=sqlalchemy_session)
       self._curriculum_factory_composer = CurriculumFactoryComposer(unit_of_work=unit_of_work,
@@ -44,9 +46,15 @@ class CurriculumInteractorComposer:
       tutorial_repository = self._curriculum_repository_composer.compose_tutorial_repository()
       text_tutorial_step_factory = self._curriculum_factory_composer.compose_text_tutorial_step_factory()
       formula_tutorial_step_factory = self._curriculum_factory_composer.compose_formula_tutorial_step_factory()
+      image_tutorial_step_factory = self._curriculum_factory_composer.compose_image_tutorial_step_factory()
+      file_service = self._infrastructure_service_composer.compose_file_service()
+      date_service = self._infrastructure_service_composer.compose_date_service()
       return TutorialStepInteractor(tutorial_repository=tutorial_repository,
                                     text_tutorial_step_factory=text_tutorial_step_factory,
                                     formula_tutorial_step_factory=formula_tutorial_step_factory,
+                                    image_tutorial_step_factory=image_tutorial_step_factory,
+                                    file_service=file_service,
+                                    date_service=date_service,
                                     unit_of_work=self._unit_of_work)
 
 

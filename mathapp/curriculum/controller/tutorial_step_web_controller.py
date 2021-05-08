@@ -36,6 +36,22 @@ class TutorialStepWebController:
 		except MathAppError as error:
 			return error.message
 
+	def post_create_image_step_form(self, course_id, tutorial_id, user_id):
+		source_code_file = self._request.files.get('source_code_file')
+		image_file = self._request.files.get('image_file')
+		fields = {}
+
+		try:
+			self._tutorial_step_interactor.create_image_tutorial_step(user_id=user_id,
+																	  tutorial_id=tutorial_id,
+																	  source_code_file=source_code_file,
+																	  image_file=image_file,
+																	  fields=fields)
+			return self._tutorial_step_presenter.edit_tutorial_form_redirect(course_id, tutorial_id)
+		except MathAppError as error:
+			return error.message
+
+
 	def get_edit_text_tutorial_step_form(self, course_id, tutorial_id, tutorial_step_id):
 		try:
 			text_tutorial_step = self._tutorial_step_interactor.read(tutorial_id=tutorial_id, tutorial_step_id=tutorial_step_id)

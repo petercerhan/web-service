@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, request
+    Blueprint, request, g
 )
 from mathapp.flask.auth_web_blueprint import login_required
 from mathapp.flask.root_composer import RootComposer
@@ -15,6 +15,11 @@ def create_text_tutorial_step(course_id, tutorial_id):
 @login_required
 def create_formula_tutorial_step(course_id, tutorial_id):
 	return controller(request).post_create_formula_step_form(course_id=course_id, tutorial_id=tutorial_id)
+
+@bp.route('/courses/<int:course_id>/tutorials/<int:tutorial_id>/create-image-tutorial-step', methods=('POST', ))
+@login_required
+def create_image_tutorial_step(course_id, tutorial_id):
+	return controller(request).post_create_image_step_form(course_id=course_id, tutorial_id=tutorial_id, user_id=g.user_id)
 
 @bp.route('/courses/<int:course_id>/tutorials/<int:tutorial_id>/text_tutorial_steps/<int:tutorial_step_id>', methods=('GET', 'POST'))
 @login_required

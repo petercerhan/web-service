@@ -6,6 +6,7 @@ from mathapp.curriculum.data_mapper.lesson.lesson_factory import LessonFactory
 from mathapp.curriculum.data_mapper.tutorial.tutorial_factory import TutorialFactory
 from mathapp.curriculum.data_mapper.text_tutorial_step.text_tutorial_step_factory import TextTutorialStepFactory
 from mathapp.curriculum.data_mapper.formula_tutorial_step.formula_tutorial_step_factory import FormulaTutorialStepFactory
+from mathapp.curriculum.data_mapper.image_tutorial_step.image_tutorial_step_factory import ImageTutorialStepFactory
 
 class CurriculumFactoryComposer:
 
@@ -33,4 +34,7 @@ class CurriculumFactoryComposer:
 
     def compose_formula_tutorial_step_factory(self):
         return FormulaTutorialStepFactory(unit_of_work=self._unit_of_work)
+
+    def compose_image_tutorial_step_factory(self):
+        return ImageTutorialStepFactory(unit_of_work=self._unit_of_work)
 

@@ -37,6 +37,18 @@
     <hr>
 </form>
 
+<form method="post" enctype="multipart/form-data" action="{{ url_for('tutorial_steps.create_image_tutorial_step', course_id=course_id, tutorial_id=tutorial['id']) }}">
+    <hr>
+    <h2>Add Image Step</h2>
+    <label for="source_code_file">Source Code File</label>
+    <input type=file name="source_code_file" id="source_code_file" required>
+    <label for="image_file">Image File</label>
+    <input type=file name="image_file" id="image_file" required>
+    <input type="submit" value="Create Image Glyph">
+    <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
+    <hr>
+</form>
+
 <form name="delete_tutorial_step_form" action="placeholder" method="post">
   <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
 </form>
