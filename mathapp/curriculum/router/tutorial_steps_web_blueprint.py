@@ -37,6 +37,19 @@ def edit_formula_tutorial_step(course_id, tutorial_id, tutorial_step_id):
 	elif request.method == 'POST':
 		return controller(request).post_edit_formula_tutorial_step_form(course_id=course_id, tutorial_id=tutorial_id, tutorial_step_id=tutorial_step_id)
 
+@bp.route('/courses/<int:course_id>/tutorials/<int:tutorial_id>/image_tutorial_steps/<int:tutorial_step_id>', methods=('GET', 'POST'))
+@login_required
+def edit_image_tutorial_step(course_id, tutorial_id, tutorial_step_id):
+	if request.method == 'GET':
+		return controller(request).get_edit_image_tutorial_step_form(course_id=course_id, tutorial_id=tutorial_id, tutorial_step_id=tutorial_step_id)
+	elif request.method == 'POST':
+		return 'placeholder'
+
+@bp.route('/courses/<int:course_id>/tutorials/<int:tutorial_id>/image_tutorial_steps/<int:tutorial_step_id>/download-source-code', methods=('GET', ))
+@login_required
+def download_image_tutorial_step_source_code(course_id, tutorial_id, tutorial_step_id):
+	return controller(request).download_image_tutorial_step_source_code(course_id=course_id, tutorial_id=tutorial_id, tutorial_step_id=tutorial_step_id)
+
 @bp.route('/courses/<int:course_id>/tutorials/<int:tutorial_id>/tutorial_steps/<int:tutorial_step_id>/delete', methods=('POST', ))
 @login_required
 def delete(course_id, tutorial_id, tutorial_step_id):

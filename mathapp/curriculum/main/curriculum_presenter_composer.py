@@ -5,6 +5,9 @@ from mathapp.curriculum.presenter.tutorial_step_presenter import TutorialStepPre
 
 class CurriculumPresenterComposer:
 
+    def __init__(self, infrastructure_service_composer):
+        self._infrastructure_service_composer = infrastructure_service_composer
+
     def compose_topic_presenter(self):
         return TopicPresenter()
 
@@ -15,5 +18,6 @@ class CurriculumPresenterComposer:
         return TutorialPresenter()
 
     def compose_tutorial_step_presenter(self):
-        return TutorialStepPresenter()
+        file_service = self._infrastructure_service_composer.compose_file_service()
+        return TutorialStepPresenter(file_service=file_service)
 

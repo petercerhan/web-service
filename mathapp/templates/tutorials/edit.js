@@ -22,6 +22,8 @@ function TutorialStep(props) {
 			window.location.href = props.edit_text_step_url;
 		} else if(props.tutorial_step.type == 'formula_tutorial_step') {
 			window.location.href = props.edit_formula_step_url;
+		} else if(props.tutorial_step.type == 'image_tutorial_step') {
+			window.location.href = props.edit_image_step_url;
 		}
 	}
 
@@ -83,6 +85,7 @@ class TutorialStepList extends React.Component {
 			 tutorial_step={tutorial_step}
 			 edit_text_step_url={ (this.props.edit_text_step_url.replace('0/edit', '/' + tutorial_step.id.toString() ) ) }
 			 edit_formula_step_url={ (this.props.edit_formula_step_url.replace('0/edit', '/' + tutorial_step.id.toString() ) ) }
+			 edit_image_step_url={ (this.props.edit_image_step_url.replace('0/edit', '/' + tutorial_step.id.toString() ) ) }
 			 delete_url={ (this.props.delete_url).replace('0/delete', tutorial_step.id.toString() + '/delete') }
 			 first_item={index==0}
 			 last_item={index == (arrayObj.length - 1)} 
@@ -110,11 +113,13 @@ const tutorialStepTableRoot = document.getElementById('react_tutorial_step_table
 const tutorialJsonDiv = document.getElementById('tutorial_json_div');
 const editTextUrlDiv = document.getElementById('edit_text_tutorial_step_url_div');
 const editFormulaUrlDiv = document.getElementById('edit_formula_tutorial_step_url_div');
+const editImageUrlDiv = document.getElementById('edit_image_tutorial_step_url_div');
 const deleteUrlDiv = document.getElementById('delete_tutorial_step_url_div');
 
 ReactDOM.render(<TutorialStepList tutorial_json={tutorialJsonDiv.getAttribute('tutorial')}
 								  edit_text_step_url={editTextUrlDiv.getAttribute('url')}
 								  edit_formula_step_url={editFormulaUrlDiv.getAttribute('url')}
+								  edit_image_step_url={editImageUrlDiv.getAttribute('url')}
 								  delete_url={deleteUrlDiv.getAttribute('url')} />, tutorialStepTableRoot)
 
 

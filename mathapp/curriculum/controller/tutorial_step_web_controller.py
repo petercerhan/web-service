@@ -92,13 +92,28 @@ class TutorialStepWebController:
 		except MathAppError as error:
 			return error.message
 
+	def get_edit_image_tutorial_step_form(self, course_id, tutorial_id, tutorial_step_id):
+		try:
+			image_tutorial_step = self._tutorial_step_interactor.read(tutorial_id=tutorial_id, tutorial_step_id=tutorial_step_id)
+			return self._tutorial_step_presenter.edit_image_tutorial_step_form(course_id=course_id, tutorial_id=tutorial_id, tutorial_step=image_tutorial_step)
+		except MathAppError as error:
+			return error.message
+
+	def download_image_tutorial_step_source_code(self, course_id, tutorial_id, tutorial_step_id):
+		try:
+			image_tutorial_step = self._tutorial_step_interactor.read(tutorial_id=tutorial_id, tutorial_step_id=tutorial_step_id)
+			source_code_filename = image_tutorial_step['source_code_filename']
+			return self._tutorial_step_presenter.file_download(filename=source_code_filename)
+		except MathAppError as error:
+			return error.message
+
 	def delete(self, course_id, tutorial_id, tutorial_step_id):
 		try: 
 			self._tutorial_step_interactor.delete(tutorial_id=tutorial_id, tutorial_step_id=tutorial_step_id)
 			return self._tutorial_step_presenter.edit_tutorial_form_redirect(course_id, tutorial_id)
 		except MathAppError as error:
 			return error.message
-			
+	
 
 
 

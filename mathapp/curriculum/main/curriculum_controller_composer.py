@@ -18,7 +18,7 @@ class CurriculumControllerComposer:
         self._sqlalchemy_session = sqlalchemy_session
         self._infrastructure_service_composer = infrastructure_service_composer
         self._unit_of_work = unit_of_work
-        self._curriculum_presenter_composer = CurriculumPresenterComposer()
+        self._curriculum_presenter_composer = CurriculumPresenterComposer(infrastructure_service_composer=infrastructure_service_composer)
         self._curriculum_interactor_composer = CurriculumInteractorComposer(unit_of_work=unit_of_work,
                                                                             sqlalchemy_session=sqlalchemy_session,
                                                                             infrastructure_service_composer=infrastructure_service_composer)
