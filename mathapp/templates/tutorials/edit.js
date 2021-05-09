@@ -5,6 +5,10 @@ function TutorialStepContent(props) {
 		return (<p>{ props.tutorial_step.text }</p>)
 	} else if (props.tutorial_step.type == 'formula_tutorial_step') {
 		return (<p>{ props.tutorial_step.formula_latex }</p>)
+	} else if (props.tutorial_step.type == 'image_tutorial_step') {
+		return (<img src={"data:image/png;base64," + props.tutorial_step.image_data} height="200" width="200"/>)
+	} else {
+		return (<p>Unknown Step Type</p>)
 	}
 }
 

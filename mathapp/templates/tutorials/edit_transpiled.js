@@ -19,6 +19,14 @@ function TutorialStepContent(props) {
 			null,
 			props.tutorial_step.formula_latex
 		);
+	} else if (props.tutorial_step.type == 'image_tutorial_step') {
+		return React.createElement('img', { src: "data:image/png;base64," + props.tutorial_step.image_data, height: '200', width: '200' });
+	} else {
+		return React.createElement(
+			'p',
+			null,
+			'Unknown Step Type'
+		);
 	}
 }
 
