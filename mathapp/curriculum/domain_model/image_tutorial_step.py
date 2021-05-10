@@ -27,16 +27,12 @@ class ImageTutorialStep(TutorialStep):
 	def get_source_code_filename(self):
 		return self._source_code_filename
 
-	def set_source_code_filename(self, source_code_filename):
-		self._source_code_filename = source_code_filename
-		self._check_invariants()
-		self._unit_of_work.register_dirty(self)
-
 	def get_image_data(self):
 		return self._image_data
 
-	def set_image_data(self, image_data):
+	def set_image(self, image_data, source_code_filename):
 		self._image_data = image_data
+		self._source_code_filename = source_code_filename
 		self._check_invariants()
 		self._unit_of_work.register_dirty(self)
 

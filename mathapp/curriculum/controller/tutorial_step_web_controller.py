@@ -6,6 +6,8 @@ from mathapp.library.errors.mathapp_error import MathAppError
 
 import json
 
+import sys
+
 class TutorialStepWebController:
 
 	def __init__(self,
@@ -98,6 +100,30 @@ class TutorialStepWebController:
 			return self._tutorial_step_presenter.edit_image_tutorial_step_form(course_id=course_id, tutorial_id=tutorial_id, tutorial_step=image_tutorial_step)
 		except MathAppError as error:
 			return error.message
+
+	def post_edit_image_tutorial_step_form(self, user_id, course_id, tutorial_id, tutorial_step_id):
+		source_code_file = self._request.files.get('source_code_file')
+		if source_code_file.filename == '':
+			source_code_file = None
+
+		image_file = self._request.files.get('image_file')
+		if image_file.filename == '':
+			image_file = None
+
+		fields = {}
+		fields['display_group'] = int(self._request.form.get('display_group'))
+
+		try:
+			self._tutorial_step_interactor.update_image_tutorial_step(user_id=user_id, 
+																	  tutorial_id=tutorial_id,
+																	  tutorial_step_id=tutorial_step_id,
+																	  source_code_file=source_code_file,
+																	  image_file=image_file,
+																	  fields=fields)
+			return self._tutorial_step_presenter.edit_tutorial_form_redirect(course_id, tutorial_id)
+		except MathAppError as error:
+			return error.message
+
 
 	def download_image_tutorial_step_source_code(self, course_id, tutorial_id, tutorial_step_id):
 		try:

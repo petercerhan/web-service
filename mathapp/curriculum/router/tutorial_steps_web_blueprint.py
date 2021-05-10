@@ -43,7 +43,8 @@ def edit_image_tutorial_step(course_id, tutorial_id, tutorial_step_id):
 	if request.method == 'GET':
 		return controller(request).get_edit_image_tutorial_step_form(course_id=course_id, tutorial_id=tutorial_id, tutorial_step_id=tutorial_step_id)
 	elif request.method == 'POST':
-		return 'placeholder'
+		user_id = g.user_id
+		return controller(request).post_edit_image_tutorial_step_form(user_id=user_id, course_id=course_id, tutorial_id=tutorial_id, tutorial_step_id=tutorial_step_id)
 
 @bp.route('/courses/<int:course_id>/tutorials/<int:tutorial_id>/image_tutorial_steps/<int:tutorial_step_id>/download-source-code', methods=('GET', ))
 @login_required

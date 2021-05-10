@@ -13,10 +13,12 @@
   <br>
   <br>
   <form method="post" enctype="multipart/form-data" >
-    <label for="source_code_file">New Source Code File</label>
-    <input type=file name="source_code_file" id="source_code_file" required>
-    <label for="image_file">New Image File</label>
-    <input type=file name="image_file" id="image_file" required>
+    <label for="display_group">Display Group</label>
+    <input name="display_group" id="display_group" value="{{ tutorial_step['display_group'] }}" required>
+    <label for="source_code_file">New Source Code File (optional)</label>
+    <input type=file name="source_code_file" id="source_code_file">
+    <label for="image_file">New Image File (optional)</label>
+    <input type=file name="image_file" id="image_file">
     <input type="submit" value="Save">
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
 </form>

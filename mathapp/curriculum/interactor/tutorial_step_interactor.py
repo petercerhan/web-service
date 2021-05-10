@@ -80,6 +80,22 @@ class TutorialStepInteractor:
 		self._unit_of_work.commit()
 		return tutorial_step_to_data(tutorial_step)
 
+	def update_image_tutorial_step(self, user_id, tutorial_id, tutorial_step_id, source_code_file, image_file, fields):
+		tutorial = self._tutorial_repository.get(tutorial_id)
+		tutorial_step = tutorial.get_tutorial_step(id=tutorial_step_id)
+
+		display_group = fields.get('display_group')
+		if display_group is not None:
+			tutorial.set_tutorial_step_display_group(tutorial_step_id=tutorial_step_id, display_group=display_group)
+
+		if source_code_file is not None and image_file is not None:
+			new_filename = self._filename_for_source_code_file(user_id=user_id, source_code_file=source_code_file)
+			self._file_service.upload_file(file=source_code_file, filename=new_filename)
+			tutorial_step.set_image(image_data=image_file.read(), source_code_filename=new_filename)
+
+		self._unit_of_work.commit()
+		return tutorial_step_to_data(tutorial_step)
+
 
 	def delete(self, tutorial_id, tutorial_step_id):
 		tutorial = self._tutorial_repository.get(tutorial_id)
