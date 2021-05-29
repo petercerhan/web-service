@@ -49,8 +49,27 @@ def delete_lesson(course_id, topic_id, lesson_id):
 	return controller(request).delete_lesson(course_id=course_id, topic_id=topic_id, lesson_id=lesson_id)
 
 
+##Exercises
+
+@bp.route('/courses/<int:course_id>/topics/<int:topic_id>/exercises', methods=('GET',))
+@login_required
+def edit_exercises(course_id, topic_id):
+	return controller(request).get_edit_exercises_form(course_id=course_id, topic_id=topic_id)
+
+
+
 def controller(request):
 	return RootComposer(request).compose_topic_web_controller()
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -90,7 +90,12 @@ class TopicWebController:
 		except MathAppError as error:
 			return error.message
 
-
+	def get_edit_exercises_form(self, course_id, topic_id):
+		try:
+			topic = self._topic_interactor.get(topic_id)
+			return self._topic_presenter.edit_exercises_form(topic=topic)
+		except MathAppError as error:
+			return error.message
 
 
 
