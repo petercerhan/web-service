@@ -44,4 +44,6 @@ class TopicPresenter:
 		return render_template('topics/edit_exercises.html',
 							    topic=topic)
 
+	def edit_exercises_form_redirect(self, course_id, topic_id):
+		return redirect(url_for('topics.edit_exercises', course_id=course_id, topic_id=topic_id))
 

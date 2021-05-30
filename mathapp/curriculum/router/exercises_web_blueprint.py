@@ -13,7 +13,7 @@ def create_formula_exercise(course_id, topic_id):
 	if request.method == 'GET':
 		return controller(request).get_create_formula_exercise_form(course_id=course_id, topic_id=topic_id)
 	elif request.method == 'POST':
-		return 'blueprint placeholder'
+		return controller(request).post_create_formula_exercise_form(course_id=course_id, topic_id=topic_id)
 
 def controller(request):
 	return RootComposer(request).compose_exercise_web_controller()

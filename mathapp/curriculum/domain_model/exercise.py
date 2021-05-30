@@ -26,7 +26,7 @@ class Exercise:
             raise ValidationError(message = f'Invalid tag for exercise (id={self._id})')
 
     def get_id(self):
-        return self_id
+        return self._id
 
     def get_name(self):
         return self._name

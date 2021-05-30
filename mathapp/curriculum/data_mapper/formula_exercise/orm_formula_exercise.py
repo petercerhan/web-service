@@ -47,18 +47,19 @@ class ORMFormulaExercise(ORMExercise):
 
     def get_model(self, unit_of_work):
         if self._formula_exercise is not None:
-            return self._formual_exercise
+            return self._formula_exercise
 
         domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
 
-        formula_exercise = FormulaExercise(name=name,
-                                           tag=tag,
-                                           text=text,
-                                           formula_latex=formula_latex,
-                                           correct_option=correct_option,
-                                           incorrect_option_1=incorrect_option_1,
-                                           incorrect_option_2=incorrect_option_2,
-                                           incorrect_option_3=incorrect_option_3)
+        formula_exercise = FormulaExercise(name=self.name,
+                                           tag=self.tag,
+                                           text=self.text,
+                                           formula_latex=self.formula_latex,
+                                           correct_option=self.correct_option,
+                                           incorrect_option_1=self.incorrect_option_1,
+                                           incorrect_option_2=self.incorrect_option_2,
+                                           incorrect_option_3=self.incorrect_option_3,
+                                           unit_of_work=domain_model_unit_of_work)
         formula_exercise._id = self.id
         self._formula_exercise = formula_exercise
         super()._set_model(formula_exercise)

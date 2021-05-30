@@ -9,6 +9,9 @@ from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
 from mathapp.curriculum.data_mapper.lesson.orm_lesson import ORMLesson
 
+from mathapp.curriculum.data_mapper.exercise.orm_exercise import ORMExercise
+from mathapp.curriculum.data_mapper.formula_exercise.orm_formula_exercise import ORMFormulaExercise
+
 from mathapp.curriculum.data_mapper.lesson.lesson_list_value_holder import LessonListValueHolder
 from mathapp.curriculum.data_mapper.course_topic.course_topic_list_value_holder import CourseTopicListValueHolder
 from mathapp.curriculum.data_mapper.exercise.exercise_list_value_holder import ExerciseListValueHolder

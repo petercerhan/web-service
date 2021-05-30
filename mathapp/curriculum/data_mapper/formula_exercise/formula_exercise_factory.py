@@ -6,13 +6,17 @@ class FormulaExerciseFactory:
 		self._unit_of_work = unit_of_work
 
 	def create(self, fields):
+		name = fields.get('name')
+		tag = fields.get('tag')
 		text = fields.get('text')
 		formula_latex = fields.get('formula_latex')
 		correct_option = fields.get('correct_option')
 		incorrect_option_1 = fields.get('incorrect_option_1')
 		incorrect_option_2 = fields.get('incorrect_option_2')
 		incorrect_option_3 = fields.get('incorrect_option_3')
-		orm_formula_exercise = ORMFormulaExercise(text=text,
+		orm_formula_exercise = ORMFormulaExercise(name=name,
+												  tag=tag,
+												  text=text,
 												  formula_latex=formula_latex,
 												  correct_option=correct_option,
 												  incorrect_option_1=incorrect_option_1,

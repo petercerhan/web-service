@@ -11,7 +11,7 @@ class ExerciseInteractor:
 		self._unit_of_work = unit_of_work
 
 	def create_formula_exercise(self, topic_id, fields):
-		topic = self._topic_repository.get(topic_id)
-		formula_exercise = topic.create_exercise(exercise_factory=self._formula_exercise_factory)
+		topic = self._topic_repository.get(id=topic_id)
+		formula_exercise = topic.create_exercise(exercise_factory=self._formula_exercise_factory, fields=fields)
 		self._unit_of_work.commit()
 		return exercise_to_data(formula_exercise)

@@ -55,9 +55,13 @@ class CurriculumControllerComposer:
 
     def compose_exercise_web_controller(self):
         exercise_presenter = self._curriculum_presenter_composer.compose_exercise_presenter()
+        exercise_interactor = self._curriculum_interactor_composer.compose_exercise_interactor()
+        topic_presenter = self._curriculum_presenter_composer.compose_topic_presenter()
         topic_interactor = self._curriculum_interactor_composer.compose_topic_interactor()
         return ExerciseWebController(request=self._request,
                                      exercise_presenter=exercise_presenter,
+                                     exercise_interactor=exercise_interactor,
+                                     topic_presenter=topic_presenter,
                                      topic_interactor=topic_interactor)
 
 
