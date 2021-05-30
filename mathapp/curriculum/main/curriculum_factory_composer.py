@@ -4,9 +4,12 @@ from mathapp.curriculum.data_mapper.topic.topic_factory import TopicFactory
 from mathapp.curriculum.domain_model.topic_factory_validating_decorator import TopicFactoryValidatingDecorator
 from mathapp.curriculum.data_mapper.lesson.lesson_factory import LessonFactory
 from mathapp.curriculum.data_mapper.tutorial.tutorial_factory import TutorialFactory
+
 from mathapp.curriculum.data_mapper.text_tutorial_step.text_tutorial_step_factory import TextTutorialStepFactory
 from mathapp.curriculum.data_mapper.formula_tutorial_step.formula_tutorial_step_factory import FormulaTutorialStepFactory
 from mathapp.curriculum.data_mapper.image_tutorial_step.image_tutorial_step_factory import ImageTutorialStepFactory
+
+from mathapp.curriculum.data_mapper.formula_exercise.formula_exercise_factory import FormulaExerciseFactory
 
 class CurriculumFactoryComposer:
 
@@ -37,4 +40,16 @@ class CurriculumFactoryComposer:
 
     def compose_image_tutorial_step_factory(self):
         return ImageTutorialStepFactory(unit_of_work=self._unit_of_work)
+
+    def compose_formula_exercise_factory(self):
+        return FormulaExerciseFactory(unit_of_work=self._unit_of_work)
+
+
+
+
+
+
+
+
+
 

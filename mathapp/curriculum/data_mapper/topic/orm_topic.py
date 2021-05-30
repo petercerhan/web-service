@@ -11,6 +11,7 @@ from mathapp.curriculum.data_mapper.lesson.orm_lesson import ORMLesson
 
 from mathapp.curriculum.data_mapper.lesson.lesson_list_value_holder import LessonListValueHolder
 from mathapp.curriculum.data_mapper.course_topic.course_topic_list_value_holder import CourseTopicListValueHolder
+from mathapp.curriculum.data_mapper.exercise.exercise_list_value_holder import ExerciseListValueHolder
 
 class ORMTopic(Base):
     __tablename__ = 'topic'
@@ -24,6 +25,9 @@ class ORMTopic(Base):
 
     course_topics = relationship('ORMCourseTopic',
                                  back_populates='topic')
+
+    exercises = relationship('ORMExercise',
+                             back_populates='topic')
 
     def __init__(self,
                 name,
@@ -43,11 +47,13 @@ class ORMTopic(Base):
         domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
         lesson_list_value_holder = LessonListValueHolder(orm_model=self, unit_of_work=unit_of_work)
         course_topic_list_value_holder = CourseTopicListValueHolder(orm_model=self, unit_of_work=unit_of_work)
+        exercise_list_value_holder = ExerciseListValueHolder(orm_model=self, unit_of_work=unit_of_work)
 
         topic = Topic(name=self.name,
                       display_name=self.display_name,
                       lesson_list_value_holder=lesson_list_value_holder,
                       course_topic_list_value_holder=course_topic_list_value_holder,
+                      exercise_list_value_holder=exercise_list_value_holder,
                       unit_of_work=domain_model_unit_of_work)
         topic._id = self.id
 

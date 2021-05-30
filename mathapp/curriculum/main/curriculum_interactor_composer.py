@@ -5,6 +5,7 @@ from mathapp.curriculum.interactor.topic_interactor import TopicInteractor
 from mathapp.curriculum.interactor.lesson_interactor import LessonInteractor
 from mathapp.curriculum.interactor.tutorial_interactor import TutorialInteractor
 from mathapp.curriculum.interactor.tutorial_step_interactor import TutorialStepInteractor
+from mathapp.curriculum.interactor.exercise_interactor import ExerciseInteractor
 
 class CurriculumInteractorComposer:
 
@@ -56,6 +57,20 @@ class CurriculumInteractorComposer:
                                     file_service=file_service,
                                     date_service=date_service,
                                     unit_of_work=self._unit_of_work)
+
+    def compose_exercise_interactor(self):
+      topic_repository = self._curriculum_repository_composer.compose_topic_repository()
+      formula_exercise_factory = self._curriculum_factory_composer.compose_formula_exercise_factory()
+      return ExerciseInteractor(topic_repository=topic_repository,
+                                formula_exercise_factory=formula_exercise_factory,
+                                unit_of_work=self._unit_of_work)
+
+
+
+
+
+
+
 
 
 

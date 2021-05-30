@@ -7,6 +7,7 @@ class Topic:
                  display_name,
                  lesson_list_value_holder,
                  course_topic_list_value_holder,
+                 exercise_list_value_holder,
                  unit_of_work):
 
         self._id = None
@@ -14,6 +15,7 @@ class Topic:
         self._display_name = display_name
         self._lesson_list_value_holder = lesson_list_value_holder
         self._course_topic_list_value_holder = course_topic_list_value_holder
+        self._exercise_list_value_holder = exercise_list_value_holder
         self._unit_of_work = unit_of_work
         self._check_invariants()
 
@@ -44,6 +46,8 @@ class Topic:
         self._display_name = display_name
         self._check_invariants()
         self._unit_of_work.register_dirty(self)
+
+
 
     def get_lessons(self):
         return self._lesson_list_value_holder.get_list()
@@ -83,6 +87,11 @@ class Topic:
         self._unit_of_work.register_dirty(self)
 
 
+    def create_exercise(self, exercise_factory, fields):
+        exercise = exercise_factory.create(fields=fields)
+        self._exercise_list_value_holder.add(exercise)
+        return exercise
+
 
     def delete(self):
         course_topics = self._course_topic_list_value_holder.get_list()
@@ -94,7 +103,7 @@ class Topic:
             lesson.delete()
 
         self._unit_of_work.register_deleted(self)
-    
+
 
     def __repr__(self):
         return "<Topic(name='%s') ID(id='%s')>" % (self._name, self._id)

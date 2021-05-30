@@ -2,6 +2,7 @@ from mathapp.curriculum.presenter.topic_presenter import TopicPresenter
 from mathapp.curriculum.presenter.lesson_presenter import LessonPresenter
 from mathapp.curriculum.presenter.tutorial_presenter import TutorialPresenter
 from mathapp.curriculum.presenter.tutorial_step_presenter import TutorialStepPresenter
+from mathapp.curriculum.presenter.exercise_presenter import ExercisePresenter
 
 class CurriculumPresenterComposer:
 
@@ -20,4 +21,8 @@ class CurriculumPresenterComposer:
     def compose_tutorial_step_presenter(self):
         file_service = self._infrastructure_service_composer.compose_file_service()
         return TutorialStepPresenter(file_service=file_service)
+
+    def compose_exercise_presenter(self):
+        return ExercisePresenter()
+
 

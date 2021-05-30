@@ -4,10 +4,6 @@ from flask import (
 
 from mathapp.library.errors.mathapp_error import MathAppError
 
-import json
-
-import sys
-
 class TutorialStepWebController:
 
 	def __init__(self,

@@ -5,6 +5,7 @@ from mathapp.curriculum.controller.topic_web_controller import TopicWebControlle
 from mathapp.curriculum.controller.lesson_web_controller import LessonWebController
 from mathapp.curriculum.controller.tutorial_web_controller import TutorialWebController
 from mathapp.curriculum.controller.tutorial_step_web_controller import TutorialStepWebController
+from mathapp.curriculum.controller.exercise_web_controller import ExerciseWebController
 
 
 class CurriculumControllerComposer:
@@ -51,4 +52,24 @@ class CurriculumControllerComposer:
         return TutorialStepWebController(request=self._request,
                                          tutorial_step_presenter=tutorial_step_presenter,
                                          tutorial_step_interactor=tutorial_step_interactor)
+
+    def compose_exercise_web_controller(self):
+        exercise_presenter = self._curriculum_presenter_composer.compose_exercise_presenter()
+        topic_interactor = self._curriculum_interactor_composer.compose_topic_interactor()
+        return ExerciseWebController(request=self._request,
+                                     exercise_presenter=exercise_presenter,
+                                     topic_interactor=topic_interactor)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
