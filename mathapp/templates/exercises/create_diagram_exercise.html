@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Create Diagram Exercise for Topic: {{ topic['name'] }} {% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+
+    <label for="name">Name</label>
+    <input name="name" id="name" value="{{ request.form['name'] }}" required>
+
+    <label for="tag">Tag</label>
+    <input name="tag" id="tag" value="{{ request.form['tag'] }}" required>
+
+    <label for="text">Text</label>
+    <input name="text" id="text" value="{{ request.form['text'] }}" required>
+
+    <label for="source_code_file">Source Code File</label>
+    <input type=file name="source_code_file" id="source_code_file" required>
+
+    <label for="image_file">Image File</label>
+    <input type=file name="image_file" id="image_file" required>
+
+    <label for="correct_option">Correct Option</label>
+    <input name="correct_option" id="correct_option" value="{{ request.form['correct_option'] }}" required>
+
+    <label for="incorrect_option_1">Incorrect Option 1</label>
+    <input name="incorrect_option_1" id="incorrect_option_1" value="{{ request.form['incorrect_option_1'] }}" required>
+
+    <label for="incorrect_option_2">Incorrect Option 2</label>
+    <input name="incorrect_option_2" id="incorrect_option_2" value="{{ request.form['incorrect_option_2'] }}" required>
+
+    <label for="incorrect_option_3">Incorrect Option 3</label>
+    <input name="incorrect_option_3" id="incorrect_option_3" value="{{ request.form['incorrect_option_3'] }}" required>
+
+    <input type="submit" value="Save">
+    <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
+  </form>
+{% endblock %}

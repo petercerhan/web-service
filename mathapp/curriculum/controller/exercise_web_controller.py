@@ -41,4 +41,18 @@ class ExerciseWebController:
 		except MathAppError as error:
 			return error.message
 
+	def get_create_diagram_exercise_form(self, course_id, topic_id):
+		try:			
+			topic = self._topic_interactor.get(topic_id)
+			return  self._exercise_presenter.create_diagram_exercise_form(topic=topic)
+		except MathAppError as error:
+			return error.message
+
+
+
+
+
+
+
+
 

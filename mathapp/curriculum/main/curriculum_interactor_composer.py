@@ -61,8 +61,14 @@ class CurriculumInteractorComposer:
     def compose_exercise_interactor(self):
       topic_repository = self._curriculum_repository_composer.compose_topic_repository()
       formula_exercise_factory = self._curriculum_factory_composer.compose_formula_exercise_factory()
+      diagram_exercise_factory = self._curriculum_factory_composer.compose_diagram_exercise_factory()
+      file_service = self._infrastructure_service_composer.compose_file_service()
+      date_service = self._infrastructure_service_composer.compose_date_service()
       return ExerciseInteractor(topic_repository=topic_repository,
                                 formula_exercise_factory=formula_exercise_factory,
+                                diagram_exercise_factory=diagram_exercise_factory,
+                                file_service=file_service,
+                                date_service=date_service,
                                 unit_of_work=self._unit_of_work)
 
 

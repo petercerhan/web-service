@@ -60,6 +60,8 @@ class FormulaExercise(Exercise):
 		if self._incorrect_option_3.strip() == '':
 			raise ValidationError(message = f'Invalid incorrect_option_3 for FormulaExercise (id={self._id})')
 
+		super()._check_invariants()
+
 
 	def get_type(self):
 		return 'formula_exercise'

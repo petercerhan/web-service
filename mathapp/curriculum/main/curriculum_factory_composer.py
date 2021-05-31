@@ -10,6 +10,7 @@ from mathapp.curriculum.data_mapper.formula_tutorial_step.formula_tutorial_step_
 from mathapp.curriculum.data_mapper.image_tutorial_step.image_tutorial_step_factory import ImageTutorialStepFactory
 
 from mathapp.curriculum.data_mapper.formula_exercise.formula_exercise_factory import FormulaExerciseFactory
+from mathapp.curriculum.data_mapper.diagram_exercise.diagram_exercise_factory import DiagramExerciseFactory
 
 class CurriculumFactoryComposer:
 
@@ -43,6 +44,9 @@ class CurriculumFactoryComposer:
 
     def compose_formula_exercise_factory(self):
         return FormulaExerciseFactory(unit_of_work=self._unit_of_work)
+
+    def compose_diagram_exercise_factory(self):
+        return DiagramExerciseFactory(unit_of_work=self._unit_of_work)
 
 
 
