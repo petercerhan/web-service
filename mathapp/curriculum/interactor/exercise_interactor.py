@@ -30,7 +30,7 @@ class ExerciseInteractor:
 
 		create_fields = fields
 		create_fields['source_code_filename'] = filename
-		create_fields['image_data'] = image_file.read()
+		create_fields['diagram_image_data'] = image_file.read()
 
 		diagram_exercise = topic.create_exercise(exercise_factory=self._diagram_exercise_factory, fields=create_fields)
 		self._unit_of_work.commit()

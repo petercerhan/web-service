@@ -34,7 +34,8 @@ class ORMDiagramExercise(ORMExercise):
                  incorrect_option_2,
                  incorrect_option_3):
         self.text = text
-        self.formula_latex = formula_latex
+        self.diagram_image_data = diagram_image_data
+        self.source_code_filename = source_code_filename
         self.correct_option = correct_option
         self.incorrect_option_1 = incorrect_option_1
         self.incorrect_option_2 = incorrect_option_2

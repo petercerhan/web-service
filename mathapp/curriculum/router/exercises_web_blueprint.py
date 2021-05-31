@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, request
+    Blueprint, request, g
 )
 from mathapp.flask.auth_web_blueprint import login_required
 from mathapp.flask.root_composer import RootComposer
@@ -21,8 +21,8 @@ def create_diagram_exercise(course_id, topic_id):
 	if request.method == 'GET':
 		return controller(request).get_create_diagram_exercise_form(course_id=course_id, topic_id=topic_id)
 	elif request.method == 'POST':
-		# return controller(request).post_create_formula_exercise_form(course_id=course_id, topic_id=topic_id)
-		return 'test'
+		user_id = g.user_id
+		return controller(request).post_create_diagram_exercise_form(course_id=course_id, topic_id=topic_id, user_id=user_id)
 
 
 def controller(request):

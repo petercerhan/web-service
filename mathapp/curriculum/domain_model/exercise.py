@@ -25,6 +25,9 @@ class Exercise:
         if self._tag.strip() == '':
             raise ValidationError(message = f'Invalid tag for exercise (id={self._id})')
 
+    def get_type(self):
+        return 'exercise'
+
     def get_id(self):
         return self._id
 
