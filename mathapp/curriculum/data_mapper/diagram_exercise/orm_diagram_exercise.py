@@ -43,44 +43,45 @@ class ORMDiagramExercise(ORMExercise):
         super().__init__(name=name, tag=tag)
         self._diagram_exercise = None
 
-        @orm.reconstructor
-        def init_on_load(self):
-            self._diagram_exercise = None
-            super().init_on_load()
+    @orm.reconstructor
+    def init_on_load(self):
+        self._diagram_exercise = None
+        super().init_on_load()
 
-        def get_model(self, unit_of_work):
-            if self._diagram_exercise is not None:
-                return self._diagram_exercise
 
-            domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
+    def get_model(self, unit_of_work):
+        if self._diagram_exercise is not None:
+            return self._diagram_exercise
 
-            diagram_exercise = DiagramExercise(name=self.name,
-                                               tag=self.tag,
-                                               text=self.text,
-                                               diagram_image_data=self.diagram_image_data,
-                                               source_code_filename=self.source_code_filename,
-                                               correct_option=self.correct_option,
-                                               incorrect_option_1=self.incorrect_option_1,
-                                               incorrect_option_2=self.incorrect_option_2,
-                                               incorrect_option_3=self.incorrect_option_3,
-                                               unit_of_work=domain_model_unit_of_work)
-            diagram_exercise._id = self.id
-            self._diagram_exercise = diagram_exercise
-            super()._set_model(diagram_exercise)
-            return diagram_exercise
+        domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
 
-        def sync_id(self):
-            self._diagram_exercise._id = self.id
+        diagram_exercise = DiagramExercise(name=self.name,
+                                           tag=self.tag,
+                                           text=self.text,
+                                           diagram_image_data=self.diagram_image_data,
+                                           source_code_filename=self.source_code_filename,
+                                           correct_option=self.correct_option,
+                                           incorrect_option_1=self.incorrect_option_1,
+                                           incorrect_option_2=self.incorrect_option_2,
+                                           incorrect_option_3=self.incorrect_option_3,
+                                           unit_of_work=domain_model_unit_of_work)
+        diagram_exercise._id = self.id
+        self._diagram_exercise = diagram_exercise
+        super()._set_model(diagram_exercise)
+        return diagram_exercise
 
-        def sync_fields(self):
-            self.text = text
-            self.diagram_image_data = diagram_image_data
-            self.source_code_filename = source_code_filename
-            self.correct_option = correct_option
-            self.incorrect_option_1 = incorrect_option_1
-            self.incorrect_option_2 = incorrect_option_2
-            self.incorrect_option_3 = incorrect_option_3
-            super().sync_fields()
+    def sync_id(self):
+        self._diagram_exercise._id = self.id
+
+    def sync_fields(self):
+        self.text = text
+        self.diagram_image_data = diagram_image_data
+        self.source_code_filename = source_code_filename
+        self.correct_option = correct_option
+        self.incorrect_option_1 = incorrect_option_1
+        self.incorrect_option_2 = incorrect_option_2
+        self.incorrect_option_3 = incorrect_option_3
+        super().sync_fields()
 
     def __repr__(self):
         return f'<ORMDiagramExercise(id={self.id}, type={self.type})>'

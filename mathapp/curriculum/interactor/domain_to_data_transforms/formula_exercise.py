@@ -2,7 +2,7 @@
 
 def formula_exercise_to_data(formula_exercise):
 	return {'id': formula_exercise.get_id(), 
-			'type': diagram_exercise.get_type(), 
+			'type': formula_exercise.get_type(), 
 			'name': formula_exercise.get_name(), 
 			'tag': formula_exercise.get_tag(),
 			'text': formula_exercise.get_text(), 

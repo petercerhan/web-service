@@ -4,3 +4,27 @@
   <h1>{% block title %} Edit Exercises for Topic: {{ topic['display_name'] }} {% endblock %}</h1>
 {% endblock %}
 
+{% block content %}
+
+<div id="react_exercise_table"></div>
+
+
+<div id="exercises_json_div" exercises="{{ exercises_json }}" ></div>
+
+<div id="edit_text_tutorial_step_url_div" url="{{ url_for('tutorial_steps.edit_text_tutorial_step', course_id=course_id, tutorial_id=tutorial['id'], tutorial_step_id=0) }}/edit" ></div>
+
+{% endblock %}
+
+
+{% block react_imports %}
+
+<script src="{{ url_for('static', filename='react.development.js') }}" crossorigin></script>
+<script src="{{ url_for('static', filename='react-dom.development.js') }}" crossorigin></script>
+
+<script type="text/javascript">
+{% include 'topics/edit_exercises_transpiled.js' %}
+</script>
+
+
+{% endblock %}
+

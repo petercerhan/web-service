@@ -42,7 +42,8 @@ class TopicPresenter:
 
 	def edit_exercises_form(self, topic):
 		return render_template('topics/edit_exercises.html',
-							    topic=topic)
+							    topic=topic,
+							    exercises_json=json.dumps(topic['exercises']))
 
 	def edit_exercises_form_redirect(self, course_id, topic_id):
 		return redirect(url_for('topics.edit_exercises', course_id=course_id, topic_id=topic_id))

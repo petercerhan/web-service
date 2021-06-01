@@ -86,6 +86,8 @@ class Topic:
         self._check_invariants()
         self._unit_of_work.register_dirty(self)
 
+    def get_exercises(self):
+        return self._exercise_list_value_holder.get_list()
 
     def create_exercise(self, exercise_factory, fields):
         exercise = exercise_factory.create(fields=fields)

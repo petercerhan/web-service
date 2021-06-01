@@ -16,11 +16,11 @@ class DiagramExercise(Exercise):
 				 unit_of_work):
 		self._text = text
 		self._diagram_image_data = diagram_image_data
-		self.source_code_filename = source_code_filename
-		self.correct_option = correct_option
-		self.incorrect_option_1 = incorrect_option_1
-		self.incorrect_option_2 = incorrect_option_2
-		self.incorrect_option_3 = incorrect_option_3
+		self._source_code_filename = source_code_filename
+		self._correct_option = correct_option
+		self._incorrect_option_1 = incorrect_option_1
+		self._incorrect_option_2 = incorrect_option_2
+		self._incorrect_option_3 = incorrect_option_3
 		self._unit_of_work = unit_of_work
 		super().__init__(name, tag, unit_of_work)
 		self._check_invariants()
