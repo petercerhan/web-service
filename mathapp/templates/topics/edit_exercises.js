@@ -10,6 +10,7 @@ function Exercise(props) {
 
 class ExerciseList extends React.Component {
 	render() {
+
 		const exercise_elements = this.props.exercises.map( (exercise, index, arrayObj) =>
 			<Exercise
 				exercise={exercise}
@@ -22,19 +23,21 @@ class ExerciseList extends React.Component {
 
 class ExerciseSectionedList extends React.Component {
 	render() {
-		let exercises = JSON.parse(this.props.exercises_json);
-		let formula_exercises = exercises.filter(function(e) { return e.type == 'formula_exercise'} );
-		let diagram_exercises = exercises.filter(function(e) { return e.type == 'diagram_exercise'} );
-		return (
+		const exercises = JSON.parse(this.props.exercises_json);
+		const tags = exercises.map(x => x.tag);
+		const uniqueTags = [...new Set(tags)];
+
+		const exerciseLists = uniqueTags.map( (tag, index, arrayObj) =>
 			<div>
-				<ExerciseList exercises={formula_exercises} />
-				<hr/>
-				<br/>
-				<ExerciseList exercises={diagram_exercises} />
-				<hr/>
+				<p>{tag}</p>
+				<ExerciseList
+					exercises={exercises.filter(function(e) { return e.tag == tag })}
+				/>
 				<br/>
 			</div>
 		)
+
+		return (exerciseLists)
 	}
 }
 

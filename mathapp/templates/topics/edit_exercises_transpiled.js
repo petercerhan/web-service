@@ -1,5 +1,7 @@
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -30,6 +32,7 @@ var ExerciseList = function (_React$Component) {
 	_createClass(ExerciseList, [{
 		key: 'render',
 		value: function render() {
+
 			var exercise_elements = this.props.exercises.map(function (exercise, index, arrayObj) {
 				return React.createElement(Exercise, {
 					exercise: exercise
@@ -56,22 +59,30 @@ var ExerciseSectionedList = function (_React$Component2) {
 		key: 'render',
 		value: function render() {
 			var exercises = JSON.parse(this.props.exercises_json);
-			var formula_exercises = exercises.filter(function (e) {
-				return e.type == 'formula_exercise';
+			var tags = exercises.map(function (x) {
+				return x.tag;
 			});
-			var diagram_exercises = exercises.filter(function (e) {
-				return e.type == 'diagram_exercise';
+			var uniqueTags = [].concat(_toConsumableArray(new Set(tags)));
+
+			var exerciseLists = uniqueTags.map(function (tag, index, arrayObj) {
+				return React.createElement(
+					'div',
+					null,
+					React.createElement(
+						'p',
+						null,
+						tag
+					),
+					React.createElement(ExerciseList, {
+						exercises: exercises.filter(function (e) {
+							return e.tag == tag;
+						})
+					}),
+					React.createElement('br', null)
+				);
 			});
-			return React.createElement(
-				'div',
-				null,
-				React.createElement(ExerciseList, { exercises: formula_exercises }),
-				React.createElement('hr', null),
-				React.createElement('br', null),
-				React.createElement(ExerciseList, { exercises: diagram_exercises }),
-				React.createElement('hr', null),
-				React.createElement('br', null)
-			);
+
+			return exerciseLists;
 		}
 	}]);
 

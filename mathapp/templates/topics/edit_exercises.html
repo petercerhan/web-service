@@ -7,11 +7,18 @@
 {% block content %}
 
 <div id="react_exercise_table"></div>
+<br>
+ <a class="action" href="{{ url_for('exercises.create_formula_exercise', course_id=course_id, topic_id=topic['id']) }}">Add Formula Exercise</a>
+<br>
+
+<br>
+ <a class="action" href="{{ url_for('exercises.create_diagram_exercise', course_id=course_id, topic_id=topic['id']) }}">Add Diagram Exercise</a>
+<br>
 
 
 <div id="exercises_json_div" exercises="{{ exercises_json }}" ></div>
 
-<div id="edit_text_tutorial_step_url_div" url="{{ url_for('tutorial_steps.edit_text_tutorial_step', course_id=course_id, tutorial_id=tutorial['id'], tutorial_step_id=0) }}/edit" ></div>
+
 
 {% endblock %}
 

@@ -40,8 +40,9 @@ class TopicPresenter:
 		target_path = url_for('topics.edit', course_id=course_id, topic_id=topic_id)
 		return redirect(target_path)
 
-	def edit_exercises_form(self, topic):
+	def edit_exercises_form(self, course_id, topic):
 		return render_template('topics/edit_exercises.html',
+							    course_id=course_id,
 							    topic=topic,
 							    exercises_json=json.dumps(topic['exercises']))
 
