@@ -24,6 +24,13 @@ def create_diagram_exercise(course_id, topic_id):
 		user_id = g.user_id
 		return controller(request).post_create_diagram_exercise_form(course_id=course_id, topic_id=topic_id, user_id=user_id)
 
+@bp.route('/courses/<int:course_id>/formula_exercises/<int:exercise_id>', methods=('GET', 'POST'))
+@login_required
+def edit_formula_exercise(course_id, exercise_id):
+	if request.method == 'GET':
+		return controller(request).get_edit_formula_exercise_form(course_id=course_id, exercise_id=exercise_id)
+	elif request.method == 'POST':
+		return 'post'
 
 def controller(request):
 	return RootComposer(request).compose_exercise_web_controller()

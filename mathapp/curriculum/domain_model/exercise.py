@@ -34,9 +34,18 @@ class Exercise:
     def get_name(self):
         return self._name
 
+    def set_name(self, name):
+        self._name = name
+        self._check_invariants()
+        self._unit_of_work.register_dirty(self)
+
     def get_tag(self):
         return self._tag
 
+    def set_tag(self, tag):
+        self._tag = tag
+        self._check_invariants()
+        self._unit_of_work.register_dirty(self)
 
     def __repr__(self):
         return f'<Exercise(id={self._id}, name={self._name})>'

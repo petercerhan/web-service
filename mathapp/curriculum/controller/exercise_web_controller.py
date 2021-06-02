@@ -72,6 +72,25 @@ class ExerciseWebController:
 			return error.message
 
 
+	def get_edit_formula_exercise_form(self, course_id, exercise_id):
+		try:
+			formula_exercise = self._exercise_interactor.get(id=exercise_id)
+			return self._exercise_presenter.edit_formula_exercise_form(formula_exercise=formula_exercise)
+		except MathAppError as error:
+			return error.message
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

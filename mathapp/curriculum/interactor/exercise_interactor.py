@@ -6,21 +6,64 @@ class ExerciseInteractor:
 				 topic_repository,
 				 formula_exercise_factory,
 				 diagram_exercise_factory,
+				 exercise_repository,
 				 file_service,
 				 date_service,
 				 unit_of_work):
 		self._topic_repository = topic_repository
 		self._formula_exercise_factory = formula_exercise_factory
 		self._diagram_exercise_factory = diagram_exercise_factory
+		self._exercise_repository = exercise_repository
 		self._file_service = file_service
 		self._date_service = date_service
 		self._unit_of_work = unit_of_work
+
+
+	def get(self, id):
+		exercise = self._exercise_repository.get(id=id)
+		return exercise_to_data(exercise)
+
 
 	def create_formula_exercise(self, topic_id, fields):
 		topic = self._topic_repository.get(id=topic_id)
 		formula_exercise = topic.create_exercise(exercise_factory=self._formula_exercise_factory, fields=fields)
 		self._unit_of_work.commit()
 		return exercise_to_data(formula_exercise)
+
+
+	def update_formula_exercise(self, id, fields):
+		exercise = self._exercise_repository.get(id=id)
+
+		name = fields.get('name')
+		if name is not None:
+			exercise.set_name(name)
+
+		tag = fields.get('tag')
+		if tag is not None:
+			exercise.set_tag(tag)
+
+		formula_latex = fields.get('formula_latex')
+		if formula_latex is not None:
+			exercise.set_formula_latex(formula_latex)
+
+		correct_option = fields.get('correct_option')
+		if correct_option is not None:
+			exercise.set_correct_option(correct_option)
+
+		incorrect_option_1 = fields.get('incorrect_option_1')
+		if incorrect_option_1 is not None:
+			exercise.set_incorrect_option_1(incorrect_option_1)
+
+		incorrect_option_2 = fields.get('incorrect_option_2')
+		if incorrect_option_2 is not None:
+			exercise.set_incorrect_option_2(incorrect_option_2)
+
+		incorrect_option_3 = fields.get('incorrect_option_3')
+		if incorrect_option_3 is not None:
+			exercise.set_incorrect_option_3(incorrect_option_3)
+
+		return exercise_to_data(exercise)
+
 
 	def create_diagram_exercise(self, user_id, topic_id, source_code_file, image_file, fields):		
 		topic = self._topic_repository.get(id=topic_id)
@@ -43,4 +86,6 @@ class ExerciseInteractor:
 		timestamp = self._date_service.format_datetime_as_timestamp(datetime)
 		filename = f'ImageTutorialStepSourceCode_{user_id}_{timestamp}.{file_extension}'
 		return filename
+
+
 

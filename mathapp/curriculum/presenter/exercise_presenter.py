@@ -12,4 +12,8 @@ class ExercisePresenter:
 	def create_diagram_exercise_form(self, topic):
 		return render_template('exercises/create_diagram_exercise.html', topic=topic)
 
+	def edit_formula_exercise_form(self, formula_exercise):
+		return render_template('exercises/edit_formula_exercise.html', formula_exercise=formula_exercise)
+
+
 

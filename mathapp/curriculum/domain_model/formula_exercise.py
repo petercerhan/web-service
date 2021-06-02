@@ -69,20 +69,50 @@ class FormulaExercise(Exercise):
 	def get_text(self):
 		return self._text
 
+	def set_text(self, text):
+		self._text = text
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
+
 	def get_formula_latex(self):
 		return self._formula_latex
+
+	def set_formula_latex(self, formula_latex):
+		self._formula_latex = formula_latex
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
 
 	def get_correct_option(self):
 		return self._correct_option
 
+	def set_correct_option(self, correct_option):
+		self._correct_option = correct_option
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
+
 	def get_incorrect_option_1(self):
 		return self._incorrect_option_1
+
+	def set_incorrect_option_1(self, incorrect_option_1):
+		self._incorrect_option_1 = incorrect_option_1
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
 
 	def get_incorrect_option_2(self):
 		return self._incorrect_option_2
 
+	def set_incorrect_option_2(self, incorrect_option_2):
+		self._incorrect_option_2 = incorrect_option_2
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
+
 	def get_incorrect_option_3(self):
 		return self._incorrect_option_3
+
+	def set_incorrect_option_3(self, incorrect_option_3):
+		self._incorrect_option_3 = incorrect_option_3
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
 
 
 	def __repr__(self):
