@@ -42,6 +42,10 @@ class ExerciseInteractor:
 		if tag is not None:
 			exercise.set_tag(tag)
 
+		text = fields.get('text')
+		if tag is not None:
+			exercise.set_text(text)
+
 		formula_latex = fields.get('formula_latex')
 		if formula_latex is not None:
 			exercise.set_formula_latex(formula_latex)
@@ -62,6 +66,7 @@ class ExerciseInteractor:
 		if incorrect_option_3 is not None:
 			exercise.set_incorrect_option_3(incorrect_option_3)
 
+		self._unit_of_work.commit()
 		return exercise_to_data(exercise)
 
 

@@ -69,12 +69,12 @@ class ORMFormulaExercise(ORMExercise):
         self._formula_exercise._id = self.id
 
     def sync_fields(self):
-        self.text = text
-        self.formula_latex = formula_latex
-        self.correct_option = correct_option
-        self.incorrect_option_1 = incorrect_option_1
-        self.incorrect_option_2 = incorrect_option_2
-        self.incorrect_option_3 = incorrect_option_3
+        self.text = self._formula_exercise._text
+        self.formula_latex = self._formula_exercise._formula_latex
+        self.correct_option = self._formula_exercise._correct_option
+        self.incorrect_option_1 = self._formula_exercise._incorrect_option_1
+        self.incorrect_option_2 = self._formula_exercise._incorrect_option_2
+        self.incorrect_option_3 = self._formula_exercise._incorrect_option_3
         super().sync_fields()
 
     def __repr__(self):

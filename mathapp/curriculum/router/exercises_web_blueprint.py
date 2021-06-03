@@ -30,7 +30,7 @@ def edit_formula_exercise(course_id, exercise_id):
 	if request.method == 'GET':
 		return controller(request).get_edit_formula_exercise_form(course_id=course_id, exercise_id=exercise_id)
 	elif request.method == 'POST':
-		return 'post'
+		return controller(request).post_edit_formula_exercise_form(course_id=course_id, exercise_id=exercise_id)
 
 def controller(request):
 	return RootComposer(request).compose_exercise_web_controller()

@@ -74,13 +74,13 @@ class ORMDiagramExercise(ORMExercise):
         self._diagram_exercise._id = self.id
 
     def sync_fields(self):
-        self.text = text
-        self.diagram_image_data = diagram_image_data
-        self.source_code_filename = source_code_filename
-        self.correct_option = correct_option
-        self.incorrect_option_1 = incorrect_option_1
-        self.incorrect_option_2 = incorrect_option_2
-        self.incorrect_option_3 = incorrect_option_3
+        self.text = self._diagram_exercise._text
+        self.diagram_image_data = self._diagram_exercise._diagram_image_data
+        self.source_code_filename = self._diagram_exercise._source_code_filename
+        self.correct_option = self._diagram_exercise._correct_option
+        self.incorrect_option_1 = self._diagram_exercise._incorrect_option_1
+        self.incorrect_option_2 = self._diagram_exercise._incorrect_option_2
+        self.incorrect_option_3 = self._diagram_exercise._incorrect_option_3
         super().sync_fields()
 
     def __repr__(self):

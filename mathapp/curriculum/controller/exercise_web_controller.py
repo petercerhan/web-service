@@ -79,6 +79,24 @@ class ExerciseWebController:
 		except MathAppError as error:
 			return error.message
 
+	def post_edit_formula_exercise_form(self, course_id, exercise_id):
+		fields = {}
+		fields['name'] = self._request.form.get('name')
+		fields['tag'] = self._request.form.get('tag')
+		fields['text'] = self._request.form.get('text')
+		fields['formula_latex'] = self._request.form.get('formula_latex')
+		fields['correct_option'] = self._request.form.get('correct_option')
+		fields['incorrect_option_1'] = self._request.form.get('incorrect_option_1')
+		fields['incorrect_option_2'] = self._request.form.get('incorrect_option_2')
+		fields['incorrect_option_3'] = self._request.form.get('incorrect_option_3')
+
+		try:
+			self._exercise_interactor.update_formula_exercise(id=exercise_id, fields=fields)
+			return 'Success!'
+		except MathAppError as error:
+			return error.message
+		
+
 
 
 

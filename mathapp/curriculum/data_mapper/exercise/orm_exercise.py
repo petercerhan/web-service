@@ -53,8 +53,8 @@ class ORMExercise(Base):
         self._exercise._id = self.id
 
     def sync_fields(self):
-        self.name = self._exercise.name
-        self.tag = self._exercise.tag
+        self.name = self._exercise._name
+        self.tag = self._exercise._tag
 
     def __repr__(self):
          return f'<ORMExercise(id={self.id}, type={self.type})>'
