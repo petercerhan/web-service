@@ -4,6 +4,7 @@ from sqlalchemy.orm import relationship
 from mathapp.sqlalchemy.base import Base
 
 from mathapp.curriculum.domain_model.exercise import Exercise
+from mathapp.curriculum.data_mapper.topic.topic_value_holder import TopicValueHolder
 
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
@@ -15,7 +16,7 @@ class ORMExercise(Base):
     name = Column(String)
     tag = Column(String)
 
-    topic = relationship('ORMTopic', uselist=False, lazy='joined', back_populates='exercises')
+    topic = relationship('ORMTopic', uselist=False, back_populates='exercises')
 
     __mapper_args__ = {
         'polymorphic_identity': 'exercise',
@@ -41,6 +42,7 @@ class ORMExercise(Base):
             return self._exercise
 
         domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
+        topic_value_holder = TopicValueHolder(orm_model=self, unit_of_work=unit_of_work)
 
         exercise = Exercise(name=self.name,
                             tag=self.tag,

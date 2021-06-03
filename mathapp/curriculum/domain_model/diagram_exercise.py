@@ -6,6 +6,7 @@ class DiagramExercise(Exercise):
 	def __init__(self,
 				 name,
 				 tag,
+				 topic_value_holder,
 				 text,
 				 diagram_image_data,
 				 source_code_filename,
@@ -22,7 +23,7 @@ class DiagramExercise(Exercise):
 		self._incorrect_option_2 = incorrect_option_2
 		self._incorrect_option_3 = incorrect_option_3
 		self._unit_of_work = unit_of_work
-		super().__init__(name, tag, unit_of_work)
+		super().__init__(name, tag, topic_value_holder, unit_of_work)
 		self._check_invariants()
 
 	def _check_invariants(self):

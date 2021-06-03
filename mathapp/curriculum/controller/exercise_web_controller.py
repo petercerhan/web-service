@@ -91,8 +91,8 @@ class ExerciseWebController:
 		fields['incorrect_option_3'] = self._request.form.get('incorrect_option_3')
 
 		try:
-			self._exercise_interactor.update_formula_exercise(id=exercise_id, fields=fields)
-			return 'Success!'
+			formula_exercise = self._exercise_interactor.update_formula_exercise(id=exercise_id, fields=fields)
+			return self._topic_presenter.edit_exercises_form_redirect(course_id=course_id, topic_id=formula_exercise['topic']['id'])
 		except MathAppError as error:
 			return error.message
 		

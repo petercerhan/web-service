@@ -5,6 +5,7 @@ from mathapp.sqlalchemy.base import Base
 
 from mathapp.curriculum.domain_model.diagram_exercise import DiagramExercise
 from mathapp.curriculum.data_mapper.exercise.orm_exercise import ORMExercise
+from mathapp.curriculum.data_mapper.topic.topic_value_holder import TopicValueHolder
 
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
@@ -54,10 +55,12 @@ class ORMDiagramExercise(ORMExercise):
             return self._diagram_exercise
 
         domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
+        topic_value_holder = TopicValueHolder(orm_model=self, unit_of_work=unit_of_work)
 
         diagram_exercise = DiagramExercise(name=self.name,
                                            tag=self.tag,
                                            text=self.text,
+                                           topic_value_holder=topic_value_holder,
                                            diagram_image_data=self.diagram_image_data,
                                            source_code_filename=self.source_code_filename,
                                            correct_option=self.correct_option,

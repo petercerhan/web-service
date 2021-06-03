@@ -6,6 +6,8 @@ from mathapp.sqlalchemy.base import Base
 from mathapp.curriculum.domain_model.formula_exercise import FormulaExercise
 from mathapp.curriculum.data_mapper.exercise.orm_exercise import ORMExercise
 
+from mathapp.curriculum.data_mapper.topic.topic_value_holder import TopicValueHolder
+
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
 class ORMFormulaExercise(ORMExercise):
@@ -50,10 +52,12 @@ class ORMFormulaExercise(ORMExercise):
             return self._formula_exercise
 
         domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
+        topic_value_holder = TopicValueHolder(orm_model=self, unit_of_work=unit_of_work)
 
         formula_exercise = FormulaExercise(name=self.name,
                                            tag=self.tag,
                                            text=self.text,
+                                           topic_value_holder=topic_value_holder,
                                            formula_latex=self.formula_latex,
                                            correct_option=self.correct_option,
                                            incorrect_option_1=self.incorrect_option_1,

@@ -1,4 +1,5 @@
 from mathapp.curriculum.interactor.domain_to_data_transforms.exercise import exercise_to_data
+from mathapp.curriculum.interactor.domain_to_data_transforms.formula_exercise_enriched import formula_exercise_to_enriched_data
 
 class ExerciseInteractor:
 
@@ -67,7 +68,7 @@ class ExerciseInteractor:
 			exercise.set_incorrect_option_3(incorrect_option_3)
 
 		self._unit_of_work.commit()
-		return exercise_to_data(exercise)
+		return formula_exercise_to_enriched_data(exercise)
 
 
 	def create_diagram_exercise(self, user_id, topic_id, source_code_file, image_file, fields):		
