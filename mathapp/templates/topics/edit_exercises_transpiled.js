@@ -9,13 +9,24 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function Exercise(props) {
+	function edit() {
+		if (props.exercise.type == 'formula_exercise') {
+			window.location.href = props.edit_formula_exercise_url;
+		}
+	}
+
 	return React.createElement(
-		'div',
-		{ className: 'ordered_option' },
+		"div",
+		{ className: "ordered_option" },
 		React.createElement(
-			'p',
+			"p",
 			null,
 			props.exercise.name
+		),
+		React.createElement(
+			"button",
+			{ type: "button", onClick: edit },
+			"Edit"
 		)
 	);
 }
@@ -30,12 +41,14 @@ var ExerciseList = function (_React$Component) {
 	}
 
 	_createClass(ExerciseList, [{
-		key: 'render',
+		key: "render",
 		value: function render() {
+			var _this2 = this;
 
 			var exercise_elements = this.props.exercises.map(function (exercise, index, arrayObj) {
 				return React.createElement(Exercise, {
-					exercise: exercise
+					exercise: exercise,
+					edit_formula_exercise_url: _this2.props.edit_formula_exercise_url.replace('/0', '/' + exercise.id.toString())
 				});
 			});
 
@@ -56,8 +69,10 @@ var ExerciseSectionedList = function (_React$Component2) {
 	}
 
 	_createClass(ExerciseSectionedList, [{
-		key: 'render',
+		key: "render",
 		value: function render() {
+			var _this4 = this;
+
 			var exercises = JSON.parse(this.props.exercises_json);
 			var tags = exercises.map(function (x) {
 				return x.tag;
@@ -66,19 +81,20 @@ var ExerciseSectionedList = function (_React$Component2) {
 
 			var exerciseLists = uniqueTags.map(function (tag, index, arrayObj) {
 				return React.createElement(
-					'div',
+					"div",
 					null,
 					React.createElement(
-						'p',
+						"p",
 						null,
 						tag
 					),
 					React.createElement(ExerciseList, {
 						exercises: exercises.filter(function (e) {
 							return e.tag == tag;
-						})
+						}),
+						edit_formula_exercise_url: _this4.props.edit_formula_exercise_url
 					}),
-					React.createElement('br', null)
+					React.createElement("br", null)
 				);
 			});
 
@@ -91,5 +107,7 @@ var ExerciseSectionedList = function (_React$Component2) {
 
 var exerciseTableRoot = document.getElementById('react_exercise_table');
 var exercisesJsonDiv = document.getElementById('exercises_json_div');
+var editFormulaURLDiv = document.getElementById('edit_formula_exercise_url_div');
 
-ReactDOM.render(React.createElement(ExerciseSectionedList, { exercises_json: exercisesJsonDiv.getAttribute('exercises') }), exerciseTableRoot);
+ReactDOM.render(React.createElement(ExerciseSectionedList, { exercises_json: exercisesJsonDiv.getAttribute('exercises'),
+	edit_formula_exercise_url: editFormulaURLDiv.getAttribute('url') }), exerciseTableRoot);
