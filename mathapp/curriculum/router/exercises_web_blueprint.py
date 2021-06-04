@@ -32,6 +32,16 @@ def edit_formula_exercise(course_id, exercise_id):
 	elif request.method == 'POST':
 		return controller(request).post_edit_formula_exercise_form(course_id=course_id, exercise_id=exercise_id)
 
+@bp.route('/courses/<int:course_id>/diagram_exercises/<int:exercise_id>', methods=('GET', 'POST'))
+@login_required
+def edit_diagram_exercise(course_id, exercise_id):
+	if request.method == 'GET':
+		return controller(request).get_edit_diagram_exercise_form(course_id=course_id, exercise_id=exercise_id)
+	elif request.method == 'POST':
+		return 'placeholder'
+
+
+
 def controller(request):
 	return RootComposer(request).compose_exercise_web_controller()
 

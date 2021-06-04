@@ -1,4 +1,6 @@
 from mathapp.system.controller.auth_web_controller import AuthWebController
+from mathapp.system.controller.file_web_controller import FileWebController
+
 from mathapp.system.presenter.auth_presenter import AuthPresenter
 from mathapp.system.interactor.auth_interactor import AuthInteractor
 
@@ -9,6 +11,8 @@ from mathapp.system.domain_model.user_factory_validating_decorator import UserFa
 from mathapp.system.data_mapper.session.session_factory import SessionFactory
 from mathapp.system.data_mapper.session.session_repository import SessionRepository
 
+from mathapp.system.presenter.file_presenter import FilePresenter
+
 class SystemComposer:
 
     def __init__(self, 
@@ -17,13 +21,15 @@ class SystemComposer:
                 unit_of_work,  
                 encryption_service, 
                 token_service,
-                date_service):
+                date_service,
+                file_service):
         self._request = request
         self._sqlalchemy_session = sqlalchemy_session
         self._unit_of_work = unit_of_work
         self._encryption_service = encryption_service
         self._token_service = token_service
         self._date_service = date_service
+        self._file_service = file_service
 
         ##Singleton Lifestyle Components
 
@@ -84,6 +90,15 @@ class SystemComposer:
         return session_repository
 
 
+    ##File Web Controller
+
+    def compose_file_web_controller(self):
+        file_presenter = self.compose_file_presenter()
+        return FileWebController(request=self._request,
+                                 file_presenter=file_presenter)
+
+    def compose_file_presenter(self):
+        return FilePresenter(file_service=self._file_service)
 
 
 

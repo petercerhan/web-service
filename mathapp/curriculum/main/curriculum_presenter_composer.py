@@ -23,6 +23,7 @@ class CurriculumPresenterComposer:
         return TutorialStepPresenter(file_service=file_service)
 
     def compose_exercise_presenter(self):
-        return ExercisePresenter()
+        file_service = self._infrastructure_service_composer.compose_file_service()
+        return ExercisePresenter(file_service=file_service)
 
 

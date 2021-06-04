@@ -29,17 +29,27 @@ class RootComposer:
     #     return curriculum_composer.compose_lesson_web_controller()
 
     def compose_auth_web_controller(self):
+        system_composer = self.compose_system_composer()
+        return system_composer.compose_auth_web_controller()
+
+    def compose_file_web_controller(self):
+        system_composer = self.compose_system_composer()
+        return system_composer.compose_file_web_controller()
+
+    def compose_system_composer(self):
         encryption_service = self._infrastructure_service_composer.compose_encryption_service()
         date_service = self._infrastructure_service_composer.compose_date_service()
         token_service = self._infrastructure_service_composer.compose_token_service()
+        file_service = self._infrastructure_service_composer.compose_file_service()
         system_composer = SystemComposer(request = self._request, 
                                         sqlalchemy_session = self._sqlalchemy_session, 
                                         unit_of_work = self._unit_of_work, 
                                         encryption_service = encryption_service, 
                                         token_service = token_service,
-                                        date_service = date_service)
+                                        date_service = date_service,
+                                        file_service=file_service)
+        return system_composer
 
-        return system_composer.compose_auth_web_controller()
 
     def compose_lesson_intro_web_controller(self):
         curriculum_composer = self.compose_curriculum_composer()
