@@ -7,6 +7,9 @@ function Exercise(props) {
 		if(props.exercise.type == 'formula_exercise') {
 			window.location.href = props.edit_formula_exercise_url;
 		}
+		else if(props.exercise.type == 'diagram_exercise') {
+			window.location.href = props.edit_diagram_exercise_url;
+		}
 	}
 
 	return (
@@ -24,6 +27,7 @@ class ExerciseList extends React.Component {
 			<Exercise
 				exercise={exercise}
 				edit_formula_exercise_url={ (this.props.edit_formula_exercise_url.replace('/0', '/' + exercise.id.toString() ))  }
+				edit_diagram_exercise_url={ (this.props.edit_diagram_exercise_url.replace('/0', '/' + exercise.id.toString() ))  }
 			/>
 		);
 
@@ -43,6 +47,7 @@ class ExerciseSectionedList extends React.Component {
 				<ExerciseList
 					exercises={exercises.filter(function(e) { return e.tag == tag })}
 					edit_formula_exercise_url={this.props.edit_formula_exercise_url}
+					edit_diagram_exercise_url={this.props.edit_diagram_exercise_url}
 				/>
 				<br/>
 			</div>
@@ -55,6 +60,15 @@ class ExerciseSectionedList extends React.Component {
 const exerciseTableRoot = document.getElementById('react_exercise_table');
 const exercisesJsonDiv = document.getElementById('exercises_json_div');
 const editFormulaURLDiv = document.getElementById('edit_formula_exercise_url_div')
+const editDiagramURLDiv = document.getElementById('edit_diagram_exercise_url_div')
 
 ReactDOM.render(<ExerciseSectionedList exercises_json={exercisesJsonDiv.getAttribute('exercises')} 
-									   edit_formula_exercise_url={editFormulaURLDiv.getAttribute('url')}/>, exerciseTableRoot)
+									   edit_formula_exercise_url={editFormulaURLDiv.getAttribute('url')}
+									   edit_diagram_exercise_url={editDiagramURLDiv.getAttribute('url')}/>, exerciseTableRoot)
+
+
+
+
+
+
+
