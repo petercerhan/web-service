@@ -71,6 +71,11 @@ class DiagramExercise(Exercise):
 		
 	def get_text(self):
 		return self._text
+
+	def set_text(self, text):
+		self._text = text
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
 		
 	def get_diagram_image_data(self):
 		return self._diagram_image_data
@@ -78,17 +83,43 @@ class DiagramExercise(Exercise):
 	def get_source_code_filename(self):
 		return self._source_code_filename
 
+	def set_diagram_image(self, diagram_image_data, source_code_filename):
+		self._diagram_image_data = diagram_image_data
+		self._source_code_filename = source_code_filename
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
+
 	def get_correct_option(self):
 		return self._correct_option
+
+	def set_correct_option(self, correct_option):
+		self._correct_option = correct_option
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
 
 	def get_incorrect_option_1(self):
 		return self._incorrect_option_1
 
+	def set_incorrect_option_1(self, incorrect_option_1):
+		self._incorrect_option_1 = incorrect_option_1
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
+
 	def get_incorrect_option_2(self):
 		return self._incorrect_option_2
 
+	def set_incorrect_option_2(self, incorrect_option_2):
+		self._incorrect_option_2 = incorrect_option_2
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
+
 	def get_incorrect_option_3(self):
 		return self._incorrect_option_3
+
+	def set_incorrect_option_3(self, incorrect_option_3):
+		self._incorrect_option_3 = incorrect_option_3
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
 
 
 	def __repr__(self):

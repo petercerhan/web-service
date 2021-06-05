@@ -17,13 +17,18 @@
     <input name="text" id="text" value="{{ diagram_exercise['text'] }}" required>
 
     <hr>
-    <br>
     <p>Current Image</p>
     <image src="data:image/png;base64,{{ diagram_exercise['diagram_image_data'] }}" height="200" width="200"/>
-  <br>
-  <br>
-  <a href="{{ url_for('files.download_file', filename=diagram_exercise['source_code_filename']) }}" download="diagram_exercise_{{ diagram_exercise['id'] }}.{{ source_code_file_extension }}">Download Source Code</a>
+    <br>
+    <br>
+    <a href="{{ url_for('files.download_file', filename=diagram_exercise['source_code_filename']) }}" download="diagram_exercise_{{ diagram_exercise['id'] }}.{{ source_code_file_extension }}">Download Source Code</a>
+    <br>
 
+    <label for="source_code_file">New Source Code File (optional)</label>
+    <input type=file name="source_code_file" id="source_code_file">
+
+    <label for="image_file">New Image File (optional)</label>
+    <input type=file name="image_file" id="image_file">
 
     <hr>
     <br>

@@ -38,7 +38,8 @@ def edit_diagram_exercise(course_id, exercise_id):
 	if request.method == 'GET':
 		return controller(request).get_edit_diagram_exercise_form(course_id=course_id, exercise_id=exercise_id)
 	elif request.method == 'POST':
-		return 'placeholder'
+		user_id = g.user_id
+		return controller(request).post_edit_diagram_exercise_form(course_id=course_id, exercise_id=exercise_id, user_id=user_id)
 
 
 

@@ -104,6 +104,33 @@ class ExerciseWebController:
 		except MathAppError as error:
 			return error.message
 
+	def post_edit_diagram_exercise_form(self, course_id, exercise_id, user_id):
+		fields = {}
+		fields['name'] = self._request.form.get('name')
+		fields['tag'] = self._request.form.get('tag')
+		fields['text'] = self._request.form.get('text')
+		fields['correct_option'] = self._request.form.get('correct_option')
+		fields['incorrect_option_1'] = self._request.form.get('incorrect_option_1')
+		fields['incorrect_option_2'] = self._request.form.get('incorrect_option_2')
+		fields['incorrect_option_3'] = self._request.form.get('incorrect_option_3')
+
+		source_code_file = self._request.files.get('source_code_file')
+		if source_code_file.filename == '':
+			source_code_file = None
+		image_file = self._request.files.get('image_file')
+		if image_file.filename == '':
+			image_file = None
+
+		try:
+			diagram_exercise = self._exercise_interactor.update_diagram_exercise(user_id=user_id, 
+																				 exercise_id=exercise_id, 
+																				 source_code_file=source_code_file, 
+																				 image_file=image_file, 
+																				 fields=fields)
+			return self._topic_presenter.edit_exercises_form_redirect(course_id=course_id, topic_id=diagram_exercise['topic']['id'])
+		except MathAppError as error:
+			return error.message
+
 
 
 
