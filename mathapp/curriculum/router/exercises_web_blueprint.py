@@ -41,6 +41,10 @@ def edit_diagram_exercise(course_id, exercise_id):
 		user_id = g.user_id
 		return controller(request).post_edit_diagram_exercise_form(course_id=course_id, exercise_id=exercise_id, user_id=user_id)
 
+@bp.route('/courses/<int:course_id>/exercises/<int:exercise_id>/delete', methods=('POST',))
+@login_required
+def delete(course_id, exercise_id):
+	return controller(request).delete(course_id=course_id, exercise_id=exercise_id)
 
 
 def controller(request):

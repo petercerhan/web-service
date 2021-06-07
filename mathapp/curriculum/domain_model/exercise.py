@@ -52,5 +52,15 @@ class Exercise:
     def get_topic(self):
         return self._topic_value_holder.get()
 
+    def delete(self):
+        self._unit_of_work.register_deleted(self)
+
     def __repr__(self):
         return f'<Exercise(id={self._id}, name={self._name})>'
+
+
+
+
+
+
+

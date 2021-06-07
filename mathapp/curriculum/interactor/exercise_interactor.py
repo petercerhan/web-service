@@ -1,8 +1,7 @@
 from mathapp.curriculum.interactor.domain_to_data_transforms.exercise import exercise_to_data
+from mathapp.curriculum.interactor.domain_to_data_transforms.exercise_enriched import exercise_to_enriched_data
 from mathapp.curriculum.interactor.domain_to_data_transforms.formula_exercise_enriched import formula_exercise_to_enriched_data
 from mathapp.curriculum.interactor.domain_to_data_transforms.diagram_exercise_enriched import diagram_exercise_to_enriched_data
-
-import sys
 
 class ExerciseInteractor:
 
@@ -25,7 +24,7 @@ class ExerciseInteractor:
 
 	def get(self, id):
 		exercise = self._exercise_repository.get(id=id)
-		return exercise_to_data(exercise)
+		return exercise_to_enriched_data(exercise)
 
 
 	def create_formula_exercise(self, topic_id, fields):
@@ -92,8 +91,6 @@ class ExerciseInteractor:
 	def update_diagram_exercise(self, user_id, exercise_id, source_code_file, image_file, fields):
 		exercise = self._exercise_repository.get(id=exercise_id)
 
-		print('will update diagram exercise, interactor; ', file=sys.stderr)
-
 		if source_code_file is not None and image_file is not None:
 			print('will attempt source code file update', file=sys.stderr)
 			new_filename = self._filename_for_source_code_file(user_id=user_id, source_code_file=source_code_file)
@@ -132,13 +129,19 @@ class ExerciseInteractor:
 		return diagram_exercise_to_enriched_data(exercise)
 
 
-
 	def _filename_for_source_code_file(self, user_id, source_code_file):
 		file_extension = self._file_service.get_extension_for_filename(source_code_file.filename)
 		datetime = self._date_service.current_datetime_utc()
 		timestamp = self._date_service.format_datetime_as_timestamp(datetime)
 		filename = f'ImageTutorialStepSourceCode_{user_id}_{timestamp}.{file_extension}'
 		return filename
+
+	def delete(self, id):
+		exercise = self._exercise_repository.get(id=id)
+		exercise.delete()
+		self._unit_of_work.commit()
+		return id
+
 
 
 

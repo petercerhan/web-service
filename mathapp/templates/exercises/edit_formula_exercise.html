@@ -34,4 +34,23 @@
     <input type="submit" value="Save">
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
   </form>
+
+
+<form action="{{ url_for('exercises.delete', course_id=course_id, exercise_id=formula_exercise['id']) }}" method="post">
+  <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+  <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
+</form>
+
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
