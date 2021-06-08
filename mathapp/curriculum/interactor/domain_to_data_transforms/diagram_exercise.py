@@ -1,8 +1,6 @@
 
 import base64
 
-import sys
-
 def diagram_exercise_to_data(diagram_exercise):
 	image_data = diagram_exercise.get_diagram_image_data()
 	diagram_image_data_base64 = base64.b64encode(image_data).decode('utf-8')
