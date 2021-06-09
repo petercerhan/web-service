@@ -34,13 +34,6 @@ def update(id):
 def delete(id):
     return controller(request).handle_delete_request(id)
 
-## Delete Lesson Sequence Item
-
-@bp.route('/courses/<int:course_id>/lesson_sequence_items/<int:lesson_sequence_item_id>/delete', methods=('POST',))
-@login_required
-def delete_lesson_sequence_item(course_id, lesson_sequence_item_id):
-    return controller(request).handle_delete_lesson_sequence_item_request(course_id, lesson_sequence_item_id)
-
 
 ## Create CourseTopic
 

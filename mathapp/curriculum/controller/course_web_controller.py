@@ -54,10 +54,6 @@ class CourseWebController:
         fields = {}
         fields['display_name'] = self.request.form.get('display_name')
 
-        lesson_sequence_items = self.request.form.get('lesson_sequence_items')
-        if lesson_sequence_items is not None:
-            fields['lesson_sequence_items'] = json.loads( lesson_sequence_items )
-
         course_topics = self.request.form.get('course_topics')
         if course_topics is not None:
             fields['course_topics'] = json.loads(course_topics)
@@ -86,16 +82,6 @@ class CourseWebController:
             self._course_presenter.present_not_found(error)
             
         return self._course_presenter.present_delete_successful()
-
-
-    def handle_delete_lesson_sequence_item_request(self, course_id, lesson_sequence_item_id):
-        try:
-            course = self._course_interactor.delete_lesson_sequence_item(course_id=course_id, lesson_sequence_item_id=lesson_sequence_item_id)
-            return self._course_presenter.present_delete_lesson_sequence_item_successful(course)
-        except MathAppError as error:
-            return self._get_update_form(id=course_id, error=error)
-
-
 
 
 

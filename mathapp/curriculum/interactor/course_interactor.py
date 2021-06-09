@@ -41,10 +41,6 @@ class CourseInteractor:
         if display_name is not None:
             course.set_display_name(display_name)
 
-        lesson_sequence_items = fields.get('lesson_sequence_items')
-        if lesson_sequence_items is not None:
-            course.sync_lesson_sequence_item_positions(lesson_sequence_items)
-
         course_topics = fields.get('course_topics')
         if course_topics is not None:
             course.sync_course_topic_positions(course_topics)
@@ -61,12 +57,6 @@ class CourseInteractor:
         
         enriched_course = course_to_enriched_data(course)
         return course
-
-    def delete_lesson_sequence_item(self, course_id, lesson_sequence_item_id):
-        course = self._course_repository.get(course_id)
-        course.remove_lesson_sequence_item(lesson_sequence_item_id)
-        self._unit_of_work_committer.commit()
-        return course_to_enriched_data(course)
 
 
 

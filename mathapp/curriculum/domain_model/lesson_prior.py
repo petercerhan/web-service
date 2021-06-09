@@ -114,9 +114,6 @@ class Lesson:
         self._unit_of_work.register_dirty(self)
 
 
-    def get_lesson_sequence_items(self):
-        return self._lesson_sequence_item_list_value_holder.get_list()
-
     def get_lesson_intro(self, lesson_section_id):
         lesson_sections = self._lesson_section_list_value_holder.get_list()
         lesson_intro = filter(lambda x: x.get_id() == lesson_section_id, lesson_sections)

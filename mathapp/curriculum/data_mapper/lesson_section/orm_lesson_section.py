@@ -9,6 +9,7 @@ from mathapp.curriculum.data_mapper.lesson_section.lesson_section_parent_value_h
 
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
+
 class ORMLessonSection(Base):
     __tablename__ = 'lesson_section'
     id = Column(Integer, primary_key=True)
@@ -17,7 +18,6 @@ class ORMLessonSection(Base):
     position = Column(Integer)
     complete_lesson = Column(Boolean)
 
-    lesson = relationship('ORMLessonPrior', back_populates='lesson_sections')
 
     __mapper_args__ = {
         'polymorphic_identity': 'lesson_section',

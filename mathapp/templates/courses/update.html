@@ -14,11 +14,6 @@
     <a class="action" href="{{ url_for('topics.create', course_id=course['id']) }}">Add Topic</a>
     <br>
     <div id="react_root_2"></div>
-    <h1>Lessons</h1>
-    <hr>
-    <br>
-    <a class="action" href="/createPrior">Add Lesson For This Course</a>
-    <br>
     <div id="react_root"></div>
     <input type="submit" value="Save">
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
@@ -26,7 +21,6 @@
 
     <div id="data_container"
           course="{{ course_json }}" 
-          delete_lesson_sequence_item_url="{{ url_for('courses.delete_lesson_sequence_item', course_id=course['id'], lesson_sequence_item_id=0) }}" 
           update_lesson_url="/update" ></div>
 
     <div id="edit_topic_url_div" url="{{ url_for('topics.edit', course_id=course['id'], topic_id=0) }}/edit" ></div>
@@ -34,10 +28,6 @@
 
   <form action="{{ url_for('courses.delete', id=course['id']) }}" method="post">
     <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
-    <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
-  </form>
-
-  <form name="delete_lesson_sequence_item_form" action="placeholder" method="post">
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
   </form>
 
@@ -55,12 +45,6 @@
 {% include 'courses/update_transpiled.js' %}
 </script>
 
-<script>
- function submitDeleteLessonSequenceItemForm(endpoint) {
-  document.delete_lesson_sequence_item_form.action = endpoint;
-  document.delete_lesson_sequence_item_form.submit();
- }
-</script>
 
 <script>
  function submitDeleteCourseTopicForm(endpoint) {

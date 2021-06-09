@@ -11,15 +11,12 @@ from mathapp.curriculum.domain_model.lesson_prior import Lesson
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
 from mathapp.curriculum.data_mapper.lesson_section.lesson_section_list_value_holder import LessonSectionListValueHolder
-from mathapp.curriculum.data_mapper.lesson_sequence_item.lesson_sequence_item_list_value_holder import LessonSequenceItemListValueHolder
 
 class ORMLessonPrior(Base):
     __tablename__ = 'lesson_prior'
     id = Column(Integer, primary_key=True)
     name = Column(String)
     display_name = Column(String)
-
-    lesson_sequence_items = relationship('ORMLessonSequenceItem', back_populates='lesson')
 
     lesson_sections = relationship('ORMLessonSection', 
                                     back_populates='lesson',
@@ -41,12 +38,10 @@ class ORMLessonPrior(Base):
 
         domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
         lesson_section_list_value_holder = LessonSectionListValueHolder(orm_model=self, unit_of_work=unit_of_work)
-        lesson_sequence_item_list_value_holder = LessonSequenceItemListValueHolder(orm_model=self, unit_of_work=unit_of_work)
         
         lesson = Lesson(name=self.name, 
                         display_name=self.display_name, 
                         lesson_section_list_value_holder=lesson_section_list_value_holder, 
-                        lesson_sequence_item_list_value_holder=lesson_sequence_item_list_value_holder,
                         unit_of_work=domain_model_unit_of_work)
         lesson._id = self.id
 
