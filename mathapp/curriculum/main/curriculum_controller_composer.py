@@ -6,6 +6,7 @@ from mathapp.curriculum.controller.lesson_web_controller import LessonWebControl
 from mathapp.curriculum.controller.tutorial_web_controller import TutorialWebController
 from mathapp.curriculum.controller.tutorial_step_web_controller import TutorialStepWebController
 from mathapp.curriculum.controller.exercise_web_controller import ExerciseWebController
+from mathapp.curriculum.controller.problem_set_generator_web_controller import ProblemSetGeneratorWebController
 
 
 class CurriculumControllerComposer:
@@ -64,7 +65,12 @@ class CurriculumControllerComposer:
                                      topic_presenter=topic_presenter,
                                      topic_interactor=topic_interactor)
 
-
+    def compose_problem_set_generator_web_controller(self):
+        problem_set_generator_interactor = self._curriculum_interactor_composer.compose_problem_set_generator_interactor()
+        problem_set_generator_presenter = self._curriculum_presenter_composer.compose_problem_set_generator_presenter()
+        return ProblemSetGeneratorWebController(request=self._request,
+                                                problem_set_generator_interactor=problem_set_generator_interactor,
+                                                problem_set_generator_presenter=problem_set_generator_presenter)
 
 
 

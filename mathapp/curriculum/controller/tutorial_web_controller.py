@@ -60,3 +60,6 @@ class TutorialWebController:
 			return self._tutorial_presenter.edit_lesson_form_redirect(course_id=course_id, lesson_id=tutorial['lesson']['id'])
 		except MathAppError as error:
 			return error.message
+
+
+

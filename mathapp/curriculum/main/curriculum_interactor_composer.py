@@ -6,6 +6,7 @@ from mathapp.curriculum.interactor.lesson_interactor import LessonInteractor
 from mathapp.curriculum.interactor.tutorial_interactor import TutorialInteractor
 from mathapp.curriculum.interactor.tutorial_step_interactor import TutorialStepInteractor
 from mathapp.curriculum.interactor.exercise_interactor import ExerciseInteractor
+from mathapp.curriculum.interactor.problem_set_generator_interactor import ProblemSetGeneratorInteractor
 
 class CurriculumInteractorComposer:
 
@@ -73,7 +74,12 @@ class CurriculumInteractorComposer:
                                 date_service=date_service,
                                 unit_of_work=self._unit_of_work)
 
-
+    def compose_problem_set_generator_interactor(self):
+      list_problem_set_generator_factory = self._curriculum_factory_composer.compose_list_problem_set_generator_factory()
+      lesson_repository = self._curriculum_repository_composer.compose_lesson_repository()
+      return ProblemSetGeneratorInteractor(list_problem_set_generator_factory=list_problem_set_generator_factory,
+                                           lesson_repository=lesson_repository,
+                                           unit_of_work=self._unit_of_work)
 
 
 

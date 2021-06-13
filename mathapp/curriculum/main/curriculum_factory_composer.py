@@ -12,6 +12,8 @@ from mathapp.curriculum.data_mapper.image_tutorial_step.image_tutorial_step_fact
 from mathapp.curriculum.data_mapper.formula_exercise.formula_exercise_factory import FormulaExerciseFactory
 from mathapp.curriculum.data_mapper.diagram_exercise.diagram_exercise_factory import DiagramExerciseFactory
 
+from mathapp.curriculum.data_mapper.list_problem_set_generator.list_problem_set_generator_factory import ListProblemSetGeneratorFactory
+
 class CurriculumFactoryComposer:
 
     def __init__(self, 
@@ -47,6 +49,9 @@ class CurriculumFactoryComposer:
 
     def compose_diagram_exercise_factory(self):
         return DiagramExerciseFactory(unit_of_work=self._unit_of_work)
+
+    def compose_list_problem_set_generator_factory(self):
+        return ListProblemSetGeneratorFactory(unit_of_work=self._unit_of_work)
 
 
 

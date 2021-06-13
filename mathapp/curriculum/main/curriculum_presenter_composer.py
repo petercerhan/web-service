@@ -3,6 +3,7 @@ from mathapp.curriculum.presenter.lesson_presenter import LessonPresenter
 from mathapp.curriculum.presenter.tutorial_presenter import TutorialPresenter
 from mathapp.curriculum.presenter.tutorial_step_presenter import TutorialStepPresenter
 from mathapp.curriculum.presenter.exercise_presenter import ExercisePresenter
+from mathapp.curriculum.presenter.problem_set_generator_presenter import ProblemSetGeneratorPresenter
 
 class CurriculumPresenterComposer:
 
@@ -26,4 +27,5 @@ class CurriculumPresenterComposer:
         file_service = self._infrastructure_service_composer.compose_file_service()
         return ExercisePresenter(file_service=file_service)
 
-
+    def compose_problem_set_generator_presenter(self):
+        return ProblemSetGeneratorPresenter()
