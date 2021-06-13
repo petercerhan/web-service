@@ -29,3 +29,22 @@ class ProblemSetGeneratorWebController:
         except MathAppError as error:
             return error.message
 
+    def get_edit_list_problem_set_generator_form(self, course_id, problem_set_generator_id):
+        try:
+            problem_set_generator = self._problem_set_generator_interactor.get_list_problem_set_generator(id=problem_set_generator_id)
+            return self._problem_set_generator_presenter.edit_list_problem_set_generator_form(problem_set_generator=problem_set_generator)
+        except MathAppError as error:
+            return error.message
+
+    def post_edit_list_problem_set_generator_form(self, course_id, problem_set_generator_id):
+        fields = {}
+        fields['name'] = self._request.form.get('name')
+
+        try:
+            self._problem_set_generator_interactor.update_list_problem_set_generator(id=problem_set_generator_id, fields=fields)
+            return self._problem_set_generator_presenter.edit_list_problem_set_generator_form_redirect(course_id=course_id, problem_set_generator_id=problem_set_generator_id)
+        except MathAppError as error:
+            return error.message
+
+
+

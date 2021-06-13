@@ -2,6 +2,7 @@ from mathapp.curriculum.data_mapper.topic.topic_repository import TopicRepositor
 from mathapp.curriculum.data_mapper.lesson.lesson_repository import LessonRepository
 from mathapp.curriculum.data_mapper.tutorial.tutorial_repository import TutorialRepository
 from mathapp.curriculum.data_mapper.exercise.exercise_repository import ExerciseRepository
+from mathapp.curriculum.data_mapper.problem_set_generator.problem_set_generator_repository import ProblemSetGeneratorRepository
 
 class CurriculumRepositoryComposer:
 
@@ -27,7 +28,8 @@ class CurriculumRepositoryComposer:
         return ExerciseRepository(unit_of_work=self._unit_of_work,
                                   session=self._sqlalchemy_session)
 
+    def compose_problem_set_generator_repository(self):
+        return ProblemSetGeneratorRepository(unit_of_work=self._unit_of_work,
+                                             session=self._sqlalchemy_session)
 
 
-
-        

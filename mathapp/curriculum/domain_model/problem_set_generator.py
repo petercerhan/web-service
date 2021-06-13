@@ -25,6 +25,14 @@ class ProblemSetGenerator:
 	def get_name(self):
 		return self._name
 
+	def set_name(self, name):
+		self._name = name
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
+
+	def get_exercises(self):
+		return self._exercise_list_value_holder.get_list()
+
 	def __repr__(self):
 		return f'<ProblemSetGenerator(id={self._id}, name={self._name})>'
 

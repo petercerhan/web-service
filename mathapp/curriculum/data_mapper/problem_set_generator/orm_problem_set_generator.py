@@ -59,7 +59,7 @@ class ORMProblemSetGenerator(Base):
         self._problem_set_generator._id = self.id
 
     def sync_fields(self):
-        self.name = self._name
+        self.name = self._problem_set_generator._name
 
 
 
