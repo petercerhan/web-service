@@ -11,4 +11,26 @@
     <input type="submit" value="Save">
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
   </form>
+
+
+<h1>Exercises</h1>
+<hr>
+<div id="react_exercise_table"></div>
+<br>
+
+<div id="exercises_json_div" exercises="{{ exercises_json }}" ></div>
+
+{% endblock %}
+
+
+{% block react_imports %}
+
+<script src="{{ url_for('static', filename='react.development.js') }}" crossorigin></script>
+<script src="{{ url_for('static', filename='react-dom.development.js') }}" crossorigin></script>
+
+<script type="text/javascript">
+{% include 'problem_set_generators/edit_list_problem_set_generator_transpiled.js' %}
+</script>
+
+
 {% endblock %}
