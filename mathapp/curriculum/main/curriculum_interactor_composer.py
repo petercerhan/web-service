@@ -78,9 +78,11 @@ class CurriculumInteractorComposer:
       list_problem_set_generator_factory = self._curriculum_factory_composer.compose_list_problem_set_generator_factory()
       lesson_repository = self._curriculum_repository_composer.compose_lesson_repository()
       problem_set_generator_repository = self._curriculum_repository_composer.compose_problem_set_generator_repository()
+      exercise_repository = self._curriculum_repository_composer.compose_exercise_repository()
       return ProblemSetGeneratorInteractor(list_problem_set_generator_factory=list_problem_set_generator_factory,
                                            lesson_repository=lesson_repository,
                                            problem_set_generator_repository=problem_set_generator_repository,
+                                           exercise_repository=exercise_repository,
                                            unit_of_work=self._unit_of_work)
 
 

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Add Exercises to Problem Set Generator{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+
+    <div id="react_exercise_table"></div>
+    <br>
+
+    <input type="submit" value="Add">
+    <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
+  </form>
+
+
+<div id="exercises_json_div" exercises="{{ exercises_json }}" ></div>
+
+{% endblock %}
+
+
+{% block react_imports %}
+
+<script src="{{ url_for('static', filename='react.development.js') }}" crossorigin></script>
+<script src="{{ url_for('static', filename='react-dom.development.js') }}" crossorigin></script>
+
+<script type="text/javascript">
+{% include 'problem_set_generators/add_exercises_transpiled.js' %}
+</script>
+
+
+{% endblock %}

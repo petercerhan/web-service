@@ -6,6 +6,8 @@ from mathapp.library.errors.mathapp_error import MathAppError
 
 import json
 
+import sys
+
 class ProblemSetGeneratorWebController:
 
     def __init__(self,
@@ -45,6 +47,27 @@ class ProblemSetGeneratorWebController:
             return self._problem_set_generator_presenter.edit_list_problem_set_generator_form_redirect(course_id=course_id, problem_set_generator_id=problem_set_generator_id)
         except MathAppError as error:
             return error.message
+
+    def get_add_exercises_form(self, course_id, problem_set_generator_id):
+        try:
+            add_exercise_options = self._problem_set_generator_interactor.get_add_exercise_options(problem_set_generator_id=problem_set_generator_id)
+            return self._problem_set_generator_presenter.add_exercises_form(add_exercise_options=add_exercise_options)
+        except MathAppError as error:
+            return error.message
+
+    def post_add_exercises_form(self, course_id, problem_set_generator_id):
+        exercise_id_list = []
+        for key, val in self._request.form.items():
+            if val == 'on':
+                exercise_id_list.append(key)
+
+        try:
+            self._problem_set_generator_interactor.add_exercises_to_generator(problem_set_generator_id=problem_set_generator_id, exercise_id_list=exercise_id_list)
+            return self._problem_set_generator_presenter.edit_list_problem_set_generator_form_redirect(course_id=course_id, 
+                                                                                                       problem_set_generator_id=problem_set_generator_id)
+        except MathAppError as error:
+            return error.message
+
 
 
 

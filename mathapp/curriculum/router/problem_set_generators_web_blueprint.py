@@ -22,6 +22,14 @@ def edit_list_problem_set_generator(course_id, problem_set_generator_id):
     if request.method == 'POST':
         return controller(request).post_edit_list_problem_set_generator_form(course_id=course_id, problem_set_generator_id=problem_set_generator_id)
 
+@bp.route('/courses/<int:course_id>/problem_set_generators/<int:problem_set_generator_id>/add-exercises', methods=('GET', 'POST'))
+@login_required
+def add_exercises(course_id, problem_set_generator_id):
+    if request.method == 'GET':
+        return controller(request).get_add_exercises_form(course_id=course_id, problem_set_generator_id=problem_set_generator_id)
+    elif request.method == 'POST':
+        return controller(request).post_add_exercises_form(course_id=course_id, problem_set_generator_id=problem_set_generator_id)
+
 def controller(request):
     return RootComposer(request).compose_problem_set_generator_web_controller()
 
