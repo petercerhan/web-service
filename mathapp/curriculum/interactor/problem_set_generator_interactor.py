@@ -50,3 +50,12 @@ class ProblemSetGeneratorInteractor:
 		self._unit_of_work.commit()
 		return problem_set_generator_to_data(problem_set_generator)
 		
+	def remove_exercise_from_generator(self, problem_set_generator_id, exercise_id):
+		problem_set_generator = self._problem_set_generator_repository.get(id=problem_set_generator_id)
+		problem_set_generator.remove_exercise(exercise_id=exercise_id)
+		self._unit_of_work.commit()
+		return problem_set_generator_to_data(problem_set_generator)
+
+
+
+

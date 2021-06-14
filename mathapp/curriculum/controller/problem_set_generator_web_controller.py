@@ -34,7 +34,7 @@ class ProblemSetGeneratorWebController:
     def get_edit_list_problem_set_generator_form(self, course_id, problem_set_generator_id):
         try:
             problem_set_generator = self._problem_set_generator_interactor.get_list_problem_set_generator(id=problem_set_generator_id)
-            return self._problem_set_generator_presenter.edit_list_problem_set_generator_form(problem_set_generator=problem_set_generator)
+            return self._problem_set_generator_presenter.edit_list_problem_set_generator_form(course_id=course_id, problem_set_generator=problem_set_generator)
         except MathAppError as error:
             return error.message
 
@@ -63,10 +63,26 @@ class ProblemSetGeneratorWebController:
 
         try:
             self._problem_set_generator_interactor.add_exercises_to_generator(problem_set_generator_id=problem_set_generator_id, exercise_id_list=exercise_id_list)
+            ##Make dynamic based on problem set generator type
             return self._problem_set_generator_presenter.edit_list_problem_set_generator_form_redirect(course_id=course_id, 
                                                                                                        problem_set_generator_id=problem_set_generator_id)
         except MathAppError as error:
             return error.message
+
+    def remove_exercise_from_generator(self, course_id, problem_set_generator_id, exercise_id):
+        try:
+            self._problem_set_generator_interactor.remove_exercise_from_generator(problem_set_generator_id=problem_set_generator_id, exercise_id=exercise_id)
+            ##Make dynamic based on problem set generator type
+            return self._problem_set_generator_presenter.edit_list_problem_set_generator_form_redirect(course_id=course_id, problem_set_generator_id=problem_set_generator_id)
+        except MathAppError as error:
+            return error.message
+
+
+
+
+
+
+
 
 
 

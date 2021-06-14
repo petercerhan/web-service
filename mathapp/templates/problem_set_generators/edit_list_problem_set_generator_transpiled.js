@@ -7,13 +7,22 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function Exercise(props) {
+	function remove() {
+		submitRemoveExerciseForm(props.remove_url);
+	}
+
 	return React.createElement(
-		'div',
-		{ className: 'ordered_option' },
+		"div",
+		{ className: "ordered_option" },
 		React.createElement(
-			'p',
+			"p",
 			null,
 			props.exercise.name
+		),
+		React.createElement(
+			"button",
+			{ type: "button", onClick: remove },
+			"Remove"
 		)
 	);
 }
@@ -28,14 +37,17 @@ var ExerciseList = function (_React$Component) {
 	}
 
 	_createClass(ExerciseList, [{
-		key: 'render',
+		key: "render",
 		value: function render() {
+			var _this2 = this;
+
 			var exercises = JSON.parse(this.props.exercises_json);
 
 			var exercise_elements = exercises.map(function (exercise, index, arrayObj) {
 				return React.createElement(Exercise, {
 					exercise: exercise,
-					key: index
+					key: index,
+					remove_url: _this2.props.remove_exercise_url.replace('0/remove', exercise.id.toString() + '/remove')
 				});
 			});
 
@@ -48,5 +60,7 @@ var ExerciseList = function (_React$Component) {
 
 var exerciseTableRoot = document.getElementById('react_exercise_table');
 var exercisesJsonDiv = document.getElementById('exercises_json_div');
+var removeExerciseURLDiv = document.getElementById('remove_exercise_url_div');
 
-ReactDOM.render(React.createElement(ExerciseList, { exercises_json: exercisesJsonDiv.getAttribute('exercises') }), exerciseTableRoot);
+ReactDOM.render(React.createElement(ExerciseList, { exercises_json: exercisesJsonDiv.getAttribute('exercises'),
+	remove_exercise_url: removeExerciseURLDiv.getAttribute('url') }), exerciseTableRoot);

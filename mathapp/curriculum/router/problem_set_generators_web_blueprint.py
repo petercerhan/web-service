@@ -30,6 +30,11 @@ def add_exercises(course_id, problem_set_generator_id):
     elif request.method == 'POST':
         return controller(request).post_add_exercises_form(course_id=course_id, problem_set_generator_id=problem_set_generator_id)
 
+@bp.route('/courses/<int:course_id>/problem_set_generators/<int:problem_set_generator_id>/exercises/<int:exercise_id>/remove', methods=('POST', ))
+@login_required
+def remove_exercise(course_id, problem_set_generator_id, exercise_id):
+    return controller(request).remove_exercise_from_generator(course_id, problem_set_generator_id, exercise_id)
+
 def controller(request):
     return RootComposer(request).compose_problem_set_generator_web_controller()
 

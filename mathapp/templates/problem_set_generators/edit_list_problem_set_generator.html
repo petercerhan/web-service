@@ -18,7 +18,15 @@
 <div id="react_exercise_table"></div>
 <br>
 
+
 <div id="exercises_json_div" exercises="{{ exercises_json }}" ></div>
+
+<div id="remove_exercise_url_div" url="{{ url_for('problem_set_generators.remove_exercise', course_id=course_id, problem_set_generator_id=problem_set_generator['id'], exercise_id=0) }}" ></div>
+
+
+<form name="remove_exercise_form" action="placeholder" method="post">
+  <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
+</form>
 
 {% endblock %}
 
@@ -33,4 +41,16 @@
 </script>
 
 
+<script>
+ function submitRemoveExerciseForm(endpoint) {
+  const confirmation = window.confirm("Are you sure you want to remove this exercise?");
+  if(confirmation == false) {
+    return;
+  }
+  document.remove_exercise_form.action = endpoint;
+  document.remove_exercise_form.submit();
+ }
+</script>
+
 {% endblock %}
+

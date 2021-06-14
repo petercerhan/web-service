@@ -47,6 +47,15 @@ class ProblemSetGenerator:
 		self._check_invariants()
 		self._unit_of_work.register_dirty(self)
 
+	def remove_exercise(self, exercise_id):
+		remove_index = -1
+		for index, exercise in enumerate(self._exercise_list_value_holder.get_list()):
+			if exercise.get_id() == exercise_id:
+				remove_index = index
+		self._exercise_list_value_holder.remove_at_index(index=remove_index)
+		self._check_invariants()
+		self._unit_of_work.register_dirty(self)
+
 	def __repr__(self):
 		return f'<ProblemSetGenerator(id={self._id}, name={self._name})>'
 
