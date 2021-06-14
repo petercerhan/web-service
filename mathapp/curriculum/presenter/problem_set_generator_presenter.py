@@ -18,6 +18,11 @@ class ProblemSetGeneratorPresenter:
                                 exercises_json=json.dumps(problem_set_generator['exercises']),
                                 course_id=course_id)
 
+    def edit_problem_set_generator_form_redirect(self, course_id, problem_set_generator):
+        type = problem_set_generator['type']
+        if type == 'list_problem_set_generator':
+            return self.edit_list_problem_set_generator_form_redirect(course_id=course_id, problem_set_generator_id=problem_set_generator['id'])
+
     def edit_list_problem_set_generator_form_redirect(self, course_id, problem_set_generator_id):
         return redirect(url_for('problem_set_generators.edit_list_problem_set_generator', course_id=course_id, problem_set_generator_id=problem_set_generator_id))
 
