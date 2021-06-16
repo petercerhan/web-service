@@ -56,18 +56,6 @@ class RootComposer:
         return system_composer
 
 
-    def compose_lesson_intro_web_controller(self):
-        curriculum_composer = self.compose_curriculum_composer()
-        return curriculum_composer.compose_lesson_intro_web_controller()
-
-    def compose_concept_tutorial_web_controller(self):
-        curriculum_composer = self.compose_curriculum_composer()
-        return curriculum_composer.compose_concept_tutorial_web_controller()
-
-    def compose_detail_section_web_controller(self):
-        curriculum_composer = self.compose_curriculum_composer()
-        return curriculum_composer.compose_detail_section_web_controller()
-
     def compose_topic_web_controller(self):
         controller_composer = self._get_curriculum_controller_composer()
         return controller_composer.compose_topic_web_controller()
