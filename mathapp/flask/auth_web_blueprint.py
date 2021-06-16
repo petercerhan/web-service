@@ -1,10 +1,5 @@
 import functools
 
-import jwt
-import datetime
-
-import sys
-
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for, current_app, make_response
 )

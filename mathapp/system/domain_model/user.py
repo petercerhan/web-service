@@ -1,5 +1,5 @@
 from mathapp.library.errors.validation_error import ValidationError
-from mathapp.system.domain_model.user_session_data import UserSessionData
+from mathapp.system.domain_model.user_session_parameters import UserSessionParameters
 import datetime
 
 class User:
@@ -33,7 +33,7 @@ class User:
 	def get_password(self):
 		return self._password
 	
-	def get_session_data(self):
-		return UserSessionData(expiration_period = datetime.timedelta(minutes=30), 
-								user_id = self._id, 
-								name = self._username)
+	def get_session_parameters(self):
+		return UserSessionParameters(expiration_period = datetime.timedelta(minutes=30), 
+									user_id = self._id, 
+									name = self._username)

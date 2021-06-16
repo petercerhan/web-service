@@ -44,7 +44,7 @@ class AuthWebController:
         fields['password'] = self._request.form.get('password')
 
         try:
-            auth_token = self._interactor.login(fields)
+            auth_token = self._interactor.login_web(fields)
         except ValidationError as error:
             return self._presenter.present_login(error_message = error.message)
         else:

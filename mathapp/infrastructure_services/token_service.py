@@ -6,17 +6,23 @@ import sys
 
 class TokenService:
 
-    def __init__(self, web_signing_key):
+    def __init__(self, web_signing_key, api_signing_key):
         self._web_signing_key = web_signing_key
+        self._api_signing_key = api_signing_key
 
-    def get_web_auth_token(self, user_claims, session_id, current_datetime):
+    def get_web_auth_token(self, 
+                           expiration_period,
+                           user_id,
+                           name,
+                           session_id, 
+                           current_datetime):
         payload = {
-            'exp': current_datetime + user_claims.expiration_period,
+            'exp': current_datetime + expiration_period,
             'iat': current_datetime,
-            'sub': user_claims.user_id,
+            'sub': user_id,
             'session_id': session_id,
-            'name': user_claims.name,
-            'expiration_period': user_claims.expiration_period.total_seconds()
+            'name': name,
+            'expiration_period': expiration_period.total_seconds()
         }
         token = jwt.encode(payload, self._web_signing_key, algorithm='HS256')
         return token.decode('utf-8')
@@ -32,3 +38,10 @@ class TokenService:
             return jwt.decode(token, self._web_signing_key, options={'verify_exp': False}, algorithms='HS256')
         except jwt.InvalidTokenError as e:
             raise ValidationError('Invalid token')
+
+    # def create_api_token
+
+    # def refresh_api_token
+
+    # def get_api_token_payload
+

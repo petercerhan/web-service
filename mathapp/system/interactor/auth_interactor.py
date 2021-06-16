@@ -38,34 +38,63 @@ class AuthInteractor:
         self._unit_of_work_committer.commit()
         return user_to_data(user)
 
-    def login(self, fields):
+
+    def login_web(self, fields):
         username = fields['username']
         password = fields['password']
 
+        user = self._get_user_by_username(username)
+        self._validate_password(user=user, password=password)
+        session = self._create_session(user=user)
+        token = self._get_web_token(user=user, session=session)
+        return token
+
+    # def login_api(self, fields):
+    #     username = fields['username']
+    #     password = fields['password']
+
+    #     user = self._get_user_by_username(username)
+    #     self._validate_password(user=user, password=password)
+    #     session = self._create_session(user=user)
+
+    #     ##Get api token
+    #     token = self._get_web_token(user=user, session=session)
+    #     ##
+
+    #     return token
+
+
+    def _get_user_by_username(self, username):
         try:
             user = self._user_repository.get_by_username(username)
+            return user
         except ValidationError as error:
             raise ValidationError(message = "Invalid Login")
         except NotFoundError as error:
             raise ValidationError(message = "Invalid Login")
-        else:
-            return self._validate_login(user, password)
 
-    def _validate_login(self, user, password):        
-        if not self._encryption_service.check_password_hash(encrypted_password = user.get_password(), check_password = password):
-            raise ValidationError(message = "Invalid Login")
-        else:
-            current_datetime = self._date_service.current_datetime_utc()
-            claims = user.get_session_data()
+    def _validate_password(self, user, password):
+        if not self._encryption_service.check_password_hash(encrypted_password=user.get_password(), 
+                                                            check_password=password):
+            raise ValidationError(message = "Invalid Login")        
 
-            session = self._session_factory.create(user = user, created_at = current_datetime)
-            self._unit_of_work_committer.commit()
-            
-            token = self._token_service.get_web_auth_token(user_claims = claims, 
-                                                            session_id = session.get_id(),
-                                                            current_datetime = current_datetime)
+    def _create_session(self, user):
+        current_datetime = self._date_service.current_datetime_utc()
+        session = self._session_factory.create(user=user, created_at=current_datetime)
+        self._unit_of_work_committer.commit()
+        return session
 
-            return token
+    def _get_web_token(self, user, session):
+        session_parameters = user.get_session_parameters()
+        current_datetime = self._date_service.current_datetime_utc()
+        token = self._token_service.get_web_auth_token(expiration_period=session_parameters.expiration_period,
+                                                        user_id=session_parameters.user_id,
+                                                        name=session_parameters.name,
+                                                        session_id=session.get_id(),
+                                                        current_datetime=current_datetime)
+        return token
+
+
 
     def get_user(self, user_id):
         user = self._user_repository.get(user_id)

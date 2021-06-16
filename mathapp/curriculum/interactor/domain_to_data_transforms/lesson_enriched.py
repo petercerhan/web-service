@@ -19,4 +19,5 @@ def lesson_to_enriched_data(lesson):
 			'name': lesson.get_name(),
 			'position': lesson.get_position(),
 			'topic': topic,
-			'tutorial': tutorial_data}
+			'tutorial': tutorial_data,
+			'problem_set_generator': problem_set_generator_data}

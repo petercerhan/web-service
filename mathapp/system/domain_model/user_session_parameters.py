@@ -1,6 +1,6 @@
 
 
-class UserSessionData:
+class UserSessionParameters:
 
 	def __init__(self, expiration_period, user_id, name):
 		self.expiration_period = expiration_period

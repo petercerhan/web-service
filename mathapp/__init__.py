@@ -34,6 +34,9 @@ def create_app(test_config=None):
     
     from mathapp.flask import auth_web_blueprint
     app.register_blueprint(auth_web_blueprint.bp)
+    
+    from mathapp.system.router import auth_api_blueprint
+    app.register_blueprint(auth_api_blueprint.bp)
 
     from mathapp.system.router import files_web_blueprint
     app.register_blueprint(files_web_blueprint.bp)

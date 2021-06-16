@@ -16,7 +16,8 @@ class InfrastructureServiceComposer:
 
     def compose_token_service(self):
         web_signing_key = current_app.config['AUTH_SECRET_KEY']
-        return TokenService(web_signing_key=web_signing_key)
+        api_signing_key = current_app.config['API_AUTH_SECRET_KEY']
+        return TokenService(web_signing_key=web_signing_key, api_signing_key=api_signing_key)
 
     def compose_date_service(self):
         return DateService()
