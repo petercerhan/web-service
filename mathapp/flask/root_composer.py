@@ -19,15 +19,6 @@ class RootComposer:
 
         self._infrastructure_service_composer = InfrastructureServiceComposer(file_uploads_path=current_app.config['FILE_UPLOADS_PATH'])
 
-
-    def compose_course_web_controller(self):
-        curriculum_composer = self.compose_curriculum_composer()
-        return curriculum_composer.compose_course_web_controller()
-
-    # def compose_lesson_web_controller(self):
-    #     curriculum_composer = self.compose_curriculum_composer()
-    #     return curriculum_composer.compose_lesson_web_controller()
-
     def compose_auth_web_controller(self):
         system_composer = self.compose_system_composer()
         return system_composer.compose_auth_web_controller()
@@ -55,6 +46,9 @@ class RootComposer:
                                         file_service=file_service)
         return system_composer
 
+    def compose_course_web_controller(self):
+        controller_composer = self._get_curriculum_controller_composer()
+        return controller_composer.compose_course_web_controller()
 
     def compose_topic_web_controller(self):
         controller_composer = self._get_curriculum_controller_composer()
@@ -86,17 +80,6 @@ class RootComposer:
                                             sqlalchemy_session = self._sqlalchemy_session, 
                                             infrastructure_service_composer=self._infrastructure_service_composer,
                                             unit_of_work = self._unit_of_work)
-        
-
-    def compose_curriculum_composer(self):
-        return CurriculumComposer(request=self._request,
-                                  sqlalchemy_session = self._sqlalchemy_session, 
-                                  infrastructure_service_composer=self._infrastructure_service_composer,
-                                  unit_of_work = self._unit_of_work)
-
-
-
-
 
 
 

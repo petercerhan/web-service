@@ -1,3 +1,4 @@
+from mathapp.curriculum.presenter.course_presenter import CoursePresenter
 from mathapp.curriculum.presenter.topic_presenter import TopicPresenter
 from mathapp.curriculum.presenter.lesson_presenter import LessonPresenter
 from mathapp.curriculum.presenter.tutorial_presenter import TutorialPresenter
@@ -9,6 +10,9 @@ class CurriculumPresenterComposer:
 
     def __init__(self, infrastructure_service_composer):
         self._infrastructure_service_composer = infrastructure_service_composer
+
+    def compose_course_presenter(self):
+        return CoursePresenter()
 
     def compose_topic_presenter(self):
         return TopicPresenter()

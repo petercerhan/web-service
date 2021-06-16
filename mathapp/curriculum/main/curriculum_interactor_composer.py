@@ -1,6 +1,7 @@
 from mathapp.curriculum.main.curriculum_repository_composer import CurriculumRepositoryComposer
 from mathapp.curriculum.main.curriculum_factory_composer import CurriculumFactoryComposer
 
+from mathapp.curriculum.interactor.course_interactor import CourseInteractor
 from mathapp.curriculum.interactor.topic_interactor import TopicInteractor
 from mathapp.curriculum.interactor.lesson_interactor import LessonInteractor
 from mathapp.curriculum.interactor.tutorial_interactor import TutorialInteractor
@@ -20,6 +21,17 @@ class CurriculumInteractorComposer:
                                                                             sqlalchemy_session=sqlalchemy_session)
       self._curriculum_factory_composer = CurriculumFactoryComposer(unit_of_work=unit_of_work,
                                                                       sqlalchemy_session=sqlalchemy_session)
+
+    def compose_course_interactor(self):
+      course_repository = self._curriculum_repository_composer.compose_course_repository()
+      topic_repository = self._curriculum_repository_composer.compose_topic_repository()
+      course_factory = self._curriculum_factory_composer.compose_course_factory()
+      course_topic_factory = self._curriculum_factory_composer.compose_topic_factory()
+      return CourseInteractor(course_repository=course_repository,
+                              topic_repository=topic_repository,
+                              course_factory=course_factory,
+                              course_topic_factory=course_topic_factory,
+                              unit_of_work_committer=self._unit_of_work)
 
     def compose_topic_interactor(self):
       topic_repository = self._curriculum_repository_composer.compose_topic_repository()

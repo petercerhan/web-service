@@ -1,5 +1,9 @@
 from mathapp.curriculum.main.curriculum_repository_composer import CurriculumRepositoryComposer
 
+from mathapp.curriculum.data_mapper.course.course_factory import CourseFactory
+from mathapp.curriculum.domain_model.course_factory_validating_decorator import CourseFactoryValidatingDecorator
+from mathapp.curriculum.data_mapper.course_topic.course_topic_factory import CourseTopicFactory
+
 from mathapp.curriculum.data_mapper.topic.topic_factory import TopicFactory
 from mathapp.curriculum.domain_model.topic_factory_validating_decorator import TopicFactoryValidatingDecorator
 from mathapp.curriculum.data_mapper.lesson.lesson_factory import LessonFactory
@@ -23,11 +27,22 @@ class CurriculumFactoryComposer:
         self._curriculum_repository_composer = CurriculumRepositoryComposer(unit_of_work=unit_of_work,
                                                                             sqlalchemy_session=sqlalchemy_session)
 
+    def compose_course_factory(self):
+        course_factory = CourseFactory(unit_of_work=self._unit_of_work)
+        course_repository = self._curriculum_repository_composer.compose_course_repository()
+        validating_decorator = CourseFactoryValidatingDecorator(course_factory=course_factory,
+                                                                course_repository=course_repository)
+        return validating_decorator
+
+    def compose_course_topic_factory(self):
+        return CourseTopicFactory(unit_of_work=self._unit_of_work)
+
     def compose_topic_factory(self):
         topic_factory = TopicFactory(unit_of_work=self._unit_of_work)
         topic_repository = self._curriculum_repository_composer.compose_topic_repository()
-        return TopicFactoryValidatingDecorator(topic_factory=topic_factory,
-                                               topic_repository=topic_repository)
+        validating_decorator = TopicFactoryValidatingDecorator(topic_factory=topic_factory,
+                                                                topic_repository=topic_repository)
+        return validating_decorator
 
     def compose_lesson_factory(self):
         return LessonFactory(unit_of_work=self._unit_of_work)
