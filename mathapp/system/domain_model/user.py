@@ -34,6 +34,8 @@ class User:
 		return self._password
 	
 	def get_session_parameters(self):
-		return UserSessionParameters(expiration_period = datetime.timedelta(minutes=30), 
-									user_id = self._id, 
+		return UserSessionParameters(expiration_period = datetime.timedelta(minutes=30),
+									api_expiration_period = datetime.timedelta(minutes=30),
+									api_refresh_expiration_period = datetime.timedelta(days=30),
+									user_id = self._id,
 									name = self._username)

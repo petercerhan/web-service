@@ -36,6 +36,11 @@ class RootComposer:
         system_composer = self.compose_system_composer()
         return system_composer.compose_file_web_controller()
 
+    def compose_auth_api_controller(self):
+        system_composer = self.compose_system_composer()
+        return system_composer.compose_auth_api_controller()
+
+
     def compose_system_composer(self):
         encryption_service = self._infrastructure_service_composer.compose_encryption_service()
         date_service = self._infrastructure_service_composer.compose_date_service()

@@ -49,19 +49,15 @@ class AuthInteractor:
         token = self._get_web_token(user=user, session=session)
         return token
 
-    # def login_api(self, fields):
-    #     username = fields['username']
-    #     password = fields['password']
+    def login_api(self, fields):
+        username = fields['username']
+        password = fields['password']
 
-    #     user = self._get_user_by_username(username)
-    #     self._validate_password(user=user, password=password)
-    #     session = self._create_session(user=user)
-
-    #     ##Get api token
-    #     token = self._get_web_token(user=user, session=session)
-    #     ##
-
-    #     return token
+        user = self._get_user_by_username(username)
+        self._validate_password(user=user, password=password)
+        session = self._create_session(user=user)
+        token = self._get_web_token(user=user, session=session)
+        return token
 
 
     def _get_user_by_username(self, username):
@@ -94,6 +90,16 @@ class AuthInteractor:
                                                         current_datetime=current_datetime)
         return token
 
+    def _get_api_token(self, user, session):
+        session_parameters = user.get_session_parameters()
+        current_datetime = self._date_service.current_datetime_utc()
+        token = self._token_service.create_api_auth_token(expiration_period=session_parameters.api_expiration_period,
+                                                          refresh_expiration_period=session_parameters.api_refresh_expiration_period,
+                                                          user_id=session_parameters.user_id,
+                                                          name=session_parameters.name,
+                                                          session_id=session.get_id(),
+                                                          current_datetime=current_datetime)
+        return token
 
 
     def get_user(self, user_id):

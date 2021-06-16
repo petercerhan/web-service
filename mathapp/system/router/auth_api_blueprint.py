@@ -10,4 +10,8 @@ bp = Blueprint('api_auth', __name__)
 
 @bp.route('/api/login', methods=('POST',))
 def login():
-	return 'api login'
+	return controller(request).login()
+
+
+def controller(request):
+	return RootComposer(request).compose_auth_api_controller()

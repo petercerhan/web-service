@@ -13,6 +13,9 @@ from mathapp.system.data_mapper.session.session_repository import SessionReposit
 
 from mathapp.system.presenter.file_presenter import FilePresenter
 
+from mathapp.system.controller.auth_api_controller import AuthApiController
+from mathapp.system.presenter.auth_api_presenter import AuthApiPresenter
+
 class SystemComposer:
 
     def __init__(self, 
@@ -99,6 +102,31 @@ class SystemComposer:
 
     def compose_file_presenter(self):
         return FilePresenter(file_service=self._file_service)
+
+
+    ##API Auth Controller
+
+    def compose_auth_api_controller(self):
+        auth_interactor = self.compose_auth_interactor()
+        auth_api_presenter = self.compose_auth_api_presenter()
+        return AuthApiController(request=self._request,
+                                 auth_interactor=auth_interactor,
+                                 auth_api_presenter=auth_api_presenter)
+
+    def compose_auth_api_presenter(self):
+        return AuthApiPresenter()
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
