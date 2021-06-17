@@ -1,13 +1,13 @@
 from flask import (
     Blueprint, request, g
 )
-from mathapp.flask.auth_web_blueprint import login_required
+from mathapp.system.router.auth_web_blueprint import web_auth_required
 from mathapp.flask.root_composer import RootComposer
 
 bp = Blueprint('files', __name__)
 
 @bp.route('/files/<string:filename>', methods=('GET',))
-@login_required
+@web_auth_required
 def download_file(filename):
 	return controller(request).get_file(filename)
 

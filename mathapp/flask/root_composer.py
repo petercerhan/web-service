@@ -1,4 +1,3 @@
-from mathapp.curriculum.main.curriculum_composer import CurriculumComposer
 from mathapp.system.system_composer import SystemComposer
 from mathapp.sqlalchemy.sqlalchemy_composer import SQLAlchemyComposer
 from mathapp.infrastructure_services.infrastructure_service_composer import InfrastructureServiceComposer

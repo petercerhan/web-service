@@ -30,7 +30,7 @@ def remove_flask_session(response):
     response.set_cookie('session', '', expires=0)
     return response    
 
-def login_required(view):
+def web_auth_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
 

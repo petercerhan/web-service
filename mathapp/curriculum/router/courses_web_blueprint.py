@@ -1,7 +1,7 @@
 from flask import (
     Blueprint, request
 )
-from mathapp.flask.auth_web_blueprint import login_required
+from mathapp.system.router.auth_web_blueprint import web_auth_required
 from mathapp.flask.root_composer import RootComposer
 
 bp = Blueprint('courses', __name__)
@@ -9,28 +9,28 @@ bp = Blueprint('courses', __name__)
 ## Index
 
 @bp.route('/courses/')
-@login_required
+@web_auth_required
 def index():
     return controller(request).handle_index_request()
 
 ## Create
 
 @bp.route('/courses/create', methods=('GET', 'POST'))
-@login_required
+@web_auth_required
 def create():
     return controller(request).handle_create_request()
 
 ## Update
 
 @bp.route('/courses/<int:id>', methods=('GET', 'POST'))
-@login_required
+@web_auth_required
 def update(id):
     return controller(request).handle_update_request(id)
 
 ## Delete
 
 @bp.route('/courses/<int:id>/delete', methods=('POST',))
-@login_required
+@web_auth_required
 def delete(id):
     return controller(request).handle_delete_request(id)
 
@@ -38,7 +38,7 @@ def delete(id):
 ## Create CourseTopic
 
 @bp.route('/courses/<int:course_id>/create-course-topic', methods=('GET', 'POST'))
-@login_required
+@web_auth_required
 def create_course_topic(course_id):
 	if request.method == 'GET':
 		topic_id = request.args['topic_id']
@@ -49,7 +49,7 @@ def create_course_topic(course_id):
 ## Delete CourseTopic
 
 @bp.route('/courses/<int:course_id>/course-topics/<int:course_topic_id>/delete', methods=('POST',))
-@login_required
+@web_auth_required
 def delete_course_topic(course_id, course_topic_id):
     return controller(request).delete_course_topic(course_id=course_id, course_topic_id=course_topic_id)
 
