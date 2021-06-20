@@ -1,7 +1,7 @@
 from flask import (
     Blueprint, request, g
 )
-from mathapp.system.router.auth_web_blueprint import web_auth_required
+from mathapp.system.router.web_auth_required import web_auth_required
 from mathapp.flask.root_composer import RootComposer
 
 bp = Blueprint('files', __name__)

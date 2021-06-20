@@ -5,7 +5,6 @@ from mathapp.infrastructure_services.infrastructure_service_composer import Infr
 from mathapp.curriculum.main.curriculum_controller_composer import CurriculumControllerComposer
 
 from flask import current_app
-import sys
 
 class RootComposer:
 
@@ -38,76 +37,6 @@ class RootComposer:
                                                             infrastructure_service_composer=self._infrastructure_service_composer,
                                                             unit_of_work = self._unit_of_work)
         return curriculum_composer
-
-
-
-
-
-
-
-    # def compose_auth_web_controller(self):
-    #     system_composer = self.compose_system_composer()
-    #     return system_composer.compose_auth_web_controller()
-
-    # def compose_file_web_controller(self):
-    #     system_composer = self.compose_system_composer()
-    #     return system_composer.compose_file_web_controller()
-
-    # def compose_auth_api_controller(self):
-    #     system_composer = self.compose_system_composer()
-    #     return system_composer.compose_auth_api_controller()
-
-
-    # def compose_system_composer(self):
-    #     encryption_service = self._infrastructure_service_composer.compose_encryption_service()
-    #     date_service = self._infrastructure_service_composer.compose_date_service()
-    #     token_service = self._infrastructure_service_composer.compose_token_service()
-    #     file_service = self._infrastructure_service_composer.compose_file_service()
-    #     system_composer = SystemComposer(request = self._request, 
-    #                                     sqlalchemy_session = self._sqlalchemy_session, 
-    #                                     unit_of_work = self._unit_of_work, 
-    #                                     encryption_service = encryption_service, 
-    #                                     token_service = token_service,
-    #                                     date_service = date_service,
-    #                                     file_service=file_service)
-    #     return system_composer
-
-    # def compose_course_web_controller(self):
-    #     controller_composer = self._get_curriculum_controller_composer()
-    #     return controller_composer.compose_course_web_controller()
-
-    # def compose_topic_web_controller(self):
-    #     controller_composer = self._get_curriculum_controller_composer()
-    #     return controller_composer.compose_topic_web_controller()
-
-    # def compose_lesson_web_controller(self):
-    #     controller_composer = self._get_curriculum_controller_composer()
-    #     return controller_composer.compose_lesson_web_controller()
-
-    # def compose_tutorial_web_controller(self):
-    #     controller_composer = self._get_curriculum_controller_composer()
-    #     return controller_composer.compose_tutorial_web_controller()
-
-    # def compose_tutorial_step_web_controller(self):
-    #     controller_composer = self._get_curriculum_controller_composer()
-    #     return controller_composer.compose_tutorial_step_web_controller()
-
-    # def compose_exercise_web_controller(self):
-    #     controller_composer = self._get_curriculum_controller_composer()
-    #     return controller_composer.compose_exercise_web_controller()
-
-    # def compose_problem_set_generator_web_controller(self):
-    #     controller_composer = self._get_curriculum_controller_composer()
-    #     return controller_composer.compose_problem_set_generator_web_controller()
-
-
-    # def _get_curriculum_controller_composer(self):
-    #     return CurriculumControllerComposer(request=self._request,
-    #                                         sqlalchemy_session = self._sqlalchemy_session, 
-    #                                         infrastructure_service_composer=self._infrastructure_service_composer,
-    #                                         unit_of_work = self._unit_of_work)
-
-
 
 
 
