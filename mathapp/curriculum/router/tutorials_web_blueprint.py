@@ -30,4 +30,4 @@ def delete(course_id, tutorial_id):
 
 
 def controller(request):
-	return RootComposer(request).compose_tutorial_web_controller()
+	return RootComposer(request).get_curriculum_controller_composer().compose_tutorial_web_controller()

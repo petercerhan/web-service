@@ -59,7 +59,7 @@ def edit_exercises(course_id, topic_id):
 
 
 def controller(request):
-	return RootComposer(request).compose_topic_web_controller()
+	return RootComposer(request).get_curriculum_controller_composer().compose_topic_web_controller()
 
 
 

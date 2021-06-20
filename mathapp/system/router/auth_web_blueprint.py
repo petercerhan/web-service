@@ -79,7 +79,7 @@ def _csrf_token_is_valid(request, auth_token):
 ## Util
 
 def controller(request):
-    return RootComposer(request).compose_auth_web_controller()
+    return RootComposer(request).get_system_controller_composer().compose_auth_web_controller()
 
 
 

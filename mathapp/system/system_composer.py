@@ -1,20 +1,22 @@
 from mathapp.system.controller.auth_web_controller import AuthWebController
 from mathapp.system.controller.file_web_controller import FileWebController
+from mathapp.system.controller.auth_api_controller import AuthApiController
 
 from mathapp.system.presenter.auth_presenter import AuthPresenter
+from mathapp.system.presenter.file_presenter import FilePresenter
+from mathapp.system.presenter.auth_api_presenter import AuthApiPresenter
+
 from mathapp.system.interactor.auth_interactor import AuthInteractor
 
-from mathapp.system.data_mapper.user.user_repository import UserRepository
 from mathapp.system.data_mapper.user.user_factory import UserFactory
 from mathapp.system.domain_model.user_factory_validating_decorator import UserFactoryValidatingDecorator
-
 from mathapp.system.data_mapper.session.session_factory import SessionFactory
+
+from mathapp.system.data_mapper.user.user_repository import UserRepository
 from mathapp.system.data_mapper.session.session_repository import SessionRepository
 
-from mathapp.system.presenter.file_presenter import FilePresenter
 
-from mathapp.system.controller.auth_api_controller import AuthApiController
-from mathapp.system.presenter.auth_api_presenter import AuthApiPresenter
+
 
 class SystemComposer:
 

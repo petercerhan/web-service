@@ -48,5 +48,5 @@ def delete(course_id, exercise_id):
 
 
 def controller(request):
-	return RootComposer(request).compose_exercise_web_controller()
+	return RootComposer(request).get_curriculum_controller_composer().compose_exercise_web_controller()
 

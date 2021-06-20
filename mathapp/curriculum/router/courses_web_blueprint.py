@@ -57,4 +57,4 @@ def delete_course_topic(course_id, course_topic_id):
 ## Util
 
 def controller(request):
-    return RootComposer(request).compose_course_web_controller()
+    return RootComposer(request).get_curriculum_controller_composer().compose_course_web_controller()

@@ -14,4 +14,4 @@ def login():
 
 
 def controller(request):
-	return RootComposer(request).compose_auth_api_controller()
+	return RootComposer(request).get_system_controller_composer().compose_auth_api_controller()

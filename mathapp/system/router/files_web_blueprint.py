@@ -13,4 +13,4 @@ def download_file(filename):
 
 
 def controller(request):
-	return RootComposer(request).compose_file_web_controller()
+	return RootComposer(request).get_system_controller_composer().compose_file_web_controller()

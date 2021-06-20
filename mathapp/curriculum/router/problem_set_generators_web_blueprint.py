@@ -36,6 +36,6 @@ def remove_exercise(course_id, problem_set_generator_id, exercise_id):
     return controller(request).remove_exercise_from_generator(course_id, problem_set_generator_id, exercise_id)
 
 def controller(request):
-    return RootComposer(request).compose_problem_set_generator_web_controller()
+    return RootComposer(request).get_curriculum_controller_composer().compose_problem_set_generator_web_controller()
 
 
