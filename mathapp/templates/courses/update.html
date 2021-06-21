@@ -23,7 +23,7 @@
           course="{{ course_json }}" 
           update_lesson_url="/update" ></div>
 
-    <div id="edit_topic_url_div" url="{{ url_for('topics.edit', course_id=course['id'], topic_id=0) }}/edit" ></div>
+    <div id="edit_topic_url_div" url="{{ url_for('topics.edit', topic_id=0) }}/edit" ></div>
     <div id="delete_course_topic_url_div" url="{{ url_for('courses.delete_course_topic', course_id=course['id'], course_topic_id=0) }}" ></div>
 
   <form action="{{ url_for('courses.delete', id=course['id']) }}" method="post">

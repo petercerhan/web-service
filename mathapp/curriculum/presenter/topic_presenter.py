@@ -19,11 +19,8 @@ class TopicPresenter:
 		target_path = f'{target_path}?topic_id={topic_id}'
 		return redirect(target_path)
 		
-	def edit_form(self, course_id, topic, error=None):
-		if error is not None:
-			flash(error.message)
-		return render_template('topics/edit.html', 
-								course_id=course_id,
+	def edit_form(self, topic):
+		return render_template('topics/edit.html',
 								topic=topic, 
 								topic_json=json.dumps(topic))
 
@@ -36,8 +33,8 @@ class TopicPresenter:
 			flash(error.message)
 		return render_template('lessons/create.html')
 
-	def edit_topic_form_redirect(self, course_id, topic_id):
-		target_path = url_for('topics.edit', course_id=course_id, topic_id=topic_id)
+	def edit_topic_form_redirect(self, topic_id):
+		target_path = url_for('topics.edit', topic_id=topic_id)
 		return redirect(target_path)
 
 	def edit_exercises_form(self, course_id, topic):

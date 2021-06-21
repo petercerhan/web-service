@@ -9,6 +9,9 @@ class CoursePresenter:
 	def present_index(self, courses):
 		return render_template('courses/index.html', courses=courses)
 
+	def index_redirect(self):
+		return redirect(url_for('courses.index'))
+
 	def present_create(self, error):
 		if error is not None:
 			flash(error.message)

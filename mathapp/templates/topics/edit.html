@@ -11,7 +11,7 @@
     <h1>Lessons</h1>
     <hr>
     <br>
-    <a class="action" href="{{ url_for('topics.create_lesson', course_id=course_id, topic_id=topic['id']) }}">Add Lesson</a>
+    <a class="action" href="{{ url_for('topics.create_lesson', course_id=0, topic_id=topic['id']) }}">Add Lesson</a>
     <br>
     <div id="react_lesson_table"></div>
 
@@ -19,7 +19,7 @@
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
 </form>
 
-<form action="{{ url_for('topics.delete', course_id=course_id, topic_id=topic['id']) }}" method="post">
+<form action="{{ url_for('topics.delete', topic_id=topic['id']) }}" method="post">
   <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
   <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
 </form>
@@ -29,8 +29,8 @@
 </form>
 
 <div id="topic_json_div" topic="{{ topic_json }}" ></div>
-<div id="edit_lesson_url_div" url="{{ url_for('lessons.edit', course_id=course_id, lesson_id=0) }}/edit" ></div>
-<div id="delete_lesson_url_div" url="{{ url_for('topics.delete_lesson', course_id=course_id, topic_id=topic['id'], lesson_id=0) }}" ></div>
+<div id="edit_lesson_url_div" url="{{ url_for('lessons.edit', course_id=0, lesson_id=0) }}/edit" ></div>
+<div id="delete_lesson_url_div" url="{{ url_for('topics.delete_lesson', course_id=0, topic_id=topic['id'], lesson_id=0) }}" ></div>
 
 {% endblock %}
 

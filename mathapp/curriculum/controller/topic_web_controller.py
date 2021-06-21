@@ -7,17 +7,17 @@ from mathapp.library.errors.mathapp_error import MathAppError
 
 import json
 
-import sys
-
 class TopicWebController:
 
 	def __init__(self,
 				request,
 				topic_interactor,
-				topic_presenter):
+				topic_presenter,
+				course_presenter):
 		self._request = request
 		self._topic_interactor = topic_interactor
 		self._topic_presenter = topic_presenter
+		self._course_presenter = course_presenter
 
 	def get_index(self):
 		topics = self._topic_interactor.list()
@@ -37,8 +37,12 @@ class TopicWebController:
 		except ValidationError as error:
 			return self._topic_presenter.create_form(course_id, error=error)
 
-	def get_edit_form(self, course_id, topic_id):
-		return self._edit_form(course_id=course_id, topic_id=topic_id)
+	def get_edit_form(self, topic_id):
+		try:
+			topic = self._topic_interactor.get(topic_id)
+			return self._topic_presenter.edit_form(topic=topic)
+		except MathAppError as error:
+			return error.message
 
 	def post_edit_form(self, course_id, topic_id):
 		fields = {}
@@ -51,13 +55,6 @@ class TopicWebController:
 		try:
 			self._topic_interactor.update(id=topic_id, fields=fields)
 			return self._topic_presenter.edit_course_form(course_id=course_id)
-		except MathAppError as error:
-			return self._edit_form(course_id=course_id, topic_id=topic_id, error=error)
-
-	def _edit_form(self, course_id, topic_id, error=None):
-		try:
-			topic = self._topic_interactor.get(topic_id)
-			return self._topic_presenter.edit_form(course_id=course_id, topic=topic, error=error)
 		except MathAppError as error:
 			return error.message
 
@@ -75,20 +72,21 @@ class TopicWebController:
 		except MathAppError as error:
 			return self._topic_presenter.create_lesson_form(error=error)
 
-	def delete_lesson(self, course_id, topic_id, lesson_id):
+	def delete_lesson(self, topic_id, lesson_id):
 		try:
 			topic = self._topic_interactor.delete_lesson(topic_id=topic_id, lesson_id=lesson_id)
-			return self._topic_presenter.edit_topic_form_redirect(course_id=course_id, topic_id=topic_id)
+			return self._topic_presenter.edit_topic_form_redirect(topic_id=topic_id)
 		except MathAppError as error:
 			return error.message
 
 
-	def delete(self, course_id, topic_id):
+	def delete(self, topic_id):
 		try:
 			self._topic_interactor.delete(topic_id)
-			return self._topic_presenter.edit_course_form(course_id)
+			return self._course_presenter.index_redirect()
 		except MathAppError as error:
 			return error.message
+
 
 	def get_edit_exercises_form(self, course_id, topic_id):
 		try:
