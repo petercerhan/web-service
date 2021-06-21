@@ -17,7 +17,7 @@
     <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
 </form>
 
-<form method="post" action="{{ url_for('tutorial_steps.create_text_tutorial_step', course_id=0, tutorial_id=tutorial['id']) }}">
+<form method="post" action="{{ url_for('tutorial_steps.create_text_tutorial_step', tutorial_id=tutorial['id']) }}">
     <hr>
     <h2>Add Text Step</h2>
     <label for="text">Text</label>
@@ -27,7 +27,7 @@
     <hr>
 </form>
 
-<form method="post" action="{{ url_for('tutorial_steps.create_formula_tutorial_step', course_id=0, tutorial_id=tutorial['id']) }}">
+<form method="post" action="{{ url_for('tutorial_steps.create_formula_tutorial_step', tutorial_id=tutorial['id']) }}">
     <hr>
     <h2>Add Formula Step</h2>
     <label for="formula_latex">Formula</label>
@@ -37,7 +37,7 @@
     <hr>
 </form>
 
-<form method="post" enctype="multipart/form-data" action="{{ url_for('tutorial_steps.create_image_tutorial_step', course_id=0, tutorial_id=tutorial['id']) }}">
+<form method="post" enctype="multipart/form-data" action="{{ url_for('tutorial_steps.create_image_tutorial_step', tutorial_id=tutorial['id']) }}">
     <hr>
     <h2>Add Image Step</h2>
     <label for="source_code_file">Source Code File</label>
@@ -53,17 +53,17 @@
   <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
 </form>
 
-<a class="action" href="{{ url_for('lessons.edit', course_id=0, lesson_id=tutorial['lesson']['id']) }}">Back to Lesson: {{ tutorial['lesson']['name'] }}</a>
+<a class="action" href="{{ url_for('lessons.edit', lesson_id=tutorial['lesson']['id']) }}">Back to Lesson: {{ tutorial['lesson']['name'] }}</a>
 
 <div id="tutorial_json_div" tutorial="{{ tutorial_json }}" ></div>
 
-<div id="edit_text_tutorial_step_url_div" url="{{ url_for('tutorial_steps.edit_text_tutorial_step', course_id=0, tutorial_id=tutorial['id'], tutorial_step_id=0) }}/edit" ></div>
+<div id="edit_text_tutorial_step_url_div" url="{{ url_for('tutorial_steps.edit_text_tutorial_step', tutorial_id=tutorial['id'], tutorial_step_id=0) }}/edit" ></div>
 
-<div id="edit_formula_tutorial_step_url_div" url="{{ url_for('tutorial_steps.edit_formula_tutorial_step', course_id=0, tutorial_id=tutorial['id'], tutorial_step_id=0) }}/edit" ></div>
+<div id="edit_formula_tutorial_step_url_div" url="{{ url_for('tutorial_steps.edit_formula_tutorial_step', tutorial_id=tutorial['id'], tutorial_step_id=0) }}/edit" ></div>
 
-<div id="edit_image_tutorial_step_url_div" url="{{ url_for('tutorial_steps.edit_image_tutorial_step', course_id=0, tutorial_id=tutorial['id'], tutorial_step_id=0) }}/edit" ></div>
+<div id="edit_image_tutorial_step_url_div" url="{{ url_for('tutorial_steps.edit_image_tutorial_step', tutorial_id=tutorial['id'], tutorial_step_id=0) }}/edit" ></div>
 
-<div id="delete_tutorial_step_url_div" url="{{ url_for('tutorial_steps.delete', course_id=0, tutorial_id=tutorial['id'], tutorial_step_id=0) }}" ></div>
+<div id="delete_tutorial_step_url_div" url="{{ url_for('tutorial_steps.delete', tutorial_id=tutorial['id'], tutorial_step_id=0) }}" ></div>
 
 {% endblock %}
 

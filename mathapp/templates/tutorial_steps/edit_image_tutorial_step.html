@@ -9,7 +9,7 @@
   <image src="data:image/png;base64,{{ tutorial_step['image_data'] }}" height="200" width="200"/>
   <br>
   <br>
-  <a href="{{ url_for('tutorial_steps.download_image_tutorial_step_source_code', course_id=course_id, tutorial_id=tutorial_id, tutorial_step_id=tutorial_step['id']) }}" download="image_tutorial_step_{{ tutorial_step['id'] }}.{{ source_code_file_extension }}">Download Source Code</a>
+  <a href="{{ url_for('tutorial_steps.download_image_tutorial_step_source_code', tutorial_id=tutorial_id, tutorial_step_id=tutorial_step['id']) }}" download="image_tutorial_step_{{ tutorial_step['id'] }}.{{ source_code_file_extension }}">Download Source Code</a>
   <br>
   <br>
   <form method="post" enctype="multipart/form-data" >

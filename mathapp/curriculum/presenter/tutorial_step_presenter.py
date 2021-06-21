@@ -19,16 +19,15 @@ class TutorialStepPresenter:
 		return render_template('tutorial_steps/edit_formula_tutorial_step.html', 
 								tutorial_step=tutorial_step)
 
-	def edit_image_tutorial_step_form(self, course_id, tutorial_id, tutorial_step):
+	def edit_image_tutorial_step_form(self, tutorial_id, tutorial_step):
 		source_code_file_extension = self._file_service.get_extension_for_filename(tutorial_step['source_code_filename'])
 		return render_template('tutorial_steps/edit_image_tutorial_step.html',
-								course_id=course_id, 
 								tutorial_id=tutorial_id,
 								tutorial_step=tutorial_step,
 								source_code_file_extension=source_code_file_extension)
 
-	def edit_tutorial_form_redirect(self, course_id, tutorial_id):
-		return redirect(url_for('tutorials.edit', course_id=course_id, tutorial_id=tutorial_id))
+	def edit_tutorial_form_redirect(self, tutorial_id):
+		return redirect(url_for('tutorials.edit', tutorial_id=tutorial_id))
 
 	def file_download(self, filename):
 		path = self._file_service.get_file_uploads_path()
