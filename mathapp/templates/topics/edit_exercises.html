@@ -8,19 +8,19 @@
 
 <div id="react_exercise_table"></div>
 <br>
- <a class="action" href="{{ url_for('exercises.create_formula_exercise', course_id=course_id, topic_id=topic['id']) }}">Add Formula Exercise</a>
+ <a class="action" href="{{ url_for('exercises.create_formula_exercise', course_id=0, topic_id=topic['id']) }}">Add Formula Exercise</a>
 <br>
 
 <br>
- <a class="action" href="{{ url_for('exercises.create_diagram_exercise', course_id=course_id, topic_id=topic['id']) }}">Add Diagram Exercise</a>
+ <a class="action" href="{{ url_for('exercises.create_diagram_exercise', course_id=0, topic_id=topic['id']) }}">Add Diagram Exercise</a>
 <br>
 
 
 <div id="exercises_json_div" exercises="{{ exercises_json }}" ></div>
 
-<div id="edit_formula_exercise_url_div" url="{{ url_for('exercises.edit_formula_exercise', course_id=course_id, exercise_id=0) }}" ></div>
+<div id="edit_formula_exercise_url_div" url="{{ url_for('exercises.edit_formula_exercise', course_id=0, exercise_id=0) }}" ></div>
 
-<div id="edit_diagram_exercise_url_div" url="{{ url_for('exercises.edit_diagram_exercise', course_id=course_id, exercise_id=0) }}" ></div>
+<div id="edit_diagram_exercise_url_div" url="{{ url_for('exercises.edit_diagram_exercise', course_id=0, exercise_id=0) }}" ></div>
 
 
 
@@ -29,8 +29,8 @@
 
 {% block react_imports %}
 
-<script src="{{ url_for('static', filename='react.development.js') }}" crossorigin></script>
-<script src="{{ url_for('static', filename='react-dom.development.js') }}" crossorigin></script>
+<script src="{{ url_for('static', filename='react.development.js') }}"></script>
+<script src="{{ url_for('static', filename='react-dom.development.js') }}"></script>
 
 <script type="text/javascript">
 {% include 'topics/edit_exercises_transpiled.js' %}

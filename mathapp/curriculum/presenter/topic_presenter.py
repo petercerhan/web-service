@@ -7,7 +7,7 @@ import json
 class TopicPresenter:
 
 	def index(self, topics):
-		return render_template('topics/index.html', topics = topics)
+		return render_template('topics/index.html', topics=topics)
 
 	def create_form(self, course_id, error=None):
 		if error is not None:
@@ -35,12 +35,11 @@ class TopicPresenter:
 		target_path = url_for('topics.edit', topic_id=topic_id)
 		return redirect(target_path)
 
-	def edit_exercises_form(self, course_id, topic):
+	def edit_exercises_form(self, topic):
 		return render_template('topics/edit_exercises.html',
-							    course_id=course_id,
 							    topic=topic,
 							    exercises_json=json.dumps(topic['exercises']))
 
-	def edit_exercises_form_redirect(self, course_id, topic_id):
-		return redirect(url_for('topics.edit_exercises', course_id=course_id, topic_id=topic_id))
+	def edit_exercises_form_redirect(self, topic_id):
+		return redirect(url_for('topics.edit_exercises', topic_id=topic_id))
 

@@ -51,10 +51,10 @@ def delete_lesson(topic_id, lesson_id):
 	return controller(request).delete_lesson(topic_id=topic_id, lesson_id=lesson_id)
 
 
-@bp.route('/courses/<int:course_id>/topics/<int:topic_id>/exercises', methods=('GET',))
+@bp.route('/topics/<int:topic_id>/exercises', methods=('GET',))
 @web_auth_required
-def edit_exercises(course_id, topic_id):
-	return controller(request).get_edit_exercises_form(course_id=course_id, topic_id=topic_id)
+def edit_exercises(topic_id):
+	return controller(request).get_edit_exercises_form(topic_id=topic_id)
 
 
 
