@@ -8,19 +8,19 @@
 
 <div id="react_exercise_table"></div>
 <br>
- <a class="action" href="{{ url_for('exercises.create_formula_exercise', course_id=0, topic_id=topic['id']) }}">Add Formula Exercise</a>
+ <a class="action" href="{{ url_for('exercises.create_formula_exercise', topic_id=topic['id']) }}">Add Formula Exercise</a>
 <br>
 
 <br>
- <a class="action" href="{{ url_for('exercises.create_diagram_exercise', course_id=0, topic_id=topic['id']) }}">Add Diagram Exercise</a>
+ <a class="action" href="{{ url_for('exercises.create_diagram_exercise', topic_id=topic['id']) }}">Add Diagram Exercise</a>
 <br>
 
 
 <div id="exercises_json_div" exercises="{{ exercises_json }}" ></div>
 
-<div id="edit_formula_exercise_url_div" url="{{ url_for('exercises.edit_formula_exercise', course_id=0, exercise_id=0) }}" ></div>
+<div id="edit_formula_exercise_url_div" url="{{ url_for('exercises.edit_formula_exercise', exercise_id=0) }}" ></div>
 
-<div id="edit_diagram_exercise_url_div" url="{{ url_for('exercises.edit_diagram_exercise', course_id=0, exercise_id=0) }}" ></div>
+<div id="edit_diagram_exercise_url_div" url="{{ url_for('exercises.edit_diagram_exercise', exercise_id=0) }}" ></div>
 
 
 

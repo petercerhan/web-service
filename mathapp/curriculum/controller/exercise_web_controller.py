@@ -18,14 +18,14 @@ class ExerciseWebController:
 		self._topic_presenter = topic_presenter
 		self._topic_interactor = topic_interactor
 
-	def get_create_formula_exercise_form(self, course_id, topic_id):
+	def get_create_formula_exercise_form(self, topic_id):
 		try:			
 			topic = self._topic_interactor.get(topic_id)
 			return  self._exercise_presenter.create_formula_exercise_form(topic=topic)
 		except MathAppError as error:
 			return error.message
 
-	def post_create_formula_exercise_form(self, course_id, topic_id):
+	def post_create_formula_exercise_form(self, topic_id):
 		fields = {}
 		fields['name'] = self._request.form.get('name')
 		fields['tag'] = self._request.form.get('tag')
@@ -37,18 +37,18 @@ class ExerciseWebController:
 		fields['incorrect_option_3'] = self._request.form.get('incorrect_option_3')
 		try:
 			self._exercise_interactor.create_formula_exercise(topic_id=topic_id, fields=fields)
-			return self._topic_presenter.edit_exercises_form_redirect(course_id=course_id, topic_id=topic_id)
+			return self._topic_presenter.edit_exercises_form_redirect(topic_id=topic_id)
 		except MathAppError as error:
 			return error.message
 
-	def get_create_diagram_exercise_form(self, course_id, topic_id):
+	def get_create_diagram_exercise_form(self, topic_id):
 		try:			
 			topic = self._topic_interactor.get(topic_id)
 			return  self._exercise_presenter.create_diagram_exercise_form(topic=topic)
 		except MathAppError as error:
 			return error.message
 
-	def post_create_diagram_exercise_form(self, course_id, topic_id, user_id):
+	def post_create_diagram_exercise_form(self, topic_id, user_id):
 		fields = {}
 		fields['name'] = self._request.form.get('name')
 		fields['tag'] = self._request.form.get('tag')
@@ -67,19 +67,19 @@ class ExerciseWebController:
 															  source_code_file=source_code_file, 
 															  image_file=image_file, 
 															  fields=fields)
-			return self._topic_presenter.edit_exercises_form_redirect(course_id=course_id, topic_id=topic_id)
+			return self._topic_presenter.edit_exercises_form_redirect(topic_id=topic_id)
 		except MathAppError as error:
 			return error.message
 
 
-	def get_edit_formula_exercise_form(self, course_id, exercise_id):
+	def get_edit_formula_exercise_form(self, exercise_id):
 		try:
 			formula_exercise = self._exercise_interactor.get(id=exercise_id)
-			return self._exercise_presenter.edit_formula_exercise_form(formula_exercise=formula_exercise, course_id=course_id)
+			return self._exercise_presenter.edit_formula_exercise_form(formula_exercise=formula_exercise)
 		except MathAppError as error:
 			return error.message
 
-	def post_edit_formula_exercise_form(self, course_id, exercise_id):
+	def post_edit_formula_exercise_form(self, exercise_id):
 		fields = {}
 		fields['name'] = self._request.form.get('name')
 		fields['tag'] = self._request.form.get('tag')
@@ -92,19 +92,19 @@ class ExerciseWebController:
 
 		try:
 			formula_exercise = self._exercise_interactor.update_formula_exercise(id=exercise_id, fields=fields)
-			return self._topic_presenter.edit_exercises_form_redirect(course_id=course_id, topic_id=formula_exercise['topic']['id'])
+			return self._topic_presenter.edit_exercises_form_redirect(topic_id=formula_exercise['topic']['id'])
 		except MathAppError as error:
 			return error.message
 		
 
-	def get_edit_diagram_exercise_form(self, course_id, exercise_id):
+	def get_edit_diagram_exercise_form(self, exercise_id):
 		try:
 			diagram_exercise = self._exercise_interactor.get(id=exercise_id)
-			return self._exercise_presenter.edit_diagram_exercise_form(diagram_exercise=diagram_exercise, course_id=course_id)
+			return self._exercise_presenter.edit_diagram_exercise_form(diagram_exercise=diagram_exercise)
 		except MathAppError as error:
 			return error.message
 
-	def post_edit_diagram_exercise_form(self, course_id, exercise_id, user_id):
+	def post_edit_diagram_exercise_form(self, exercise_id, user_id):
 		fields = {}
 		fields['name'] = self._request.form.get('name')
 		fields['tag'] = self._request.form.get('tag')
@@ -127,16 +127,16 @@ class ExerciseWebController:
 																				 source_code_file=source_code_file, 
 																				 image_file=image_file, 
 																				 fields=fields)
-			return self._topic_presenter.edit_exercises_form_redirect(course_id=course_id, topic_id=diagram_exercise['topic']['id'])
+			return self._topic_presenter.edit_exercises_form_redirect(topic_id=diagram_exercise['topic']['id'])
 		except MathAppError as error:
 			return error.message
 
 
-	def delete(self, course_id, exercise_id):
+	def delete(self, exercise_id):
 		try:
 			exercise = self._exercise_interactor.get(id=exercise_id)
 			self._exercise_interactor.delete(id=exercise_id)
-			return self._topic_presenter.edit_exercises_form_redirect(course_id=course_id, topic_id=exercise['topic']['id'])
+			return self._topic_presenter.edit_exercises_form_redirect(topic_id=exercise['topic']['id'])
 		except MathAppError as error:
 			return error.message
 
