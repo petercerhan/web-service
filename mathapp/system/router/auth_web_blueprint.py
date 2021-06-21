@@ -4,7 +4,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for, current_app, make_response
 )
 
-from mathapp.flask.root_composer import RootComposer
+from mathapp.main.root_composer import RootComposer
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 

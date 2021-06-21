@@ -2,7 +2,7 @@ from flask import (
     Blueprint, request
 )
 from mathapp.system.router.web_auth_required import web_auth_required
-from mathapp.flask.root_composer import RootComposer
+from mathapp.main.root_composer import RootComposer
 
 bp = Blueprint('tutorials', __name__)
 
