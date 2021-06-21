@@ -13,13 +13,13 @@
     {% if lesson['tutorial'] is not none %}
       <div display="inline-block">
       <label>{{ lesson['tutorial']['name'] }}</label>
-      <a class="action" href="{{ url_for('tutorials.edit', course_id=0, tutorial_id=lesson['tutorial']['id']) }}">Edit</a>
-      <a onclick="submitDeleteTutorialForm(' {{ url_for('tutorials.delete', course_id=0, tutorial_id=lesson['tutorial']['id']) }} ')" >Delete</a>
+      <a class="action" href="{{ url_for('tutorials.edit', tutorial_id=lesson['tutorial']['id']) }}">Edit</a>
+      <a onclick="submitDeleteTutorialForm(' {{ url_for('tutorials.delete', tutorial_id=lesson['tutorial']['id']) }} ')" >Delete</a>
       </div>
     {% else %}
       <div display="inline-block">
       <label>No Tutorial Set - </label>
-      <a class="action" href="{{ url_for('tutorials.create', course_id=0, lesson_id=lesson['id']) }}">Create Tutorial</a>
+      <a class="action" href="{{ url_for('tutorials.create', lesson_id=lesson['id']) }}">Create Tutorial</a>
       </div>
     {% endif %}
     <br>

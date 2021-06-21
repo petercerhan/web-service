@@ -16,23 +16,27 @@ class TutorialWebController:
 		self._tutorial_presenter = tutorial_presenter
 		self._tutorial_interactor = tutorial_interactor
 
-	def get_create_form(self, course_id, lesson_id):
+	def get_create_form(self, lesson_id):
 		return self._tutorial_presenter.create_form()
 
-	def post_create_form(self, course_id, lesson_id):
+	def post_create_form(self, lesson_id):
 		fields = {}
 		fields['name'] = self._request.form.get('name')
 
 		try: 
 			self._tutorial_interactor.create(fields=fields, lesson_id=lesson_id)
-			return self._tutorial_presenter.edit_lesson_form_redirect(course_id=course_id, lesson_id=lesson_id)
+			return self._tutorial_presenter.edit_lesson_form_redirect(lesson_id=lesson_id)
 		except MathAppError as error:
-			return self._tutorial_presenter.create_form(error=error)
+			error.message
 
-	def get_edit_form(self, course_id, tutorial_id):
-		return self._edit_form(course_id=course_id, tutorial_id=tutorial_id)
+	def get_edit_form(self, tutorial_id):
+		try:
+			tutorial = self._tutorial_interactor.get(tutorial_id)
+			return self._tutorial_presenter.edit_form(tutorial=tutorial)
+		except MathAppError as error:
+			return error.message
 
-	def post_edit_form(self, course_id, tutorial_id):
+	def post_edit_form(self, tutorial_id):
 		fields = {}
 		fields['name'] = self._request.form.get('name')
 
@@ -42,22 +46,15 @@ class TutorialWebController:
 
 		try: 
 			tutorial = self._tutorial_interactor.update(id=tutorial_id, fields=fields)
-			return self._tutorial_presenter.edit_form(course_id=course_id, tutorial=tutorial)
+			return self._tutorial_presenter.edit_form(tutorial=tutorial)
 		except MathAppError as error:
-			return self._edit_form(course_id=course_id, tutorial_id=tutorial_id, error=error)
+			error.message			
 
-	def _edit_form(self, course_id, tutorial_id, error=None):
-		try:
-			tutorial = self._tutorial_interactor.get(tutorial_id)
-			return self._tutorial_presenter.edit_form(course_id=course_id, tutorial=tutorial, error=error)
-		except MathAppError as error:
-			return error.message
-
-	def delete(self, course_id, tutorial_id):
+	def delete(self, tutorial_id):
 		try:
 			tutorial = self._tutorial_interactor.get(tutorial_id)
 			self._tutorial_interactor.delete(tutorial_id)
-			return self._tutorial_presenter.edit_lesson_form_redirect(course_id=course_id, lesson_id=tutorial['lesson']['id'])
+			return self._tutorial_presenter.edit_lesson_form_redirect(lesson_id=tutorial['lesson']['id'])
 		except MathAppError as error:
 			return error.message
 
