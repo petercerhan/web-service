@@ -59,23 +59,23 @@ class TopicWebController:
 			return error.message
 
 
-	def get_create_lesson_form(self, course_id, topic_id):
+	def get_create_lesson_form(self, topic_id):
 		return self._topic_presenter.create_lesson_form()
 
-	def post_create_lesson_form(self, course_id, topic_id):
+	def post_create_lesson_form(self, topic_id):
 		fields = {}
 		fields['name'] = self._request.form.get('name')
 
 		try:
 			self._topic_interactor.create_lesson(topic_id=topic_id, fields=fields)
-			return self._topic_presenter.edit_topic_form_redirect(course_id=course_id, topic_id=topic_id)
+			return self._topic_presenter.edit_form_redirect(topic_id=topic_id)
 		except MathAppError as error:
-			return self._topic_presenter.create_lesson_form(error=error)
+			return self._topic_presenter.create_lesson_form()
 
 	def delete_lesson(self, topic_id, lesson_id):
 		try:
 			topic = self._topic_interactor.delete_lesson(topic_id=topic_id, lesson_id=lesson_id)
-			return self._topic_presenter.edit_topic_form_redirect(topic_id=topic_id)
+			return self._topic_presenter.edit_form_redirect(topic_id=topic_id)
 		except MathAppError as error:
 			return error.message
 

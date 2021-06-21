@@ -36,19 +36,19 @@ def delete(topic_id):
 	return controller(request).delete(topic_id=topic_id)
 
 
-@bp.route('/courses/<int:course_id>/topics/<int:topic_id>/create-lesson', methods=('GET', 'POST'))
+@bp.route('/topics/<int:topic_id>/create-lesson', methods=('GET', 'POST'))
 @web_auth_required
-def create_lesson(course_id, topic_id):
+def create_lesson(topic_id):
 	if request.method == 'GET':
-		return controller(request).get_create_lesson_form(course_id, topic_id)
+		return controller(request).get_create_lesson_form(topic_id)
 	elif request.method == 'POST':
-		return controller(request).post_create_lesson_form(course_id, topic_id)
+		return controller(request).post_create_lesson_form(topic_id)
 
 
-@bp.route('/courses/<int:course_id>/topics/<int:topic_id>/lessons/<int:lesson_id>/delete', methods=('POST',))
+@bp.route('/topics/<int:topic_id>/lessons/<int:lesson_id>/delete', methods=('POST',))
 @web_auth_required
-def delete_lesson(course_id, topic_id, lesson_id):
-	return controller(request).delete_lesson(course_id=course_id, topic_id=topic_id, lesson_id=lesson_id)
+def delete_lesson(topic_id, lesson_id):
+	return controller(request).delete_lesson(topic_id=topic_id, lesson_id=lesson_id)
 
 
 @bp.route('/courses/<int:course_id>/topics/<int:topic_id>/exercises', methods=('GET',))

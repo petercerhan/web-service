@@ -28,12 +28,10 @@ class TopicPresenter:
 		return redirect(url_for('courses.update', id=course_id))
 
 
-	def create_lesson_form(self, error=None):
-		if error is not None:
-			flash(error.message)
+	def create_lesson_form(self):
 		return render_template('lessons/create.html')
 
-	def edit_topic_form_redirect(self, topic_id):
+	def edit_form_redirect(self, topic_id):
 		target_path = url_for('topics.edit', topic_id=topic_id)
 		return redirect(target_path)
 
