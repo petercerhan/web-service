@@ -22,6 +22,10 @@ class CourseTopic:
         if not self._topic_value_holder.get_set_at_init():
             raise ValidationError(message="CourseTopic required topic")
 
+        if not self._course_value_holder.get_set_at_init():
+            raise ValidationError(message="CourseTopic required course")
+            
+
     def get_id(self):
         return self._id
 
