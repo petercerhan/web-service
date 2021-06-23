@@ -28,6 +28,10 @@ class Lesson:
         if self._position is None:
             raise ValidationError(message = "Lesson requires position")
 
+        if not self._topic_value_holder.get_set_at_init():
+            raise ValidationError(message = f'Lesson requires topic (name={self._name})')
+
+
     def get_id(self):
         return self._id
 
