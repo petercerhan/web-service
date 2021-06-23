@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship
 from mathapp.sqlalchemy.base import Base
 
 from mathapp.curriculum.domain_model.exercise import Exercise
-from mathapp.curriculum.data_mapper.topic.topic_value_holder import TopicValueHolder
+from mathapp.libraries.data_mapper_library.value_holder import ValueHolder
 
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
@@ -42,7 +42,11 @@ class ORMExercise(Base):
             return self._exercise
 
         domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
-        topic_value_holder = TopicValueHolder(orm_model=self, unit_of_work=unit_of_work)
+        
+        topic_value_holder = ValueHolder(orm_model=self,
+                                         property_name='topic',
+                                         set_at_init=(self.topic_id is not None),
+                                         unit_of_work=unit_of_work)
 
         exercise = Exercise(name=self.name,
                             tag=self.tag,
