@@ -5,7 +5,7 @@ class FormulaExerciseFactory:
 	def __init__(self, unit_of_work):
 		self._unit_of_work = unit_of_work
 
-	def create(self, fields):
+	def create(self, fields, topic):
 		name = fields.get('name')
 		tag = fields.get('tag')
 		text = fields.get('text')
@@ -22,6 +22,10 @@ class FormulaExerciseFactory:
 												  incorrect_option_1=incorrect_option_1,
 												  incorrect_option_2=incorrect_option_2,
 												  incorrect_option_3=incorrect_option_3)
+
+		orm_topic = self._unit_of_work.orm_model_for_model(topic)
+		orm_topic.exercises.append(orm_formula_exercise)
+
 		formula_exercise = orm_formula_exercise.get_model(self._unit_of_work)
 		self._unit_of_work.register_created(orm_formula_exercise)
 		return formula_exercise

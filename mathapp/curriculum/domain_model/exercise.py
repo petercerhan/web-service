@@ -16,16 +16,19 @@ class Exercise:
 
     def _check_invariants(self):
         if self._name is None:
-            raise ValidationError(message = f'Exercise requires name (id={self._id})')
+            raise ValidationError(message = f'Exercise requires name (name={self._name})')
 
         if self._name.strip() == '':
-            raise ValidationError(message = f'Invalid name for exercise (id={self._id})')
+            raise ValidationError(message = f'Invalid name for exercise (name={self._name})')
 
         if self._tag is None:
-            raise ValidationError(message = f'Exercise requires tag (id={self._id})')
+            raise ValidationError(message = f'Exercise requires tag (name={self._name})')
 
         if self._tag.strip() == '':
-            raise ValidationError(message = f'Invalid tag for exercise (id={self._id})')
+            raise ValidationError(message = f'Invalid tag for exercise (name={self._name})')
+
+        if not self._topic_value_holder.get_set_at_init():
+            raise ValidationError(message = f'Exercise required topic (name={self._name})')
 
     def get_type(self):
         return 'exercise'

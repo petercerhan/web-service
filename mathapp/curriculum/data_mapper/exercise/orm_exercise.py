@@ -46,6 +46,7 @@ class ORMExercise(Base):
 
         exercise = Exercise(name=self.name,
                             tag=self.tag,
+                            topic_value_holder=topic_value_holder,
                             unit_of_work=domain_model_unit_of_work)
         exercise._id = self.id
         self._exercise = exercise

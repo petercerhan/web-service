@@ -7,11 +7,10 @@ from mathapp.curriculum.domain_model.lesson import Lesson
 
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
-from mathapp.curriculum.data_mapper.topic.topic_value_holder import TopicValueHolder
-from mathapp.curriculum.data_mapper.tutorial.tutorial_value_holder import TutorialValueHolder
 
 from mathapp.libraries.data_mapper_library.value_holder import ValueHolder
 
+from mathapp.curriculum.data_mapper.tutorial.tutorial_value_holder import TutorialValueHolder
 from mathapp.curriculum.data_mapper.problem_set_generator.problem_set_generator_value_holder import ProblemSetGeneratorValueHolder
 
 from mathapp.curriculum.data_mapper.tutorial.orm_tutorial import ORMTutorial

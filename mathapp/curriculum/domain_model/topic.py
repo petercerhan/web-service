@@ -91,8 +91,7 @@ class Topic:
         return self._exercise_list_value_holder.get_list()
 
     def create_exercise(self, exercise_factory, fields):
-        exercise = exercise_factory.create(fields=fields)
-        self._exercise_list_value_holder.add(exercise)
+        exercise = exercise_factory.create(fields=fields, topic=self)
         return exercise
 
 
