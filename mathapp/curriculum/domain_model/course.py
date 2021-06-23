@@ -69,8 +69,7 @@ class Course:
     def create_course_topic(self, topic, course_topic_factory):
         max_position = max([x.get_position() for x in self._course_topic_list_value_holder.get_list()], default=-1)
         next_position = max_position+1
-        course_topic = course_topic_factory.create(position=next_position, topic=topic)
-        self._course_topic_list_value_holder.add(course_topic)
+        course_topic = course_topic_factory.create(position=next_position, topic=topic, course=self)
 
     def sync_course_topic_positions(self, course_topics_data_array):
         course_topics = self._course_topic_list_value_holder.get_list()

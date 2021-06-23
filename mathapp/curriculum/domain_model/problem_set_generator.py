@@ -16,10 +16,14 @@ class ProblemSetGenerator:
 
 	def _check_invariants(self):
 		if self._name is None:
-			raise ValidationError(message = f'ProblemSetGenerator requires name (id={self._id})')
+			raise ValidationError(message = f'ProblemSetGenerator requires name (name={self._name})')
 
 		if self._name.strip() == '':
-			raise ValidationError(message = f'ProblemSetGenerator requires name (id={self._id})')
+			raise ValidationError(message = f'ProblemSetGenerator requires name (name={self._name})')
+
+		if not self._lesson_value_holder.get_set_at_init():
+			raise ValidationError(message = f'ProblemSetGenerator requires name (name={self._name})')
+
 
 	def get_id(self):
 		return self._id

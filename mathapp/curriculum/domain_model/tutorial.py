@@ -22,6 +22,10 @@ class Tutorial:
         if not self._name.strip():
             raise ValidationError(message="Invalid name for Tutorial")
 
+        if not self._lesson_value_holder.get_set_at_init():
+            raise ValidationError(message="Tutorial requires lesson")
+
+
     def get_id(self):
         return self._id
 

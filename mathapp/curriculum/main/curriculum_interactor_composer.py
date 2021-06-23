@@ -26,7 +26,7 @@ class CurriculumInteractorComposer:
       course_repository = self._curriculum_repository_composer.compose_course_repository()
       topic_repository = self._curriculum_repository_composer.compose_topic_repository()
       course_factory = self._curriculum_factory_composer.compose_course_factory()
-      course_topic_factory = self._curriculum_factory_composer.compose_topic_factory()
+      course_topic_factory = self._curriculum_factory_composer.compose_course_topic_factory()
       return CourseInteractor(course_repository=course_repository,
                               topic_repository=topic_repository,
                               course_factory=course_factory,

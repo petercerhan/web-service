@@ -59,6 +59,14 @@ class ORMCourseTopic(Base):
     def sync_fields(self):
         self.position = self._course_topic._position
 
+    def set_course(self, course):
+        self.course = course
+        self.course_id = course.id
+
+    def set_topic(self, topic):
+        self.topic = topic
+        self.topic_id = topic.id
+
     def __repr__(self):
         return "<ORMCourseTopic(position='%s') ID(id='%s')>" % (self.position, self.id)
 

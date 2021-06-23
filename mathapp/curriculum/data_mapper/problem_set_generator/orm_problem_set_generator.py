@@ -8,7 +8,7 @@ from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 from mathapp.curriculum.domain_model.problem_set_generator import ProblemSetGenerator
 
 from mathapp.curriculum.data_mapper.exercise.exercise_list_value_holder import ExerciseListValueHolder
-from mathapp.curriculum.data_mapper.lesson.lesson_value_holder import LessonValueHolder
+from mathapp.libraries.data_mapper_library.value_holder import ValueHolder
 
 association_table = Table('problem_set_generator_exercise_association', Base.metadata,
     Column('problem_set_generator_id', Integer, ForeignKey('problem_set_generator.id')),
@@ -21,7 +21,10 @@ class ORMProblemSetGenerator(Base):
     type = Column(String)
     name = Column(String)
 
-    lesson = relationship('ORMLesson', uselist=False, back_populates='problem_set_generator')
+    lesson = relationship('ORMLesson', 
+                           uselist=False, 
+                           lazy='joined',
+                           back_populates='problem_set_generator')
     exercises = relationship('ORMExercise',
                              secondary=association_table)
 
@@ -48,7 +51,12 @@ class ORMProblemSetGenerator(Base):
 
         domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
         exercise_list_value_holder = ExerciseListValueHolder(orm_model=self, unit_of_work=unit_of_work)
-        lesson_value_holder = LessonValueHolder(orm_model=self, unit_of_work=unit_of_work)
+        
+        lesson_value_holder = ValueHolder(orm_model=self,
+                                         property_name='lesson',
+                                         set_at_init=(self.lesson is not None),
+                                         unit_of_work=unit_of_work)
+
         problem_set_generator = ProblemSetGenerator(name=self.name,
                                                     exercise_list_value_holder=exercise_list_value_holder,
                                                     lesson_value_holder=lesson_value_holder,
