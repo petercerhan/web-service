@@ -4,7 +4,11 @@ import sys
 
 class Session:
 
-    def __init__(self, user_value_holder, revoked, created_at, unit_of_work):
+    def __init__(self, 
+                 user_value_holder, 
+                 revoked, 
+                 created_at, 
+                 unit_of_work):
         self._id = None
 
         self._user_value_holder = user_value_holder
@@ -21,6 +25,10 @@ class Session:
             
         if self._created_at is None:
             raise ValidationError(message = "Session requires created_at")
+
+        if not self._user_value_holder.get_set_at_init():
+            raise ValidationError(message = "Session requires user")
+
 
     def get_id(self):
         return self._id

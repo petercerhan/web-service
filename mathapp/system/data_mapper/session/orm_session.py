@@ -4,7 +4,7 @@ from sqlalchemy import orm
 from sqlalchemy.orm import relationship
 
 from mathapp.system.domain_model.session import Session
-from mathapp.system.data_mapper.user.user_value_holder import UserValueHolder
+from mathapp.libraries.data_mapper_library.value_holder import ValueHolder
 
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
@@ -34,7 +34,11 @@ class ORMSession(Base):
             return self._session
 
         domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
-        user_value_holder = UserValueHolder(orm_model=self, unit_of_work=unit_of_work)
+
+        user_value_holder = ValueHolder(orm_model=self,
+                                         property_name='user',
+                                         set_at_init=(self.user_id is not None),
+                                         unit_of_work=unit_of_work)
 
         session = Session(user_value_holder = user_value_holder,
                             revoked = self.revoked, 
