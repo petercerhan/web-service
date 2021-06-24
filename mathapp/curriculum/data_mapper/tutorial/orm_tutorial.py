@@ -12,7 +12,7 @@ from mathapp.curriculum.data_mapper.text_tutorial_step.orm_text_tutorial_step im
 from mathapp.curriculum.data_mapper.formula_tutorial_step.orm_formula_tutorial_step import ORMFormulaTutorialStep
 
 from mathapp.libraries.data_mapper_library.value_holder import ValueHolder
-from mathapp.curriculum.data_mapper.tutorial_step.tutorial_step_list_value_holder import TutorialStepListValueHolder
+from mathapp.libraries.data_mapper_library.list_value_holder import ListValueHolder
 
 class ORMTutorial(Base):
     __tablename__ = 'tutorial'
@@ -46,7 +46,9 @@ class ORMTutorial(Base):
                                          unit_of_work=unit_of_work)
 
         
-        tutorial_step_list_value_holder = TutorialStepListValueHolder(orm_model=self, unit_of_work=unit_of_work)
+        tutorial_step_list_value_holder = ListValueHolder(orm_model=self, 
+                                                         property_name='tutorial_steps', 
+                                                         unit_of_work=unit_of_work)
         tutorial = Tutorial(name=self.name,
                             lesson_value_holder=lesson_value_holder,
                             tutorial_step_list_value_holder=tutorial_step_list_value_holder,
