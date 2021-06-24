@@ -14,7 +14,6 @@ from mathapp.curriculum.data_mapper.formula_exercise.orm_formula_exercise import
 
 from mathapp.curriculum.data_mapper.lesson.lesson_list_value_holder import LessonListValueHolder
 from mathapp.libraries.data_mapper_library.list_value_holder import ListValueHolder
-from mathapp.curriculum.data_mapper.exercise.exercise_list_value_holder import ExerciseListValueHolder
 
 class ORMTopic(Base):
     __tablename__ = 'topic'
@@ -52,7 +51,9 @@ class ORMTopic(Base):
         course_topic_list_value_holder = ListValueHolder(orm_model=self, 
                                                          property_name='course_topics', 
                                                          unit_of_work=unit_of_work)
-        exercise_list_value_holder = ExerciseListValueHolder(orm_model=self, unit_of_work=unit_of_work)
+        exercise_list_value_holder = ListValueHolder(orm_model=self, 
+                                                         property_name='exercises', 
+                                                         unit_of_work=unit_of_work)
 
         topic = Topic(name=self.name,
                       display_name=self.display_name,

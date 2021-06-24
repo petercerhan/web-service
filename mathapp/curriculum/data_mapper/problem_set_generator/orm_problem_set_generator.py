@@ -7,7 +7,7 @@ from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
 from mathapp.curriculum.domain_model.problem_set_generator import ProblemSetGenerator
 
-from mathapp.curriculum.data_mapper.exercise.exercise_list_value_holder import ExerciseListValueHolder
+from mathapp.libraries.data_mapper_library.list_value_holder import ListValueHolder
 from mathapp.libraries.data_mapper_library.value_holder import ValueHolder
 
 association_table = Table('problem_set_generator_exercise_association', Base.metadata,
@@ -50,7 +50,9 @@ class ORMProblemSetGenerator(Base):
             return self._problem_set_generator
 
         domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
-        exercise_list_value_holder = ExerciseListValueHolder(orm_model=self, unit_of_work=unit_of_work)
+        exercise_list_value_holder = ListValueHolder(orm_model=self, 
+                                                         property_name='exercises', 
+                                                         unit_of_work=unit_of_work)
         
         lesson_value_holder = ValueHolder(orm_model=self,
                                          property_name='lesson',
