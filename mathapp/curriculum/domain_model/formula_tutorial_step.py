@@ -1,4 +1,4 @@
-from mathapp.library.errors.validation_error import ValidationError
+from mathapp.libraries.general_library.errors.validation_error import ValidationError
 from mathapp.curriculum.domain_model.tutorial_step import TutorialStep
 
 class FormulaTutorialStep(TutorialStep):

@@ -1,7 +1,7 @@
 from flask import (
     request
 )
-from mathapp.library.errors.validation_error import ValidationError
+from mathapp.libraries.general_library.errors.validation_error import ValidationError
 from mathapp.libraries.general_library.errors.not_found_error import NotFoundError
 from mathapp.libraries.general_library.errors.mathapp_error import MathAppError
 import json

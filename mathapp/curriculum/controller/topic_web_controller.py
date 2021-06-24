@@ -2,7 +2,7 @@ from flask import (
     request, flash, redirect, url_for, render_template, abort
 )
 
-from mathapp.library.errors.validation_error import ValidationError
+from mathapp.libraries.general_library.errors.validation_error import ValidationError
 from mathapp.libraries.general_library.errors.mathapp_error import MathAppError
 
 import json

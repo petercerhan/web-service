@@ -1,4 +1,4 @@
-from mathapp.library.errors.validation_error import ValidationError
+from mathapp.libraries.general_library.errors.validation_error import ValidationError
 from mathapp.system.domain_model.user_session_parameters import UserSessionParameters
 import datetime
 

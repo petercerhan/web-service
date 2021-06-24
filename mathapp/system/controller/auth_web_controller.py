@@ -2,7 +2,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 
-from mathapp.library.errors.validation_error import ValidationError
+from mathapp.libraries.general_library.errors.validation_error import ValidationError
 
 class AuthWebController:
 

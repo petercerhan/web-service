@@ -1,5 +1,5 @@
 from mathapp.system.data_mapper.session.orm_session import ORMSession
-from mathapp.library.errors.validation_error import ValidationError
+from mathapp.libraries.general_library.errors.validation_error import ValidationError
 from mathapp.libraries.general_library.errors.not_found_error import NotFoundError
 
 import datetime
