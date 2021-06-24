@@ -7,7 +7,7 @@ from mathapp.system.domain_model.user import User
 
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
-from mathapp.sqlalchemy.base import Base
+from mathapp.libraries.data_mapper_library.base import Base
 
 class ORMUser(Base):
     __tablename__ = 'user'

@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, LargeBinary
 from sqlalchemy import orm
 from sqlalchemy.orm import relationship
-from mathapp.sqlalchemy.base import Base
+from mathapp.libraries.data_mapper_library.base import Base
 
 from mathapp.curriculum.domain_model.diagram_exercise import DiagramExercise
 from mathapp.curriculum.data_mapper.exercise.orm_exercise import ORMExercise

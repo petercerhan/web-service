@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
-from mathapp.sqlalchemy.base import Base
+from mathapp.libraries.data_mapper_library.base import Base
 from sqlalchemy import orm
 from sqlalchemy.orm import relationship
 

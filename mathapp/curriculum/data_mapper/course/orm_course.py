@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy import orm
-from mathapp.sqlalchemy.base import Base
+from mathapp.libraries.data_mapper_library.base import Base
 
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 

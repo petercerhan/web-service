@@ -8,7 +8,7 @@ from mathapp.libraries.data_mapper_library.value_holder import ValueHolder
 
 from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
-from mathapp.sqlalchemy.base import Base
+from mathapp.libraries.data_mapper_library.base import Base
 
 class ORMSession(Base):
     __tablename__ = 'session'

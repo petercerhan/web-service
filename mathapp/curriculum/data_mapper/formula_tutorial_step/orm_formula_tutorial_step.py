@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy import orm
 from sqlalchemy.orm import relationship
-from mathapp.sqlalchemy.base import Base
+from mathapp.libraries.data_mapper_library.base import Base
 
 from mathapp.curriculum.domain_model.formula_tutorial_step import FormulaTutorialStep
 from mathapp.curriculum.data_mapper.tutorial_step.orm_tutorial_step import ORMTutorialStep
