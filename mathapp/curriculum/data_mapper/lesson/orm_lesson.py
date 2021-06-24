@@ -48,8 +48,8 @@ class ORMLesson(Base):
                                          set_at_init=(self.topic_id is not None),
                                          unit_of_work=unit_of_work)
         tutorial_value_holder = ValueHolder(orm_model=self, 
-                                            property_name='problem_set_generator',
-                                            set_at_init=(self.problem_set_generator_id is not None),
+                                            property_name='tutorial',
+                                            set_at_init=(self.tutorial_id is not None),
                                             unit_of_work=unit_of_work)
         problem_set_generator_value_holder = ValueHolder(orm_model=self, 
                                                          property_name='problem_set_generator',
