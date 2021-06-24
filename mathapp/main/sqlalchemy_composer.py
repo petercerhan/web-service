@@ -1,5 +1,5 @@
 from mathapp.main.db import Session
-from mathapp.sqlalchemy.unit_of_work import UnitOfWork
+from mathapp.libraries.data_mapper_library.unit_of_work import UnitOfWork
 
 class SQLAlchemyComposer:
 
