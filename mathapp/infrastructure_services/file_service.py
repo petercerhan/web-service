@@ -1,5 +1,5 @@
 from werkzeug.utils import secure_filename
-from mathapp.library.errors.mathapp_error import MathAppError
+from mathapp.libraries.general_library.errors.mathapp_error import MathAppError
 import os
 import base64
 

@@ -2,7 +2,7 @@ from flask import (
     request, flash, redirect, url_for, render_template, abort
 )
 
-from mathapp.library.errors.mathapp_error import MathAppError
+from mathapp.libraries.general_library.errors.mathapp_error import MathAppError
 
 class TutorialStepWebController:
 
