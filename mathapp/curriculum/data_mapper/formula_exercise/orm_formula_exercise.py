@@ -8,7 +8,7 @@ from mathapp.curriculum.data_mapper.exercise.orm_exercise import ORMExercise
 
 from mathapp.libraries.data_mapper_library.value_holder import ValueHolder
 
-from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
+from mathapp.libraries.data_mapper_library.domain_model_unit_of_work import DomainModelUnitOfWork
 
 class ORMFormulaExercise(ORMExercise):
     __tablename__ = 'formula_exercise'

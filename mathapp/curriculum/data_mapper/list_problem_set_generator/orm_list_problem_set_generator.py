@@ -9,7 +9,7 @@ from mathapp.curriculum.data_mapper.problem_set_generator.orm_problem_set_genera
 from mathapp.libraries.data_mapper_library.list_value_holder import ListValueHolder
 from mathapp.libraries.data_mapper_library.value_holder import ValueHolder
 
-from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
+from mathapp.libraries.data_mapper_library.domain_model_unit_of_work import DomainModelUnitOfWork
 
 class ORMListProblemSetGenerator(ORMProblemSetGenerator):
     __tablename__ = 'list_problem_set_generator'

@@ -7,7 +7,7 @@ from mathapp.curriculum.domain_model.diagram_exercise import DiagramExercise
 from mathapp.curriculum.data_mapper.exercise.orm_exercise import ORMExercise
 from mathapp.libraries.data_mapper_library.value_holder import ValueHolder
 
-from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
+from mathapp.libraries.data_mapper_library.domain_model_unit_of_work import DomainModelUnitOfWork
 
 class ORMDiagramExercise(ORMExercise):
     __tablename__ = 'diagram_exercise'

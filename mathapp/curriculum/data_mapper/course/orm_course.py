@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import orm
 from mathapp.libraries.data_mapper_library.base import Base
 
-from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
+from mathapp.libraries.data_mapper_library.domain_model_unit_of_work import DomainModelUnitOfWork
 
 from mathapp.curriculum.domain_model.course import Course
 

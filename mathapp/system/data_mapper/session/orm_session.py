@@ -6,7 +6,7 @@ from sqlalchemy.orm import relationship
 from mathapp.system.domain_model.session import Session
 from mathapp.libraries.data_mapper_library.value_holder import ValueHolder
 
-from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
+from mathapp.libraries.data_mapper_library.domain_model_unit_of_work import DomainModelUnitOfWork
 
 from mathapp.libraries.data_mapper_library.base import Base
 

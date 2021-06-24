@@ -6,7 +6,7 @@ from mathapp.libraries.data_mapper_library.base import Base
 from mathapp.curriculum.domain_model.image_tutorial_step import ImageTutorialStep
 from mathapp.curriculum.data_mapper.tutorial_step.orm_tutorial_step import ORMTutorialStep
 
-from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
+from mathapp.libraries.data_mapper_library.domain_model_unit_of_work import DomainModelUnitOfWork
 
 class ORMImageTutorialStep(ORMTutorialStep):
 	__tablename__ = 'image_tutorial_step'
