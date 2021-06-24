@@ -1,5 +1,5 @@
 from mathapp.curriculum.data_mapper.exercise.orm_exercise import ORMExercise
-from mathapp.library.errors.not_found_error import NotFoundError
+from mathapp.libraries.general_library.errors.not_found_error import NotFoundError
 
 class ExerciseRepository:
 

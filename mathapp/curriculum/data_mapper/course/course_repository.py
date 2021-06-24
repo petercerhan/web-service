@@ -1,5 +1,5 @@
 from mathapp.curriculum.data_mapper.course.orm_course import ORMCourse
-from mathapp.library.errors.not_found_error import NotFoundError
+from mathapp.libraries.general_library.errors.not_found_error import NotFoundError
 
 class CourseRepository:
 

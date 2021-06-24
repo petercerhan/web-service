@@ -1,5 +1,5 @@
 from mathapp.curriculum.data_mapper.topic.orm_topic import ORMTopic
-from mathapp.library.errors.not_found_error import NotFoundError
+from mathapp.libraries.general_library.errors.not_found_error import NotFoundError
 
 class TopicRepository:
 	

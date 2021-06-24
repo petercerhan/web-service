@@ -1,6 +1,6 @@
 from mathapp.system.data_mapper.user.orm_user import ORMUser
 from mathapp.library.errors.validation_error import ValidationError
-from mathapp.library.errors.not_found_error import NotFoundError
+from mathapp.libraries.general_library.errors.not_found_error import NotFoundError
 
 class UserFactory:
 

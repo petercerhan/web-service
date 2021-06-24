@@ -1,5 +1,5 @@
 from mathapp.curriculum.data_mapper.lesson.orm_lesson import ORMProblemSetGenerator
-from mathapp.library.errors.not_found_error import NotFoundError
+from mathapp.libraries.general_library.errors.not_found_error import NotFoundError
 
 class ProblemSetGeneratorRepository:
 
