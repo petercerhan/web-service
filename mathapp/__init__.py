@@ -1,7 +1,7 @@
 import os
 from flask import Flask
-from .sqlalchemy.db import Session
-from .sqlalchemy.db import override_session
+from .main.db import Session
+from .main.db import override_session
 
 import sys
 

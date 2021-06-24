@@ -1,4 +1,4 @@
-from mathapp.sqlalchemy.db import Session
+from mathapp.main.db import Session
 from mathapp.sqlalchemy.unit_of_work import UnitOfWork
 
 class SQLAlchemyComposer:
