@@ -10,9 +10,6 @@ from mathapp.sqlalchemy.domain_model_unit_of_work import DomainModelUnitOfWork
 
 from mathapp.libraries.data_mapper_library.value_holder import ValueHolder
 
-from mathapp.curriculum.data_mapper.tutorial.tutorial_value_holder import TutorialValueHolder
-from mathapp.curriculum.data_mapper.problem_set_generator.problem_set_generator_value_holder import ProblemSetGeneratorValueHolder
-
 from mathapp.curriculum.data_mapper.tutorial.orm_tutorial import ORMTutorial
 from mathapp.curriculum.data_mapper.problem_set_generator.orm_problem_set_generator import ORMProblemSetGenerator
 from mathapp.curriculum.data_mapper.list_problem_set_generator.orm_list_problem_set_generator import ORMListProblemSetGenerator
@@ -50,8 +47,14 @@ class ORMLesson(Base):
                                          property_name='topic',
                                          set_at_init=(self.topic_id is not None),
                                          unit_of_work=unit_of_work)
-        tutorial_value_holder = TutorialValueHolder(orm_model=self, unit_of_work=unit_of_work)
-        problem_set_generator_value_holder = ProblemSetGeneratorValueHolder(orm_model=self, unit_of_work=unit_of_work)
+        tutorial_value_holder = ValueHolder(orm_model=self, 
+                                            property_name='problem_set_generator',
+                                            set_at_init=(self.problem_set_generator_id is not None),
+                                            unit_of_work=unit_of_work)
+        problem_set_generator_value_holder = ValueHolder(orm_model=self, 
+                                                         property_name='problem_set_generator',
+                                                         set_at_init=(self.problem_set_generator_id is not None),
+                                                         unit_of_work=unit_of_work)
 
         lesson = Lesson(name=self.name,
                         position=self.position,
