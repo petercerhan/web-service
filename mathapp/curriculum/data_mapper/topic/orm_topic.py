@@ -13,7 +13,7 @@ from mathapp.curriculum.data_mapper.exercise.orm_exercise import ORMExercise
 from mathapp.curriculum.data_mapper.formula_exercise.orm_formula_exercise import ORMFormulaExercise
 
 from mathapp.curriculum.data_mapper.lesson.lesson_list_value_holder import LessonListValueHolder
-from mathapp.curriculum.data_mapper.course_topic.course_topic_list_value_holder import CourseTopicListValueHolder
+from mathapp.libraries.data_mapper_library.list_value_holder import ListValueHolder
 from mathapp.curriculum.data_mapper.exercise.exercise_list_value_holder import ExerciseListValueHolder
 
 class ORMTopic(Base):
@@ -49,7 +49,9 @@ class ORMTopic(Base):
 
         domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
         lesson_list_value_holder = LessonListValueHolder(orm_model=self, unit_of_work=unit_of_work)
-        course_topic_list_value_holder = CourseTopicListValueHolder(orm_model=self, unit_of_work=unit_of_work)
+        course_topic_list_value_holder = ListValueHolder(orm_model=self, 
+                                                         property_name='course_topics', 
+                                                         unit_of_work=unit_of_work)
         exercise_list_value_holder = ExerciseListValueHolder(orm_model=self, unit_of_work=unit_of_work)
 
         topic = Topic(name=self.name,

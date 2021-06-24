@@ -9,7 +9,7 @@ from mathapp.curriculum.domain_model.course import Course
 
 from mathapp.curriculum.data_mapper.course_topic.orm_course_topic import ORMCourseTopic
 
-from mathapp.curriculum.data_mapper.course_topic.course_topic_list_value_holder import CourseTopicListValueHolder
+from mathapp.libraries.data_mapper_library.list_value_holder import ListValueHolder
 
 class ORMCourse(Base):
     __tablename__ = 'course'
@@ -35,7 +35,9 @@ class ORMCourse(Base):
             return self._course
 
         domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
-        course_topic_list_value_holder = CourseTopicListValueHolder(orm_model=self, unit_of_work=unit_of_work)
+        course_topic_list_value_holder = ListValueHolder(orm_model=self, 
+                                                         property_name='course_topics', 
+                                                         unit_of_work=unit_of_work)
         
         course = Course(name=self.name, 
                         display_name=self.display_name,
