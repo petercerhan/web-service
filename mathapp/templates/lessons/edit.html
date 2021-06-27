@@ -27,8 +27,9 @@
     <label>Problem Set Generator:</label>
     {% if lesson['problem_set_generator'] is not none %}
       <div display="inline-block">
-      <label>{{ lesson['problem_set_generator']['name'] }}</label>
-      <a class="action" href="{{ edit_problem_set_generator_url }}">Edit</a>
+       <label>{{ lesson['problem_set_generator']['name'] }}</label>
+       <a class="action" href="{{ edit_problem_set_generator_url }}">Edit</a>
+      </div>
     {% else %}
 
     {% endif %}

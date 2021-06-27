@@ -22,5 +22,9 @@ class ListValueHolder:
 	def remove_at_index(self, index):
 		del getattr(self._orm_model, self._property_name)[index]
 
+	def add(self, model_to_add):
+		orm_model_to_add = self._unit_of_work.orm_model_for_model(model_to_add)
+		getattr(self._orm_model, self._property_name).append(orm_model_to_add)
+
 	def get_queried(self):
 		return self._queried

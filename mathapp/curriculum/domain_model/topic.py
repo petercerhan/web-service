@@ -57,7 +57,6 @@ class Topic:
         max_position = max([x.get_position() for x in self._lesson_list_value_holder.get_list()], default=-1)
         next_position = max_position+1
         lesson = lesson_factory.create(position=next_position, fields=fields, topic=self)
-        self._lesson_list_value_holder.add(lesson)
         self._check_invariants()
 
     def sync_lesson_positions(self, lessons_data_array):
