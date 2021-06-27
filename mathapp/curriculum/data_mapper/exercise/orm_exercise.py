@@ -25,9 +25,11 @@ class ORMExercise(Base):
 
     def __init__(self,
                  name,
-                 tag):
+                 tag,
+                 topic_id):
         self.name = name
         self.tag = tag
+        self.topic_id = topic_id
         self._exercise = None
 
     @orm.reconstructor

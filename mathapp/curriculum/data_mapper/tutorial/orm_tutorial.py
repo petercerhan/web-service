@@ -26,8 +26,10 @@ class ORMTutorial(Base):
     tutorial_steps = relationship('ORMTutorialStep', order_by='asc(ORMTutorialStep.position)')
 
     def __init__(self,
-                 name):
+                 name,
+                 orm_lesson):
         self.name = name
+        self.lesson = orm_lesson
         self._tutorial = None
 
     @orm.reconstructor

@@ -7,7 +7,7 @@ from mathapp.main.root_composer import RootComposer
 bp = Blueprint('problem_set_generators', __name__)
 
 
-@bp.route('/lessons/<int:lesson_id>/create-list-problem-set-generator', methods=('GET', 'POST'))
+@bp.route('/lessons/<int:lesson_id>/list_problem_set_generators/create', methods=('GET', 'POST'))
 @web_auth_required
 def create_list_problem_set_generator(lesson_id):
     if request.method == 'GET':

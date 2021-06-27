@@ -7,8 +7,7 @@ class TutorialFactory:
 
 	def create(self, fields, lesson):
 		orm_lesson = self._unit_of_work.orm_model_for_model(lesson)
-		orm_tutorial = ORMTutorial(name=fields['name'])
-		orm_lesson.tutorial=orm_tutorial
+		orm_tutorial = ORMTutorial(name=fields['name'], orm_lesson=orm_lesson)
 
 		tutorial = orm_tutorial.get_model(unit_of_work=self._unit_of_work)
 		self._unit_of_work.register_created(orm_tutorial)

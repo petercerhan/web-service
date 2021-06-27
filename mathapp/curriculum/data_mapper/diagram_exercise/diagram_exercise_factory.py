@@ -24,10 +24,8 @@ class DiagramExerciseFactory:
 												  correct_option=correct_option,
 												  incorrect_option_1=incorrect_option_1,
 												  incorrect_option_2=incorrect_option_2,
-												  incorrect_option_3=incorrect_option_3)
-
-		orm_topic = self._unit_of_work.orm_model_for_model(topic)
-		orm_topic.exercises.append(orm_formula_exercise)
+												  incorrect_option_3=incorrect_option_3,
+												  topic_id=topic._id)
 
 		diagram_exercise = orm_diagram_exercise.get_model(self._unit_of_work)
 		self._unit_of_work.register_created(orm_diagram_exercise)

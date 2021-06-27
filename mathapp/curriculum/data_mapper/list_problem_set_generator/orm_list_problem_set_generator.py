@@ -19,8 +19,8 @@ class ORMListProblemSetGenerator(ORMProblemSetGenerator):
         'polymorphic_identity': 'list_problem_set_generator'
     }
 
-    def __init__(self, name):
-        super().__init__(name=name)
+    def __init__(self, name, orm_lesson):
+        super().__init__(name=name, orm_lesson=orm_lesson)
         self._list_problem_set_generator = None
 
     @orm.reconstructor

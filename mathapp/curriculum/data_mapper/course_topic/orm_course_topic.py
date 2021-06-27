@@ -20,8 +20,10 @@ class ORMCourseTopic(Base):
     course = relationship('ORMCourse', uselist=False, back_populates='course_topics')
     topic = relationship('ORMTopic', uselist=False, lazy='joined', back_populates='course_topics')
 
-    def __init__(self, position):
+    def __init__(self, position, course_id, topic_id):
         self.position = position
+        self.course_id = course_id
+        self.topic_id = topic_id
         self._course_topic = None
 
     @orm.reconstructor
@@ -58,14 +60,6 @@ class ORMCourseTopic(Base):
 
     def sync_fields(self):
         self.position = self._course_topic._position
-
-    def set_course(self, course):
-        self.course = course
-        self.course_id = course.id
-
-    def set_topic(self, topic):
-        self.topic = topic
-        self.topic_id = topic.id
 
     def __repr__(self):
         return "<ORMCourseTopic(position='%s') ID(id='%s')>" % (self.position, self.id)

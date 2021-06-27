@@ -34,8 +34,10 @@ class ORMProblemSetGenerator(Base):
     }
 
     def __init__(self,
-                 name):
+                 name,
+                 orm_lesson):
         self.name = name
+        self.lesson = orm_lesson
         self._problem_set_generator = None
 
     @orm.reconstructor

@@ -21,9 +21,8 @@ class FormulaExerciseFactory:
 												  correct_option=correct_option,
 												  incorrect_option_1=incorrect_option_1,
 												  incorrect_option_2=incorrect_option_2,
-												  incorrect_option_3=incorrect_option_3)
-
-		orm_formula_exercise.topic_id = topic._id
+												  incorrect_option_3=incorrect_option_3,
+												  topic_id=topic._id)
 
 		formula_exercise = orm_formula_exercise.get_model(self._unit_of_work)
 		self._unit_of_work.register_created(orm_formula_exercise)

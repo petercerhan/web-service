@@ -33,7 +33,8 @@ class ORMDiagramExercise(ORMExercise):
                  correct_option,
                  incorrect_option_1,
                  incorrect_option_2,
-                 incorrect_option_3):
+                 incorrect_option_3,
+                 topic_id):
         self.text = text
         self.diagram_image_data = diagram_image_data
         self.source_code_filename = source_code_filename
@@ -41,7 +42,7 @@ class ORMDiagramExercise(ORMExercise):
         self.incorrect_option_1 = incorrect_option_1
         self.incorrect_option_2 = incorrect_option_2
         self.incorrect_option_3 = incorrect_option_3
-        super().__init__(name=name, tag=tag)
+        super().__init__(name=name, tag=tag, topic_id=topic_id)
         self._diagram_exercise = None
 
     @orm.reconstructor
