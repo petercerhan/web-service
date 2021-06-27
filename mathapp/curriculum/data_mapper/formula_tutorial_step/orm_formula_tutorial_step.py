@@ -20,9 +20,12 @@ class ORMFormulaTutorialStep(ORMTutorialStep):
 	def __init__(self,
 				 position,
 				 display_group,
-				 formula_latex):
+				 formula_latex,
+				 tutorial_id):
 		self.formula_latex = formula_latex
-		super().__init__(position=position, display_group=display_group)
+		super().__init__(position=position, 
+						 display_group=display_group,
+						 tutorial_id=tutorial_id)
 		self._formula_tutorial_step = None
 
 	@orm.reconstructor

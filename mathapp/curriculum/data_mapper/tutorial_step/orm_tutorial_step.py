@@ -20,9 +20,10 @@ class ORMTutorialStep(Base):
         'polymorphic_on': type
     }
 
-    def __init__(self, position, display_group):
+    def __init__(self, position, display_group, tutorial_id):
         self.position = position
         self.display_group = display_group
+        self.tutorial_id = tutorial_id
         self._tutorial_step = None
 
     @orm.reconstructor

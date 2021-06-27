@@ -29,9 +29,11 @@ class ORMLesson(Base):
 
     def __init__(self,
                  name,
-                 position):
+                 position,
+                 topic_id):
         self.name = name
         self.position = position
+        self.topic_id = topic_id
         self._lesson = None
 
     @orm.reconstructor

@@ -20,9 +20,12 @@ class ORMTextTutorialStep(ORMTutorialStep):
 	def __init__(self,
 				 position,
 				 display_group,
-				 text):
+				 text,
+				 tutorial_id):
 		self.text = text
-		super().__init__(position=position, display_group=display_group)
+		super().__init__(position=position, 
+						 display_group=display_group,
+						 tutorial_id=tutorial_id)
 		self._text_tutorial_step = None
 
 	@orm.reconstructor

@@ -7,10 +7,9 @@ class LessonFactory:
 
 	def create(self, position, fields, topic):
 		name = fields.get('name')
-		orm_lesson = ORMLesson(name=name, position=position)
-
-		orm_topic = self._unit_of_work.orm_model_for_model(topic)
-		orm_topic.lessons.append(orm_lesson)
+		orm_lesson = ORMLesson(name=name, 
+							   position=position,
+							   topic_id=topic._id)
 
 		lesson = orm_lesson.get_model(unit_of_work=self._unit_of_work)
 		self._unit_of_work.register_created(orm_lesson)

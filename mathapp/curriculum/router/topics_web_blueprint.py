@@ -36,7 +36,7 @@ def delete(topic_id):
 	return controller(request).delete(topic_id=topic_id)
 
 
-@bp.route('/topics/<int:topic_id>/create-lesson', methods=('GET', 'POST'))
+@bp.route('/topics/<int:topic_id>/lessons/create', methods=('GET', 'POST'))
 @web_auth_required
 def create_lesson(topic_id):
 	if request.method == 'GET':

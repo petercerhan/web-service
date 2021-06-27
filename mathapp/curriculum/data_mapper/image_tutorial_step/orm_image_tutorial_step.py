@@ -22,10 +22,13 @@ class ORMImageTutorialStep(ORMTutorialStep):
 				 position,
 				 display_group,
 				 source_code_filename,
-				 image_data):
+				 image_data,
+				 tutorial_id):
 		self.source_code_filename = source_code_filename
 		self.image_data = image_data
-		super().__init__(position=position, display_group=display_group)
+		super().__init__(position=position, 
+						 display_group=display_group,
+						 tutorial_id=tutorial_id)
 		self._image_tutorial_step = None
 
 	@orm.reconstructor

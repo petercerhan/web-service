@@ -49,8 +49,8 @@ class Tutorial:
         display_group = next_position
         tutorial_step = tutorial_step_factory.create(position=next_position,
                                                      display_group=display_group,
+                                                     tutorial=self,
                                                      fields=fields)
-        self._tutorial_step_list_value_holder.add(tutorial_step)
         return tutorial_step
 
     def sync_tutorial_step_positions(self, tutorial_steps_data_array):

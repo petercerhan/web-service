@@ -45,7 +45,7 @@ class ORMExercise(Base):
         
         topic_value_holder = ValueHolder(orm_model=self,
                                          property_name='topic',
-                                         set_at_init=(self.topic_id is not None),
+                                         set_at_init=(self.topic_id is not None or self.topic is not None),
                                          unit_of_work=unit_of_work)
 
         exercise = Exercise(name=self.name,
@@ -62,6 +62,10 @@ class ORMExercise(Base):
     def sync_fields(self):
         self.name = self._exercise._name
         self.tag = self._exercise._tag
+
+    # def set_topic_reference(self, orm_topic):
+    #     self.topic_id = topic.get_id()
+    #     self.topic = topic
 
     def __repr__(self):
          return f'<ORMExercise(id={self.id}, type={self.type})>'

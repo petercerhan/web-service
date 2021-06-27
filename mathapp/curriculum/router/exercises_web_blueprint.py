@@ -7,7 +7,7 @@ from mathapp.main.root_composer import RootComposer
 bp = Blueprint('exercises', __name__)
 
 
-@bp.route('/topics/<int:topic_id>/create-formula-exercise', methods=('GET', 'POST'))
+@bp.route('/topics/<int:topic_id>/formula_exercises/create', methods=('GET', 'POST'))
 @web_auth_required
 def create_formula_exercise(topic_id):
 	if request.method == 'GET':
@@ -16,7 +16,7 @@ def create_formula_exercise(topic_id):
 		return controller(request).post_create_formula_exercise_form(topic_id=topic_id)
 
 
-@bp.route('/topics/<int:topic_id>/create-diagram-exercise', methods=('GET', 'POST'))
+@bp.route('/topics/<int:topic_id>/diagram_exercises/create', methods=('GET', 'POST'))
 @web_auth_required
 def create_diagram_exercise(topic_id):
 	if request.method == 'GET':
