@@ -16,13 +16,13 @@ def create_list_problem_set_generator(lesson_id):
         return controller(request).post_create_list_problem_set_generator_form(lesson_id=lesson_id)
 
 
-@bp.route('/list_problem_set_generators/<int:problem_set_generator_id>', methods=('GET', 'POST'))
+@bp.route('/list_problem_set_generators/<int:id>', methods=('GET', 'POST'))
 @web_auth_required
-def edit_list_problem_set_generator(problem_set_generator_id):
+def edit_list_problem_set_generator(id):
     if request.method == 'GET':
-        return controller(request).get_edit_list_problem_set_generator_form(problem_set_generator_id=problem_set_generator_id)
+        return controller(request).get_edit_list_problem_set_generator_form(problem_set_generator_id=id)
     if request.method == 'POST':
-        return controller(request).post_edit_list_problem_set_generator_form(problem_set_generator_id=problem_set_generator_id)
+        return controller(request).post_edit_list_problem_set_generator_form(problem_set_generator_id=id)
 
 
 @bp.route('/problem_set_generators/<int:problem_set_generator_id>/add-exercises', methods=('GET', 'POST'))
