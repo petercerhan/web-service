@@ -31,7 +31,10 @@
        <a class="action" href="{{ edit_problem_set_generator_url }}">Edit</a>
       </div>
     {% else %}
-
+     <div display="inline-block">
+      <label>No Generator Set - </label>
+      <a class="action" href="{{ url_for('problem_set_generators.problem_set_generator_type_options', lesson_id=lesson['id']) }}">Create Generator</a>
+     </div>
     {% endif %}
 
     <br>

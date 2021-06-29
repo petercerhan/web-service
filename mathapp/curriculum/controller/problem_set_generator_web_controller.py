@@ -16,6 +16,10 @@ class ProblemSetGeneratorWebController:
         self._problem_set_generator_interactor = problem_set_generator_interactor
         self._problem_set_generator_presenter = problem_set_generator_presenter
 
+
+    def get_create_problem_set_generator_type_options(self, lesson_id):
+        return self._problem_set_generator_presenter.problem_set_generator_type_options(lesson_id)
+
     def get_create_list_problem_set_generator_form(self, lesson_id):
         return self._problem_set_generator_presenter.create_list_problem_set_generator_form()
 

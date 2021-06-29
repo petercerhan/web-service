@@ -7,6 +7,12 @@ from mathapp.main.root_composer import RootComposer
 bp = Blueprint('problem_set_generators', __name__)
 
 
+@bp.route('/lessons/<int:lesson_id>/problem-set-generator-type-options', methods=('GET', ))
+@web_auth_required
+def problem_set_generator_type_options(lesson_id):
+    return controller(request).get_create_problem_set_generator_type_options(lesson_id=lesson_id)
+
+
 @bp.route('/lessons/<int:lesson_id>/list_problem_set_generators/create', methods=('GET', 'POST'))
 @web_auth_required
 def create_list_problem_set_generator(lesson_id):
@@ -16,13 +22,13 @@ def create_list_problem_set_generator(lesson_id):
         return controller(request).post_create_list_problem_set_generator_form(lesson_id=lesson_id)
 
 
-@bp.route('/list_problem_set_generators/<int:id>', methods=('GET', 'POST'))
+@bp.route('/list_problem_set_generators/<int:problem_set_generator_id>', methods=('GET', 'POST'))
 @web_auth_required
-def edit_list_problem_set_generator(id):
+def edit_list_problem_set_generator(problem_set_generator_id):
     if request.method == 'GET':
-        return controller(request).get_edit_list_problem_set_generator_form(problem_set_generator_id=id)
+        return controller(request).get_edit_list_problem_set_generator_form(problem_set_generator_id=problem_set_generator_id)
     if request.method == 'POST':
-        return controller(request).post_edit_list_problem_set_generator_form(problem_set_generator_id=id)
+        return controller(request).post_edit_list_problem_set_generator_form(problem_set_generator_id=problem_set_generator_id)
 
 
 @bp.route('/problem_set_generators/<int:problem_set_generator_id>/add-exercises', methods=('GET', 'POST'))

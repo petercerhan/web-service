@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Create Problem Set Generator{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <br>
+  <a href="{{ url_for('problem_set_generators.create_list_problem_set_generator', lesson_id=lesson_id) }}">Create List Problem Set Generator</a>
+{% endblock %}

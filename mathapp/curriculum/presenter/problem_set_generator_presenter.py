@@ -6,6 +6,9 @@ import json
 
 class ProblemSetGeneratorPresenter:
 
+    def problem_set_generator_type_options(self, lesson_id):
+        return render_template('problem_set_generators/problem_set_generator_type_options.html', lesson_id=lesson_id)
+
     def create_list_problem_set_generator_form(self):
         return render_template('problem_set_generators/create_list_problem_set_generator.html')
 
