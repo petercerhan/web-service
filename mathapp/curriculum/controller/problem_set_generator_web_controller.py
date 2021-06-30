@@ -11,10 +11,12 @@ class ProblemSetGeneratorWebController:
     def __init__(self,
                  request,
                  problem_set_generator_interactor,
-                 problem_set_generator_presenter):
+                 problem_set_generator_presenter,
+                 lesson_presenter):
         self._request = request
         self._problem_set_generator_interactor = problem_set_generator_interactor
         self._problem_set_generator_presenter = problem_set_generator_presenter
+        self._lesson_presenter = lesson_presenter
 
 
     def get_create_problem_set_generator_type_options(self, lesson_id):
@@ -79,6 +81,13 @@ class ProblemSetGeneratorWebController:
             return error.message
 
 
+    def delete(self, id):
+        try:
+            problem_set_generator = self._problem_set_generator_interactor.get_problem_set_generator(id)
+            self._problem_set_generator_interactor.delete(id=id)
+            return self._lesson_presenter.edit_form_redirect(lesson_id=problem_set_generator['lesson']['id'])
+        except MathAppError as error:
+            return error.message
 
 
 

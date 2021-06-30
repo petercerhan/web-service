@@ -1,5 +1,6 @@
 from mathapp.curriculum.interactor.domain_to_data_transforms.problem_set_generator import problem_set_generator_to_data
-from mathapp.curriculum.interactor.domain_to_data_transforms.list_problem_set_generator import list_problem_set_generator_to_enriched_data
+from mathapp.curriculum.interactor.domain_to_data_transforms.problem_set_generator_enriched import problem_set_generator_to_enriched_data
+from mathapp.curriculum.interactor.domain_to_data_transforms.list_problem_set_generator_enriched import list_problem_set_generator_to_enriched_data
 from mathapp.curriculum.interactor.domain_to_data_transforms.exercise import exercise_to_data
 
 class ProblemSetGeneratorInteractor:
@@ -15,6 +16,10 @@ class ProblemSetGeneratorInteractor:
 		self._problem_set_generator_repository = problem_set_generator_repository
 		self._exercise_repository = exercise_repository
 		self._unit_of_work = unit_of_work
+
+	def get_problem_set_generator(self, id):
+		problem_set_generator = self._problem_set_generator_repository.get(id=id)
+		return problem_set_generator_to_enriched_data(problem_set_generator)
 
 	def get_list_problem_set_generator(self, id):
 		list_problem_set_generator = self._problem_set_generator_repository.get(id=id)
@@ -55,6 +60,21 @@ class ProblemSetGeneratorInteractor:
 		problem_set_generator.remove_exercise(exercise_id=exercise_id)
 		self._unit_of_work.commit()
 		return problem_set_generator_to_data(problem_set_generator)
+
+
+	def delete(self, id):
+		problem_set_generator = self._problem_set_generator_repository.get(id=id)
+		problem_set_generator.delete()
+		self._unit_of_work.commit()
+		return id
+
+
+
+
+
+
+
+
 
 
 

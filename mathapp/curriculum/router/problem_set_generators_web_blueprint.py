@@ -46,7 +46,14 @@ def remove_exercise(problem_set_generator_id, exercise_id):
     return controller(request).remove_exercise_from_generator(problem_set_generator_id, exercise_id)
 
 
+@bp.route('/problem_set_generators/<int:problem_set_generator_id>/delete', methods=('POST', ))
+@web_auth_required
+def delete(problem_set_generator_id):
+    return controller(request).delete(problem_set_generator_id)
+
+
 def controller(request):
     return RootComposer(request).get_curriculum_controller_composer().compose_problem_set_generator_web_controller()
+
 
 

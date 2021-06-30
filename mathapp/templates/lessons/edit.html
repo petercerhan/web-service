@@ -29,6 +29,7 @@
       <div display="inline-block">
        <label>{{ lesson['problem_set_generator']['name'] }}</label>
        <a class="action" href="{{ edit_problem_set_generator_url }}">Edit</a>
+        <a onclick="submitDeleteProblemSetGeneratorForm(' {{ url_for('problem_set_generators.delete', problem_set_generator_id=lesson['problem_set_generator']['id']) }} ')" >Delete</a>
       </div>
     {% else %}
      <div display="inline-block">
@@ -49,6 +50,10 @@
   <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
 </form>
 
+<form id="delete_problem_set_generator_form" action="placeholder" method="post">
+  <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
+</form>
+
 
 <script>
  function submitDeleteTutorialForm(endpoint) {
@@ -58,6 +63,18 @@
   }
   document.getElementById("delete_tutorial_form").action = endpoint;
   document.getElementById("delete_tutorial_form").submit();
+ }
+</script>
+
+
+<script>
+ function submitDeleteProblemSetGeneratorForm(endpoint) {
+  const confirmation = window.confirm("Are you sure you want to delete this problem set generator?");
+  if(confirmation == false) {
+    return;
+  }
+  document.getElementById("delete_problem_set_generator_form").action = endpoint;
+  document.getElementById("delete_problem_set_generator_form").submit();
  }
 </script>
 

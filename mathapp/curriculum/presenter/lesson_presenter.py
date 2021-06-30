@@ -18,3 +18,7 @@ class LessonPresenter:
 		type = problem_set_generator['type']
 		if type == 'list_problem_set_generator':
 			return url_for('problem_set_generators.edit_list_problem_set_generator', problem_set_generator_id=problem_set_generator['id'])
+
+
+	def edit_form_redirect(self, lesson_id):
+		return redirect(url_for('lessons.edit', lesson_id=lesson_id))
