@@ -73,7 +73,7 @@ class Topic:
             if lesson.get_id() == lesson_id:
                 deleted_position = lesson.get_position()
                 lesson.delete()
-                self._lesson_list_value_holder.removeAtIndex(deleted_position)
+                self._lesson_list_value_holder.remove_at_index(deleted_position)
 
         if deleted_position is None:
             return

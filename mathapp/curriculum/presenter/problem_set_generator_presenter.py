@@ -13,7 +13,7 @@ class ProblemSetGeneratorPresenter:
         return render_template('problem_set_generators/create_list_problem_set_generator.html')
 
     def edit_list_problem_set_generator_redirect(self, problem_set_generator):
-        return 'edit_list_problem_set_generator_redirect'
+        return redirect(url_for('problem_set_generators.edit_list_problem_set_generator', problem_set_generator_id=problem_set_generator['id']))
 
     def edit_list_problem_set_generator_form(self, problem_set_generator):
         return render_template('problem_set_generators/edit_list_problem_set_generator.html',

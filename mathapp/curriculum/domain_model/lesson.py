@@ -65,6 +65,10 @@ class Lesson:
         if tutorial is not None:
             tutorial.delete()
 
+        problem_set_generator = self._problem_set_generator_value_holder.get()
+        if problem_set_generator is not None:
+            problem_set_generator.delete()
+
         self._unit_of_work.register_deleted(self)
 
 
