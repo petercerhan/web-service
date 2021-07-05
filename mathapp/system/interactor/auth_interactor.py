@@ -55,7 +55,8 @@ class AuthInteractor:
         user = self._get_user_by_username(username)
         self._validate_password(user=user, password=password)
         session = self._create_session(user=user)
-        token = self._get_web_token(user=user, session=session)
+        token = self._get_api_token(user=user, session=session)
+
         return token
 
 
@@ -144,15 +145,6 @@ class AuthInteractor:
         new_token = self._token_service.update_web_auth_token(payload=prior_payload, current_datetime=current_datetime)
         return new_token
 
-
-    def get_updated_auth_token(self, prior_auth_token):
-        try:
-            current_datetime = self._date_service.current_datetime_utc()
-            payload = self._token_service.get_web_token_payload(prior_auth_token)
-            new_token = self._token_service.update_web_auth_token(payload=payload, current_datetime=current_datetime)
-            return new_token
-        except ValidationError:
-            return None
 
     def get_csrf_token(self, auth_token):
         return self._encryption_service.generate_hash_for_csrf(auth_token)

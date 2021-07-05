@@ -26,10 +26,6 @@ def web_auth_required(view):
         g.user_id = check_auth_result.get('user_id')
         g.user_name = check_auth_result.get('user_name')
 
-        ##Update Token
-
-        ####Pull from check_auth_result tuple
-        # new_auth_token = controller(request=None).get_updated_auth_token(auth_token)
         new_auth_token = check_auth_result['auth_token']
         if new_auth_token is None:
             return redirect(url_for('auth.login'))
