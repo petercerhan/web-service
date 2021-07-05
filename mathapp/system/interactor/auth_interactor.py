@@ -5,7 +5,6 @@ from mathapp.libraries.general_library.errors.not_found_error import NotFoundErr
 
 from mathapp.system.interactor.domain_to_data_transforms.user import user_to_data
 
-import sys
 import datetime
 
 class AuthInteractor:
@@ -84,6 +83,7 @@ class AuthInteractor:
         session_parameters = user.get_session_parameters()
         current_datetime = self._date_service.current_datetime_utc()
         token = self._token_service.get_web_auth_token(expiration_period=session_parameters.expiration_period,
+                                                        refresh_expiration_period=session_parameters.refresh_expiration_period,
                                                         user_id=session_parameters.user_id,
                                                         name=session_parameters.name,
                                                         session_id=session.get_id(),
@@ -109,26 +109,40 @@ class AuthInteractor:
     def check_authentication(self, auth_token):
         try:
             payload = self._token_service.get_web_token_payload(auth_token)
-            return self._validate_token_payload(payload)
+            return self._validate_token_payload(payload=payload, initial_auth_token=auth_token)
         except ValidationError:
-            return {'auth_valid': False, 'user_id': None, 'user_name': None}
+            return {'auth_valid': False, 'user_id': None, 'user_name': None, 'auth_token': None}
             return False
 
-    def _validate_token_payload(self, payload):
+    def _validate_token_payload(self, payload, initial_auth_token):
         expiration = payload.get('exp')
         expiration_datetime = datetime.datetime.utcfromtimestamp(expiration)
+        refresh_expiration_datetime = payload.get('refresh_exp')
         current_datetime = self._date_service.current_datetime_utc()
 
-        if current_datetime >= expiration_datetime:
-            session_id = payload.get('session_id')
-            session = self._session_repository.get(session_id)
-            revoked = session.get_revoked()
-            if revoked:
-                return {'auth_valid': False, 'user_id': None, 'user_name': None}
+        if current_datetime < expiration_datetime:
+            return {'auth_valid': True, 'user_id': payload['sub'], 'user_name': payload['name'], 'auth_token': initial_auth_token}
+
+        if current_datetime >= expiration_datetime and current_datetime < refresh_expiration_datetime:
+            if self._session_is_revoked(payload=payload):
+                return {'auth_valid': False, 'user_id': None, 'user_name': None, 'auth_token': None}
             else:
-                return {'auth_valid': True, 'user_id': payload['sub'], 'user_name': payload['name']}
-        else:
-            return {'auth_valid': True, 'user_id': payload['sub'], 'user_name': payload['name']}
+                new_token = self._get_updated_web_auth_token(prior_payload=payload)
+                return {'auth_valid': True, 'user_id': payload['sub'], 'user_name': payload['name'], 'auth_token': new_token}
+
+        if current_datetime >= refresh_expiration_datetime:
+            return {'auth_valid': False, 'user_id': None, 'user_name': None, 'auth_token': None}
+
+    def _session_is_revoked(self, payload):
+        session_id = payload.get('session_id')
+        session = self._session_repository.get(session_id)
+        return session.get_revoked()
+
+
+    def _get_updated_web_auth_token(self, prior_payload):
+        current_datetime = self._date_service.current_datetime_utc()
+        new_token = self._token_service.update_web_auth_token(payload=prior_payload, current_datetime=current_datetime)
+        return new_token
 
 
     def get_updated_auth_token(self, prior_auth_token):
