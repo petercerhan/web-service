@@ -108,12 +108,12 @@ class SystemComposer:
 
     ##API Auth Controller
 
-    def compose_auth_api_controller(self):
-        auth_interactor = self.compose_auth_interactor()
-        auth_api_presenter = self.compose_auth_api_presenter()
-        return AuthApiController(request=self._request,
-                                 auth_interactor=auth_interactor,
-                                 auth_api_presenter=auth_api_presenter)
+    # def compose_auth_api_controller(self):
+    #     auth_interactor = self.compose_auth_interactor()
+    #     auth_api_presenter = self.compose_auth_api_presenter()
+    #     return AuthApiController(request=self._request,
+    #                              auth_interactor=auth_interactor,
+    #                              auth_api_presenter=auth_api_presenter)
 
     def compose_auth_api_presenter(self):
         return AuthApiPresenter()

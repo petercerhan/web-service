@@ -1,4 +1,6 @@
 from mathapp.system.system_composer import SystemComposer
+
+from mathapp.system.main.system_controller_composer import SystemControllerComposer
 from mathapp.main.sqlalchemy_composer import SQLAlchemyComposer
 from mathapp.infrastructure_services.infrastructure_service_composer import InfrastructureServiceComposer
 
@@ -21,13 +23,10 @@ class RootComposer:
         date_service = self._infrastructure_service_composer.compose_date_service()
         token_service = self._infrastructure_service_composer.compose_token_service()
         file_service = self._infrastructure_service_composer.compose_file_service()
-        system_composer = SystemComposer(request = self._request, 
-                                        sqlalchemy_session = self._sqlalchemy_session, 
-                                        unit_of_work = self._unit_of_work, 
-                                        encryption_service = encryption_service, 
-                                        token_service = token_service,
-                                        date_service = date_service,
-                                        file_service=file_service)
+        system_composer = SystemControllerComposer(request = self._request, 
+                                                    sqlalchemy_session = self._sqlalchemy_session,
+                                                    infrastructure_service_composer=self._infrastructure_service_composer,
+                                                    unit_of_work=self._unit_of_work)
         return system_composer
 
 

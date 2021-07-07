@@ -1,5 +1,5 @@
 from mathapp.system.main.system_repository_composer import SystemRepositoryComposer
-from mathapp.system.main.system_factroy_composer import SystemFactoryComposer
+from mathapp.system.main.system_factory_composer import SystemFactoryComposer
 
 from mathapp.system.interactor.auth_interactor import AuthInteractor
 
@@ -9,14 +9,14 @@ class SystemInteractorComposer:
                  unit_of_work,
                  sqlalchemy_session,
                  infrastructure_service_composer):
-      self._unit_of_work = unit_of_work
-      self._infrastructure_service_composer = infrastructure_service_composer
-      self._system_repository_composer = SystemRepositoryComposer(unit_of_work=unit_of_work,
+        self._unit_of_work = unit_of_work
+        self._infrastructure_service_composer = infrastructure_service_composer
+        self._system_repository_composer = SystemRepositoryComposer(unit_of_work=unit_of_work,
                                                                   sqlalchemy_session=sqlalchemy_session)
-      self._system_factory_composer = SystemFactoryComposer(unit_of_work=unit_of_work,
+        self._system_factory_composer = SystemFactoryComposer(unit_of_work=unit_of_work,
                                                             sqlalchemy_session=sqlalchemy_session)
 
-    def composer_auth_interactor(self):
+    def compose_auth_interactor(self):
         user_repository = self._system_repository_composer.compose_user_repository()
         user_factory = self._system_factory_composer.compose_user_factory()
         session_repository = self._system_repository_composer.compose_session_repository()

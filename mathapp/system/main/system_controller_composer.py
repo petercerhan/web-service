@@ -36,9 +36,11 @@ class SystemControllerComposer:
     def compose_auth_api_controller(self):
         auth_interactor = self._system_interactor_composer.compose_auth_interactor()
         auth_api_presenter = self._system_presenter_composer.compose_auth_api_presenter()
+        token_service = self._infrastructure_service_composer.compose_token_service()
         return AuthApiController(request=self._request,
                                  auth_interactor=auth_interactor,
-                                 auth_api_presenteer=auth_api_presenter)
+                                 auth_api_presenter=auth_api_presenter,
+                                 token_service=token_service)
 
 
 
