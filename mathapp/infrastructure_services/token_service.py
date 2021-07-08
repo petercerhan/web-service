@@ -71,6 +71,13 @@ class TokenService:
     # def refresh_api_token
 
     # def get_api_token_payload
+    def get_api_token_payload(self, token):
+        try:
+            payload = jwt.decode(token, self._api_signing_key, options={'verify_exp': False}, algorithms='HS256')
+            payload['refresh_exp'] = datetime.datetime.fromisoformat(payload['refresh_exp'])
+            return payload
+        except jwt.InvalidTokenError as e:
+            raise ValidationError('Invalid token')
 
 
 

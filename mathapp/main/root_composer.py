@@ -1,5 +1,3 @@
-from mathapp.system.system_composer import SystemComposer
-
 from mathapp.system.main.system_controller_composer import SystemControllerComposer
 from mathapp.main.sqlalchemy_composer import SQLAlchemyComposer
 from mathapp.infrastructure_services.infrastructure_service_composer import InfrastructureServiceComposer

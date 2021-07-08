@@ -10,24 +10,24 @@ def api_auth_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
 
-        ##Get token from header
+        ##Get Authorization header
         authorization_header = request.headers.get('Authorization')
         if authorization_header is None:
             abort(401)
 
+        ##Get token from header
+        if not authorization_header.startswith('Bearer '):
+            abort(401)
+        token = authorization_header[len('Bearer '):]
 
-        ##get payload from token
-
-        ####If token is not correct format (e.g., bearer), logout
-
-
-
-
-        ##check if exp is passed    
-
-        ####if no payload, logout
-        ####if exp passed, logout
+        ##Check if token valid
+        if not controller(request).auth_token_is_valid(token):
+            abort(401)
 
         response = make_response(view(**kwargs))
         return response
     return wrapped_view
+
+
+def controller(request):
+    return RootComposer(request).get_system_controller_composer().compose_auth_api_controller()

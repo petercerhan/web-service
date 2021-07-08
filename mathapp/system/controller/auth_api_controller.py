@@ -5,17 +5,21 @@ from flask import (
 from mathapp.libraries.general_library.errors.validation_error import ValidationError
 from mathapp.libraries.general_library.errors.mathapp_error import MathAppError
 
+import datetime
+
 class AuthApiController:
 
     def __init__(self, 
                  request,
                  auth_interactor,
                  auth_api_presenter,
-                 token_service):
+                 token_service,
+                 date_service):
         self._request = request
         self._auth_interactor = auth_interactor
         self._auth_api_presenter = auth_api_presenter
         self._token_service = token_service
+        self._date_service = date_service
 
     def login(self):
         fields = {}
@@ -27,7 +31,17 @@ class AuthApiController:
             return self._auth_api_presenter.auth_credentials(auth_token=auth_token)
         except MathAppError as error:
             return self._auth_api_presenter.error(error)
-
-    def payload_for_token(self, token):
-        pass
     
+
+    def auth_token_is_valid(self, token):
+        try:
+            payload = self._token_service.get_api_token_payload(token)
+            expiration = payload.get('exp')
+            expiration_datetime = datetime.datetime.utcfromtimestamp(expiration)
+            current_datetime = self._date_service.current_datetime_utc()
+            if expiration_datetime > current_datetime:
+                return True
+            else:
+                return False
+        except MathAppError as error:
+            return False
