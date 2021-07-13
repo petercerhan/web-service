@@ -1,5 +1,6 @@
 from mathapp.system.data_mapper.user.orm_user import ORMUser
 
+from mathapp.libraries.general_library.errors.mathapp_error import MathAppError
 from mathapp.libraries.general_library.errors.validation_error import ValidationError
 from mathapp.libraries.general_library.errors.not_found_error import NotFoundError
 
@@ -152,6 +153,23 @@ class AuthInteractor:
     def check_csrf_token(self, csrf_token, auth_token):
         return self._encryption_service.check_hash_for_csrf(check_hash=csrf_token, message=auth_token)
 
+
+    def refresh_api_token(self, token):
+        payload = self._token_service.get_api_token_payload(token)
+        user = self._user_repository.get(id=payload.get('sub'))
+        session = self._session_repository.get(id=payload.get('session_id'))
+        if session.get_revoked():
+            raise MathAppError(message='Invalid token')
+
+        current_datetime = self._date_service.current_datetime_utc()
+        refresh_expiration_datetime = payload.get('refresh_exp')
+        if current_datetime >= refresh_expiration_datetime:
+            raise MathAppError(message='Invalid token')
+
+        new_token = self._get_api_token(user, session)
+        return new_token
+        
+        
     def logout(self, auth_token):
         try:
             payload = self._token_service.get_web_token_payload(auth_token)
