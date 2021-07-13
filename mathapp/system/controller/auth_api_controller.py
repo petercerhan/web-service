@@ -51,8 +51,10 @@ class AuthApiController:
     def refresh_auth(self):
         token = self._request.form.get('token')
         try:
-            new_token = self._auth_interactor.refresh_api_token(token=token)            
-            return new_token
+            new_token = self._auth_interactor.refresh_api_token(token=token)  
+            token_payload = self._token_service.get_api_token_payload(new_token)
+            user = self._auth_interactor.get_user(user_id=token_payload.get('sub')) 
+            return self._auth_api_presenter.login_package(auth_token=new_token, auth_token_payload=token_payload, user=user)
         except MathAppError as error:
             return self._auth_api_presenter.error(error)
 
