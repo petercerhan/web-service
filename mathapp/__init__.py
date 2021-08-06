@@ -46,6 +46,10 @@ def create_app(test_config=None):
     app.register_blueprint(courses_web_blueprint.bp)
     # app.add_url_rule('/', endpoint='index')
 
+    from mathapp.curriculum.router import courses_api_blueprint
+    app.register_blueprint(courses_api_blueprint.bp)
+
+
     from mathapp.curriculum.router import topics_web_blueprint
     app.register_blueprint(topics_web_blueprint.bp)
 

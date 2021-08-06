@@ -2,6 +2,7 @@ from mathapp.curriculum.main.curriculum_presenter_composer import CurriculumPres
 from mathapp.curriculum.main.curriculum_interactor_composer import CurriculumInteractorComposer
 
 from mathapp.curriculum.controller.course_web_controller import CourseWebController
+from mathapp.curriculum.controller.course_api_controller import CourseApiController
 from mathapp.curriculum.controller.topic_web_controller import TopicWebController
 from mathapp.curriculum.controller.lesson_web_controller import LessonWebController
 from mathapp.curriculum.controller.tutorial_web_controller import TutorialWebController
@@ -32,6 +33,13 @@ class CurriculumControllerComposer:
         return CourseWebController(request=self._request,
                                    course_interactor=course_interactor,
                                    course_presenter=course_presenter)
+
+    def compose_course_api_controller(self):
+        course_api_presenter = self._curriculum_presenter_composer.compose_course_api_presenter()
+        course_interactor = self._curriculum_interactor_composer.compose_course_interactor()
+        return CourseApiController(request=self._request,
+                                   course_api_presenter=course_api_presenter,
+                                   course_interactor=course_interactor)
 
     def compose_topic_web_controller(self):
         topic_interactor = self._curriculum_interactor_composer.compose_topic_interactor()

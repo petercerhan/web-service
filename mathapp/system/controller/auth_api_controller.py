@@ -22,9 +22,10 @@ class AuthApiController:
         self._date_service = date_service
 
     def login(self):
+        json = self._request.get_json()
         fields = {}
-        fields['username'] = self._request.form.get('username')
-        fields['password'] = self._request.form.get('password')
+        fields['username'] = json.get('username')
+        fields['password'] = json.get('password')
 
         try:
             auth_token = self._auth_interactor.login_api(fields=fields)

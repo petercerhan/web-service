@@ -1,4 +1,5 @@
 from mathapp.curriculum.presenter.course_presenter import CoursePresenter
+from mathapp.curriculum.presenter.course_api_presenter import CourseApiPresenter
 from mathapp.curriculum.presenter.topic_presenter import TopicPresenter
 from mathapp.curriculum.presenter.lesson_presenter import LessonPresenter
 from mathapp.curriculum.presenter.tutorial_presenter import TutorialPresenter
@@ -13,6 +14,9 @@ class CurriculumPresenterComposer:
 
     def compose_course_presenter(self):
         return CoursePresenter()
+
+    def compose_course_api_presenter(self):
+        return CourseApiPresenter()
 
     def compose_topic_presenter(self):
         return TopicPresenter()
