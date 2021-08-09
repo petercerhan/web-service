@@ -17,7 +17,7 @@ class ORMStudent(ORMRole):
      }
 
      def __init__(self,
-                     user_id):
+                  user_id):
           super().__init__(user_id=user_id)
           self._student = None
 
@@ -32,8 +32,7 @@ class ORMStudent(ORMRole):
 
           domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
 
-          student = Student(role_type_name=self.type, 
-                           unit_of_work=domain_model_unit_of_work)
+          student = Student(unit_of_work=domain_model_unit_of_work)
           student._id = self.id
           self._student = student
           super()._set_model(student)

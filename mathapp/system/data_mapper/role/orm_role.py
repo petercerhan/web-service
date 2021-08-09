@@ -35,8 +35,7 @@ class ORMRole(Base):
 
         domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
 
-        role = Role(role_type_name=self.type, 
-                    unit_of_work=domain_model_unit_of_work)
+        role = Role(unit_of_work=domain_model_unit_of_work)
         role._id = self.id
         self._role = role
         return role
