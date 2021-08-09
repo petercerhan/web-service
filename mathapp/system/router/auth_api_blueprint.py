@@ -17,11 +17,6 @@ def login():
 def refresh_auth():
 	return controller(request).refresh_auth()
 
-@bp.route('/api/test_endpoint', methods=('GET',))
-@api_auth_required
-def test_endpoint():
-	return 'test complete'
-
 
 def controller(request):
 	return RootComposer(request).get_system_controller_composer().compose_auth_api_controller()

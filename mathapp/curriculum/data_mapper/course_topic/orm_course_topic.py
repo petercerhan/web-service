@@ -56,7 +56,7 @@ class ORMCourseTopic(Base):
         return course_topic
 
     def sync_id(self):
-        self._course_topic.id = self.id
+        self._course_topic._id = self.id
 
     def sync_fields(self):
         self.position = self._course_topic._position

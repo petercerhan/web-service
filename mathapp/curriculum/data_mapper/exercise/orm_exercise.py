@@ -65,9 +65,6 @@ class ORMExercise(Base):
         self.name = self._exercise._name
         self.tag = self._exercise._tag
 
-    # def set_topic_reference(self, orm_topic):
-    #     self.topic_id = topic.get_id()
-    #     self.topic = topic
 
     def __repr__(self):
          return f'<ORMExercise(id={self.id}, type={self.type})>'
