@@ -12,14 +12,17 @@ from mathapp.student.domain_model.student_course import StudentCourse
 class ORMStudentCourse(Base):
 	__tablename__ = 'student_course'
     id = Column(Integer, primary_key=True)
+    student_id = Column(Integer, ForeignKey('student.id'))
     course_id = Column(Integer, ForeignKey('course.id'))
-	configured_course_version_number = Column(Integer)
+	configured_course_push_number = Column(Integer)
 
 	course = relationship('ORMCourse', uselist=False)
 
-	def __init__(self, course_id, configured_course_version_number):
+	def __init__(self, 
+                 course_id, 
+                 configured_course_push_number):
 		self.course_id = course_id
-		self.configured_course_version_number = configured_course_version_number
+		self.configured_course_push_number = configured_course_push_number
 		self._student_course = None
 
 	@orm.reconstructor
@@ -37,20 +40,20 @@ class ORMStudentCourse(Base):
                                          set_at_init=(self.course_id is not None),
                                          unit_of_work=unit_of_work)
 
-        student_course = StudentCourse(configured_course_version_number=self.configured_course_version_number,
+        student_course = StudentCourse(configured_course_push_number=self.configured_course_push_number,
         							   course_value_holder=course_value_holder,
         							   unit_of_work=domain_model_unit_of_work)
 
         student_course._id = self.id
 
-        self._studnet_course = student_course
+        self._student_course = student_course
         return student_course
 
     def sync_id(self):
         self._student_course._id = self.id
 
     def sync_fields(self):
-        self.configured_course_version_number = self._student_course._configured_course_version_number
+        self.configured_course_push_number = self._student_course._configured_course_push_number
 
     def __repr__(self):
         return f'<ORMStudentCourse ID(id={self.id})>'

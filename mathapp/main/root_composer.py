@@ -3,6 +3,7 @@ from mathapp.main.sqlalchemy_composer import SQLAlchemyComposer
 from mathapp.infrastructure_services.infrastructure_service_composer import InfrastructureServiceComposer
 
 from mathapp.curriculum.main.curriculum_controller_composer import CurriculumControllerComposer
+from mathapp.student.main.student_controller_composer import StudentControllerComposer
 
 from flask import current_app
 
@@ -35,7 +36,11 @@ class RootComposer:
                                                             unit_of_work = self._unit_of_work)
         return curriculum_composer
 
-
+    def get_student_controller_composer(self):
+        student_controller_composer = StudentControllerComposer(request=self._request,
+                                                                sqlalchemy_session=self._sqlalchemy_session,
+                                                                unit_of_work=self._unit_of_work)
+        return student_controller_composer
 
 
 

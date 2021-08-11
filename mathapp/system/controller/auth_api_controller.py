@@ -60,6 +60,15 @@ class AuthApiController:
             return self._auth_api_presenter.error(error)
 
 
+    def get_user(self, token):
+        try:
+            payload = self._token_service.get_api_token_payload(token)
+            user = self._auth_interactor.get_user(user_id=payload.get('sub'))
+            return user
+        except MathAppError as error:
+            return self._auth_api_presenter.error(error)
+
+
 
 
 

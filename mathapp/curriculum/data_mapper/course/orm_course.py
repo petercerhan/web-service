@@ -49,7 +49,7 @@ class ORMCourse(Base):
         return course
 
     def sync_id(self):
-        self._course.id = self.id
+        self._course._id = self.id
 
     def sync_fields(self):
         self.name = self._course._name

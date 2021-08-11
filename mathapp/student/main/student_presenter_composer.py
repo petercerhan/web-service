@@ -1,0 +1,6 @@
+from mathapp.student.presenter.course_push_control_api_presenter import CoursePushControlApiPresenter
+
+class StudentPresenterComposer:
+
+	def compose_course_push_control_api_presenter(self):
+		return CoursePushControlApiPresenter()

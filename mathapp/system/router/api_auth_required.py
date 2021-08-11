@@ -12,6 +12,7 @@ def api_auth_required(view):
         authorization_header = _get_auth_header(request)
         token = _get_token_from_auth_header(authorization_header)
         _check_auth_token_valid(token)
+        _add_user_to_request_context(token)
 
         response = make_response(view(**kwargs))
         return response
@@ -32,6 +33,10 @@ def _get_token_from_auth_header(authorization_header):
 def _check_auth_token_valid(token):
     if not controller(request).auth_token_is_valid(token):
         abort(401)
+
+def _add_user_to_request_context(token):
+    user = controller(request).get_user(token)
+    g.user = user
 
 
 
