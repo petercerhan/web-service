@@ -9,8 +9,11 @@ from flask import current_app
 
 class RootComposer:
 
-    def __init__(self, request):
+    def __init__(self, 
+                 request,
+                 user_data=None):
         self._request = request
+        self._user_data = user_data
         self._sqlalchemy_composer = SQLAlchemyComposer()
         self._sqlalchemy_session = self._sqlalchemy_composer.compose_session()
         self._unit_of_work = self._sqlalchemy_composer.compose_unit_of_work()
@@ -38,6 +41,7 @@ class RootComposer:
 
     def get_student_controller_composer(self):
         student_controller_composer = StudentControllerComposer(request=self._request,
+                                                                user_data=self._user_data,
                                                                 sqlalchemy_session=self._sqlalchemy_session,
                                                                 unit_of_work=self._unit_of_work)
         return student_controller_composer

@@ -13,7 +13,7 @@ class CoursePushControlRepository:
 		orm_course_push_control = self._session.query(ORMCoursePushControl).filter(ORMCoursePushControl.course_id == course_id).first()
 
 		if not orm_course_push_control:
-			raise NotFoundError(message = "CoursePushControl Not Found")
+			raise NotFoundError(message = "CoursePushControl not found")
 
 		course_push_control = orm_course_push_control.get_model(unit_of_work=self._unit_of_work)
 		self._unit_of_work.register_queried([orm_course_push_control])

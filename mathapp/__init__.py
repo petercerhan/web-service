@@ -70,6 +70,9 @@ def create_app(test_config=None):
 
     from mathapp.student.router import course_push_controls_api_blueprint
     app.register_blueprint(course_push_controls_api_blueprint.bp)
+
+    from mathapp.student.router import students_api_blueprint
+    app.register_blueprint(students_api_blueprint.bp)
         
     return app
 
