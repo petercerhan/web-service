@@ -4,21 +4,39 @@ from mathapp.libraries.general_library.errors.not_found_error import NotFoundErr
 class StudentInteractor:
 
 	def __init__(self,
+				 student_repository,
 				 student_course_repository,
+				 course_push_control_repository,
+				 course_repository,
+				 student_course_factory,
 				 unit_of_work):
 		self._student_course_repository = student_course_repository
+		self._student_repository = student_repository
+		self._course_push_control_repository = course_push_control_repository
+		self._course_repository = course_repository
+		self._student_course_factory = student_course_factory
 		self._unit_of_work = unit_of_work
 
 	def initialize_student_course(self, student_id, course_id):
-		##confirm no student course exists for this student, course
-		student_course = self._find_student_course_for_course(course_id)
-		if student_course is not None:
-			return student_course_to_data(student_course)
+		existing_student_course = self._find_student_course_for_course(course_id)
+		if existing_student_course is not None:
+			return student_course_to_data(existing_student_course)
 
 		##Create student course record
 		###Get Student
+		student = self._student_repository.get(id=student_id)
+
 		###provide: CoursePushControl, Course(which provides topics), StudentCourseFactory, StudentTopicFactory
-		return 'StudentInteractor initialize_student_course'
+		course_push_control = self._course_push_control_repository.get_by_course_id(course_id=course_id)
+		course = self._course_repository.get(id=course_id)
+		
+		student_course = student.initialize_student_course(course=course,
+										  				   course_push_control=course_push_control,
+										  				   student_course_factory=self._student_course_factory)
+
+		self._unit_of_work.commit()
+
+		return student_course_to_data(student_course)
 
 	def _find_student_course_for_course(self, course_id):
 		try:

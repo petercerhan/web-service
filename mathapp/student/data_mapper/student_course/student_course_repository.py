@@ -2,8 +2,6 @@ from mathapp.student.data_mapper.student_course.orm_student_course import ORMStu
 from mathapp.libraries.general_library.errors.not_found_error import NotFoundError
 from mathapp.libraries.general_library.errors.mathapp_error import MathAppError
 
-import sys
-
 class StudentCourseRepository:
 
 	def __init__(self,

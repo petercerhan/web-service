@@ -19,8 +19,10 @@ class ORMStudentCourse(Base):
     course = relationship('ORMCourse', uselist=False)
 
     def __init__(self, 
+                 student_id,
                  course_id, 
                  configured_course_push_number):
+        self.student_id = student_id
         self.course_id = course_id
         self.configured_course_push_number = configured_course_push_number
         self._student_course = None
