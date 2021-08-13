@@ -32,9 +32,11 @@ class StudentInteractorComposer:
         course_push_control_repository = self._student_repository_composer.compose_course_push_control_repository()
         course_repository = self._curriculum_repository_composer.compose_course_repository()
         student_course_factory = self._student_factory_composer.compose_student_course_factory()
+        student_topic_factory = self._student_factory_composer.compose_student_topic_factory()
         return StudentInteractor(student_repository=student_repository,
                                  student_course_repository=student_course_repository,
                                  course_push_control_repository=course_push_control_repository,
                                  course_repository=course_repository,
                                  student_course_factory=student_course_factory,
+                                 student_topic_factory=student_topic_factory,
                                  unit_of_work=self._unit_of_work)

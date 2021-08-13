@@ -9,12 +9,14 @@ class StudentInteractor:
 				 course_push_control_repository,
 				 course_repository,
 				 student_course_factory,
+				 student_topic_factory,
 				 unit_of_work):
 		self._student_course_repository = student_course_repository
 		self._student_repository = student_repository
 		self._course_push_control_repository = course_push_control_repository
 		self._course_repository = course_repository
 		self._student_course_factory = student_course_factory
+		self._student_topic_factory = student_topic_factory
 		self._unit_of_work = unit_of_work
 
 	def initialize_student_course(self, student_id, course_id):
@@ -22,17 +24,14 @@ class StudentInteractor:
 		if existing_student_course is not None:
 			return student_course_to_data(existing_student_course)
 
-		##Create student course record
-		###Get Student
 		student = self._student_repository.get(id=student_id)
-
-		###provide: CoursePushControl, Course(which provides topics), StudentCourseFactory, StudentTopicFactory
 		course_push_control = self._course_push_control_repository.get_by_course_id(course_id=course_id)
 		course = self._course_repository.get(id=course_id)
 		
 		student_course = student.initialize_student_course(course=course,
 										  				   course_push_control=course_push_control,
-										  				   student_course_factory=self._student_course_factory)
+										  				   student_course_factory=self._student_course_factory,
+										  				   student_topic_factory=self._student_topic_factory)
 
 		self._unit_of_work.commit()
 
