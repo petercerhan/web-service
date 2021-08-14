@@ -11,9 +11,7 @@ class CoursePushControlController:
 		self._course_push_control_api_presenter = course_push_control_api_presenter
 
 	def get_by_course_id(self, course_id):
-		try:
-			course_push_control = self._course_push_control_interactor.get_by_course_id(course_id=course_id)
-			return self._course_push_control_api_presenter.single(course_push_control)
-		except MathAppError as error:
-			return self._course_push_control_api_presenter.error()
+		course_push_control = self._course_push_control_interactor.get_by_course_id(course_id=course_id)
+		return self._course_push_control_api_presenter.single(course_push_control)
+		
 
