@@ -5,10 +5,12 @@ class StudentCourse:
     def __init__(self,
                  configured_course_push_number,
                  course_value_holder,
+                 student_topic_list_value_holder,
                  unit_of_work):
         self._id = None
         self._configured_course_push_number = configured_course_push_number
         self._course_value_holder = course_value_holder
+        self._student_topic_list_value_holder = student_topic_list_value_holder
         self._unit_of_work = unit_of_work
         self._check_invariants()
 
@@ -27,6 +29,9 @@ class StudentCourse:
 
     def get_course(self):
         return self._course_value_holder.get()
+
+    def get_student_topics(self):
+        return self._student_topic_list_value_holder.get_list()
 
 
     def __repr__(self):
