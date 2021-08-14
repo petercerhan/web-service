@@ -24,6 +24,10 @@ class ORMStudentCourse(Base):
                                   primaryjoin='foreign(ORMStudentCourse.course_id) == remote(ORMCourseTopic.course_id)',
                                   secondaryjoin='foreign(ORMStudentTopic.topic_id) == remote(ORMCourseTopic.topic_id)')
 
+    course_push_control = relationship('ORMCoursePushControl',
+                                       primaryjoin='foreign(ORMStudentCourse.course_id) == remote(ORMCoursePushControl.course_id)',
+                                       uselist=False)
+
     def __init__(self, 
                  student_id,
                  course_id, 
@@ -48,12 +52,18 @@ class ORMStudentCourse(Base):
                                           set_at_init=(self.course_id is not None),
                                           unit_of_work=unit_of_work)
 
+        course_push_control_value_holder = ValueHolder(orm_model=self,
+                                                       property_name='course_push_control',
+                                                       set_at_init=False,
+                                                       unit_of_work=unit_of_work)
+
         student_topic_list_value_holder = ListValueHolder(orm_model=self,
                                                           property_name='student_topics',
                                                           unit_of_work=unit_of_work)
 
         student_course = StudentCourse(configured_course_push_number=self.configured_course_push_number,
                                        course_value_holder=course_value_holder,
+                                       course_push_control_value_holder=course_push_control_value_holder,
                                        student_topic_list_value_holder=student_topic_list_value_holder,
                                        unit_of_work=domain_model_unit_of_work)
 
