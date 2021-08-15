@@ -5,6 +5,7 @@ from mathapp.student.main.student_factory_composer import StudentFactoryComposer
 
 from mathapp.student.interactor.course_push_control_interactor import CoursePushControlInteractor
 from mathapp.student.interactor.student_interactor import StudentInteractor
+from mathapp.student.interactor.student_course_interactor import StudentCourseInteractor
 
 class StudentInteractorComposer:
 
@@ -40,3 +41,7 @@ class StudentInteractorComposer:
                                  student_course_factory=student_course_factory,
                                  student_topic_factory=student_topic_factory,
                                  unit_of_work=self._unit_of_work)
+
+    def compose_student_course_interactor(self):
+        student_course_repository = self._student_repository_composer.compose_student_course_repository()
+        return StudentCourseInteractor(student_course_repository=student_course_repository)

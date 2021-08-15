@@ -12,9 +12,25 @@ class StudentCourseRepository:
 		self._unit_of_work = unit_of_work
 		self._session = session
 
+	def get(self, student_course_id):
+		student = self._get_student()
+		orm_student_course = self._session.query(ORMStudentCourse) \
+			.filter(ORMStudentCourse.id == student_course_id) \
+			.filter(ORMStudentCourse.student_id == student['id']).first()
+		if orm_student_course is None:
+			raise NotFoundError(message = "StudentCourse not found")
+
+		student_course = orm_student_course.get_model(unit_of_work=self._unit_of_work)
+		self._unit_of_work.register_queried([orm_student_course])
+
+		return student_course
+
+
 	def get_by_course_id(self, course_id):
 		student = self._get_student()
-		orm_student_course = self._session.query(ORMStudentCourse).filter(ORMStudentCourse.course_id == course_id).filter(ORMStudentCourse.student_id == student['id']).first()
+		orm_student_course = self._session.query(ORMStudentCourse) \
+			.filter(ORMStudentCourse.course_id == course_id) \
+			.filter(ORMStudentCourse.student_id == student['id']).first()
 		if orm_student_course is None:
 			raise NotFoundError(message = "StudentCourse not found")
 

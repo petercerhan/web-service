@@ -3,6 +3,7 @@ from mathapp.student.main.student_presenter_composer import StudentPresenterComp
 
 from mathapp.student.controller.course_push_control_controller import CoursePushControlController
 from mathapp.student.controller.student_api_controller import StudentApiController
+from mathapp.student.controller.student_course_api_controller import StudentCourseApiController
 
 from mathapp.libraries.controller_library.api_error_handling_controller_decorator import ApiErrorHandlingControllerDecorator
 
@@ -34,3 +35,9 @@ class StudentControllerComposer:
 									student_interactor=student_interactor)
 		return ApiErrorHandlingControllerDecorator(controller)
 
+	def compose_student_course_api_controller(self):
+		student_course_interactor = self._student_interactor_composer.compose_student_course_interactor()
+		controller = StudentCourseApiController(request=self._request,
+												student_course_interactor=student_course_interactor)
+		return ApiErrorHandlingControllerDecorator(controller)
+		
