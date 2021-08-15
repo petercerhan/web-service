@@ -1,3 +1,4 @@
+from mathapp.libraries.general_library.errors.mathapp_error import MathAppError
 from mathapp.libraries.general_library.errors.validation_error import ValidationError
 
 class ProblemSetGenerator:
@@ -63,6 +64,11 @@ class ProblemSetGenerator:
 
 	def get_lesson(self):
 		return self._lesson_value_holder.get()
+
+
+	def generate_problem_set(self, randomization_service, student_topic):
+		raise MathAppError(message = 'Implement get_problem_set in subclasses')
+
 
 	def delete(self):
 		self._unit_of_work.register_deleted(self)

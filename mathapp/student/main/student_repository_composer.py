@@ -1,6 +1,7 @@
 from mathapp.student.data_mapper.course_push_control.course_push_control_repository import CoursePushControlRepository
 from mathapp.student.data_mapper.student_course.student_course_repository import StudentCourseRepository
 from mathapp.student.data_mapper.student.student_repository import StudentRepository
+from mathapp.student.data_mapper.student_topic.student_topic_repository import StudentTopicRepository
 
 class StudentRepositoryComposer:
 
@@ -25,3 +26,8 @@ class StudentRepositoryComposer:
         return StudentRepository(user_data=self._user_data,
                                  unit_of_work=self._unit_of_work,
                                  session=self._sqlalchemy_session)
+
+    def compose_student_topic_repository(self):
+        return StudentTopicRepository(user_data=self._user_data,
+                                       unit_of_work=self._unit_of_work,
+                                       session=self._sqlalchemy_session)

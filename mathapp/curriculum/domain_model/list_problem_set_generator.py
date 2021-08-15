@@ -1,4 +1,5 @@
 from mathapp.curriculum.domain_model.problem_set_generator import ProblemSetGenerator
+from mathapp.curriculum.domain_model.list_problem_set_dto_template import ListProblemSetDtoTemplate
 
 class ListProblemSetGenerator(ProblemSetGenerator):
 
@@ -13,7 +14,8 @@ class ListProblemSetGenerator(ProblemSetGenerator):
 	def get_type(self):
 		return 'list_problem_set_generator'
 
-	# def get_problem_set(self, randomization_service, student_topic)
+	def generate_problem_set(self, randomization_service, student_topic):
+		return ListProblemSetDtoTemplate(exercises=self._exercise_list_value_holder.get_list())
 
 
 	def __repr__(self):
