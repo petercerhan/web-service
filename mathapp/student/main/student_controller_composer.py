@@ -37,7 +37,9 @@ class StudentControllerComposer:
 
 	def compose_student_course_api_controller(self):
 		student_course_interactor = self._student_interactor_composer.compose_student_course_interactor()
+		student_course_api_presenter = self._student_presenter_composer.compose_student_course_api_presenter()
 		controller = StudentCourseApiController(request=self._request,
-												student_course_interactor=student_course_interactor)
+												student_course_interactor=student_course_interactor,
+												student_course_api_presenter=student_course_api_presenter)
 		return ApiErrorHandlingControllerDecorator(controller)
 		

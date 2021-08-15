@@ -16,7 +16,8 @@ class StudentCourseRepository:
 		student = self._get_student()
 		orm_student_course = self._session.query(ORMStudentCourse) \
 			.filter(ORMStudentCourse.id == student_course_id) \
-			.filter(ORMStudentCourse.student_id == student['id']).first()
+			.filter(ORMStudentCourse.student_id == student['id']) \
+			.first()
 		if orm_student_course is None:
 			raise NotFoundError(message = "StudentCourse not found")
 
@@ -30,7 +31,8 @@ class StudentCourseRepository:
 		student = self._get_student()
 		orm_student_course = self._session.query(ORMStudentCourse) \
 			.filter(ORMStudentCourse.course_id == course_id) \
-			.filter(ORMStudentCourse.student_id == student['id']).first()
+			.filter(ORMStudentCourse.student_id == student['id']) \
+			.first()
 		if orm_student_course is None:
 			raise NotFoundError(message = "StudentCourse not found")
 
@@ -38,6 +40,15 @@ class StudentCourseRepository:
 		self._unit_of_work.register_queried([orm_student_course])
 
 		return student_course
+
+	def list(self):
+		student = self._get_student()
+		orm_student_courses = self._session.query(ORMStudentCourse) \
+			.filter(ORMStudentCourse.student_id == student['id']) \
+			.all()
+		self._unit_of_work.register_queried(orm_student_courses)
+		student_courses = [x.get_model(unit_of_work=self._unit_of_work) for x in orm_student_courses]
+		return student_courses
 
 
 	def _get_student(self):

@@ -11,6 +11,10 @@ bp = Blueprint('student_courses.api', __name__)
 def get(student_course_id):
     return controller(request).get(student_course_id=student_course_id)
 
+@bp.route('/api/student_courses')
+@api_auth_required
+def list():
+    return controller(request).list()
 
 def controller(request):
     return RootComposer(request=request, user_data=g.user).get_student_controller_composer().compose_student_course_api_controller()
