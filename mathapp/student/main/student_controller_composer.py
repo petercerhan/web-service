@@ -49,5 +49,6 @@ class StudentControllerComposer:
 		controller = StudentTopicApiController(request=self._request,
 											   student_topic_interactor=student_topic_interactor)
 		return ApiErrorHandlingControllerDecorator(controller)
+
 		
 		

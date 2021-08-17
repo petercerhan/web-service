@@ -64,11 +64,15 @@ class StudentTopic:
 
         return lesson_completable_dto_template
 
-        pass
-        ##pull lesson list
-        ##pull student-lesson list
-        ##find next incomplete lesson
-        ##pull in tutorial, problem set info etc.
+    def complete_lesson(self,
+                        lesson_event_fields,
+                        lesson_event_factory):
+        lesson_event_factory.create(fields=lesson_event_fields)
+
+        ##Recalculate lessons completed etc.
+
+        ##generate lesson complete package
+
 
     def __repr__(self):
         return f'<StudentTopic(id={self._id})>'
