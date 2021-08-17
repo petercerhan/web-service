@@ -1,5 +1,6 @@
 from mathapp.libraries.general_library.errors.validation_error import ValidationError
 from mathapp.student.domain_model.lesson_completable_dto_template import LessonCompletableDtoTemplate
+from mathapp.student.domain_model.lesson_complete_followup_item_dto_template import LessonCompleteFollowupItemDtoTemplate
 
 class StudentTopic:
 
@@ -71,7 +72,16 @@ class StudentTopic:
 
         ##Recalculate lessons completed etc.
 
+        ##Create exercise events
+
         ##generate lesson complete package
+        lesson_id = lesson_event_fields.get('lesson_id')
+        lessons = self._topic_value_holder.get().get_lessons()
+        import sys
+        print(f'lessons: {lessons}', file=sys.stderr)
+        lesson = next(x for x in lessons if x.get_id() == lesson_id)
+        lesson_complete_followup_item = LessonCompleteFollowupItemDtoTemplate(lesson=lesson)
+        return [lesson_complete_followup_item]
 
 
     def __repr__(self):

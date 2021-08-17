@@ -22,6 +22,7 @@ class StudentTopicApiController:
 		lesson_event_fields['client_timezone'] = request_json.get('client_timezone')
 		lesson_event_fields['activity_data'] = json.dumps(request_json)
 
-		return self._student_topic_interactor.complete_lesson(student_topic_id=student_topic_id, 
-															  lesson_event_fields=lesson_event_fields)
+		followup_items = self._student_topic_interactor.complete_lesson(student_topic_id=student_topic_id, 
+															  			lesson_event_fields=lesson_event_fields)
+		return {'data': followup_items}
 		

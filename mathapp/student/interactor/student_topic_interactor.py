@@ -1,4 +1,5 @@
 from mathapp.student.interactor.domain_to_data_transforms.lesson_completable_dto_template import lesson_completable_dto_template_to_data
+from mathapp.student.interactor.domain_to_data_transforms.lesson_followup_item import lesson_followup_item_to_data
 
 class StudentTopicInteractor:
 
@@ -17,12 +18,13 @@ class StudentTopicInteractor:
 
 	def complete_lesson(self, student_topic_id, lesson_event_fields):
 		student_topic = self._student_topic_repository.get(student_topic_id=student_topic_id)
-		student_topic.complete_lesson(lesson_event_fields=lesson_event_fields,
-									  lesson_event_factory=self._lesson_event_factory)
+		followup_items = student_topic.complete_lesson(lesson_event_fields=lesson_event_fields,
+									  				   lesson_event_factory=self._lesson_event_factory)
 
 		self._unit_of_work.commit()
 
-		return 'StudentTopicInteractor complete_lesson'
+		followup_items_data = [lesson_followup_item_to_data(x) for x in followup_items]
+		return followup_items_data
 
 
 
