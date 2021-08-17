@@ -45,7 +45,8 @@ class ORMLessonEvent(Base):
 
         domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
 
-        lesson_event = LessonEvent(completed=self.completed,
+        lesson_event = LessonEvent(lesson_id=self.lesson_id,
+                                   completed=self.completed,
                                    unit_of_work=domain_model_unit_of_work)
         lesson_event._id = self.id
 

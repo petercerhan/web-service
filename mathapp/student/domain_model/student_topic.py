@@ -9,12 +9,14 @@ class StudentTopic:
                  total_lessons,
                  completed,
                  topic_value_holder,
+                 lesson_event_list_value_holder,
                  unit_of_work):
         self._id = None
         self._lessons_completed = lessons_completed
         self._total_lessons = total_lessons
         self._completed = completed
         self._topic_value_holder = topic_value_holder
+        self._lesson_event_list_value_holder = lesson_event_list_value_holder
         self._unit_of_work = unit_of_work
         self._check_invariants()
 
@@ -68,17 +70,45 @@ class StudentTopic:
     def complete_lesson(self,
                         lesson_event_fields,
                         lesson_event_factory):
-        lesson_event_factory.create(fields=lesson_event_fields)
-
-        ##Recalculate lessons completed etc.
+        new_lesson_event = lesson_event_factory.create(fields=lesson_event_fields)
+        self._cache_topic_progress(new_lesson_event=new_lesson_event)
 
         ##Create exercise events
 
-        ##generate lesson complete package
+        followup_items = self._generate_followup_items(lesson_event_fields=lesson_event_fields)
+        return followup_items
+
+    def _cache_topic_progress(self, new_lesson_event):
+        self._lessons_completed = self._get_completed_lessons_count(new_lesson_event=new_lesson_event)
+        self._total_lessons = self._get_total_lessons_count()
+        self._unit_of_work.register_dirty(self)
+
+    def _get_completed_lessons_count(self, new_lesson_event):
+        completed_lesson_events = self._get_all_completed_lesson_events(new_lesson_event=new_lesson_event)
+        return self._count_unique_lessons_for_lesson_events(lesson_events=completed_lesson_events)
+
+    def _get_all_completed_lesson_events(self, new_lesson_event):
+        existing_lesson_events = self._lesson_event_list_value_holder.get_list()
+        completed_lesson_events = list(filter(lambda x: x.get_completed(), existing_lesson_events))
+        completed_lesson_events.append(new_lesson_event)
+        return completed_lesson_events
+
+    def _count_unique_lessons_for_lesson_events(self, lesson_events):
+        lesson_events_by_id = {}
+        for lesson_event in lesson_events:
+            if lesson_events_by_id.get(lesson_event.get_lesson_id()) is None:
+                lesson_events_by_id[lesson_event.get_lesson_id()] = lesson_event
+        unique_lesson_events = lesson_events_by_id.values()
+        return len(unique_lesson_events)
+
+
+    def _get_total_lessons_count(self):
+        lessons = self._topic_value_holder.get().get_lessons()
+        return len(lessons)
+
+    def _generate_followup_items(self, lesson_event_fields):
         lesson_id = lesson_event_fields.get('lesson_id')
         lessons = self._topic_value_holder.get().get_lessons()
-        import sys
-        print(f'lessons: {lessons}', file=sys.stderr)
         lesson = next(x for x in lessons if x.get_id() == lesson_id)
         lesson_complete_followup_item = LessonCompleteFollowupItemDtoTemplate(lesson=lesson)
         return [lesson_complete_followup_item]

@@ -6,6 +6,7 @@ from sqlalchemy.orm import relationship
 from mathapp.libraries.data_mapper_library.domain_model_unit_of_work import DomainModelUnitOfWork
 
 from mathapp.libraries.data_mapper_library.value_holder import ValueHolder
+from mathapp.libraries.data_mapper_library.list_value_holder import ListValueHolder
 
 from mathapp.student.domain_model.student_topic import StudentTopic
 
@@ -19,6 +20,11 @@ class ORMStudentTopic(Base):
     completed = Column(Boolean)
 
     topic = relationship('ORMTopic', uselist=False)
+
+    lesson_events = relationship('ORMLessonEvent',
+                                 secondary='join(ORMLesson, ORMLessonEvent, foreign(ORMLesson.id) == remote(ORMLessonEvent.lesson_id))',
+                                 primaryjoin='foreign(ORMStudentTopic.topic_id) == remote(ORMLesson.topic_id)',
+                                 secondaryjoin='foreign(ORMLessonEvent.lesson_id) == remote(ORMLesson.id)')
 
     def __init__(self,
                  student_id,
@@ -48,10 +54,15 @@ class ORMStudentTopic(Base):
                                           set_at_init=(self.topic_id is not None),
                                           unit_of_work=unit_of_work)
 
+        lesson_event_list_value_holder = ListValueHolder(orm_model=self,
+                                                          property_name='lesson_events',
+                                                          unit_of_work=unit_of_work)
+
         student_topic = StudentTopic(lessons_completed=self.lessons_completed,
                                      total_lessons=self.total_lessons,
                                      completed=self.completed,
                                      topic_value_holder=topic_value_holder,
+                                     lesson_event_list_value_holder=lesson_event_list_value_holder,
                                      unit_of_work=domain_model_unit_of_work)
         student_topic._id = self.id
 
