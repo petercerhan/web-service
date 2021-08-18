@@ -69,14 +69,21 @@ class StudentTopic:
 
     def complete_lesson(self,
                         lesson_event_fields,
-                        lesson_event_factory):
+                        exercise_event_fields_list,
+                        lesson_event_factory,
+                        exercise_event_factory):
         new_lesson_event = lesson_event_factory.create(fields=lesson_event_fields)
-        self._cache_topic_progress(new_lesson_event=new_lesson_event)
-
-        ##Create exercise events
-
+        self._create_exercise_events(exercise_event_fields_list=exercise_event_fields_list,
+                                     exercise_event_factory=exercise_event_factory)
+        self._cache_topic_progress(new_lesson_event=new_lesson_event)        
         followup_items = self._generate_followup_items(lesson_event_fields=lesson_event_fields)
         return followup_items
+
+    def _create_exercise_events(self, 
+                                exercise_event_fields_list,
+                                exercise_event_factory):
+        for fields in exercise_event_fields_list:
+            exercise_event_factory.create(fields=fields)
 
     def _cache_topic_progress(self, new_lesson_event):
         self._lessons_completed = self._get_completed_lessons_count(new_lesson_event=new_lesson_event)
