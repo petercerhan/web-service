@@ -1,6 +1,7 @@
 from mathapp.libraries.general_library.errors.validation_error import ValidationError
 from mathapp.student.domain_model.lesson_completable_dto_template import LessonCompletableDtoTemplate
 from mathapp.student.domain_model.lesson_complete_followup_item_dto_template import LessonCompleteFollowupItemDtoTemplate
+from mathapp.student.domain_model.topic_complete_followup_item_dto_template import TopicCompleteFollowupItemDtoTemplate
 
 class StudentTopic:
 
@@ -53,9 +54,6 @@ class StudentTopic:
         next_lesson = self._calculate_next_lesson()
         tutorial = next_lesson.get_tutorial()
 
-        import sys
-        print(f'got tutorial: {tutorial}', file=sys.stderr)
-
         problem_set_dto_template = self._get_problem_set_template(next_lesson=next_lesson, 
                                                                   randomization_service=randomization_service)
 
@@ -87,6 +85,8 @@ class StudentTopic:
             problem_set_dto_template = problem_set_generator.generate_problem_set(randomization_service=randomization_service, 
                                                                                   student_topic=self)
         return problem_set_dto_template
+
+
 
     def complete_lesson(self,
                         lesson_event_fields,
@@ -135,11 +135,25 @@ class StudentTopic:
         return len(lessons)
 
     def _generate_followup_items(self, lesson_event_fields):
+        followup_items = []
+        self._add_lesson_complete_followup_item(lesson_event_fields=lesson_event_fields,
+                                                followup_items=followup_items)
+        self._add_topic_complete_followup_item_if_needed(followup_items=followup_items)
+        return followup_items
+
+    def _add_lesson_complete_followup_item(self, lesson_event_fields, followup_items):
         lesson_id = lesson_event_fields.get('lesson_id')
         lessons = self._topic_value_holder.get().get_lessons()
         lesson = next(x for x in lessons if x.get_id() == lesson_id)
         lesson_complete_followup_item = LessonCompleteFollowupItemDtoTemplate(lesson=lesson)
-        return [lesson_complete_followup_item]
+        followup_items.append(lesson_complete_followup_item)
+
+    def _add_topic_complete_followup_item_if_needed(self, followup_items):
+        if self._lessons_completed == self._total_lessons:
+            topic = self._topic_value_holder.get()
+            topic_complete_followup_item = TopicCompleteFollowupItemDtoTemplate(topic=topic)
+            followup_items.append(topic_complete_followup_item)
+
 
 
     def __repr__(self):

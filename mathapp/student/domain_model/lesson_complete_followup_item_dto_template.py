@@ -1,4 +1,4 @@
-
+from mathapp.libraries.general_library.errors.validation_error import ValidationError
 
 class LessonCompleteFollowupItemDtoTemplate:
 

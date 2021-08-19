@@ -1,8 +1,8 @@
 from mathapp.student.interactor.domain_to_data_transforms.student_topic import student_topic_to_data
-from mathapp.student.interactor.domain_to_data_transforms.lesson_complete_followup_item_dto_template import lesson_complete_followup_item_dto_template_to_data
+from mathapp.student.interactor.domain_to_data_transforms.lesson_followup_item import lesson_followup_item_to_data
 
 def lesson_complete_package_dto_template_to_data(lesson_complete_package_dto_template):
 	student_topic_data = student_topic_to_data(lesson_complete_package_dto_template.student_topic)
-	lesson_complete_followup_items = [lesson_complete_followup_item_dto_template_to_data(x) for x in lesson_complete_package_dto_template.lesson_complete_followup_item_dto_templates]
+	lesson_followup_items = [lesson_followup_item_to_data(x) for x in lesson_complete_package_dto_template.lesson_followup_item_dto_templates]
 	return {'student_topic': student_topic_data,
-			'lesson_complete_followup_items': lesson_complete_followup_items}
+			'lesson_followup_items': lesson_followup_items}

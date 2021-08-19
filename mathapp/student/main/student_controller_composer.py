@@ -50,7 +50,8 @@ class StudentControllerComposer:
 		student_topic_interactor = self._student_interactor_composer.compose_student_topic_interactor()
 		controller = StudentTopicApiController(request=self._request,
 											   student_topic_interactor=student_topic_interactor)
-		return ApiErrorHandlingControllerDecorator(controller)
+		# return ApiErrorHandlingControllerDecorator(controller)
+		return controller
 
 		
 		

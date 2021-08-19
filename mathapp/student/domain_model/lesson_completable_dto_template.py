@@ -14,4 +14,7 @@ class LessonCompletableDtoTemplate:
     def _check_invariants(self):
         if self.lesson is None:
             raise ValidationError(message='LessonCompletableDtoTemplate requires lesson')
+
+        if (self.tutorial is None) and (self.problem_set_dto_template is None):
+            raise ValidationError(message='LessonCompletableDtoTemplate requires at least one of: tutorial, problem_set')
     

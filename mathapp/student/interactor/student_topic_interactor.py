@@ -32,9 +32,8 @@ class StudentTopicInteractor:
 									  				   exercise_event_factory=self._exercise_event_factory)
 
 		self._unit_of_work.commit()
-
 		lesson_complete_package_template = LessonCompletePackageDtoTemplate(student_topic=student_topic,
-																			lesson_complete_followup_item_dto_templates=followup_items)
+																			lesson_followup_item_dto_templates=followup_items)
 
 		return lesson_complete_package_dto_template_to_data(lesson_complete_package_template)
 
