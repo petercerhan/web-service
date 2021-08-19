@@ -50,24 +50,43 @@ class StudentTopic:
         return self._topic_value_holder.get()
 
     def get_next_lesson_completable(self, randomization_service):
-        topic = self._topic_value_holder.get()
-        lessons = topic.get_lessons()
-        ##get lesson events
-        next_lesson = lessons[0]
+        next_lesson = self._calculate_next_lesson()
         tutorial = next_lesson.get_tutorial()
-        
-        problem_set_generator = next_lesson.get_problem_set_generator()
-        problem_set_dto_template = None
-        if problem_set_generator is not None:
-            problem_set_dto_template = problem_set_generator.generate_problem_set(randomization_service=randomization_service, 
-                                                                                  student_topic=self)
 
+        import sys
+        print(f'got tutorial: {tutorial}', file=sys.stderr)
+
+        problem_set_dto_template = self._get_problem_set_template(next_lesson=next_lesson, 
+                                                                  randomization_service=randomization_service)
 
         lesson_completable_dto_template = LessonCompletableDtoTemplate(lesson=next_lesson,
                                                                        tutorial=tutorial,
                                                                        problem_set_dto_template=problem_set_dto_template)
 
         return lesson_completable_dto_template
+
+    def _calculate_next_lesson(self):
+        topic = self._topic_value_holder.get()
+        lessons = topic.get_lessons()
+        lessons.sort(key=lambda x: x.get_position())
+        lesson_events = self._lesson_event_list_value_holder.get_list()
+        completed_lesson_events = list(filter(lambda x: x.get_completed(), lesson_events))
+        for lesson in lessons:
+            lesson_event = next((x for x in completed_lesson_events if x.get_lesson_id() == lesson.get_id()), None)
+            if lesson_event is None:
+                return lesson
+            if lesson_event.get_completed() == False:
+                return lesson
+
+        return lessons[0]
+
+    def _get_problem_set_template(self, next_lesson, randomization_service):
+        problem_set_generator = next_lesson.get_problem_set_generator()
+        problem_set_dto_template = None
+        if problem_set_generator is not None:
+            problem_set_dto_template = problem_set_generator.generate_problem_set(randomization_service=randomization_service, 
+                                                                                  student_topic=self)
+        return problem_set_dto_template
 
     def complete_lesson(self,
                         lesson_event_fields,
