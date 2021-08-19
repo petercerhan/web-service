@@ -42,6 +42,7 @@ class RootComposer:
     def get_student_controller_composer(self):
         student_controller_composer = StudentControllerComposer(request=self._request,
                                                                 user_data=self._user_data,
+                                                                infrastructure_service_composer=self._infrastructure_service_composer,
                                                                 sqlalchemy_session=self._sqlalchemy_session,
                                                                 unit_of_work=self._unit_of_work)
         return student_controller_composer

@@ -13,10 +13,12 @@ class StudentControllerComposer:
 	def __init__(self,
 				 request,
 				 user_data,
+				 infrastructure_service_composer,
 				 sqlalchemy_session,
 				 unit_of_work):
 		self._request = request
 		self._student_interactor_composer = StudentInteractorComposer(user_data=user_data,
+																	  infrastructure_service_composer=infrastructure_service_composer,
 																	  unit_of_work=unit_of_work,
 																	  sqlalchemy_session=sqlalchemy_session)
 		self._student_presenter_composer = StudentPresenterComposer()

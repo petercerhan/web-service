@@ -2,6 +2,7 @@ from mathapp.infrastructure_services.encryption_service import EncryptionService
 from mathapp.infrastructure_services.token_service import TokenService
 from mathapp.infrastructure_services.date_service import DateService
 from mathapp.infrastructure_services.file_service import FileService
+from mathapp.infrastructure_services.randomization_service import RandomizationService
 
 from flask import current_app
 
@@ -24,3 +25,7 @@ class InfrastructureServiceComposer:
 
     def compose_file_service(self):
         return FileService(file_uploads_path=self._file_uploads_path)
+
+    def compose_randomization_service(self):
+        return RandomizationService()
+

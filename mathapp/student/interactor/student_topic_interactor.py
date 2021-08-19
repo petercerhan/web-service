@@ -8,15 +8,17 @@ class StudentTopicInteractor:
 				 student_topic_repository,
 				 lesson_event_factory,
 				 exercise_event_factory,
+				 randomization_service,
 				 unit_of_work):
 		self._student_topic_repository = student_topic_repository
 		self._lesson_event_factory = lesson_event_factory
 		self._exercise_event_factory = exercise_event_factory
+		self._randomization_service = randomization_service
 		self._unit_of_work = unit_of_work
 
 	def get_next_lesson_completable(self, student_topic_id):
 		student_topic = self._student_topic_repository.get(student_topic_id=student_topic_id)
-		lesson_completable_dto_template = student_topic.get_next_lesson_completable()
+		lesson_completable_dto_template = student_topic.get_next_lesson_completable(randomization_service=self._randomization_service)
 		return lesson_completable_dto_template_to_data(lesson_completable_dto_template)
 
 	def complete_lesson(self, 

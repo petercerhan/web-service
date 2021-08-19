@@ -12,10 +12,12 @@ class StudentInteractorComposer:
 
     def __init__(self,
                  user_data,
+                 infrastructure_service_composer,
                  unit_of_work,
                  sqlalchemy_session):
         self._unit_of_work = unit_of_work
         self._sqlalchemy_session = sqlalchemy_session
+        self._infrastructure_service_composer = infrastructure_service_composer
         self._student_repository_composer = StudentRepositoryComposer(user_data=user_data,
                                                                       unit_of_work=unit_of_work,
                                                                       sqlalchemy_session=sqlalchemy_session)
@@ -52,9 +54,11 @@ class StudentInteractorComposer:
         student_topic_repository = self._student_repository_composer.compose_student_topic_repository()
         lesson_event_factory = self._student_factory_composer.compose_lesson_event_factory()
         exercise_event_factory = self._student_factory_composer.compose_exercise_event_factory()
+        randomization_service = self._infrastructure_service_composer.compose_randomization_service()
         return StudentTopicInteractor(student_topic_repository=student_topic_repository,
                                       lesson_event_factory=lesson_event_factory,
                                       exercise_event_factory=exercise_event_factory,
+                                      randomization_service=randomization_service,
                                       unit_of_work=self._unit_of_work)
 
 

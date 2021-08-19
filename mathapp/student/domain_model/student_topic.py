@@ -49,16 +49,18 @@ class StudentTopic:
     def get_topic(self):
         return self._topic_value_holder.get()
 
-    def get_next_lesson_completable(self):
+    def get_next_lesson_completable(self, randomization_service):
         topic = self._topic_value_holder.get()
         lessons = topic.get_lessons()
+        ##get lesson events
         next_lesson = lessons[0]
         tutorial = next_lesson.get_tutorial()
         
         problem_set_generator = next_lesson.get_problem_set_generator()
         problem_set_dto_template = None
         if problem_set_generator is not None:
-            problem_set_dto_template = problem_set_generator.generate_problem_set(randomization_service=None, student_topic=self)
+            problem_set_dto_template = problem_set_generator.generate_problem_set(randomization_service=randomization_service, 
+                                                                                  student_topic=self)
 
 
         lesson_completable_dto_template = LessonCompletableDtoTemplate(lesson=next_lesson,

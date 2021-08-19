@@ -15,7 +15,9 @@ class ListProblemSetGenerator(ProblemSetGenerator):
 		return 'list_problem_set_generator'
 
 	def generate_problem_set(self, randomization_service, student_topic):
-		return ListProblemSetDtoTemplate(exercises=self._exercise_list_value_holder.get_list())
+		exercises = self._exercise_list_value_holder.get_list()
+		randomization_service.shuffle(exercises)
+		return ListProblemSetDtoTemplate(exercises=exercises)
 
 
 	def __repr__(self):
