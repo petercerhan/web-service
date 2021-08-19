@@ -25,10 +25,10 @@ class StudentTopicApiController:
 		exercise_activity_data = request_json.get('exercise_activity_data')
 		exercise_event_fields_list = self._process_exercise_event_request_data(exercise_activity_data)
 
-		followup_items = self._student_topic_interactor.complete_lesson(student_topic_id=student_topic_id, 
+		lesson_complete_package = self._student_topic_interactor.complete_lesson(student_topic_id=student_topic_id, 
 															  			lesson_event_fields=lesson_event_fields,
 															  			exercise_event_fields_list=exercise_event_fields_list)
-		return {'data': followup_items}
+		return lesson_complete_package
 		
 	def _process_exercise_event_request_data(self, exercise_activity_data):
 		exercise_event_data = []

@@ -1,5 +1,6 @@
 from mathapp.student.interactor.domain_to_data_transforms.lesson_completable_dto_template import lesson_completable_dto_template_to_data
-from mathapp.student.interactor.domain_to_data_transforms.lesson_followup_item import lesson_followup_item_to_data
+from mathapp.student.interactor.domain_to_data_transforms.lesson_complete_package_dto_template import lesson_complete_package_dto_template_to_data
+from mathapp.student.domain_model.lesson_complete_package_dto_template import LessonCompletePackageDtoTemplate
 
 class StudentTopicInteractor:
 
@@ -30,8 +31,10 @@ class StudentTopicInteractor:
 
 		self._unit_of_work.commit()
 
-		followup_items_data = [lesson_followup_item_to_data(x) for x in followup_items]
-		return followup_items_data
+		lesson_complete_package_template = LessonCompletePackageDtoTemplate(student_topic=student_topic,
+																			lesson_complete_followup_item_dto_templates=followup_items)
+
+		return lesson_complete_package_dto_template_to_data(lesson_complete_package_template)
 
 
 
