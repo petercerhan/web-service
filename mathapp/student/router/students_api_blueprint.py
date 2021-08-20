@@ -6,7 +6,7 @@ from mathapp.main.root_composer import RootComposer
 
 bp = Blueprint('students.api', __name__)
 
-@bp.route('/api/students/<int:student_id>/initialize_student_course', methods=('POST',))
+@bp.route('/api/students/<int:student_id>/initialize-student-course', methods=('POST',))
 @api_auth_required
 def initialize_student_course(student_id):
     return controller(request).initialize_student_course(student_id=student_id)
