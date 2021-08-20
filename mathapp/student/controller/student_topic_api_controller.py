@@ -26,10 +26,31 @@ class StudentTopicApiController:
 		exercise_event_fields_list = self._process_exercise_event_request_data(exercise_activity_data)
 
 		lesson_complete_package = self._student_topic_interactor.complete_lesson(student_topic_id=student_topic_id, 
-															  			lesson_event_fields=lesson_event_fields,
-															  			exercise_event_fields_list=exercise_event_fields_list)
+															  					 lesson_event_fields=lesson_event_fields,
+															  					 exercise_event_fields_list=exercise_event_fields_list)
 		return lesson_complete_package
 		
+
+	def record_lesson_aborted(self, student_topic_id):
+		request_json = self._request.get_json()
+		lesson_event_fields = {}
+		lesson_event_fields['lesson_id'] = request_json.get('lesson_id')
+		lesson_event_fields['completed'] = request_json.get('completed')
+		lesson_event_fields['start_datetime'] = datetime.strptime(request_json.get('start_datetime'), '%Y-%m-%d %H:%M:%S')
+		lesson_event_fields['end_datetime'] = datetime.strptime(request_json.get('end_datetime'), '%Y-%m-%d %H:%M:%S')
+		lesson_event_fields['client_timezone'] = request_json.get('client_timezone')
+		lesson_event_fields['activity_data'] = json.dumps(request_json)
+
+		exercise_activity_data = request_json.get('exercise_activity_data')
+		exercise_event_fields_list = self._process_exercise_event_request_data(exercise_activity_data)
+
+		self._student_topic_interactor.record_lesson_aborted(student_topic_id=student_topic_id, 
+														     lesson_event_fields=lesson_event_fields,
+														     exercise_event_fields_list=exercise_event_fields_list)
+
+		return {'recorded': True}
+
+
 	def _process_exercise_event_request_data(self, exercise_activity_data):
 		exercise_event_data = []
 		for x in exercise_activity_data:

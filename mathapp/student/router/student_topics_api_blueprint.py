@@ -16,6 +16,11 @@ def get_next_lesson_completable(student_topic_id):
 def complete_lesson(student_topic_id):
     return controller(request).complete_lesson(student_topic_id=student_topic_id)
 
+@bp.route('/api/student_topics/<int:student_topic_id>/record-lesson-aborted', methods=('POST',))
+@api_auth_required
+def record_lesson_aborted(student_topic_id):
+    return controller(request).record_lesson_aborted(student_topic_id=student_topic_id)
+
 
 def controller(request):
     return RootComposer(request=request, user_data=g.user).get_student_controller_composer().compose_student_topic_api_controller()
