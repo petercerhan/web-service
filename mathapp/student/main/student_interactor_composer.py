@@ -48,7 +48,10 @@ class StudentInteractorComposer:
 
     def compose_student_course_interactor(self):
         student_course_repository = self._student_repository_composer.compose_student_course_repository()
-        return StudentCourseInteractor(student_course_repository=student_course_repository)
+        student_topic_factory = self._student_factory_composer.compose_student_topic_factory()
+        return StudentCourseInteractor(student_course_repository=student_course_repository,
+                                       student_topic_factory=student_topic_factory,
+                                       unit_of_work=self._unit_of_work)
 
     def compose_student_topic_interactor(self):
         student_topic_repository = self._student_repository_composer.compose_student_topic_repository()

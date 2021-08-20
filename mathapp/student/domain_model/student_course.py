@@ -39,6 +39,28 @@ class StudentCourse:
         return self._student_topic_list_value_holder.get_list()
 
 
+    def sync_latest_course_push(self, student_topic_factory):
+        student_topics = self._student_topic_list_value_holder.get_list()
+        setup_topic_ids = [x.get_topic().get_id() for x in student_topics]
+
+        course_topics = self._course_value_holder.get().get_course_topics()
+        topics = [x.get_topic() for x in course_topics]
+
+        topics_need_setup = list(filter(lambda x: x.get_id() not in setup_topic_ids, topics))
+
+        for topic in topics_need_setup:
+            fields = {}
+            fields['lessons_completed'] = 0
+            fields['total_lessons'] = len(topic.get_lessons())
+            fields['completed'] = 0
+            student_topic_factory.create(fields=fields,
+                                         student=self,
+                                         topic=topic)
+
+        self._configured_course_push_number = self._course_push_control_value_holder.get().get_current_course_push_number()
+        self._unit_of_work.register_dirty(self)
+
+
     def __repr__(self):
         return f'<StudentCourse(id={self._id})>'
 

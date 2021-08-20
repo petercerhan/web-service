@@ -98,7 +98,17 @@ class StudentTopic:
                                      exercise_event_factory=exercise_event_factory)
         self._cache_topic_progress(new_lesson_event=new_lesson_event)        
         followup_items = self._generate_followup_items(lesson_event_fields=lesson_event_fields)
+        self._unit_of_work.register_dirty(self)
         return followup_items
+
+    def record_lesson_aborted(self,
+                              lesson_event_fields,
+                              exercise_event_fields_list,
+                              lesson_event_factory,
+                              exercise_event_factory):
+        new_lesson_event = lesson_event_factory.create(fields=lesson_event_fields)
+        self._create_exercise_events(exercise_event_fields_list=exercise_event_fields_list,
+                                     exercise_event_factory=exercise_event_factory)     
 
     def _create_exercise_events(self, 
                                 exercise_event_fields_list,
