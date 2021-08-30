@@ -21,6 +21,19 @@ class AuthApiPresenter:
 
 		return json.dumps(login_package)
 
+	def auth_token_package(self, auth_token, auth_token_payload):
+		expiration_utc = datetime.datetime.utcfromtimestamp(auth_token_payload['exp'])
+		expiration_datetime = expiration_utc.strftime("%Y-%m-%d %H:%M:%S")
+		refresh_expiration_datetime = auth_token_payload['refresh_exp'].strftime("%Y-%m-%d %H:%M:%S")
+
+		auth_token_package = {
+			'auth_token': auth_token,
+			'expiration_datetime': expiration_datetime,
+			'refresh_expiration_datetime': refresh_expiration_datetime
+		}
+
+		return json.dumps(auth_token_package)
+
 
 	def error(self, error):
 		return error.message
