@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, flash, g, redirect, render_template, request, session, url_for, abort
 )
 
 from mathapp.libraries.general_library.errors.validation_error import ValidationError
@@ -34,6 +34,17 @@ class AuthApiController:
             return self._auth_api_presenter.login_package(auth_token, auth_token_payload, user)
         except MathAppError as error:
             return self._auth_api_presenter.error(error)
+
+    def token_login(self):
+        json = self._request.get_json()
+        token = json.get('token')
+        try:
+            new_token = self._auth_interactor.refresh_api_token(token=token)  
+            token_payload = self._token_service.get_api_token_payload(new_token)
+            user = self._auth_interactor.get_user(user_id=token_payload.get('sub')) 
+            return self._auth_api_presenter.login_package(new_token, token_payload, user)
+        except MathAppError as error:
+            return self._auth_api_presenter.error(error)
     
 
     def auth_token_is_valid(self, token):
@@ -55,10 +66,10 @@ class AuthApiController:
         try:
             new_token = self._auth_interactor.refresh_api_token(token=token)  
             token_payload = self._token_service.get_api_token_payload(new_token)
-            user = self._auth_interactor.get_user(user_id=token_payload.get('sub')) 
             return self._auth_api_presenter.auth_token_package(auth_token=new_token, auth_token_payload=token_payload)
         except MathAppError as error:
             return self._auth_api_presenter.error(error)
+
 
 
     def get_user(self, token):

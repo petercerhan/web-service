@@ -13,6 +13,10 @@ bp = Blueprint('api_auth', __name__)
 def login():
 	return controller(request).login()
 
+@bp.route('/api/token_login', methods=('POST',))
+def token_login():
+	return controller(request).token_login()
+
 @bp.route('/api/refresh_auth', methods=('POST',))
 def refresh_auth():
 	return controller(request).refresh_auth()
