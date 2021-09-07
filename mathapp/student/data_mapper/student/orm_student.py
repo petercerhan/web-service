@@ -6,11 +6,16 @@ from mathapp.libraries.data_mapper_library.base import Base
 from mathapp.student.domain_model.student import Student
 from mathapp.system.data_mapper.role.orm_role import ORMRole
 
+from mathapp.libraries.data_mapper_library.value_holder import ValueHolder
+
 from mathapp.libraries.data_mapper_library.domain_model_unit_of_work import DomainModelUnitOfWork
 
 class ORMStudent(ORMRole):
      __tablename__ = 'student'
      id = Column(Integer, ForeignKey('role.id'), primary_key=True)
+     latest_student_course_id = Column(Integer, ForeignKey('student_course.id'))
+
+     latest_student_course = relationship('ORMStudentCourse', foreign_keys=[latest_student_course_id])
 
      __mapper_args__ = {
           'polymorphic_identity': 'student'
@@ -30,9 +35,15 @@ class ORMStudent(ORMRole):
           if self._student is not None:
                return self._student
 
+          latest_student_course_value_holder = ValueHolder(orm_model=self,
+                                                           property_name='latest_student_course',
+                                                           set_at_init=(self.latest_student_course_id is not None),
+                                                           unit_of_work = unit_of_work)
+
           domain_model_unit_of_work = DomainModelUnitOfWork(unit_of_work=unit_of_work, orm_model=self)
 
-          student = Student(unit_of_work=domain_model_unit_of_work)
+          student = Student(latest_student_course_value_holder=latest_student_course_value_holder,
+                            unit_of_work=domain_model_unit_of_work)
           student._id = self.id
           self._student = student
           super()._set_model(student)

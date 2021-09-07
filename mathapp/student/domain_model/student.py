@@ -3,8 +3,13 @@ from mathapp.system.domain_model.role import Role
 class Student(Role):
 
     def __init__(self,
+                 latest_student_course_value_holder,
                  unit_of_work):
+        self._latest_student_course_value_holder = latest_student_course_value_holder
         super().__init__(unit_of_work)
+
+    def get_latest_student_course(self):
+        return self._latest_student_course_value_holder.get()
 
     def get_type(self):
         return 'student'
