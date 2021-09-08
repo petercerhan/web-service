@@ -51,5 +51,4 @@ class StudentInteractor:
 		student.set_latest_student_course(student_course)
 		self._unit_of_work.commit()
 
-		return {'id': 1}
 		return student_course_to_enriched_data(student_course)
