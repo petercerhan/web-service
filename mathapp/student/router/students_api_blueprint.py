@@ -12,5 +12,10 @@ def initialize_student_course(student_id):
     return controller(request).initialize_student_course(student_id=student_id)
 
 
+@bp.route('/api/students/<int:student_id>/latest_student_course', methods=('PUT',))
+@api_auth_required
+def latest_student_course(student_id):
+    return controller(request).update_latest_student_course(student_id=student_id)
+
 def controller(request):
     return RootComposer(request=request, user_data=g.user).get_student_controller_composer().compose_student_api_controller()

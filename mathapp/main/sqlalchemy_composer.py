@@ -16,4 +16,5 @@ class SQLAlchemyComposer:
 	def compose_session(self):
 		if self._session is None:
 			self._session = Session()
+		self._session.close()
 		return self._session

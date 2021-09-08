@@ -7,9 +7,18 @@ class Student(Role):
                  unit_of_work):
         self._latest_student_course_value_holder = latest_student_course_value_holder
         super().__init__(unit_of_work)
+        self._check_invariants()
+
+    def _check_invariants(self):
+        pass
 
     def get_latest_student_course(self):
         return self._latest_student_course_value_holder.get()
+
+    def set_latest_student_course(self, student_course):
+        self._latest_student_course_value_holder.set(student_course)
+        self._check_invariants()
+        self._unit_of_work.register_dirty(self)
 
     def get_type(self):
         return 'student'

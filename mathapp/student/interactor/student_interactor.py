@@ -45,3 +45,11 @@ class StudentInteractor:
 			return None
 
 
+	def update_latest_student_course(self, student_id, student_course_id):
+		student_course = self._student_course_repository.get(student_course_id=student_course_id)
+		student = self._student_repository.get(id=student_id)
+		student.set_latest_student_course(student_course)
+		self._unit_of_work.commit()
+
+		return {'id': 1}
+		return student_course_to_enriched_data(student_course)

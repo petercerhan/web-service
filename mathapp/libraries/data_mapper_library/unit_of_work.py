@@ -19,9 +19,11 @@ class UnitOfWork:
 			orm_model.sync_id()
 
 	def register_queried(self, orm_models):
+		print(f'register queried: {orm_models}')
 		self._orm_models.extend(orm_models)
 	
 	def orm_model_for_model(self, model):
+		print(f'registered_models: {self._orm_models}')
 		for orm_model in self._orm_models:
 			if orm_model.get_model(unit_of_work=self) is model:
 				return orm_model

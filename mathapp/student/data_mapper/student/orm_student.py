@@ -56,7 +56,7 @@ class ORMStudent(ORMRole):
           super().sync_fields()
         
      def __repr__(self):
-          return f'<Student(id={self.id}, type={self.type})>'
+          return f'<ORMStudent(id={self.id}, type={self.type})>'
 
 
 

@@ -23,6 +23,11 @@ class ValueHolder:
 		self._queried = True
 		return value
 
+	def set(self, model_to_set):
+		orm_model_to_set = self._unit_of_work.orm_model_for_model(model_to_set)
+		setattr(self._orm_model, self._property_name, orm_model_to_set)
+
+
 	def get_set_at_init(self):
 		return self._set_at_init
 
