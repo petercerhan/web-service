@@ -24,6 +24,11 @@
 <div id="remove_exercise_url_div" url="{{ url_for('problem_set_generators.remove_exercise', problem_set_generator_id=problem_set_generator['id'], exercise_id=0) }}" ></div>
 
 <a class="action" href="{{ url_for('problem_set_generators.add_exercises', problem_set_generator_id=problem_set_generator['id']) }}">Add Exercises</a>
+<br>
+<br>
+<br>
+<br>
+<a class="action" href="{{ url_for('lessons.edit', lesson_id=problem_set_generator['lesson']['id']) }}">Back to Edit Lesson</a>
 
 <form name="remove_exercise_form" action="placeholder" method="post">
   <input type="hidden" name="csrf_token" value={{ g.csrf_token }}>
