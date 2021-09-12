@@ -54,8 +54,10 @@ class ProblemSetGeneratorWebController:
 
     def get_add_exercises_form(self, problem_set_generator_id):
         try:
+            problem_set_generator = self._problem_set_generator_interactor.get_list_problem_set_generator(id=problem_set_generator_id)
             add_exercise_options = self._problem_set_generator_interactor.get_add_exercise_options(problem_set_generator_id=problem_set_generator_id)
-            return self._problem_set_generator_presenter.add_exercises_form(add_exercise_options=add_exercise_options)
+            return self._problem_set_generator_presenter.add_exercises_form(problem_set_generator=problem_set_generator,
+                                                                            add_exercise_options=add_exercise_options)
         except MathAppError as error:
             return error.message
 

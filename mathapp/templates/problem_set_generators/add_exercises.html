@@ -17,6 +17,10 @@
 
 <div id="exercises_json_div" exercises="{{ exercises_json }}" ></div>
 
+{% if problem_set_generator['type'] == 'list_problem_set_generator' %}
+  <a class="action" href="{{ url_for('problem_set_generators.edit_list_problem_set_generator', problem_set_generator_id=problem_set_generator['id']) }}">Back to summary</a>
+{% endif %}
+
 {% endblock %}
 
 
