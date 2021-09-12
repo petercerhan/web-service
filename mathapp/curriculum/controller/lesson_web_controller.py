@@ -29,7 +29,7 @@ class LessonWebController:
 
 		try:
 			self._lesson_interactor.update(id=lesson_id, fields=fields)
-			return self._edit_form(course_id=course_id, lesson_id=lesson_id)
+			return self.get_edit_form(lesson_id=lesson_id)
 		except MathAppError as error:
 			return error.message
 
