@@ -5,7 +5,11 @@ class FormulaTutorialStepFactory:
 	def __init__(self, unit_of_work):
 		self._unit_of_work = unit_of_work
 
-	def create(self, fields, position, tutorial, display_group):
+	def create(self, 
+			   fields, 
+			   position, 
+			   tutorial, 
+			   display_group):
 		formula_latex = fields.get('formula_latex')
 		orm_formula_tutorial_step = ORMFormulaTutorialStep(position=position,
 														   display_group=display_group,

@@ -47,10 +47,10 @@ class Tutorial:
         max_position = max([x.get_position() for x in self._tutorial_step_list_value_holder.get_list()], default=-1)
         next_position = max_position+1
         display_group = next_position
-        tutorial_step = tutorial_step_factory.create(position=next_position,
-                                                     display_group=display_group,
+        tutorial_step = tutorial_step_factory.create(fields=fields,
+                                                     position=next_position,
                                                      tutorial=self,
-                                                     fields=fields)
+                                                     display_group=display_group)
         return tutorial_step
 
     def sync_tutorial_step_positions(self, tutorial_steps_data_array):

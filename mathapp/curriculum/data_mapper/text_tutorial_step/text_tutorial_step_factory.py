@@ -5,7 +5,11 @@ class TextTutorialStepFactory:
 	def __init__(self, unit_of_work):
 		self._unit_of_work = unit_of_work
 
-	def create(self, fields, position, tutorial, display_group):
+	def create(self, 
+			   fields, 
+			   position, 
+			   tutorial, 
+			   display_group):
 		text = fields.get('text')
 		orm_text_tutorial_step = ORMTextTutorialStep(position=position,
 													 display_group=display_group,
