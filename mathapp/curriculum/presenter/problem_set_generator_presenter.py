@@ -29,8 +29,10 @@ class ProblemSetGeneratorPresenter:
         return redirect(url_for('problem_set_generators.edit_list_problem_set_generator', problem_set_generator_id=problem_set_generator_id))
 
     def add_exercises_form(self, 
-                           add_exercise_options,
-                           problem_set_generator):
+                           problem_set_generator,
+                           lesson,
+                           add_exercise_options):
         return render_template('problem_set_generators/add_exercises.html',
                                problem_set_generator=problem_set_generator,
+                               lesson=lesson,
                                exercises_json=json.dumps(add_exercise_options))

@@ -15,6 +15,9 @@
  <a class="action" href="{{ url_for('exercises.create_diagram_exercise', topic_id=topic['id']) }}">Add Diagram Exercise</a>
 <br>
 
+<br>
+<a class="action" href="{{ url_for('topics.edit', topic_id=topic['id']) }}">Back to topic {{ topic['display_name'] }}</a>
+
 
 <div id="exercises_json_div" exercises="{{ exercises_json }}" ></div>
 
