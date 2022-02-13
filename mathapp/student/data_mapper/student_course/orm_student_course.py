@@ -22,7 +22,7 @@ class ORMStudentCourse(Base):
     student_topics = relationship('ORMStudentTopic',
                                   secondary='join(ORMCourseTopic, ORMStudentTopic, foreign(ORMCourseTopic.topic_id) == remote(ORMStudentTopic.topic_id))',
                                   primaryjoin='foreign(ORMStudentCourse.course_id) == remote(ORMCourseTopic.course_id)',
-                                  secondaryjoin='foreign(ORMStudentTopic.topic_id) == remote(ORMCourseTopic.topic_id)')
+                                  secondaryjoin='and_(foreign(ORMStudentTopic.topic_id) == remote(ORMCourseTopic.topic_id), ORMStudentTopic.student_id == ORMStudentCourse.student_id)')
 
     course_push_control = relationship('ORMCoursePushControl',
                                        primaryjoin='foreign(ORMStudentCourse.course_id) == remote(ORMCoursePushControl.course_id)',
